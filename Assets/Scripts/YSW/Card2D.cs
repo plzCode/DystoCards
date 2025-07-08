@@ -18,16 +18,12 @@ public class Card2D : MonoBehaviour
 
     private void Update()
     {
-        if (isDragging && dragGroupRoot != null)
-        {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
-        }
+        
     }
 
     private void OnMouseDown()
     {
-        Debug.Log($"Dragging card: {transform.name}");
+        //Debug.Log($"Dragging card: {transform.name}");
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
 
@@ -45,6 +41,14 @@ public class Card2D : MonoBehaviour
         CollectStackBelow(this, dragGroupRoot);
 
         isDragging = true;
+    }
+    private void OnMouseDrag()
+    {
+        if (dragGroupRoot != null)
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
+        }
     }
 
     private void OnMouseUp()
@@ -65,6 +69,15 @@ public class Card2D : MonoBehaviour
         }
 
         BringToFrontRecursive(this);
+    }
+
+    public virtual void OnUse()
+    {
+
+    }
+    public virtual void OnTurnEffect()
+    {
+
     }
 
     private Card2D GetDeepestChild(Card2D card)
