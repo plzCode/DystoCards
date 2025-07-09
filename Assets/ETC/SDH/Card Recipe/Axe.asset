@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abc53c5daa3bdf4daaec8095ea025f5, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  requiredCards: []
-  resultCard: {fileID: 0}
+  requiredCards:
+  - {fileID: 11400000, guid: 4462fc2599e9fe14684e6fa0bfdc0754, type: 2}
+  - {fileID: 11400000, guid: cb80916e6207ab749870ddf6b34a440e, type: 2}
+  resultCard: {fileID: 11400000, guid: e72a4a1c00b06ad488332098f99381fd, type: 2}
