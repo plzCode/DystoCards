@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cards/FoodCard")]
+[CreateAssetMenu(menuName = "Cards/02.FoodCard", order = 3)]
 public class FoodCardData : CardData
 {
     public int hungerRestore;        // 허기 회복량
