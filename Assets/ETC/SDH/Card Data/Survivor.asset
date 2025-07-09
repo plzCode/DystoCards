@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a253a5537165b94b8007bab8b43e918, type: 3}
-  m_Name: Axe
+  m_Script: {fileID: 11500000, guid: d0be045311172bd4bae07a4630955dd6, type: 3}
+  m_Name: Survivor
   m_EditorClassIdentifier: 
-  cardName: "\uB3C4\uB07C"
+  cardId: 000
+  cardName: Survivor
+  cardImage: {fileID: 0}
+  cardType: 1
+  description: 
