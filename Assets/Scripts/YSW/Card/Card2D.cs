@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
 public class Card2D : MonoBehaviour
 {
-    [SerializeField] CardData cardData;
+    [SerializeField] public CardData cardData;
 
     public static int globalSortingOrder = 0;
     public LayerMask cardLayer;
