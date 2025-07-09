@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
 public class Card2D : MonoBehaviour
 {
+    [SerializeField] CardData cardData;
+
     public static int globalSortingOrder = 0;
     public LayerMask cardLayer;
 
@@ -15,11 +17,6 @@ public class Card2D : MonoBehaviour
 
     private Transform dragGroupRoot;
     private Dictionary<Card2D, Transform> originalParents = new Dictionary<Card2D, Transform>();
-
-    private void Update()
-    {
-        
-    }
 
     private void OnMouseDown()
     {
@@ -39,9 +36,10 @@ public class Card2D : MonoBehaviour
         }
 
         CollectStackBelow(this, dragGroupRoot);
-
+        BringToFrontRecursive(this);
         isDragging = true;
     }
+
     private void OnMouseDrag()
     {
         if (dragGroupRoot != null)

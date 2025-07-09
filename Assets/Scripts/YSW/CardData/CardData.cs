@@ -7,6 +7,7 @@ public class CardData : ScriptableObject
 {
     public string cardId;
     public string cardName;
+    public Sprite cardImage;
     public CardType cardType;
     public string description;
 }
