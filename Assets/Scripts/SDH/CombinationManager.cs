@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CombinationManager : MonoBehaviour
 {
-    public List<CardRecipe> recipes; // 조합 가능한 레시피 목록
+    public List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject cardPrefab; // 결과 카드 프리팹
 
     private void Update()
@@ -86,14 +86,14 @@ public class CombinationManager : MonoBehaviour
                 // 새로운 카드 생성
                 GameObject newCardObj = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
                 Card2D newCard = newCardObj.GetComponent<Card2D>();
-                newCard.cardData = recipe.resultCard;
-                newCardObj.name = recipe.resultCard.name;
+                newCard.cardData = recipe.result;
+                newCardObj.name = recipe.result.name;
 
                 // 최상위로 생성 (부모 없음)
                 newCardObj.transform.SetParent(null);
 
-                Debug.Log("새 카드 생성: " + recipe.resultCard.name);
-                return recipe.resultCard;
+                Debug.Log("새 카드 생성: " + recipe.result.name);
+                return recipe.result;
             }
         }
 
@@ -104,24 +104,42 @@ public class CombinationManager : MonoBehaviour
     /// <summary>
     /// 카드 리스트가 레시피와 정확히 일치하는지 확인
     /// </summary>
-    private bool MatchRecipe(List<Card2D> inputCards, CardRecipe recipe)
+    private bool MatchRecipe(List<Card2D> inputCards, RecipeCardData recipe)
     {
-        var input = new List<CardData>();
-        foreach (var c in inputCards)
-            input.Add(c.cardData);
-
-        var required = new List<CardData>(recipe.requiredCards);
-
-        // required 목록에 포함된 카드가 input에 있는지 검사하고 제거
-        foreach (var data in required)
+        // 카드 종류별 개수를 세기
+        var inputDict = new Dictionary<CardData, int>();
+        foreach (var card in inputCards)
         {
-            if (input.Contains(data))
-                input.Remove(data);
+            if (inputDict.ContainsKey(card.cardData))
+                inputDict[card.cardData]++;
             else
-                return false; // 필요한 카드가 없으면 실패
+                inputDict[card.cardData] = 1;
         }
 
-        // 남은 카드가 없어야 정확히 일치
-        return input.Count == 0;
+        foreach (var kvp in inputDict)
+            Debug.Log($"입력 카드: {kvp.Key.name}, 개수: {kvp.Value}");
+
+        foreach (var ing in recipe.ingredients)
+            Debug.Log($"레시피 필요: {ing.ingredient.name}, 개수: {ing.quantity}");
+
+        // 레시피 요구사항을 확인하며 차감
+        foreach (var ingredient in recipe.ingredients)
+        {
+            var cardData = ingredient.ingredient;
+            var requiredCount = ingredient.quantity;
+
+            if (!inputDict.TryGetValue(cardData, out int currentCount) || currentCount < requiredCount)
+                return false; // 카드가 없거나 수량 부족하면 실패
+
+            // 수량 차감
+            inputDict[cardData] -= requiredCount;
+
+            // 다 사용했으면 제거
+            if (inputDict[cardData] == 0)
+                inputDict.Remove(cardData);
+        }
+
+        // 레시피에 없는 카드가 포함되어 있으면 실패
+        return inputDict.Count == 0;
     }
 }
