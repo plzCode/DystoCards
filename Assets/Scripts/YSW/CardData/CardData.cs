@@ -19,4 +19,9 @@ public class CardData : ScriptableObject
     public Sprite cardImage;
     public CardType cardType;
     public string description;
+
+    public CardType GetCardType()
+    {
+        return cardType;
+    }
 }

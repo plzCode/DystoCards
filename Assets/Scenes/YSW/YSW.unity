@@ -554,12 +554,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067040683360395321, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
       propertyPath: equipmentSlotList.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4067040683360395321, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
       propertyPath: equipmentSlotList.Array.data[0].slot
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4067040683360395321, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
+      propertyPath: equipmentSlotList.Array.data[0].equipment
+      value: 
+      objectReference: {fileID: 11400000, guid: 0754f38d9d04a5d4392bddc603ece8da, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
