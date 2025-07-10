@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0760ee1665720034da540068882a4f68, type: 3}
-  m_Name: Survivor
+  m_Name: Human
   m_EditorClassIdentifier: 
   cardId: 000
-  cardName: Survivor
+  cardName: Human
   cardImage: {fileID: 0}
-  cardType: 7
+  cardType: 6
   description: 
   characterType: 0
   max_health: 20
-  current_health: 20
   attack_power: 2
   defense_power: 1
-  max_hunger: 5

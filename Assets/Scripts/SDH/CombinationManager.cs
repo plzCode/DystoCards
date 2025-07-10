@@ -3,22 +3,18 @@ using UnityEngine;
 
 public class CombinationManager : MonoBehaviour
 {
-    public List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
+    [SerializeField] private List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject cardPrefab; // 결과 카드 프리팹
 
     private void Update()
     {
-        // 현재 존재하는 모든 카드 중에서 최상위 카드(부모 없음)만 수집
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
         List<Card2D> topCards = new List<Card2D>();
 
+        // 현재 존재하는 모든 카드 중에서 최상위 카드(부모 오브젝트 없음)만 수집
         foreach (var card in allCards)
-        {
             if (card.transform.parent == null)
-            {
                 topCards.Add(card);
-            }
-        }
 
         // 각 최상위 카드에 대해 조합 조건을 확인
         foreach (var topCard in topCards)
@@ -30,13 +26,11 @@ public class CombinationManager : MonoBehaviour
             // 스택의 가장 하단 카드 가져오기
             Card2D bottomCard = GetBottomCard(topCard);
 
-            // 하단 카드가 트리거 카드(id == "000")라면 조합 시도
-            if (bottomCard != null && bottomCard.cardData.cardId == "000")
+            // 하단 카드에 Human 스크립트가 붙어있다면 조합 시도
+            if (bottomCard != null && bottomCard.GetComponent<Human>() != null)
             {
                 // 해당 스택의 모든 카드 수집
                 List<Card2D> stackGroup = new List<Card2D>(topCard.GetComponentsInChildren<Card2D>());
-
-                Debug.Log($"조합 시도: {topCard.name} 스택");
 
                 // 조합 시도
                 TryCombine(stackGroup);
@@ -55,8 +49,9 @@ public class CombinationManager : MonoBehaviour
         // 자식이 있는 한 계속 아래로 내려감
         while (current.childCount > 0)
         {
-            current = current.GetChild(0);
+            current = current.GetChild(0); // 현재 오브젝트의 첫 번째 자식
             Card2D childCard = current.GetComponent<Card2D>();
+
             if (childCard != null)
                 lastCard = childCard;
             else
@@ -71,25 +66,36 @@ public class CombinationManager : MonoBehaviour
     /// </summary>
     public CardData TryCombine(List<Card2D> cards)
     {
+        List<Card2D> filteredCards = new List<Card2D>();
+        Card2D triggerCard = null;
+
+        foreach (var card in cards)
+        {
+            if (card.GetComponent<Human>() != null)
+                triggerCard = card;
+            else
+                filteredCards.Add(card);
+        }
+
         foreach (var recipe in recipes)
         {
-            if (MatchRecipe(cards, recipe))
+            if (MatchRecipe(filteredCards, recipe))
             {
                 Debug.Log("레시피 일치!");
 
-                // 기존 카드 파괴
-                foreach (var card in cards)
-                {
-                    Destroy(card.gameObject);
-                }
+                // 생존자 카드가 계층 구조 내에 있으면 부모에서 분리
+                if (triggerCard != null)
+                    triggerCard.transform.SetParent(null);
 
-                // 새로운 카드 생성
+                // 나머지 카드 삭제
+                foreach (var card in filteredCards)
+                    Destroy(card.gameObject);
+
+                // 새 카드 생성
                 GameObject newCardObj = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
                 Card2D newCard = newCardObj.GetComponent<Card2D>();
                 newCard.cardData = recipe.result;
                 newCardObj.name = recipe.result.name;
-
-                // 최상위로 생성 (부모 없음)
                 newCardObj.transform.SetParent(null);
 
                 Debug.Log("새 카드 생성: " + recipe.result.name);
@@ -115,12 +121,6 @@ public class CombinationManager : MonoBehaviour
             else
                 inputDict[card.cardData] = 1;
         }
-
-        foreach (var kvp in inputDict)
-            Debug.Log($"입력 카드: {kvp.Key.name}, 개수: {kvp.Value}");
-
-        foreach (var ing in recipe.ingredients)
-            Debug.Log($"레시피 필요: {ing.ingredient.name}, 개수: {ing.quantity}");
 
         // 레시피 요구사항을 확인하며 차감
         foreach (var ingredient in recipe.ingredients)
