@@ -221,4 +221,14 @@ public class Card2D : MonoBehaviour
         childCards.Clear();
     }
 
+    public bool IsCardType(CardData data, CardType type)
+    {
+        return data != null && data.cardType == type;
+    }
+    public bool IsCharacterOfType(CardData data, CharacterType characterType)
+    {
+        return data is CharacterCardData charData &&
+               data.cardType == CardType.Character &&
+               charData.characterType == characterType;
+    }
 }
