@@ -102,7 +102,7 @@ public class Human : Character
         equippedItems[equipment.slot] = equipment;
         ApplyEquipmentStats(equipment);
 
-        Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot}");
+        Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot} = {charData.attack_power}");
         SyncDictFromList();
     }
 
