@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cards/ResourceCard")]
+[CreateAssetMenu(menuName = "Cards/01.ResourceCard", order = 2)]
 public class ResourceCardData : CardData
 {
     public int quantity;          // 자원 수량

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
 public class Card2D : MonoBehaviour
 {
-    [SerializeField] CardData cardData;
+    [SerializeField] public CardData cardData;
 
     public static int globalSortingOrder = 0;
     public LayerMask cardLayer;
@@ -107,7 +108,7 @@ public class Card2D : MonoBehaviour
     // ==============================
 
 
-    private void StackOnto(Card2D target) //현재 카드를 target 카드 위에 스택(부착)하는 역할.
+    public virtual void StackOnto(Card2D target) //현재 카드를 target 카드 위에 스택(부착)하는 역할.
     {
         // 기존 부모 카드가 있다면, 자식 리스트에서 자신을 제거
         if (parentCard != null)

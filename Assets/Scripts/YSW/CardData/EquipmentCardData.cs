@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cards/EquipmentCard")]
+[CreateAssetMenu(menuName = "Cards/03.EquipmentCard", order = 4)]
 public class EquipmentCardData : CardData
 {
     public int attackPower;

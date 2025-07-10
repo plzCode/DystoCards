@@ -1,6 +1,15 @@
 using UnityEngine;
 
-public enum CardType { Resource, Character, Equipment, Food, Furniture, Recipe, Event }
+public enum CardType {
+    Resource,
+    Food,
+    Equipment,    
+    Heal,
+    Furniture,
+    Recipe,
+    Character,
+    Event,
+}
 
 [CreateAssetMenu(fileName = "NewCardData", menuName = "Cards/Card Data", order = 1)]
 public class CardData : ScriptableObject
