@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MinimapIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public MinimapController minimapController;
+    public MinimapController minimapController;    
     public LocationInfo locationInfo;
     public ExploreInfo exploreInfoUI;
     public Button iconButton; 

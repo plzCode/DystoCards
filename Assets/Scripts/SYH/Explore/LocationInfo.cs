@@ -10,6 +10,8 @@ public class LocationInfo : ScriptableObject
     [Range(0, 10)] public int requiredStrength;
     [Range(0, 10)] public int requiredStamina;
     [Range(0, 10)] public int dangerLevel;
+    [Range(0, 10)] public int durationDays;
+    
 
     [Header("보상 목록")]
     public List<RewardInfo> rewards;
