@@ -12,6 +12,8 @@ public class TestCard : Card2D
     public float defensePower;
     public float maxHunger;
 
+    public CardData[] drops;
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
