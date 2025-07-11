@@ -99,14 +99,38 @@ public class CombinationManager : MonoBehaviour
                 foreach (var card in filteredCards)
                     Destroy(card.gameObject);
 
-                // 조합 결과 카드 생성 및 초기화
-                GameObject newCardObj = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
-                Card2D newCard = newCardObj.GetComponent<Card2D>();
-                newCard.cardData = recipe.result;
-                newCardObj.name = recipe.result.name;
-                newCardObj.transform.SetParent(null);
+                if (triggerCard != null)
+                {
+                    SpriteRenderer triggerRenderer = triggerCard.GetComponent<SpriteRenderer>();
 
-                Debug.Log("새 카드 생성: " + recipe.result.name);
+                    // 사람 카드 위치를 기준으로 약간 아래로 (Y축 - 방향)
+                    Vector3 spawnPosition = triggerCard.transform.position;
+                    spawnPosition.y -= 0.2f;
+
+                    GameObject newCardObj = Instantiate(cardPrefab, spawnPosition, Quaternion.identity);
+                    Card2D newCard = newCardObj.GetComponent<Card2D>();
+                    newCard.cardData = recipe.result;
+                    newCardObj.name = recipe.result.name;
+                    newCardObj.transform.SetParent(null);
+
+                    // 렌더링 순서 조정
+                    SpriteRenderer newCardRenderer = newCardObj.GetComponent<SpriteRenderer>();
+                    if (triggerRenderer != null && newCardRenderer != null)
+                    {
+                        newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
+                        newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
+                    }
+
+                    Debug.Log("새 카드 생성: " + recipe.result.name);
+                }
+
+                // Human 카드 스탯 관리
+                Human human = triggerCard.GetComponent<Human>();
+                if (human != null)
+                {
+                    // 스테미나 감소
+                    human.currentStamina--;
+                }
             }
         }
 
