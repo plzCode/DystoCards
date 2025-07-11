@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
@@ -78,7 +79,7 @@ public class Card2D : MonoBehaviour
 
     }
 
-    private Card2D GetDeepestChild(Card2D card)
+    protected Card2D GetDeepestChild(Card2D card)
     {
         if (card.childCards.Count == 0)
             return card;
@@ -88,7 +89,7 @@ public class Card2D : MonoBehaviour
     }
 
     // 자기 자신 또는 자식 중에 target이 있는지 확인 → 순환 참조 방지
-    private bool IsInHierarchy(Card2D root, Card2D target)
+    protected bool IsInHierarchy(Card2D root, Card2D target)
     {
         if (root == target)
             return true;
@@ -107,7 +108,7 @@ public class Card2D : MonoBehaviour
     // ==============================
 
 
-    private void StackOnto(Card2D target) //현재 카드를 target 카드 위에 스택(부착)하는 역할.
+    public virtual void StackOnto(Card2D target) //현재 카드를 target 카드 위에 스택(부착)하는 역할.
     {
         // 기존 부모 카드가 있다면, 자식 리스트에서 자신을 제거
         if (parentCard != null)
@@ -131,7 +132,7 @@ public class Card2D : MonoBehaviour
         BringToFrontRecursive(this);
     }
 
-    private void CollectStackBelow(Card2D card, Transform groupRoot) //특정 카드와 그 자식들 모두를 한 그룹(groupRoot) 아래로 묶음.
+    protected void CollectStackBelow(Card2D card, Transform groupRoot) //특정 카드와 그 자식들 모두를 한 그룹(groupRoot) 아래로 묶음.
     {
         var allCards = GetStackFrom(card);
 
@@ -143,7 +144,7 @@ public class Card2D : MonoBehaviour
         }
     }
 
-    private void RestoreParents() //CollectStackBelow로 그룹화했던 카드들의 부모 관계를 원래대로 복원.
+    protected void RestoreParents() //CollectStackBelow로 그룹화했던 카드들의 부모 관계를 원래대로 복원.
     {
         foreach (var kv in originalParents)
         {
@@ -153,7 +154,7 @@ public class Card2D : MonoBehaviour
         originalParents.Clear();
     }
 
-    private Card2D GetFirstOverlappingCard() //현재 카드와 겹쳐진 카드들 중에서 첫 번째 적합한 카드(자기 자신이나 자식이 아닌)를 찾음.
+    protected Card2D GetFirstOverlappingCard() //현재 카드와 겹쳐진 카드들 중에서 첫 번째 적합한 카드(자기 자신이나 자식이 아닌)를 찾음.
     {
         Collider2D[] results = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
@@ -175,7 +176,7 @@ public class Card2D : MonoBehaviour
         return null;
     }
 
-    private void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
+    protected void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
     {
         List<Card2D> stack = GetStackFrom(card);
         foreach (var c in stack)
@@ -185,14 +186,14 @@ public class Card2D : MonoBehaviour
         }
     }
 
-    private List<Card2D> GetStackFrom(Card2D root) //특정 카드(root)부터 그 자식들을 모두 포함하는 리스트 반환.
+    protected List<Card2D> GetStackFrom(Card2D root) //특정 카드(root)부터 그 자식들을 모두 포함하는 리스트 반환.
     {
         List<Card2D> result = new List<Card2D>();
         CollectChildrenRecursive(root, result);
         return result;
     }
 
-    private void CollectChildrenRecursive(Card2D card, List<Card2D> result) //재귀적으로 카드와 자식들을 리스트에 추가.
+    protected void CollectChildrenRecursive(Card2D card, List<Card2D> result) //재귀적으로 카드와 자식들을 리스트에 추가.
     {
         result.Add(card);
         foreach (var child in card.childCards)
@@ -201,4 +202,33 @@ public class Card2D : MonoBehaviour
         }
     }
 
+    protected void DetachChildrenBeforeDestroy() //카드가 파괴되기 전에 자식 카드들을 계층 구조에서 분리하고 논리적으로도 분리함.
+    {
+        foreach (var child in childCards)
+        {
+            if (child == null) continue;
+
+            // 계층적으로 분리
+            child.transform.SetParent(null);
+
+            // 논리적으로도 분리
+            child.parentCard = null;
+
+            // 위치도 약간 이동시켜 보기 좋게
+            child.transform.position += new Vector3(0.5f, 0.5f, 0f);
+        }
+
+        childCards.Clear();
+    }
+
+    public bool IsCardType(CardData data, CardType type)
+    {
+        return data != null && data.cardType == type;
+    }
+    public bool IsCharacterOfType(CardData data, CharacterType characterType)
+    {
+        return data is CharacterCardData charData &&
+               data.cardType == CardType.Character &&
+               charData.characterType == characterType;
+    }
 }

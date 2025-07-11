@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LocationInfo" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAAAAAgAAAAAAABAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SYH\LocationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RewardInfo" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SYH\LocationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MinimapController" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAEAAgAAAAAQEAAAwAQQAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\SYH\MinimapController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MinimapIcon" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAAgCAIAAAAAAAAAAAQQAAgAAAIAAAAIQAQAAA=</HashCode>
+      <FileName>Assets\Scripts\SYH\MinimapIcon.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Card" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABEAAAIAgAAAQAAAABAEAACAAAAACAAgAAQAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Card\Card.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Card2D" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIgAAIAQAAAIAAAAAAAAAAIAgQAgSIowBUgBAiCAE=</HashCode>
+      <FileName>Assets\Scripts\YSW\Card\Card2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardData" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAgAAAAAAAAAAAAAIAAACAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\CardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterCardData" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAABAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\CharacterCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EquipmentCardData" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\EquipmentCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FoodCardData" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\FoodCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureCardData" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\FurnitureCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealCardData" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAAAAAAQAAgAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\HealCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HumanCardData" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAQAEAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\HumanCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecipeCardData" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\RecipeCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceCardData" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\ResourceCardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Character" Collapsed="true">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAEAAQCgAAAAAAAAAIAEAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Character\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Human" Collapsed="true">
+    <Position X="5.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAKEAQQAIAAAEAAAACIAEAAAxAIABgIAADAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Character\Human.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Character\Monster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NPC" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Character\NPC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EquipmentCard2D" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Equipments\EquipmentCard2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EquipmentSlotData" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Equipments\EquipmentSlotData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="For_Char_Test" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAIAAAAACIAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\For_Test\For_Char_Test.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bed" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAgEgAAAQEAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Furniture\Bed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chair" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAgEgAAAQEAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Furniture\Chair.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureStruct" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAQAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\FurnitureStruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngredientEntry" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\Recipe\Ingredient_Entry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DystoCards.Cards.Interfaces.IStackableCard" Collapsed="true">
+    <Position X="17" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\IStackableCard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DystoCards.Cards.Interfaces.IUsableCard" Collapsed="true">
+    <Position X="18.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\IUsableCard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="CardType" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAIAAAAACAAAAAAAQAAgAAAAAAAAACAgAACAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\CardData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CharacterType" Collapsed="true">
+    <Position X="18.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAgAAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\CharacterCardData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EquipmentSlot" Collapsed="true">
+    <Position X="20.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\EquipmentCardData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="FurnitureType" Collapsed="true">
+    <Position X="17" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\FurnitureCardData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ResourceType" Collapsed="true">
+    <Position X="18.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\YSW\CardData\ResourceCardData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

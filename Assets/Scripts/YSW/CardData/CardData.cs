@@ -7,8 +7,8 @@ public enum CardType {
     Heal,
     Furniture,
     Recipe,
-    Event,
     Character,
+    Event,
 }
 
 [CreateAssetMenu(fileName = "NewCardData", menuName = "Cards/Card Data", order = 1)]
@@ -19,4 +19,9 @@ public class CardData : ScriptableObject
     public Sprite cardImage;
     public CardType cardType;
     public string description;
+
+    public CardType GetCardType()
+    {
+        return cardType;
+    }
 }

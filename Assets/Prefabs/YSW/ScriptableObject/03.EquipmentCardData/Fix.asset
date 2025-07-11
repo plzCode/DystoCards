@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
-  m_Name: Stone
+  m_Script: {fileID: 11500000, guid: 429ce4d7337e57047a0bdd73addd001a, type: 3}
+  m_Name: Fix
   m_EditorClassIdentifier: 
-  cardId: 002
-  cardName: Stone
+  cardId: 032
+  cardName: Fix
   cardImage: {fileID: 0}
-  cardType: 0
+  cardType: 2
   description: 
-  quantity: 1
-  resourceType: 1
+  attackPower: 5
+  defensePower: 0
+  slot: 2
