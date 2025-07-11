@@ -6,9 +6,9 @@ public class CardManager : MonoBehaviour
     public static CardManager Instance { get; private set; }
 
     [Header("Card References")]
-    [SerializeField] private Card2D cardPrefab;
-    [SerializeField] private Transform cardParent;
-    [SerializeField] private CardDatabase cardDatabase;
+    [SerializeField] public Card2D cardPrefab;
+    [SerializeField] public Transform cardParent;
+    [SerializeField] public CardDatabase cardDatabase;
 
     private List<Card2D> fieldCards = new();
     private Dictionary<CardType, List<Card2D>> fieldCardsByType = new();
@@ -97,6 +97,7 @@ public class CardManager : MonoBehaviour
             return;
         }
         Debug.Log($"[CardManager] Destroying card: {card.name}");
+        card.DetachChildrenBeforeDestroy();
         UnregisterCard(card);       // 목록 및 타입 딕셔너리에서 제거
         Destroy(card.gameObject);   // GameObject 제거
     }
