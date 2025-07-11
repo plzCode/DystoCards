@@ -62,6 +62,8 @@ public class CardManager : MonoBehaviour
         Card2D newCard = Instantiate(cardPrefab, position, Quaternion.identity, cardParent);
         newCard.cardData = data;
         newCard.name = $"Card_{data.cardName}";
+
+        Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {data.cardId}) at {position}");
         RegisterCard(newCard);
         return newCard;
     }
@@ -87,7 +89,17 @@ public class CardManager : MonoBehaviour
         }
         return SpawnCard(data, position);
     }
-
+    public void DestroyCard(Card2D card)
+    {
+        if (card == null)
+        {
+            Debug.LogWarning("[CardManager] DestroyCard: null 카드입니다.");
+            return;
+        }
+        Debug.Log($"[CardManager] Destroying card: {card.name}");
+        UnregisterCard(card);       // 목록 및 타입 딕셔너리에서 제거
+        Destroy(card.gameObject);   // GameObject 제거
+    }
     // ==============카드 등록 / 제거==============
 
     public void RegisterCard(Card2D card)
