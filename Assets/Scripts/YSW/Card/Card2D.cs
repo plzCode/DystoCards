@@ -19,6 +19,17 @@ public class Card2D : MonoBehaviour
     private Transform dragGroupRoot;
     private Dictionary<Card2D, Transform> originalParents = new Dictionary<Card2D, Transform>();
 
+    private CardUIRenderer uiRenderer;
+
+    private void Awake()
+    {
+        uiRenderer = GetComponent<CardUIRenderer>();
+    }
+    private void Start()
+    {
+        RenderCardUI();
+    }
+
     private void OnMouseDown()
     {
         //Debug.Log($"Dragging card: {transform.name}");
@@ -234,5 +245,52 @@ public class Card2D : MonoBehaviour
         return data is CharacterCardData charData &&
                data.cardType == CardType.Character &&
                charData.characterType == characterType;
+    }
+
+    //cardUI 렌더링
+    public void RenderCardUI()
+    {
+        if (uiRenderer == null || cardData == null) return;
+
+        var stats = GetStatDictionaryFromCardData(cardData);
+        uiRenderer.RenderStats(stats);
+    }
+
+    private Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
+    {
+        Dictionary<string, float> stats = new();
+
+        switch (data)
+        {
+            case FoodCardData food:
+                stats["hungerRecovery"] = food.hungerRestore;
+                break;
+            case EquipmentCardData equip:
+                stats["attack"] = equip.attackPower;
+                stats["defense"] = equip.defensePower;
+                break;
+            case HealCardData heal:
+                stats["hp"] = heal.healthAmount;
+                stats["sanity"] = heal.mentalAmount;
+                stats["stamina"] = heal.staninaAmount;
+                break;
+            case HumanCardData human:
+                stats["hp"] = human.max_health;
+                stats["attack"] = human.attack_power;
+                stats["defense"] = human.defense_power;
+                stats["sanity"] = human.max_mental_health;
+                stats["hunger"] = human.max_hunger;
+                stats["stamina"] = human.stamina;
+                stats["consumeHunger"] = human.consume_hunger;
+                break;
+            case CharacterCardData ch:
+                stats["hp"] = ch.max_health;
+                stats["attack"] = ch.attack_power;
+                stats["defense"] = ch.defense_power;
+                break;
+        }
+
+        stats["size"] = data.size;
+        return stats;
     }
 }

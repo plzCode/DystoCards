@@ -19,6 +19,7 @@ public class CardData : ScriptableObject
     public Sprite cardImage;
     public CardType cardType;
     public string description;
+    public int size = 1; // 카드 차지량
 
     public CardType GetCardType()
     {
