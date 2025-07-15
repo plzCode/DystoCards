@@ -10,7 +10,6 @@ public class TestCard : Card2D
     public float currentHealth;
     public float attackPower;
     public float defensePower;
-    public float maxHunger;
 
     public CardData[] drops;
 
@@ -25,7 +24,6 @@ public class TestCard : Card2D
             currentHealth = characterData.max_health;
             attackPower = characterData.attack_power;
             defensePower = characterData.defense_power;
-            maxHunger = characterData.max_hunger;
         }
     }
 
