@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6905650449602669803}
   - component: {fileID: 2789160912971716032}
   m_Layer: 0
-  m_Name: Combination Manager
+  m_Name: CombinationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
