@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class MouseInput_Temp : MonoBehaviour
 {
+    public LayerMask interactableLayerMask;
+    public bool isOverInteractable = false;
+
     private void Update()
     {
+        CheckMouseOver();
+
         if (Input.GetMouseButtonDown(1)) // 1 = ¿ìÅ¬¸¯
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -18,6 +23,30 @@ public class MouseInput_Temp : MonoBehaviour
                     CardManager.Instance.DestroyCard(card);
                 }
             }
+        }        
+    }
+
+    private void CheckMouseOver()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f, interactableLayerMask);
+
+        if (hit.collider != null)
+        {
+            if (!isOverInteractable)
+            {
+                isOverInteractable = true;
+                UIManager.Instance.SetInteractCursor();
+            }
+        }
+        else
+        {
+            if (isOverInteractable)
+            {
+                isOverInteractable = false;
+                UIManager.Instance.SetDefaultCursor();
+            }
         }
     }
+
 }

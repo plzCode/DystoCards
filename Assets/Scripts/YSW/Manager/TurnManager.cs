@@ -15,7 +15,7 @@ public enum TurnPhase
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
-
+     
     public TurnPhase CurrentPhase { get; private set; } = TurnPhase.EventDraw;
 
     public event Action<TurnPhase> OnTurnPhaseChanged;

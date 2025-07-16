@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
@@ -190,10 +190,34 @@ public class Card2D : MonoBehaviour
     protected void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
     {
         List<Card2D> stack = GetStackFrom(card);
-        foreach (var c in stack)
+        /*foreach (var c in stack)
         {
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
             sr.sortingOrder = globalSortingOrder++;
+        }*/
+        foreach (var c in stack)
+        {
+            int baseOrder = globalSortingOrder++;
+
+            // 카드 본체 렌더러
+            SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
+            sr.sortingOrder = baseOrder;
+
+            // 자식들의 SpriteRenderer 순서도 조정
+            var childRenderers = c.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
+            foreach (var childRenderer in childRenderers)
+            {
+                if (childRenderer != sr) // 본체는 이미 처리했으므로 제외
+                {
+                    childRenderer.sortingOrder = baseOrder + 1;
+                }
+            }
+
+            var tmp = c.GetComponentsInChildren<TextMeshPro>(includeInactive: true);
+            foreach (var t in tmp)
+            {
+                t.sortingOrder = baseOrder + 2; // 아이콘보다 더 앞으로
+            }
         }
     }
 
@@ -254,6 +278,7 @@ public class Card2D : MonoBehaviour
 
         var stats = GetStatDictionaryFromCardData(cardData);
         uiRenderer.RenderStats(stats);
+        uiRenderer.RenderName(cardData.cardName);
     }
 
     private Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
