@@ -152,7 +152,7 @@ public class CombinationManager : MonoBehaviour
                 Human human = triggerCard.GetComponent<Human>();
                 if (human != null)
                 {
-                    human.currentStamina--;
+                    human.ConsumeStamina(1);
                 }
 
                 return; // 조합 성공 시 함수 종료
