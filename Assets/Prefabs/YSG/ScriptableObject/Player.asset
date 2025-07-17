@@ -9,17 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0760ee1665720034da540068882a4f68, type: 3}
+  m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  cardId: 091
-  cardName: Player
+  cardId: 
+  cardName: "\uD50C\uB808\uC774\uC5B4"
   cardImage: {fileID: 0}
-  cardType: 7
+  cardType: 6
   description: 
   characterType: 0
   max_health: 20
-  current_health: 20
   attack_power: 2
-  defense_power: 1
+  defense_power: 0
+  max_mental_health: 10
   max_hunger: 5
+  stamina: 5
+  consume_hunger: 1
