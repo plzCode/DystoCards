@@ -2,14 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSystem : MonoBehaviour
+public class BattleManager : MonoBehaviour
 {
-    public List<GameObject> monsterList = new List<GameObject>();
+    public static BattleManager Instance { get; private set; }
 
-    public List<Human> humanCards = new List<Human>();
-    public List<TestCard> monsterCards = new List<TestCard>();
+    [SerializeField] private Transform spawnArea;
+    [SerializeField] private List<GameObject> spawnList = new List<GameObject>();
+    [Space]
+    public List<Human> humans = new List<Human>();
+    public List<TestCard> monsters = new List<TestCard>();
 
     private bool inBattle = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -23,11 +39,11 @@ public class BattleSystem : MonoBehaviour
                 switch (characterCard.characterType)
                 {
                     case CharacterType.Human:
-                        humanCards.Add(card.GetComponent<Human>());
+                        humans.Add(card.GetComponent<Human>());
                         break;
 
                     case CharacterType.Monster:
-                        monsterCards.Add(card.GetComponent<TestCard>());
+                        monsters.Add(card.GetComponent<TestCard>());
                         break;
                 }
             }
@@ -36,15 +52,18 @@ public class BattleSystem : MonoBehaviour
 
     private void Update()
     {
-        humanCards.RemoveAll(card => card == null);
-        monsterCards.RemoveAll(card => card == null);
+        humans.RemoveAll(card => card == null);
+        monsters.RemoveAll(card => card == null);
 
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.R)) // 임시
         {
-            SpawnMonster();
+            for (int i = 0; i < 5; i++)
+            {
+                SpawnMonster();
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T)) // 임시
         {
             if (!inBattle)
                 StartCoroutine(BattleSequence());
@@ -53,32 +72,42 @@ public class BattleSystem : MonoBehaviour
 
     private void SpawnMonster()
     {
-        if (monsterList.Count == 0) return;
+        if (spawnList.Count == 0 || spawnArea == null) return;
 
-        GameObject prefab = monsterList[Random.Range(0, monsterList.Count)];
-        Vector3 spawnPos = new Vector3(Random.Range(-5f, 5f), 0f, 0f);
+        GameObject prefab = spawnList[Random.Range(0, spawnList.Count)];
 
-        Instantiate(prefab, spawnPos, Quaternion.identity);
+        Vector3 mapPos = spawnArea.position;
+        Vector3 mapScale = spawnArea.localScale;
+
+        float halfWidth = 0.5f * mapScale.x;
+        float halfHeight = 0.5f * mapScale.y;
+
+        float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
+        float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
+
+        Vector3 spawnPos = new Vector3(randX, randY, 0f);
+
+        GameObject go = Instantiate(prefab, spawnPos, Quaternion.identity);
     }
 
     private IEnumerator BattleSequence()
     {
         inBattle = true;
 
-        foreach (var p in humanCards)
+        foreach (var p in humans)
         {
-            if (monsterCards.Count == 0) break;
-            int randIndex = Random.Range(0, monsterCards.Count);
-            var target = monsterCards[randIndex];
+            if (monsters.Count == 0) break;
+            int randIndex = Random.Range(0, monsters.Count);
+            var target = monsters[randIndex];
             yield return StartCoroutine(AttackOn(p, target));
             yield return new WaitForSeconds(0.1f);
         }
 
-        foreach (var m in monsterCards)
+        foreach (var m in monsters)
         {
-            if (humanCards.Count == 0) break;
-            int randIndex = Random.Range(0, humanCards.Count);
-            Human target = humanCards[randIndex];
+            if (humans.Count == 0) break;
+            int randIndex = Random.Range(0, humans.Count);
+            Human target = humans[randIndex];
             yield return StartCoroutine(AttackOn(m, target));
             yield return new WaitForSeconds(0.1f);
         }
@@ -139,13 +168,13 @@ public class BattleSystem : MonoBehaviour
     private void DebugResult()
     {
         string playerHealthLog = "플레이어 체력 : ";
-        foreach (var p in humanCards)
+        foreach (var p in humans)
             playerHealthLog += $"{p.currentHealth} / ";
         playerHealthLog = playerHealthLog.TrimEnd(' ', '/');
         Debug.Log(playerHealthLog);
 
         string monsterHealthLog = "몬스터 체력 : ";
-        foreach (var m in monsterCards)
+        foreach (var m in monsters)
             monsterHealthLog += $"{m.currentHealth} / ";
         monsterHealthLog = monsterHealthLog.TrimEnd(' ', '/');
         Debug.Log(monsterHealthLog);
