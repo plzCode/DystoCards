@@ -22,27 +22,19 @@ public class EventFunctionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 중복 없이 랜덤한 이벤트 카드를 count개 반환
+    /// 랜덤한 이벤트 카드를 하나 반환
     /// </summary>
-    /// <param name="count">뽑을 카드 개수</param>
-    /// <returns>랜덤한 카드 배열</returns>
-    public EventCardData[] GetRandomCards(int count)
+    /// <returns>랜덤 카드 1개</returns>
+    public EventCardData GetRandomCard()
     {
-        // eventCardDatabase를 List로 복사하여 임시 리스트 생성
-        var tempList = new System.Collections.Generic.List<EventCardData>(eventCardDatabase);
-        var result = new System.Collections.Generic.List<EventCardData>();
-
-        // count만큼 랜덤하게 카드를 뽑아 result에 추가
-        for (int i = 0; i < count; i++)
+        if (eventCardDatabase == null || eventCardDatabase.Length == 0)
         {
-            if (tempList.Count == 0) break; // 남은 카드가 없으면 종료
-
-            int index = Random.Range(0, tempList.Count); // 랜덤 인덱스
-            result.Add(tempList[index]); // 카드 추가
-            tempList.RemoveAt(index); // 중복 방지를 위해 삭제
+            Debug.LogWarning("이벤트 카드 데이터베이스가 비어있습니다.");
+            return null;
         }
 
-        return result.ToArray();
+        int index = Random.Range(0, eventCardDatabase.Length);
+        return eventCardDatabase[index];
     }
 
     /// <summary>
