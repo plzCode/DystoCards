@@ -6,13 +6,15 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance { get; private set; }
 
-    [SerializeField] private Transform spawnArea;
+    [SerializeField] private Transform cards;
+    public Transform battleArea;
+    public Transform spawnArea;
     [SerializeField] private List<GameObject> spawnList = new List<GameObject>();
     [Space]
     public List<Human> humans = new List<Human>();
-    public List<TestCard> monsters = new List<TestCard>();
+    public List<TestMonster> monsters = new List<TestMonster>();
 
-    private bool inBattle = false;
+    public bool inBattle { get; private set; } = false;
 
     private void Awake()
     {
@@ -29,25 +31,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
-        System.Array.Sort(allCards, (a, b) => a.name.CompareTo(b.name));
-
-        foreach (var card in allCards)
-        {
-            if (card.cardData is CharacterCardData characterCard)
-            {
-                switch (characterCard.characterType)
-                {
-                    case CharacterType.Human:
-                        humans.Add(card.GetComponent<Human>());
-                        break;
-
-                    case CharacterType.Monster:
-                        monsters.Add(card.GetComponent<TestCard>());
-                        break;
-                }
-            }
-        }
+        battleArea?.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -55,18 +39,9 @@ public class BattleManager : MonoBehaviour
         humans.RemoveAll(card => card == null);
         monsters.RemoveAll(card => card == null);
 
-        if (Input.GetKeyUp(KeyCode.R)) // 임시
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                SpawnMonster();
-            }
-        }
-
         if (Input.GetKeyUp(KeyCode.T)) // 임시
         {
-            if (!inBattle)
-                StartCoroutine(BattleSequence());
+            SpawnMonster();
         }
     }
 
@@ -75,7 +50,6 @@ public class BattleManager : MonoBehaviour
         if (spawnList.Count == 0 || spawnArea == null) return;
 
         GameObject prefab = spawnList[Random.Range(0, spawnList.Count)];
-
         Vector3 mapPos = spawnArea.position;
         Vector3 mapScale = spawnArea.localScale;
 
@@ -88,37 +62,119 @@ public class BattleManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(randX, randY, 0f);
 
         GameObject go = Instantiate(prefab, spawnPos, Quaternion.identity);
+        go.transform.SetParent(cards);
+    }
+
+    public void StartBattle()
+    {
+        if (!inBattle) ArrangeCharacters();
+        StartCoroutine(BattleSequence());
+    }
+
+    public void ArrangeCharacters()
+    {
+        if (humans.Count == 0 && monsters.Count == 0) return;
+
+        float spacing = 1.5f;
+        float margin = 1.0f;
+
+        float humanWidth = (humans.Count - 1) * spacing;
+        float monsterWidth = (monsters.Count - 1) * spacing;
+        float maxWidth = Mathf.Max(humanWidth, monsterWidth) + margin * 2f;
+        float totalHeight = 2f + margin * 2f;
+
+        if (!battleArea.gameObject.activeSelf)
+        {
+            Vector3 totalPos = Vector3.zero;
+            int totalCount = 0;
+
+            foreach (var h in humans)
+            {
+                totalPos += h.transform.position;
+                totalCount++;
+            }
+            foreach (var m in monsters)
+            {
+                totalPos += m.transform.position;
+                totalCount++;
+            }
+
+            if (totalCount > 0)
+                battleArea.position = totalPos / totalCount;
+        }
+
+        battleArea.localScale = new Vector3(maxWidth, totalHeight, 1f);
+        battleArea.gameObject.SetActive(true);
+
+        float topY = totalHeight / 2f - margin;
+        float bottomY = -totalHeight / 2f + margin;
+
+        float humanStartX = -humanWidth / 2f;
+        for (int i = 0; i < humans.Count; i++)
+        {
+            Vector3 localPos = new Vector3(humanStartX + i * spacing, topY, 0f);
+            humans[i].transform.position = battleArea.position + localPos;
+        }
+
+        float monsterStartX = -monsterWidth / 2f;
+        for (int i = 0; i < monsters.Count; i++)
+        {
+            Vector3 localPos = new Vector3(monsterStartX + i * spacing, bottomY, 0f);
+            monsters[i].transform.position = battleArea.position + localPos;
+        }
     }
 
     private IEnumerator BattleSequence()
     {
         inBattle = true;
 
-        foreach (var p in humans)
+        while (humans.Count > 0 && monsters.Count > 0)
         {
-            if (monsters.Count == 0) break;
-            int randIndex = Random.Range(0, monsters.Count);
-            var target = monsters[randIndex];
-            yield return StartCoroutine(AttackOn(p, target));
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
+
+            for (int i = 0; i < humans.Count; i++)
+            {
+                if (monsters.Count == 0) break;
+
+                Human p = humans[i];
+                int randIndex = Random.Range(0, monsters.Count);
+                var target = monsters[randIndex];
+
+                yield return StartCoroutine(AttackEffect(p, target));
+                yield return new WaitForSeconds(0.5f);
+
+                if (monsters.Count == 0) break;
+            }
+
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                if (humans.Count == 0) break;
+
+                TestMonster m = monsters[i];
+                int randIndex = Random.Range(0, humans.Count);
+                var target = humans[randIndex];
+
+                yield return StartCoroutine(AttackEffect(m, target));
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            DebugResult();
         }
 
-        foreach (var m in monsters)
-        {
-            if (humans.Count == 0) break;
-            int randIndex = Random.Range(0, humans.Count);
-            Human target = humans[randIndex];
-            yield return StartCoroutine(AttackOn(m, target));
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        DebugResult();
         inBattle = false;
+
+        foreach (var monster in monsters)
+        {
+            monster.GetComponent<Rigidbody2D>().simulated = true;
+            monster?.StartMove();
+        }
+
+        humans.Clear();
+        monsters.Clear();
+        battleArea?.gameObject.SetActive(false);
     }
 
-    private IEnumerator AttackOn(Character attacker, Character target)
+    private IEnumerator AttackEffect(Character attacker, Character target)
     {
         Transform attackerTr = attacker.transform;
         Transform targetTr = target.transform;
@@ -146,12 +202,14 @@ public class BattleManager : MonoBehaviour
         }
 
         attacker.Attack(target);
-        Debug.Log($"{attacker.name}가 {target.name}를 공격 : 데미지 {attacker.charData.attack_power} / 타겟 체력 {target.currentHealth}");
+        //Debug.Log($"{attacker.name}가 {target.name}를 공격 : 데미지 {attacker.charData.attack_power} / 타겟 체력 {target.currentHealth}");
+
+        ArrangeCharacters();
     }
 
-    private IEnumerator HitEffect(Character target)
+    private IEnumerator HitEffect(Character hitter)
     {
-        SpriteRenderer sr = target.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr = hitter.GetComponent<SpriteRenderer>();
         if (sr == null) yield break;
 
         Color originalColor = sr.color;

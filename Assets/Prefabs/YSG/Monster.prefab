@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -194,9 +194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5b839b14eb39b4aaeea1e7a14fed35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charData: {fileID: 0}
+  charData: {fileID: 11400000, guid: 547a0947af8cd9f4eaa2d67244f68bc2, type: 2}
   currentHealth: 0
   maxHealth: 0
   attackPower: 0
   defensePower: 0
   drops: []
+  moveDelay: {x: 0.5, y: 2}
+  moveDistance: 5
+  moveDuration: 0.5
