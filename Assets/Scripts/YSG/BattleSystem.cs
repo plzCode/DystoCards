@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
 {
+    public List<GameObject> monsterList = new List<GameObject>();
+
     public List<Human> humanCards = new List<Human>();
     public List<TestCard> monsterCards = new List<TestCard>();
 
@@ -37,11 +39,26 @@ public class BattleSystem : MonoBehaviour
         humanCards.RemoveAll(card => card == null);
         monsterCards.RemoveAll(card => card == null);
 
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            SpawnMonster();
+        }
+
         if (Input.GetKeyUp(KeyCode.T))
         {
             if (!inBattle)
                 StartCoroutine(BattleSequence());
         }
+    }
+
+    private void SpawnMonster()
+    {
+        if (monsterList.Count == 0) return;
+
+        GameObject prefab = monsterList[Random.Range(0, monsterList.Count)];
+        Vector3 spawnPos = new Vector3(Random.Range(-5f, 5f), 0f, 0f);
+
+        Instantiate(prefab, spawnPos, Quaternion.identity);
     }
 
     private IEnumerator BattleSequence()
@@ -53,7 +70,7 @@ public class BattleSystem : MonoBehaviour
             if (monsterCards.Count == 0) break;
             int randIndex = Random.Range(0, monsterCards.Count);
             var target = monsterCards[randIndex];
-            yield return StartCoroutine(AttackEffect(p, target));
+            yield return StartCoroutine(AttackOn(p, target));
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -62,7 +79,7 @@ public class BattleSystem : MonoBehaviour
             if (humanCards.Count == 0) break;
             int randIndex = Random.Range(0, humanCards.Count);
             Human target = humanCards[randIndex];
-            yield return StartCoroutine(AttackEffect(m, target));
+            yield return StartCoroutine(AttackOn(m, target));
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -72,7 +89,7 @@ public class BattleSystem : MonoBehaviour
         inBattle = false;
     }
 
-    private IEnumerator AttackEffect(Character attacker, Character target)
+    private IEnumerator AttackOn(Character attacker, Character target)
     {
         Transform attackerTr = attacker.transform;
         Transform targetTr = target.transform;
@@ -99,8 +116,8 @@ public class BattleSystem : MonoBehaviour
             yield return null;
         }
 
+        attacker.Attack(target);
         Debug.Log($"{attacker.name}가 {target.name}를 공격 : 데미지 {attacker.charData.attack_power} / 타겟 체력 {target.currentHealth}");
-        target.TakeDamage(attacker.charData.attack_power);
     }
 
     private IEnumerator HitEffect(Character target)

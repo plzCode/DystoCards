@@ -19,7 +19,5 @@ MonoBehaviour:
   description: 
   characterType: 2
   max_health: 5
-  current_health: 5
   attack_power: 1
-  defense_power: 1
-  max_hunger: 0
+  defense_power: 0

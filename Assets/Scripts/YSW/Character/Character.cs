@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
         if (damage > 0)
         {
             target.TakeDamage(damage);
-            Debug.Log($"{charData.cardName} attacked {target.charData.cardName} for {damage} damage.");
+            //Debug.Log($"{charData.cardName} attacked {target.charData.cardName} for {damage} damage.");
         }
         else
         {
