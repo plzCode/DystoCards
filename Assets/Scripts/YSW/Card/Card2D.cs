@@ -33,7 +33,7 @@ public class Card2D : MonoBehaviour
         {
             parentCard.childCards.Remove(this);
             parentCard = null;
-            transform.SetParent(null); // Hierarchy 창에서 연결 제거
+            transform.SetParent(CardManager.Instance.cardParent); // Hierarchy 창에서 연결 제거
         }
 
         CollectStackBelow(this, dragGroupRoot);
@@ -202,19 +202,23 @@ public class Card2D : MonoBehaviour
         }
     }
 
-    protected void DetachChildrenBeforeDestroy() //카드가 파괴되기 전에 자식 카드들을 계층 구조에서 분리하고 논리적으로도 분리함.
+    public void DetachChildrenBeforeDestroy() //카드가 파괴되기 전에 자식 카드들을 계층 구조에서 분리하고 논리적으로도 분리함.
     {
-        foreach (var child in childCards)
+        // 부모와의 연결 먼저 해제
+        if (parentCard != null)
         {
+            parentCard.childCards.Remove(this);
+            parentCard = null;
+        }
+
+        // 자식 카드들 분리
+        for (int i = childCards.Count - 1; i >= 0; i--)
+        {
+            var child = childCards[i];
             if (child == null) continue;
 
-            // 계층적으로 분리
-            child.transform.SetParent(null);
-
-            // 논리적으로도 분리
             child.parentCard = null;
-
-            // 위치도 약간 이동시켜 보기 좋게
+            child.transform.SetParent(CardManager.Instance.cardParent);
             child.transform.position += new Vector3(0.5f, 0.5f, 0f);
         }
 
