@@ -7,6 +7,6 @@ public abstract class FurnitureStruct : MonoBehaviour
 
     public void Start()
     {
-        Use();
+        //Use();
     }
 }
