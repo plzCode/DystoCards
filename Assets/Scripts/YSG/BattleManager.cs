@@ -202,7 +202,7 @@ public class BattleManager : MonoBehaviour
         }
 
         attacker.Attack(target);
-        Debug.Log($"{attacker.name}가 {target.name}를 공격 : 데미지 {attacker.charData.attack_power} / 타겟 체력 {target.currentHealth}");
+        Debug.Log($"{attacker.name}가 {target.name}를 공격 : 타겟 {target.currentHealth} - {attacker.charData.attack_power}");
 
         ArrangeCharacters();
     }
