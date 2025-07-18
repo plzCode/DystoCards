@@ -28,12 +28,11 @@ public class Card2D : MonoBehaviour
     private void Start()
     {
         RenderCardUI();
-    }
+    }   
 
-    private void OnMouseDown()
-    {
-        //Debug.Log($"Dragging card: {transform.name}");
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    #region Mouse Code
+    public void StartDragging(Vector3 mouseWorld)
+    {        
         dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
 
         dragGroupRoot = new GameObject("DragGroup").transform;
@@ -52,16 +51,15 @@ public class Card2D : MonoBehaviour
         isDragging = true;
     }
 
-    private void OnMouseDrag()
+    public void Dragging(Vector3 mouseWorld)
     {
         if (dragGroupRoot != null)
-        {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        {   
             dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
         }
     }
 
-    private void OnMouseUp()
+    public void EndDragging()
     {
         isDragging = false;
 
@@ -80,6 +78,9 @@ public class Card2D : MonoBehaviour
 
         BringToFrontRecursive(this);
     }
+    #endregion
+
+    
 
     public virtual void OnUse()
     {
@@ -318,4 +319,55 @@ public class Card2D : MonoBehaviour
         stats["size"] = data.size;
         return stats;
     }
+
+    // 이전에 쓰던 코드
+    /*private void OnMouseDown()
+    {
+        //Debug.Log($"Dragging card: {transform.name}");
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
+
+        dragGroupRoot = new GameObject("DragGroup").transform;
+        dragGroupRoot.position = transform.position;
+
+        // 스택 해제: 논리 + 계층 구조 모두 제거
+        if (parentCard != null)
+        {
+            parentCard.childCards.Remove(this);
+            parentCard = null;
+            transform.SetParent(CardManager.Instance.cardParent); // Hierarchy 창에서 연결 제거
+        }
+
+        CollectStackBelow(this, dragGroupRoot);
+        BringToFrontRecursive(this);
+        isDragging = true;
+    }
+
+    private void OnMouseDrag()
+    {
+        if (dragGroupRoot != null)
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
+        }
+    }
+    private void OnMouseUp()
+    {
+        isDragging = false;
+
+        RestoreParents();
+
+        dragGroupRoot.DetachChildren();
+        Destroy(dragGroupRoot.gameObject);
+
+        Card2D target = GetFirstOverlappingCard();
+        if (target != null && !IsInHierarchy(this, target))
+        {
+            // 가장 아래쪽 자식까지 내려가서 등록
+            Card2D actualTarget = GetDeepestChild(target);
+            StackOnto(actualTarget);
+        }
+
+        BringToFrontRecursive(this);
+    }*/
 }

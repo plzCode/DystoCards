@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 [Serializable]
 public enum TurnPhase
@@ -22,6 +23,8 @@ public class TurnManager : MonoBehaviour
     private Dictionary<TurnPhase, Action> phaseStartActions = new();
 
     public int TurnCount { get; private set; } = 1;
+
+    public MMF_Player mmf_Player;
     
     private void Awake()
     {
@@ -56,6 +59,11 @@ public class TurnManager : MonoBehaviour
         Debug.Log($"[TurnManager] Phase changed to: {CurrentPhase}");
         OnTurnPhaseChanged?.Invoke(CurrentPhase);
         BeginTurnPhase(CurrentPhase);
+
+        if(mmf_Player != null)
+        {
+            mmf_Player.PlayFeedbacks();
+        }
     }
 
     private TurnPhase GetNextPhase(TurnPhase phase)
