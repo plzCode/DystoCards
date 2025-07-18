@@ -201,5 +201,5 @@ MonoBehaviour:
   defensePower: 0
   drops: []
   moveDelay: {x: 0.5, y: 2}
-  moveDistance: 5
+  moveDistance: 1
   moveDuration: 0.5
