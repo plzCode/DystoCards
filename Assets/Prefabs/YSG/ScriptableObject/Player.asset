@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   cardId: 
-  cardName: "\uD50C\uB808\uC774\uC5B4"
+  cardName: Player
   cardImage: {fileID: 0}
   cardType: 6
   description: 

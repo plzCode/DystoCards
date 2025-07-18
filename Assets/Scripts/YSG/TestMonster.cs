@@ -118,18 +118,4 @@ public class TestMonster : Character
             transform.position = endPos;
         }
     }
-
-    public override void TakeDamage(float _damage)
-    {
-        currentHealth -= _damage;
-
-        if (currentHealth <= 0) Die();
-    }
-
-    public override void Die()
-    {
-        Debug.Log(name + " »ç¸Á");
-
-        Destroy(gameObject);
-    }
 }
