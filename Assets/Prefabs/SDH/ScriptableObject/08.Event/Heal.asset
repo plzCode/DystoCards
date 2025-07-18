@@ -16,5 +16,5 @@ MonoBehaviour:
   cardName: Heal
   cardImage: {fileID: 0}
   cardType: 7
-  description: 
+  description: Heal
   functionKey: Heal

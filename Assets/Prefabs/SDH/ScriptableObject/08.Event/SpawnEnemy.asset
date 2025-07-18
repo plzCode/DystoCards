@@ -16,5 +16,5 @@ MonoBehaviour:
   cardName: SpawnEnemy
   cardImage: {fileID: 0}
   cardType: 7
-  description: 
+  description: SpawnEnemy
   functionKey: SpawnEnemy

@@ -16,5 +16,5 @@ MonoBehaviour:
   cardName: GiveGold
   cardImage: {fileID: 0}
   cardType: 7
-  description: 
+  description: GiveGold
   functionKey: GiveGold

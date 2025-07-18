@@ -8,10 +8,10 @@ using UnityEngine.UI;
 /// </summary>
 public class EventUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject eventCanvas;   // 이벤트 UI Canvas (비활성/활성 전환용)
-    [SerializeField] private TMP_Text cardText;        // 카드 이름을 보여줄 TMP_Text
-    [SerializeField] private Button acceptButton;      // O 버튼
-    [SerializeField] private Button rejectButton;      // X 버튼
+    [SerializeField] private GameObject eventCanvas; // 이벤트 UI Canvas (비활성/활성 전환용)
+    [SerializeField] private TMP_Text cardText;      // 카드 이름을 보여줄 TMP_Text
+    [SerializeField] private Button acceptButton;    // O 버튼
+    [SerializeField] private Button rejectButton;    // X 버튼
 
     private EventCardData currentCard; // 현재 카드 데이터
 
@@ -40,7 +40,7 @@ public class EventUIManager : MonoBehaviour
     {
         currentCard = EventFunctionManager.Instance.GetRandomCard();
 
-        cardText.text = currentCard.cardName;
+        cardText.text = currentCard.description;
 
         eventCanvas.SetActive(true);
 
