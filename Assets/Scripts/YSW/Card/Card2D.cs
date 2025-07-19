@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
@@ -19,10 +19,20 @@ public class Card2D : MonoBehaviour
     private Transform dragGroupRoot;
     private Dictionary<Card2D, Transform> originalParents = new Dictionary<Card2D, Transform>();
 
-    private void OnMouseDown()
+    private CardUIRenderer uiRenderer;
+
+    private void Awake()
     {
-        //Debug.Log($"Dragging card: {transform.name}");
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        uiRenderer = GetComponent<CardUIRenderer>();
+    }
+    private void Start()
+    {
+        RenderCardUI();
+    }   
+
+    #region Mouse Code
+    public void StartDragging(Vector3 mouseWorld)
+    {        
         dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
 
         dragGroupRoot = new GameObject("DragGroup").transform;
@@ -33,7 +43,7 @@ public class Card2D : MonoBehaviour
         {
             parentCard.childCards.Remove(this);
             parentCard = null;
-            transform.SetParent(null); // Hierarchy 창에서 연결 제거
+            transform.SetParent(CardManager.Instance.cardParent); // Hierarchy 창에서 연결 제거
         }
 
         CollectStackBelow(this, dragGroupRoot);
@@ -41,16 +51,15 @@ public class Card2D : MonoBehaviour
         isDragging = true;
     }
 
-    private void OnMouseDrag()
+    public void Dragging(Vector3 mouseWorld)
     {
         if (dragGroupRoot != null)
-        {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        {   
             dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
         }
     }
 
-    private void OnMouseUp()
+    public void EndDragging()
     {
         isDragging = false;
 
@@ -69,6 +78,9 @@ public class Card2D : MonoBehaviour
 
         BringToFrontRecursive(this);
     }
+    #endregion
+
+    
 
     public virtual void OnUse()
     {
@@ -79,7 +91,7 @@ public class Card2D : MonoBehaviour
 
     }
 
-    private Card2D GetDeepestChild(Card2D card)
+    protected Card2D GetDeepestChild(Card2D card)
     {
         if (card.childCards.Count == 0)
             return card;
@@ -89,7 +101,7 @@ public class Card2D : MonoBehaviour
     }
 
     // 자기 자신 또는 자식 중에 target이 있는지 확인 → 순환 참조 방지
-    private bool IsInHierarchy(Card2D root, Card2D target)
+    protected bool IsInHierarchy(Card2D root, Card2D target)
     {
         if (root == target)
             return true;
@@ -132,7 +144,7 @@ public class Card2D : MonoBehaviour
         BringToFrontRecursive(this);
     }
 
-    private void CollectStackBelow(Card2D card, Transform groupRoot) //특정 카드와 그 자식들 모두를 한 그룹(groupRoot) 아래로 묶음.
+    protected void CollectStackBelow(Card2D card, Transform groupRoot) //특정 카드와 그 자식들 모두를 한 그룹(groupRoot) 아래로 묶음.
     {
         var allCards = GetStackFrom(card);
 
@@ -144,7 +156,7 @@ public class Card2D : MonoBehaviour
         }
     }
 
-    private void RestoreParents() //CollectStackBelow로 그룹화했던 카드들의 부모 관계를 원래대로 복원.
+    protected void RestoreParents() //CollectStackBelow로 그룹화했던 카드들의 부모 관계를 원래대로 복원.
     {
         foreach (var kv in originalParents)
         {
@@ -154,7 +166,7 @@ public class Card2D : MonoBehaviour
         originalParents.Clear();
     }
 
-    private Card2D GetFirstOverlappingCard() //현재 카드와 겹쳐진 카드들 중에서 첫 번째 적합한 카드(자기 자신이나 자식이 아닌)를 찾음.
+    protected Card2D GetFirstOverlappingCard() //현재 카드와 겹쳐진 카드들 중에서 첫 번째 적합한 카드(자기 자신이나 자식이 아닌)를 찾음.
     {
         Collider2D[] results = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
@@ -176,24 +188,48 @@ public class Card2D : MonoBehaviour
         return null;
     }
 
-    private void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
+    protected void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
     {
         List<Card2D> stack = GetStackFrom(card);
-        foreach (var c in stack)
+        /*foreach (var c in stack)
         {
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
             sr.sortingOrder = globalSortingOrder++;
+        }*/
+        foreach (var c in stack)
+        {
+            int baseOrder = globalSortingOrder++;
+
+            // 카드 본체 렌더러
+            SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
+            sr.sortingOrder = baseOrder;
+
+            // 자식들의 SpriteRenderer 순서도 조정
+            var childRenderers = c.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
+            foreach (var childRenderer in childRenderers)
+            {
+                if (childRenderer != sr) // 본체는 이미 처리했으므로 제외
+                {
+                    childRenderer.sortingOrder = baseOrder + 1;
+                }
+            }
+
+            var tmp = c.GetComponentsInChildren<TextMeshPro>(includeInactive: true);
+            foreach (var t in tmp)
+            {
+                t.sortingOrder = baseOrder + 2; // 아이콘보다 더 앞으로
+            }
         }
     }
 
-    private List<Card2D> GetStackFrom(Card2D root) //특정 카드(root)부터 그 자식들을 모두 포함하는 리스트 반환.
+    protected List<Card2D> GetStackFrom(Card2D root) //특정 카드(root)부터 그 자식들을 모두 포함하는 리스트 반환.
     {
         List<Card2D> result = new List<Card2D>();
         CollectChildrenRecursive(root, result);
         return result;
     }
 
-    private void CollectChildrenRecursive(Card2D card, List<Card2D> result) //재귀적으로 카드와 자식들을 리스트에 추가.
+    protected void CollectChildrenRecursive(Card2D card, List<Card2D> result) //재귀적으로 카드와 자식들을 리스트에 추가.
     {
         result.Add(card);
         foreach (var child in card.childCards)
@@ -202,4 +238,136 @@ public class Card2D : MonoBehaviour
         }
     }
 
+    public void DetachChildrenBeforeDestroy() //카드가 파괴되기 전에 자식 카드들을 계층 구조에서 분리하고 논리적으로도 분리함.
+    {
+        // 부모와의 연결 먼저 해제
+        if (parentCard != null)
+        {
+            parentCard.childCards.Remove(this);
+            parentCard = null;
+        }
+
+        // 자식 카드들 분리
+        for (int i = childCards.Count - 1; i >= 0; i--)
+        {
+            var child = childCards[i];
+            if (child == null) continue;
+
+            child.parentCard = null;
+            child.transform.SetParent(CardManager.Instance.cardParent);
+            child.transform.position += new Vector3(0.5f, 0.5f, 0f);
+        }
+
+        childCards.Clear();
+    }
+
+    public bool IsCardType(CardData data, CardType type)
+    {
+        return data != null && data.cardType == type;
+    }
+    public bool IsCharacterOfType(CardData data, CharacterType characterType)
+    {
+        return data is CharacterCardData charData &&
+               data.cardType == CardType.Character &&
+               charData.characterType == characterType;
+    }
+
+    //cardUI 렌더링
+    public void RenderCardUI()
+    {
+        if (uiRenderer == null || cardData == null) return;
+
+        var stats = GetStatDictionaryFromCardData(cardData);
+        uiRenderer.RenderStats(stats);
+        uiRenderer.RenderName(cardData.cardName);
+    }
+
+    private Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
+    {
+        Dictionary<string, float> stats = new();
+
+        switch (data)
+        {
+            case FoodCardData food:
+                stats["hungerRecovery"] = food.hungerRestore;
+                break;
+            case EquipmentCardData equip:
+                stats["attack"] = equip.attackPower;
+                stats["defense"] = equip.defensePower;
+                break;
+            case HealCardData heal:
+                stats["hp"] = heal.healthAmount;
+                stats["sanity"] = heal.mentalAmount;
+                stats["stamina"] = heal.staninaAmount;
+                break;
+            case HumanCardData human:
+                stats["hp"] = human.max_health;
+                stats["attack"] = human.attack_power;
+                stats["defense"] = human.defense_power;
+                stats["sanity"] = human.max_mental_health;
+                stats["hunger"] = human.max_hunger;
+                stats["stamina"] = human.stamina;
+                stats["consumeHunger"] = human.consume_hunger;
+                break;
+            case CharacterCardData ch:
+                stats["hp"] = ch.max_health;
+                stats["attack"] = ch.attack_power;
+                stats["defense"] = ch.defense_power;
+                break;
+        }
+
+        stats["size"] = data.size;
+        return stats;
+    }
+
+    // 이전에 쓰던 코드
+    /*private void OnMouseDown()
+    {
+        //Debug.Log($"Dragging card: {transform.name}");
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
+
+        dragGroupRoot = new GameObject("DragGroup").transform;
+        dragGroupRoot.position = transform.position;
+
+        // 스택 해제: 논리 + 계층 구조 모두 제거
+        if (parentCard != null)
+        {
+            parentCard.childCards.Remove(this);
+            parentCard = null;
+            transform.SetParent(CardManager.Instance.cardParent); // Hierarchy 창에서 연결 제거
+        }
+
+        CollectStackBelow(this, dragGroupRoot);
+        BringToFrontRecursive(this);
+        isDragging = true;
+    }
+
+    private void OnMouseDrag()
+    {
+        if (dragGroupRoot != null)
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
+        }
+    }
+    private void OnMouseUp()
+    {
+        isDragging = false;
+
+        RestoreParents();
+
+        dragGroupRoot.DetachChildren();
+        Destroy(dragGroupRoot.gameObject);
+
+        Card2D target = GetFirstOverlappingCard();
+        if (target != null && !IsInHierarchy(this, target))
+        {
+            // 가장 아래쪽 자식까지 내려가서 등록
+            Card2D actualTarget = GetDeepestChild(target);
+            StackOnto(actualTarget);
+        }
+
+        BringToFrontRecursive(this);
+    }*/
 }

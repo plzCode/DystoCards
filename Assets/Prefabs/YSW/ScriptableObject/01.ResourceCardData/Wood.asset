@@ -17,5 +17,6 @@ MonoBehaviour:
   cardImage: {fileID: 0}
   cardType: 0
   description: 
+  size: 1
   quantity: 1
   resourceType: 0

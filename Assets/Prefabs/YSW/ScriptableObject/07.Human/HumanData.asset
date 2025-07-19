@@ -17,6 +17,7 @@ MonoBehaviour:
   cardImage: {fileID: 0}
   cardType: 6
   description: 
+  size: 1
   characterType: 0
   max_health: 20
   attack_power: 2

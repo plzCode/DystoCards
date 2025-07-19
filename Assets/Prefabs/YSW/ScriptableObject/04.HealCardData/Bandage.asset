@@ -17,7 +17,9 @@ MonoBehaviour:
   cardImage: {fileID: 0}
   cardType: 4
   description: 
+  size: 1
   healthAmount: 5
   mentalAmount: 0
+  staninaAmount: 0
   maxReuseNum: 1
   currentReuseNum: 0
