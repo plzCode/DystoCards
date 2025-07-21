@@ -34,7 +34,7 @@ public class ExploreInfo : MonoBehaviour
     [Header("현재 인물 정보")]
     [SerializeField] private HumanCardData current_humanInfo;
 
-    
+
 
 
     public void SetExploreInfo(LocationInfo _location)
@@ -47,7 +47,8 @@ public class ExploreInfo : MonoBehaviour
         UIBarUtility.SetBarColor(exploreStrengthBar, _location.requiredStrength, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(exploreStaminaBar, _location.requiredStamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(exploreDangerBar, _location.dangerLevel, UIBarUtility.WarningColor);
-        successPercent.text = "Succes Percent : " +(100 - _location.dangerLevel * 10).ToString();
+        //successPercent.text = "Succes Percent : " +(100 - _location.dangerLevel * 10).ToString();
+        ExpressSuccessPercent(current_locationInfo,current_humanInfo);
     }
 
     public void SetHumanInfo(HumanCardData _human)
@@ -60,10 +61,58 @@ public class ExploreInfo : MonoBehaviour
         UIBarUtility.SetBarColor(humanStaminaBar, (int)_human.stamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(humanStrengthBar, (int)_human.attack_power, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(humanMentality, (int)_human.consume_hunger, UIBarUtility.WarningColor);
-        
-        
+        ExpressSuccessPercent(current_locationInfo,current_humanInfo);
 
     }
+
+
+
+
+    
+    private void ExpressSuccessPercent(LocationInfo location, HumanCardData human)
+    {
+        float successRate = ExploreManager.Instance.CaculateSuccessPercent(location, human);
+        if (successRate == 0)
+        {
+            successPercent.text = "Success Percent : -";
+            return;
+        }
+        if (successRate == 1)
+        {
+            successPercent.text = "No Stamina";
+            successPercent.color = Color.gray;
+            return;
+        }
+            
+
+        string statusText;
+        Color statusColor;
+
+        if (successRate <= 33f)
+        {
+            statusText = "위험";
+            statusColor = Color.red;
+        }
+        else if (successRate < 70f)
+        {
+            statusText = "보통";
+            statusColor = Color.yellow;
+        }
+        else if (successRate < 90f)
+        {
+            statusText = "안전";
+            statusColor = Color.green;
+        }
+        else
+        {
+            statusText = "매우 안전";
+            statusColor = new Color(0.2f, 1f, 0.2f); // 더 밝은 초록
+        }
+
+        successPercent.text = $"탐험 상태 : {statusText}";
+        successPercent.color = statusColor;
+    }
+
 
     /*
     private void SetBarColor(GameObject barObject, int value, Color activeColor)
@@ -76,8 +125,22 @@ public class ExploreInfo : MonoBehaviour
     }
     */
 
+    private bool IsExplorePossible()
+    {
+        if (current_humanInfo == null || current_locationInfo == null)
+            return false;
+
+        return current_humanInfo.stamina >= current_locationInfo.requiredStamina;
+    }
+
     public void OnClick_ExploreRegister()
     {
+        if (!IsExplorePossible())
+        {
+            Debug.Log("스태미나가 부족하여 탐험할 수 없습니다.");
+            return;
+        }
+
         if (current_locationInfo != null && current_humanInfo != null)
         {
             bool success = ExploreManager.Instance.AddExplore(current_humanInfo, current_locationInfo);
@@ -86,6 +149,8 @@ public class ExploreInfo : MonoBehaviour
                // Debug.Log("이미 해당 인원이 해당 지역을 탐색 중입니다.");
             }
         }
+
+        
     }
 
 }
