@@ -22,15 +22,8 @@ public class EventUIManager : MonoBehaviour
         // 버튼 이벤트는 Start에서 한 번만 연결
         acceptButton.onClick.AddListener(AcceptCard);
         rejectButton.onClick.AddListener(RejectCard);
-    }
 
-    private void Update()
-    {
-        // 테스트용: T 키를 누르면 이벤트 UI 열기
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            OpenEventUI();
-        }
+        TurnManager.Instance.RegisterPhaseAction(TurnPhase.EventDraw, () => OpenEventUI());
     }
 
     /// <summary>

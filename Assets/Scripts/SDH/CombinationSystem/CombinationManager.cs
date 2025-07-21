@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -143,6 +145,23 @@ public class CombinationManager : MonoBehaviour
                     {
                         newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
                         newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
+                    }
+
+                    if (!string.IsNullOrEmpty(newCard.cardData.cardName))
+                    {
+                        Type type = AppDomain.CurrentDomain.GetAssemblies()
+                        .SelectMany(a => a.GetTypes())
+                        .FirstOrDefault(t => t.Name == newCard.cardData.cardName || t.FullName == newCard.cardData.cardName);
+
+                        if (type != null && typeof(MonoBehaviour).IsAssignableFrom(type))
+                        {
+                            newCard.gameObject.AddComponent(type);
+                            Debug.Log("Axe 스크립트 부착 완료!");
+                        }
+                        else
+                        {
+                            Debug.LogError($"{newCard.cardData.cardName} 스크립트를 못 찾음");
+                        }
                     }
 
                     Debug.Log("새 카드 생성: " + recipe.result.name);
