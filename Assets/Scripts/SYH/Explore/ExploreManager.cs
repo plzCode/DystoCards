@@ -62,20 +62,24 @@ public class ExploreManager : MonoBehaviour
 
     private void ProcessExploreEnd()
     {
-        for (int i = registeredExplorations.Count - 1; i >= 0; i--)
+        List<ExplorationData> completed = new List<ExplorationData>();
+
+        foreach (var data in registeredExplorations)
         {
-            ExplorationData data = registeredExplorations[i];
-
             data.remainingDays--;
-
             Debug.Log($"[탐험 진행] {data.human.cardName} → {data.location.locationName}, 남은 일수: {data.remainingDays}");
 
             if (data.remainingDays <= 0)
             {
                 Debug.Log($"[탐험 완료] {data.human.cardName}의 {data.location.locationName} 탐험이 완료되었습니다.");
                 ProcessExploreResult(data.location, CaculateSuccessPercent(data.location, data.human));
-                registeredExplorations.RemoveAt(i);
+                completed.Add(data);
             }
+        }
+
+        foreach (var data in completed)
+        {
+            registeredExplorations.Remove(data);
         }
     }
 
