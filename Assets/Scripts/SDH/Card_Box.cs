@@ -2,23 +2,29 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Box : MonoBehaviour
+public class Card_Box : MonoBehaviour
 {
-    private Card2D card;
+    private Transform contentParent; // ScrollView Content (카드 UI가 붙는 부모)
+    private GameObject cardUIPrefab; // 카드 UI Prefab (CardUI)
+    private BoxManager boxManager;
     private List<Card2D> childCards = new List<Card2D>();
-    [SerializeField] private GameObject boxUI;  // 연결할 UI 패널
-    [SerializeField] private Transform contentParent;    // ScrollView Content (카드 UI가 붙는 부모)
-    [SerializeField] private GameObject cardUIPrefab;    // 카드 UI Prefab (CardUI)
+    private Card2D card;
     private int lastCardCount;
+    private float lastClickTime;
+    private const float doubleClickThreshold = 0.3f;
 
     private void Start()
     {
         card = GetComponent<Card2D>();
 
-        if (boxUI != null)
-            boxUI.SetActive(false);  // 시작할 때 UI 꺼두기
+        // 싱글톤에서 참조로 가져옴
+        contentParent = BoxManager.Instance.ContentParent;
+        cardUIPrefab = BoxManager.Instance.CardUIPrefab;
+        boxManager = BoxManager.Instance;
+
+        if (boxManager != null)
+            boxManager.CloseUI(); // 시작할 때 UI 꺼두기
 
         // 최초 카드 개수 저장
         lastCardCount = GetComponentsInChildren<Card2D>(true)
@@ -26,7 +32,7 @@ public class Box : MonoBehaviour
 
         // 초기 데이터 및 UI 갱신
         UpdateBoxData();
-        UpdateUI();
+        UpdateCardUI();
     }
 
     private void Update()
@@ -40,13 +46,25 @@ public class Box : MonoBehaviour
             lastCardCount = currentCardCount;
 
             UpdateBoxData();
-            UpdateUI();
+            UpdateCardUI();
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (boxUI != null)
-                boxUI.SetActive(!boxUI.activeSelf);  // 토글
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.gameObject == gameObject)
+            {
+                float timeSinceLastClick = Time.time - lastClickTime;
+                lastClickTime = Time.time;
+
+                if (timeSinceLastClick < doubleClickThreshold)
+                {
+                    if (boxManager != null)
+                        boxManager.OpenUI(); // UI 활성화
+                }
+            }
         }
     }
 
@@ -59,11 +77,14 @@ public class Box : MonoBehaviour
 
         foreach (var childCard in childCards)
         {
+            if (childCard.transform.parent != this.transform)
+                childCard.transform.SetParent(this.transform);
+
             childCard.gameObject.SetActive(false);
         }
     }
 
-    private void UpdateUI()
+    private void UpdateCardUI()
     {
         // 기존 UI 전부 삭제
         foreach (Transform child in contentParent)
@@ -77,11 +98,11 @@ public class Box : MonoBehaviour
             GameObject go = Instantiate(cardUIPrefab, contentParent);
 
             // CardUI 컴포넌트 가져오기
-            var cardUI = go.GetComponent<CardUI>();
+            var cardUI = go.GetComponent<BoxCardUI>();
             if (cardUI != null)
             {
-                cardUI.linkedCard = childCard;  // 실제 카드 연결
-                cardUI.box = this;               // 박스 연결
+                cardUI.linkedCard = childCard; // 실제 카드 연결
+                cardUI.box = this; // 박스 연결
             }
 
             // TMP_Text 가져와서 이름 세팅
@@ -97,11 +118,8 @@ public class Box : MonoBehaviour
     {
         childCards.Remove(card);
 
-        // Box의 부모의 자식(FieldCardsS)으로 옮기기
+        // 카드 부모를 필드로 설정 후 활성화
         card.transform.SetParent(this.transform.parent);
-
-        card.gameObject.SetActive(true); // 필드에 다시 활성화
-
-        UpdateUI();
+        card.gameObject.SetActive(true);
     }
 }

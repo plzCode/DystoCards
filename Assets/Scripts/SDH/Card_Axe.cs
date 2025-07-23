@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Axe : MonoBehaviour
+public class Card_Axe : MonoBehaviour
 {
     void Start()
     {

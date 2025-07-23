@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38d458f782d30484dbe4c6b538aaa799, type: 3}
-  m_Name: Vegetable
+  m_Name: BoxRecipe
   m_EditorClassIdentifier: 
-  cardId: 000
-  cardName: Vegetable
+  cardId: 061
+  cardName: Recipe
   cardImage: {fileID: 0}
   cardType: 5
   description: 
   size: 1
   ingredients:
-  - ingredient: {fileID: 11400000, guid: bfc79583adb172940b9a79a45629add0, type: 2}
-    quantity: 1
-  - ingredient: {fileID: 11400000, guid: d9ff1ce85b199d24b92ea80e61f2aee0, type: 2}
-    quantity: 1
-  result: {fileID: 11400000}
-  scriptName: 
+  - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+    quantity: 3
+  result: {fileID: 11400000, guid: d596c0e8b1883644fada7df5b4ba7f54, type: 2}
+  scriptName: Card_Box

@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6186903152862971974}
   - component: {fileID: 1067339893749071238}
   m_Layer: 5
-  m_Name: CardUI
+  m_Name: BoxCardUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

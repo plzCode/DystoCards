@@ -147,23 +147,26 @@ public class CombinationManager : MonoBehaviour
                         newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
                     }
 
-                    if (!string.IsNullOrEmpty(newCard.cardData.cardName))
+                    string scriptName = recipe.scriptName;
+
+                    if (!string.IsNullOrEmpty(scriptName))
                     {
                         Type type = AppDomain.CurrentDomain.GetAssemblies()
-                        .SelectMany(a => a.GetTypes())
-                        .FirstOrDefault(t => t.Name == newCard.cardData.cardName || t.FullName == newCard.cardData.cardName);
+                            .SelectMany(a => a.GetTypes())
+                            .FirstOrDefault(t => t.Name == scriptName || t.FullName == scriptName);
 
                         if (type != null && typeof(MonoBehaviour).IsAssignableFrom(type))
                         {
                             newCard.gameObject.AddComponent(type);
-                            Debug.Log("Axe 스크립트 부착 완료!");
+                            Debug.Log($"스크립트 부착 완료: {scriptName}");
                         }
                         else
                         {
-                            Debug.LogError($"{newCard.cardData.cardName} 스크립트를 못 찾음");
+                            Debug.LogError($"스크립트 '{scriptName}' 를 찾을 수 없습니다. 클래스명이 정확한지 확인해주세요.");
                         }
                     }
 
+                    Debug.Log($"newCard.cardData.cardName: {newCard.cardData.cardName}");
                     Debug.Log("새 카드 생성: " + recipe.result.name);
                 }
 

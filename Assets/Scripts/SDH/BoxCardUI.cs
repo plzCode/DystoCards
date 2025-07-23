@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardUI : MonoBehaviour, IPointerClickHandler
+public class BoxCardUI : MonoBehaviour, IPointerClickHandler
 {
     public Card2D linkedCard; // 실제 카드 참조
-    public Box box;           // 박스 참조
+    public Card_Box box;      // 박스 참조
 
     private float lastClickTime;
     private const float doubleClickThreshold = 0.3f;
