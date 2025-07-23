@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MinimapIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public MinimapController minimapController;
+    public MinimapController minimapController;    
+    public LocationInfo locationInfo;
+    public ExploreInfo exploreInfoUI;
+    public Button iconButton; 
 
     private Vector3 originalScale;
     private Vector3 targetScale;
@@ -17,6 +21,11 @@ public class MinimapIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         originalScale = transform.localScale;
         targetScale = originalScale;
+
+        iconButton.onClick.AddListener(() => {
+            exploreInfoUI.SetExploreInfo(locationInfo);
+            exploreInfoUI.gameObject.SetActive(true);
+        });
     }
 
     void Update()
@@ -57,4 +66,6 @@ public class MinimapIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         targetScale = originalScale;
         isHovered = false;
     }
+
+    
 }
