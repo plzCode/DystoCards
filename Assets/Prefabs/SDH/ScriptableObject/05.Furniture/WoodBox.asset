@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
-  m_Name: Box
+  m_Name: WoodBox
   m_EditorClassIdentifier: 
   cardId: 000
-  cardName: Box
+  cardName: WoodBox
   cardImage: {fileID: 0}
   cardType: 4
   description: 

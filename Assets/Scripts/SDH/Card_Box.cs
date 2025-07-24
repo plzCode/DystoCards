@@ -13,10 +13,22 @@ public class Card_Box : MonoBehaviour
     private int lastCardCount;
     private float lastClickTime;
     private const float doubleClickThreshold = 0.3f;
+    private int maxSize;
+
+    private readonly Dictionary<string, int> boxSizeMap = new Dictionary<string, int>()
+    {
+        { "WoodBox", 10 },
+        { "SteelBox", 20 },
+    };
 
     private void Start()
     {
         card = GetComponent<Card2D>();
+
+        if (boxSizeMap.TryGetValue(card.cardData.cardName, out int size))
+            maxSize = size;
+        else
+            maxSize = 5; // 기본값 또는 예외 처리
 
         // 싱글톤에서 참조로 가져옴
         contentParent = BoxManager.Instance.ContentParent;
@@ -38,7 +50,7 @@ public class Card_Box : MonoBehaviour
     private void Update()
     {
         int currentCardCount = GetComponentsInChildren<Card2D>(true)
-        .Where(c => c != card).Count();
+            .Where(c => c != card).Count();
 
         // 카드 개수 변화 감지
         if (lastCardCount != currentCardCount)
@@ -75,12 +87,30 @@ public class Card_Box : MonoBehaviour
             .Where(c => c != card)
             .ToList();
 
+        int totalSize = 0;
+
         foreach (var childCard in childCards)
         {
+            int cardSize = childCard.cardData != null ? childCard.cardData.size : 0;
+
+            // 누적 size가 10 이상이면 더 이상 처리하지 않음
+            if (totalSize + cardSize > maxSize)
+            {
+                RemoveCard(childCard);
+                break;
+            }
+            totalSize += cardSize;
+
             if (childCard.transform.parent != this.transform)
                 childCard.transform.SetParent(this.transform);
 
             childCard.gameObject.SetActive(false);
+        }
+
+        // 차지량 UI 텍스트 갱신
+        if (boxManager != null && boxManager.CapacityText != null)
+        {
+            boxManager.CapacityText.text = $"{totalSize} / {maxSize}";
         }
     }
 
