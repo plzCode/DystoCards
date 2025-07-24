@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CardUIRenderer : MonoBehaviour
 {
-    public StatIconDatabase iconDatabase;
+    
     public Transform statAnchor;  // 카드 위에 붙일 위치
     public GameObject statVisualPrefab;
 
@@ -52,7 +52,7 @@ public class CardUIRenderer : MonoBehaviour
         int mod = totalStatCount % 4;
         if (mod == 0 && totalStatCount != 0) mod = 4;
 
-        float scale = 1.1f - 0.1f * mod; // 1.1 - 0.1 * [1~4] → 1.0 ~ 0.7
+        float scale = 1.9f - 0.1f * mod; // 1.4 - 0.1 * [1~4] → 1.5 ~ 1.1
         statAnchor.localScale = Vector3.one * scale;
 
         // === 일반 스탯 배치 ===
@@ -108,7 +108,7 @@ public class CardUIRenderer : MonoBehaviour
         statObj.name = statName;
         statObj.transform.localPosition = localPosition;
 
-        var icon = iconDatabase.GetIcon(statName);
+        var icon = UIManager.Instance.iconDatabase.GetIcon(statName);
         var iconRenderer = statObj.transform.Find("Icon").GetComponent<SpriteRenderer>();
         var valueText = statObj.transform.Find("Value").GetComponent<TextMeshPro>();
 
