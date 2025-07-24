@@ -6,4 +6,5 @@ public class RecipeCardData : CardData
 {
     public List<IngredientEntry> ingredients = new List<IngredientEntry>();
     public CardData result;
+    public string scriptName;
 }

@@ -63,6 +63,11 @@ public class CardManager : MonoBehaviour
         newCard.cardData = data;
         newCard.name = $"Card_{data.cardName}";
 
+        if(data is HumanCardData humanData)
+        {
+            AddHumanScript(newCard.gameObject, data);
+        }
+
         Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {data.cardId}) at {position}");
         RegisterCard(newCard);
         return newCard;
@@ -101,6 +106,13 @@ public class CardManager : MonoBehaviour
         UnregisterCard(card);       // 목록 및 타입 딕셔너리에서 제거
         Destroy(card.gameObject);   // GameObject 제거
     }
+
+    public void AddHumanScript(GameObject obj, CardData data)
+    {
+        Human human = obj.AddComponent<Human>();
+        human.ChangeCharData(data as HumanCardData);
+    }
+
     // ==============카드 등록 / 제거==============
 
     public void RegisterCard(Card2D card)

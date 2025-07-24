@@ -282,7 +282,7 @@ public class Card2D : MonoBehaviour
         uiRenderer.RenderName(cardData.cardName);
     }
 
-    private Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
+    public Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
     {
         Dictionary<string, float> stats = new();
 
@@ -302,11 +302,11 @@ public class Card2D : MonoBehaviour
                 break;
             case HumanCardData human:
                 stats["hp"] = human.max_health;
-                stats["attack"] = human.attack_power;
-                stats["defense"] = human.defense_power;
                 stats["sanity"] = human.max_mental_health;
                 stats["hunger"] = human.max_hunger;
                 stats["stamina"] = human.stamina;
+                stats["attack"] = human.attack_power;
+                stats["defense"] = human.defense_power;
                 stats["consumeHunger"] = human.consume_hunger;
                 break;
             case CharacterCardData ch:
