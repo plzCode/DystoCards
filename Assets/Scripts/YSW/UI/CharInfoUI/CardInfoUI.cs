@@ -44,6 +44,7 @@ public class CardInfoUI : MonoBehaviour
                 GameObject equipmentItem = new GameObject(item.equipment.cardName);
                 equipmentItem.transform.SetParent(char_Equipment);
                 equipmentItem.AddComponent<Image>().sprite = item.equipment.cardImage;
+                equipmentItem.transform.localScale = Vector3.one;
                 // 추가적인 UI 설정 필요
             }
         }

@@ -198,7 +198,7 @@ public class Card2D : MonoBehaviour
         }*/
         foreach (var c in stack)
         {
-            int baseOrder = globalSortingOrder++;
+            int baseOrder = globalSortingOrder += 3;
 
             // 카드 본체 렌더러
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();

@@ -9,23 +9,23 @@ public class ClickCatcher : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        /*if (panelToClose != null) 
+        if (panelToClose != null)
         {
-            if(UIManager.Instance.hideFeedback !=null && panelToClose.layer == LayerMask.NameToLayer("UI"))
+            if (UIManager.Instance.hideFeedback != null && panelToClose.layer == LayerMask.NameToLayer("UI"))
             {
                 MMF_Scale scaleFeedback = UIManager.Instance.hideFeedback.GetFeedbackOfType<MMF_Scale>();
                 scaleFeedback.AnimateScaleTarget = panelToClose.transform;
                 UIManager.Instance.hideFeedback.PlayFeedbacks();
 
                 float delay = UIManager.Instance.hideFeedback.TotalDuration; // MMF_Player에서 재생시간 받아오기 (GetDuration() 참고)
-                StartCoroutine(UIManager.Instance.DisableAfter(delay, panelToClose));
+                UIManager.Instance.StartCoroutine(UIManager.Instance.DisableAfter(delay, panelToClose));
             }
             else
             {
                 panelToClose.SetActive(false);
             }
         }
-            
-        gameObject.SetActive(false); // ClickCatcher 자신도 비활성화*/
+
+        gameObject.SetActive(false); // ClickCatcher 자신도 비활성화
     }
 }
