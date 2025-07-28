@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 071
   cardName: "\uC131\uAE30\uD6C8"
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 4153240674832713612, guid: 8a1f96c93a153e34a98b5f6dd6bbfebd, type: 3}
   cardType: 6
   description: 
+  size: 1
   characterType: 0
   max_health: 20
   attack_power: 2

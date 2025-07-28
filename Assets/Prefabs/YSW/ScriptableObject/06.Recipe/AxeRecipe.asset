@@ -17,6 +17,7 @@ MonoBehaviour:
   cardImage: {fileID: 0}
   cardType: 5
   description: 
+  size: 1
   ingredients:
   - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
     quantity: 2
