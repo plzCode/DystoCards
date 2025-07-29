@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  cardId: 
+  cardId: 001
   cardName: Player
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 4153240674832713612, guid: 8a1f96c93a153e34a98b5f6dd6bbfebd, type: 3}
   cardType: 6
   description: 
+  size: 1
   characterType: 0
   max_health: 20
   attack_power: 2
