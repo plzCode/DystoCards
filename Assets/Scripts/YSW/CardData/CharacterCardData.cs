@@ -13,6 +13,48 @@ public class CharacterCardData : CardData
     {
         return characterType;
     }
+
+    public event System.Action OnDataChanged;
+
+    public float MaxHealth
+    {
+        get => max_health;
+        set
+        {
+            if (max_health != value)
+            {
+                max_health = value;
+                OnDataChanged?.Invoke();
+            }
+        }
+    }
+
+    public float AttackPower
+    {
+        get => attack_power;
+        set
+        {
+            if (attack_power != value)
+            {
+                attack_power = value;
+                OnDataChanged?.Invoke();
+            }
+        }
+    }
+
+    public float DefensePower
+    {
+        get => defense_power;
+        set
+        {
+            if (defense_power != value)
+            {
+                defense_power = value;
+                OnDataChanged?.Invoke();
+            }
+        }
+    }
+
 }
 public enum CharacterType
 {

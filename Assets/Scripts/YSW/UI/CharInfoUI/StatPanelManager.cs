@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class StatPanelManager : MonoBehaviour
 {
+    private HumanCardData lastData;
+
     public Transform statContainer; // 스탯 항목들을 담는 부모 오브젝트
     public GameObject statEntryPrefab; // StatUIEntry 프리팹
 

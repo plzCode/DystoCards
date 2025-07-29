@@ -8,7 +8,7 @@ public class Card2D : MonoBehaviour
     [SerializeField] public CardData cardData;
 
     public static int globalSortingOrder = 0;
-    public LayerMask cardLayer;
+    public LayerMask cardLayer = 1<<6;
 
     private Vector3 dragOffset;
     private bool isDragging = false;
@@ -280,6 +280,7 @@ public class Card2D : MonoBehaviour
         var stats = GetStatDictionaryFromCardData(cardData);
         uiRenderer.RenderStats(stats);
         uiRenderer.RenderName(cardData.cardName);
+        uiRenderer.RenderImage(cardData.cardImage);
     }
 
     public Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
