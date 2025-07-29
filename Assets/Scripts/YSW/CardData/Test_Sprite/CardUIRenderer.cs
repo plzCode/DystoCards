@@ -13,6 +13,8 @@ public class CardUIRenderer : MonoBehaviour
     public TextMeshPro cardNameText;
     public float spacing = 0.2f;
 
+    public SpriteRenderer cardImage;
+
     public void RenderStats(Dictionary<string, float> stats)
     {
         foreach (Transform child in statAnchor)
@@ -37,7 +39,7 @@ public class CardUIRenderer : MonoBehaviour
 
         // ========== 설정 ==========
         int maxPerRow = 4;
-        float spacingX = 0.35f;
+        float spacingX = 0.3f;
         float spacingY = 0.25f;
         float startY = -0.3f;
         float iconTextGap = 0.075f;
@@ -46,7 +48,8 @@ public class CardUIRenderer : MonoBehaviour
         int totalStatCount = normalStats.Count + (hasSize ? 1 : 0);
 
         int rowCount = totalStatCount <= maxPerRow ? 1 : 2;
-
+        if (rowCount == 1)
+            startY -= 0.075f;
 
         // Scale 조정 나머지 구해서 0이면 4로 취급
         int mod = totalStatCount % 4;
@@ -63,8 +66,8 @@ public class CardUIRenderer : MonoBehaviour
             int col = (row == 0) ? index : index - maxPerRow;
 
             int countInRow = (row == 0)
-                ? Mathf.Min(maxPerRow, totalStatCount) // 🔧 고침
-                : totalStatCount - Mathf.Min(maxPerRow, totalStatCount); // 🔧 고침
+                ? Mathf.Min(maxPerRow, totalStatCount)
+                : totalStatCount - Mathf.Min(maxPerRow, totalStatCount);
 
             Vector3 pos = GetStatPosition(col, countInRow, row, startY, spacingX, spacingY);
             CreateStatVisual(normalStats[i].Key, normalStats[i].Value, pos, iconTextGap);
@@ -94,11 +97,21 @@ public class CardUIRenderer : MonoBehaviour
             cardNameText.text = name;
         }
     }
+
+    public void RenderImage(Sprite image)
+    {
+        if(image != null)
+        {
+            cardImage.sprite = image;
+        }
+    }
+
     private Vector3 GetStatPosition(int index, int countInRow, int rowIndex, float startY, float spacingX, float spacingY)
     {
         float rowY = startY - rowIndex * spacingY;
         float totalWidth = spacingX * (countInRow - 1);
         float startX = -totalWidth / 2f;
+
         return new Vector3(startX + index * spacingX, rowY, 0f);
     }
 

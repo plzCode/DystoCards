@@ -35,9 +35,13 @@ public class CardManager : MonoBehaviour
             Debug.Log("[CardManager] 카드 데이터베이스를 다시 로드합니다.");
             cardDatabase.BuildTypeMap();
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SpawnCardById("071", new Vector3(0, 0, 0));
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SpawnCardById("031", new Vector3(0, 0, 0));
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -63,10 +67,7 @@ public class CardManager : MonoBehaviour
         newCard.cardData = data;
         newCard.name = $"Card_{data.cardName}";
 
-        if(data is HumanCardData humanData)
-        {
-            AddHumanScript(newCard.gameObject, data);
-        }
+        AddCardScript(newCard.gameObject, data);
 
         Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {data.cardId}) at {position}");
         RegisterCard(newCard);
@@ -105,6 +106,39 @@ public class CardManager : MonoBehaviour
         card.DetachChildrenBeforeDestroy();
         UnregisterCard(card);       // 목록 및 타입 딕셔너리에서 제거
         Destroy(card.gameObject);   // GameObject 제거
+    }
+
+    public void AddCardScript(GameObject obj, CardData data)
+    {
+        switch(data.cardType)
+        {
+            case CardType.Resource:                
+                break;
+            case CardType.Food:                
+                break;
+            case CardType.Equipment:
+                obj.AddComponent<EquipmentCard2D>();
+                obj.GetComponent<EquipmentCard2D>().cardData = data;
+                Destroy(obj.GetComponent<Card2D>()); // EquipmentCard2D는 Card2D를 상속하므로, Card2D 컴포넌트 제거
+                break;
+            case CardType.Heal:                
+                break;
+            case CardType.Furniture:
+                break;
+            case CardType.Character:
+                if (data is HumanCardData humanData)
+                {
+                    AddHumanScript(obj, humanData);
+                }
+                else
+                {
+                    Debug.LogWarning($"[CardManager] Unsupported character type: {data.cardType}");
+                }
+                break;
+            default:
+                Debug.LogWarning($"[CardManager] Unknown card type: {data.cardType}");
+                break;
+        }
     }
 
     public void AddHumanScript(GameObject obj, CardData data)
@@ -160,5 +194,18 @@ public class CardManager : MonoBehaviour
     public List<Card2D> GetCardsByType(CardType type)
     {
         return fieldCardsByType.TryGetValue(type, out var list) ? list : new List<Card2D>();
+    }
+
+    public List<Card2D> GetCharacterType(List<Card2D> cardList, CharacterType characterType)
+    {
+        List<Card2D> result = new();
+        foreach (var card in cardList)
+        {
+            if (card.cardData is CharacterCardData charData && charData.characterType == characterType)
+            {
+                result.Add(card);
+            }
+        }
+        return result;
     }
 }
