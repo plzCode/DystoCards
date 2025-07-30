@@ -12,6 +12,7 @@ public class EventUIManager : MonoBehaviour
     [SerializeField] private TMP_Text cardText;      // 카드 이름을 보여줄 TMP_Text
     [SerializeField] private Button acceptButton;    // O 버튼
     [SerializeField] private Button rejectButton;    // X 버튼
+    [SerializeField] private GameObject fieldCards;
 
     private EventCardData currentCard; // 현재 카드 데이터
 
@@ -36,6 +37,7 @@ public class EventUIManager : MonoBehaviour
         cardText.text = currentCard.description;
 
         eventCanvas.SetActive(true);
+        fieldCards.SetActive(false);
 
         Debug.Log($"[이벤트] {currentCard.cardName} 등장");
     }
@@ -46,6 +48,7 @@ public class EventUIManager : MonoBehaviour
     private void CloseEventUI()
     {
         eventCanvas.SetActive(false);
+        fieldCards.SetActive(true);
     }
 
     /// <summary>
