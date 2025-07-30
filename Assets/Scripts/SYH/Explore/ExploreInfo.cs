@@ -51,7 +51,7 @@ public class ExploreInfo : MonoBehaviour
         humanImage.sprite = _human.cardImage;
         humanName.text = _human.cardName;
         UIBarUtility.SetBarColor(humanStaminaBar, (int)_human.stamina, UIBarUtility.StaminaColor);
-        UIBarUtility.SetBarColor(humanStrengthBar, (int)_human.attack_power, UIBarUtility.StrengthColor);
+        UIBarUtility.SetBarColor(humanStrengthBar, (int)_human.AttackPower, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(humanMentality, (int)_human.consume_hunger, UIBarUtility.WarningColor);
         ExpressSuccessPercent(current_locationInfo,current_humanInfo);
 

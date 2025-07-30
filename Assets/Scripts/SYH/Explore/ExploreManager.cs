@@ -110,7 +110,7 @@ public class ExploreManager : MonoBehaviour
         float baseSuccess = 100f;
 
         // 공격력 차이 보너스/패널티
-        float strengthDiff = human.attack_power - location.requiredStrength;
+        float strengthDiff = human.AttackPower - location.requiredStrength;
         float strengthModifier = 0f;
 
         if (strengthDiff >= 0)

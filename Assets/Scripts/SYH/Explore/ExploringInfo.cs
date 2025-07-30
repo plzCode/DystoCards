@@ -24,7 +24,7 @@ public class ExploringInfo : MonoBehaviour
         LocationInfo locationInfo = data.location;
 
         humanImage.sprite = humanInfo.cardImage;
-        humanStrengthText.text = humanInfo.attack_power.ToString();
+        humanStrengthText.text = humanInfo.AttackPower.ToString();
         locationImage.sprite = locationInfo.locationImage;
         locationStrengthText.text = locationInfo.requiredStrength.ToString();
         UIBarUtility.SetBarColor(remainDaysBar, data.remainingDays, UIBarUtility.StrengthColor);
