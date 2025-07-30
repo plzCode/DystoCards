@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MouseInput : MonoBehaviour
@@ -62,11 +63,38 @@ public class MouseInput : MonoBehaviour
         // 우클릭 카드 삭제
         if (Input.GetMouseButtonDown(1))
         {
-            Card2D card = RaycastForCard();
+            /*Card2D card = RaycastForCard();
             if (card != null)
             {
                 Debug.Log($"[RightClick] {card.name} 우클릭됨!");
                 CardManager.Instance.DestroyCard(card);
+            }*/
+            Card2D card = RaycastForCard();
+            if (card != null)
+            {
+                switch (card.RuntimeData.cardType)
+                {
+                    case CardType.Character:
+                        HumanCardData humanData = card.RuntimeData as HumanCardData;
+                        if (humanData != null)
+                        {
+                            Debug.Log($"[RightClick] {card.name} 우클릭됨! (인간 카드)");
+
+                            // 패널 가져오기
+                            var infoPanel = UIManager.Instance.cardInfoPanel;
+                            var canvasGroup = infoPanel.GetComponent<CanvasGroup>();
+
+                            // 패널 보이기
+                            UIManager.Instance.TogglePanel(infoPanel);
+
+                            // 카드 정보 초기화
+                            infoPanel.GetComponent<CardInfoUI>().Initialize(card.gameObject);
+                        }
+                        break;
+                    default:
+                        Debug.Log($"[RightClick] {card.name} 우클릭됨! (기타 카드 타입: {card.RuntimeData.cardType})");
+                        break;
+                }
             }
         }
     }

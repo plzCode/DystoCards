@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using MoreMountains.Feedbacks;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,19 @@ public class UIManager : MonoBehaviour
     public Texture2D interactCursor;
     public Texture2D denyCursor;
     public Vector2 cursorHotspot = Vector2.zero;
+
+    [Header("Card Info Panels")]
+    public GameObject cardInfoPanel;
+
+    [Header("Icon Database")]
+    public StatIconDatabase iconDatabase;
+
+    [Header("ClickCatcher")]
+    public ClickCatcher clickCatcher;
+
+    [Header("MMF_Player")]
+    public MMF_Player showFeedback;
+    public MMF_Player hideFeedback;
 
     private void Awake()
     {
@@ -132,9 +146,67 @@ public class UIManager : MonoBehaviour
     #region UI Panels
     public void TogglePanel(GameObject panel)
     {
-        if (panel != null)
-            panel.SetActive(!panel.activeSelf);
+        if (panel == null) return;
+        
+                                             
+        if (!panel.activeSelf)
+        {
+            // 열기
+            panel.SetActive(true);
+
+            if(showFeedback != null)
+            {
+                MMF_Scale scaleFeedback = showFeedback.GetFeedbackOfType<MMF_Scale>();
+                scaleFeedback.AnimateScaleTarget = panel.transform;
+                showFeedback.PlayFeedbacks();
+            }
+           
+            // 클릭 캐처 활성화
+            clickCatcher.panelToClose = panel;
+            clickCatcher.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (hideFeedback != null)
+            {
+                MMF_Scale scaleFeedback = hideFeedback.GetFeedbackOfType<MMF_Scale>();
+                scaleFeedback.AnimateScaleTarget = panel.transform;
+                hideFeedback.PlayFeedbacks();
+
+                float delay = hideFeedback.TotalDuration; // MMF_Player에서 재생시간 받아오기 (GetDuration() 참고)
+                StartCoroutine(DisableAfter(delay, panel));
+            }
+            else
+            {
+                panel.SetActive(false);
+            }
+
+            // 클릭 캐처 비활성화
+            clickCatcher.panelToClose = null;
+            clickCatcher.gameObject.SetActive(false);
+        }
+    }    
+    public IEnumerator DisableAfter(float delay, GameObject panel)
+    {
+        yield return new WaitForSeconds(delay);
+        panel.SetActive(false);
     }
+
+    // 나중에 CanvasGroup을 사용하면 쓸 곳
+    public void ShowPanel(CanvasGroup group)
+    {
+        group.alpha = 1f;
+        group.interactable = true;
+        group.blocksRaycasts = true;
+    }
+
+    public void HidePanel(CanvasGroup group)
+    {
+        group.alpha = 0f;
+        group.interactable = false;
+        group.blocksRaycasts = false;
+    }
+
 
     public void ShowPanel(GameObject panel)
     {

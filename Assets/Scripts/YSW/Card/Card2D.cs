@@ -6,9 +6,12 @@ using UnityEngine;
 public class Card2D : MonoBehaviour
 {
     [SerializeField] public CardData cardData;
+    
+    [SerializeField] private CardData runtimeData;
+    public CardData RuntimeData => runtimeData;
 
     public static int globalSortingOrder = 0;
-    public LayerMask cardLayer;
+    public LayerMask cardLayer = 1<<6;
 
     private Vector3 dragOffset;
     private bool isDragging = false;
@@ -21,14 +24,33 @@ public class Card2D : MonoBehaviour
 
     private CardUIRenderer uiRenderer;
 
+    public bool isInitialized = false;
+
     private void Awake()
     {
         uiRenderer = GetComponent<CardUIRenderer>();
     }
     private void Start()
     {
-        RenderCardUI();
-    }   
+        /*if (cardData != null)
+        {
+            runtimeData = cardData.Clone();
+
+            // UI 이벤트 바인딩
+            if (runtimeData is CharacterCardData characterData)
+            {
+                characterData.OnDataChanged += OnCardDataChanged;
+            }            
+        }
+        RenderCardUI();*/
+    }
+    private void OnDestroy()
+    {
+        if (runtimeData is CharacterCardData characterData)
+        {
+            characterData.OnDataChanged -= OnCardDataChanged;
+        }
+    }
 
     #region Mouse Code
     public void StartDragging(Vector3 mouseWorld)
@@ -80,7 +102,10 @@ public class Card2D : MonoBehaviour
     }
     #endregion
 
-    
+    public void OnCardDataChanged()
+    {
+        RenderCardUI(); // 카드 UI 다시 그림
+    }
 
     public virtual void OnUse()
     {
@@ -198,7 +223,7 @@ public class Card2D : MonoBehaviour
         }*/
         foreach (var c in stack)
         {
-            int baseOrder = globalSortingOrder++;
+            int baseOrder = globalSortingOrder += 3;
 
             // 카드 본체 렌더러
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
@@ -275,14 +300,16 @@ public class Card2D : MonoBehaviour
     //cardUI 렌더링
     public void RenderCardUI()
     {
-        if (uiRenderer == null || cardData == null) return;
+        if (uiRenderer == null || runtimeData == null) return;
 
-        var stats = GetStatDictionaryFromCardData(cardData);
+        var stats = GetStatDictionaryFromCardData(runtimeData);
         uiRenderer.RenderStats(stats);
-        uiRenderer.RenderName(cardData.cardName);
+        uiRenderer.RenderName(runtimeData.cardName);
+        uiRenderer.RenderImage(runtimeData.cardImage);
+        BringToFrontRecursive(this);
     }
 
-    private Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
+    public Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
     {
         Dictionary<string, float> stats = new();
 
@@ -301,24 +328,52 @@ public class Card2D : MonoBehaviour
                 stats["stamina"] = heal.staninaAmount;
                 break;
             case HumanCardData human:
-                stats["hp"] = human.max_health;
-                stats["attack"] = human.attack_power;
-                stats["defense"] = human.defense_power;
+                stats["hp"] = human.MaxHealth;
                 stats["sanity"] = human.max_mental_health;
                 stats["hunger"] = human.max_hunger;
                 stats["stamina"] = human.stamina;
+                stats["attack"] = human.AttackPower;
+                stats["defense"] = human.DefensePower;
                 stats["consumeHunger"] = human.consume_hunger;
                 break;
             case CharacterCardData ch:
-                stats["hp"] = ch.max_health;
-                stats["attack"] = ch.attack_power;
-                stats["defense"] = ch.defense_power;
+                stats["hp"] = ch.MaxHealth;
+                stats["attack"] = ch.AttackPower;
+                stats["defense"] = ch.DefensePower;
                 break;
         }
 
         stats["size"] = data.size;
         return stats;
     }
+
+    public T GetRuntimeData<T>() where T : CardData
+    {
+        return runtimeData as T;
+    }
+    public void SetRuntimeData(CardData data)
+    {
+        runtimeData = data;
+        
+        // 이벤트 연결 등도 여기서 처리
+        if (RuntimeData is CharacterCardData stats)
+        {
+            stats.OnDataChanged += OnCardDataChanged;
+        }
+
+        // 명시적으로 초기화 메서드 호출
+        InitializeCard();
+    }
+    private void InitializeCard()
+    {
+        if (isInitialized) return;
+
+        RenderCardUI();  // 이름, 이미지, 스탯 등 렌더링
+
+        isInitialized = true;
+    }
+
+}
 
     // 이전에 쓰던 코드
     /*private void OnMouseDown()
@@ -370,4 +425,3 @@ public class Card2D : MonoBehaviour
 
         BringToFrontRecursive(this);
     }*/
-}

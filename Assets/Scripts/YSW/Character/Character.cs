@@ -8,14 +8,14 @@ public class Character : MonoBehaviour
 
     public void Initialize(CharacterCardData data)
     {
-        charData = data;
-        currentHealth = data.max_health;
+        charData = (CharacterCardData)data.Clone();
+        currentHealth = data.MaxHealth;
     }
 
     public virtual void TakeDamage(float amount)
     {
         currentHealth = Mathf.Max(0, currentHealth - amount);
-        Debug.Log($"{charData.cardName} took {amount} damage. HP: {currentHealth}/{charData.max_health}");
+        Debug.Log($"{charData.cardName} took {amount} damage. HP: {currentHealth}/{charData.MaxHealth}");
 
         if (currentHealth <= 0)
         {
@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
 
     public virtual void Heal(float amount)
     {
-        currentHealth = Mathf.Min(charData.max_health, currentHealth + amount);
+        currentHealth = Mathf.Min(charData.MaxHealth, currentHealth + amount);
     }
     
     #region 전투 시스템 정해지면 수정 필요
@@ -41,7 +41,7 @@ public class Character : MonoBehaviour
 
     public virtual void Attack(Character target)
     {
-        float damage = charData.attack_power - target.charData.defense_power;
+        float damage = charData.AttackPower - target.charData.DefensePower;
         if (damage > 0)
         {
             target.TakeDamage(damage);

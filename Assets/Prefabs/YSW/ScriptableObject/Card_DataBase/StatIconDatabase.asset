@@ -14,18 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconEntries:
   - statName: size
-    icon: {fileID: 7499154508442906066, guid: 7a333fdced533fa42b16a868ca1a942c, type: 3}
+    icon: {fileID: 641290683, guid: 0e421ac3999288148b76c4c6596852a0, type: 3}
+    statMappingName: "\uCC28\uC9C0\uB7C9"
   - statName: hp
-    icon: {fileID: -205270267638800340, guid: da5dcf612e268d243b634743ea0fe769, type: 3}
+    icon: {fileID: -5519823592105029693, guid: f3548776235fc6d4f92509c60b854d9b, type: 3}
+    statMappingName: "\uCCB4\uB825"
   - statName: sanity
     icon: {fileID: -3395856866206217572, guid: 4252eccaaf135904395a28fe0a139a23, type: 3}
+    statMappingName: "\uC815\uC2E0\uB825"
   - statName: hunger
-    icon: {fileID: -5633561393553620639, guid: 7df23e1fef745df4c9e3c36e0cc2b005, type: 3}
+    icon: {fileID: -6285086123478972082, guid: 459d098e830971542a04c773573adba9, type: 3}
+    statMappingName: "\uD5C8\uAE30"
   - statName: stamina
-    icon: {fileID: -9088952373934807646, guid: b40d6b9d5f2933543acfe22835d05bd5, type: 3}
+    icon: {fileID: 1872956865249672718, guid: 18560db19b91a3b448d2aa7d757c941c, type: 3}
+    statMappingName: "\uC2A4\uD14C\uBBF8\uB108"
   - statName: attack
     icon: {fileID: -3753825769889500098, guid: 4833770fbef0eef459aaf570c648a398, type: 3}
+    statMappingName: "\uACF5\uACA9\uB825"
   - statName: defense
     icon: {fileID: 2389193319765324094, guid: d3bffcaba2a8f1546813adeaf2b79ebe, type: 3}
+    statMappingName: "\uBC29\uC5B4\uB825"
   - statName: consumeHunger
-    icon: {fileID: -1470970934, guid: d0db96478637a5e4ea2f37952a05801c, type: 3}
+    icon: {fileID: 1896981768466211261, guid: cd4d33b2ffbe8ff47872660a3f86f7c5, type: 3}
+    statMappingName: "\uC18C\uBAA8 \uD5C8\uAE30"
