@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 public class ExploreManager : MonoBehaviour
 {
@@ -13,6 +12,11 @@ public class ExploreManager : MonoBehaviour
 
     [SerializeField] private UIThemeData uiThemeData; // UI »ö»ó Á¤º¸
 
+    [SerializeField] private HumanScrollView humanScrollView;
+
+    public event System.Action<ExplorationData> OnExploreAdded;
+    public event System.Action<ExplorationData> OnExploreCompleted;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,6 +28,14 @@ public class ExploreManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         UIBarUtility.Init(uiThemeData);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            humanScrollView.AddHuman(humanScrollView.exampleHuman1);
+            registedHumans.Add(humanScrollView.exampleHuman1);
+        }
     }
 
     private void Start()
@@ -55,7 +67,9 @@ public class ExploreManager : MonoBehaviour
             }
         }
 
-        registeredExplorations.Add(new ExplorationData(human,location));
+        ExplorationData newData = new ExplorationData(human, location);
+        registeredExplorations.Add(newData);
+        OnExploreAdded?.Invoke(newData); 
         Debug.Log($"[ExploreManager] Å½»ö µî·ÏµÊ: {human.cardName} ¡æ {location.locationName}");
         return true;
     }
@@ -80,6 +94,8 @@ public class ExploreManager : MonoBehaviour
         foreach (var data in completed)
         {
             registeredExplorations.Remove(data);
+            OnExploreCompleted?.Invoke(data);  
+
         }
     }
 

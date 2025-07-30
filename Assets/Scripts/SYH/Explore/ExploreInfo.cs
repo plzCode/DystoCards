@@ -19,14 +19,6 @@ public class ExploreInfo : MonoBehaviour
     [SerializeField] private GameObject humanStrengthBar;
     [SerializeField] private GameObject humanMentality;
 
-    [Header("비활성 색상")]
-    [SerializeField] private Color inactiveColor = new Color(1, 1, 1, 0.2f);
-
-    [Header("각 Bar 별 활성 색상")]
-    [SerializeField] private Color strengthColor = Color.red;
-    [SerializeField] private Color staminaColor = Color.green;
-    [SerializeField] private Color warningColor = Color.yellow;
-
     [Header("현재 장소 정보")]
     [SerializeField] private LocationInfo current_locationInfo;
     //[SerializeField] private ExplorationData current_ExplorationData;
