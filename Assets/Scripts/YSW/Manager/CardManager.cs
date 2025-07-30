@@ -47,7 +47,7 @@ public class CardManager : MonoBehaviour
         {
             foreach (var card in fieldCards)
             {
-                Debug.Log($"Card: {card.name}, Type: {card.cardData.cardType}, ID: {card.cardData.cardId}");
+                Debug.Log($"Card: {card.name}, Type: {card.RuntimeData.cardType}, ID: {card.RuntimeData.cardId}");
             }
         }
     }
@@ -64,12 +64,15 @@ public class CardManager : MonoBehaviour
         }
 
         Card2D newCard = Instantiate(cardPrefab, position, Quaternion.identity, cardParent);
-        newCard.cardData = data;
-        newCard.name = $"Card_{data.cardName}";
 
-        AddCardScript(newCard.gameObject, data);
+        // 카드 데이터 Clone → 반드시 RuntimeData용으로 사용
+        var runtimeData = data.Clone();
+        newCard.SetRuntimeData(runtimeData);  // 여기서 이벤트 연결도 같이 함
+        newCard.name = $"Card_{runtimeData.cardName}";
 
-        Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {data.cardId}) at {position}");
+        AddCardScript(newCard.gameObject, runtimeData);  // 이젠 여기서 Human.Initialize() 해도 문제 없음
+
+        Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {runtimeData.cardId}) at {position}");
         RegisterCard(newCard);
         return newCard;
     }
@@ -180,7 +183,7 @@ public class CardManager : MonoBehaviour
 
     private void RemoveFromTypeDictionary(Card2D card)
     {
-        CardType type = card.cardData.cardType;
+        CardType type = card.RuntimeData.cardType;
 
         if (fieldCardsByType.ContainsKey(type))
         {
@@ -201,7 +204,7 @@ public class CardManager : MonoBehaviour
         List<Card2D> result = new();
         foreach (var card in cardList)
         {
-            if (card.cardData is CharacterCardData charData && charData.characterType == characterType)
+            if (card.RuntimeData is CharacterCardData charData && charData.characterType == characterType)
             {
                 result.Add(card);
             }
