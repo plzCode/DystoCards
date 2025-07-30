@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
@@ -43,6 +44,10 @@ public class CardManager : MonoBehaviour
         {
             SpawnCardById("031", new Vector3(0, 0, 0));
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SpawnCardById("051", new Vector3(0, 0, 0));
+        }        
         if (Input.GetKeyDown(KeyCode.E))
         {
             foreach (var card in fieldCards)
@@ -65,16 +70,14 @@ public class CardManager : MonoBehaviour
 
         Card2D newCard = Instantiate(cardPrefab, position, Quaternion.identity, cardParent);
 
-        // 카드 데이터 Clone → 반드시 RuntimeData용으로 사용
         var runtimeData = data.Clone();
-        newCard.SetRuntimeData(runtimeData);  // 여기서 이벤트 연결도 같이 함
-        newCard.name = $"Card_{runtimeData.cardName}";
+        var finalCard = AddCardScript(newCard.gameObject, runtimeData);
+        finalCard.SetRuntimeData(runtimeData);
+        finalCard.name = $"Card_{runtimeData.cardName}";
 
-        AddCardScript(newCard.gameObject, runtimeData);  // 이젠 여기서 Human.Initialize() 해도 문제 없음
-
-        Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {runtimeData.cardId}) at {position}");
-        RegisterCard(newCard);
-        return newCard;
+        Debug.Log($"[CardManager] 카드 소환: {finalCard.name} (ID: {runtimeData.cardId}) at {position}");
+        RegisterCard(finalCard);
+        return finalCard;
     }
 
     public Card2D SpawnCardById(string cardId, Vector3 position)
@@ -111,20 +114,25 @@ public class CardManager : MonoBehaviour
         Destroy(card.gameObject);   // GameObject 제거
     }
 
-    public void AddCardScript(GameObject obj, CardData data)
+    public Card2D AddCardScript(GameObject obj, CardData data)
     {
-        switch(data.cardType)
+        switch (data.cardType)
         {
-            case CardType.Resource:                
+            case CardType.Resource:
                 break;
-            case CardType.Food:                
-                break;
-            case CardType.Equipment:
-                obj.AddComponent<EquipmentCard2D>();
-                obj.GetComponent<EquipmentCard2D>().cardData = data;
+            case CardType.Food:
                 Destroy(obj.GetComponent<Card2D>()); // EquipmentCard2D는 Card2D를 상속하므로, Card2D 컴포넌트 제거
-                break;
-            case CardType.Heal:                
+                var food = obj.AddComponent<FoodCard2D>();
+                food.cardData = data;
+                return food;
+
+            case CardType.Equipment:
+                Destroy(obj.GetComponent<Card2D>()); // EquipmentCard2D는 Card2D를 상속하므로, Card2D 컴포넌트 제거
+                var equip = obj.AddComponent<EquipmentCard2D>();
+                equip.cardData = data;
+                return equip;
+
+            case CardType.Heal:
                 break;
             case CardType.Furniture:
                 break;
@@ -142,6 +150,8 @@ public class CardManager : MonoBehaviour
                 Debug.LogWarning($"[CardManager] Unknown card type: {data.cardType}");
                 break;
         }
+
+        return obj.GetComponent<Card2D>();
     }
 
     public void AddHumanScript(GameObject obj, CardData data)
