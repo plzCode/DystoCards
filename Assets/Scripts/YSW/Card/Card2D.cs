@@ -8,7 +8,7 @@ public class Card2D : MonoBehaviour
     [SerializeField] public CardData cardData;
 
     public static int globalSortingOrder = 0;
-    public LayerMask cardLayer;
+    public LayerMask cardLayer = 1<<6;
 
     private Vector3 dragOffset;
     private bool isDragging = false;
@@ -198,7 +198,7 @@ public class Card2D : MonoBehaviour
         }*/
         foreach (var c in stack)
         {
-            int baseOrder = globalSortingOrder++;
+            int baseOrder = globalSortingOrder += 3;
 
             // 카드 본체 렌더러
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
@@ -280,9 +280,10 @@ public class Card2D : MonoBehaviour
         var stats = GetStatDictionaryFromCardData(cardData);
         uiRenderer.RenderStats(stats);
         uiRenderer.RenderName(cardData.cardName);
+        uiRenderer.RenderImage(cardData.cardImage);
     }
 
-    private Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
+    public Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
     {
         Dictionary<string, float> stats = new();
 
@@ -302,11 +303,11 @@ public class Card2D : MonoBehaviour
                 break;
             case HumanCardData human:
                 stats["hp"] = human.max_health;
-                stats["attack"] = human.attack_power;
-                stats["defense"] = human.defense_power;
                 stats["sanity"] = human.max_mental_health;
                 stats["hunger"] = human.max_hunger;
                 stats["stamina"] = human.stamina;
+                stats["attack"] = human.attack_power;
+                stats["defense"] = human.defense_power;
                 stats["consumeHunger"] = human.consume_hunger;
                 break;
             case CharacterCardData ch:

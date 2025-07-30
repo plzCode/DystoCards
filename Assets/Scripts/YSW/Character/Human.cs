@@ -14,7 +14,10 @@ public class Human : Character
 
     private Dictionary<EquipmentSlot, EquipmentCardData> equippedItems = new();
 
-    public new HumanCardData charData => _runtimeData;
+    public new HumanCardData charData 
+    {
+        get => _runtimeData;
+    }
 
     public void Start()
     {
@@ -23,6 +26,13 @@ public class Human : Character
             _runtimeData = Instantiate(base.charData as HumanCardData); // 복제본 생성
             Initialize(_runtimeData);
         }
+    }
+    
+    public void ChangeCharData(HumanCardData data)
+    {
+        _runtimeData = data;
+        base.charData = data; // 부모 필드에도 저장해줌 (CharacterCardData 타입이므로 OK)
+        Initialize(_runtimeData);
     }
 
     public void Initialize(HumanCardData data)

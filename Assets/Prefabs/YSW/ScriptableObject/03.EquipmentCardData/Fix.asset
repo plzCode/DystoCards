@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 032
   cardName: Fix
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 1806212715, guid: 09584de5e1524a540a4bdd143cd1be18, type: 3}
   cardType: 2
   description: 
   size: 1
   attackPower: 5
   defensePower: 0
-  slot: 2
+  slot: 0

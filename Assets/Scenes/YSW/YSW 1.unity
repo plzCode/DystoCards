@@ -286,7 +286,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
 --- !u!61 &33909524
@@ -546,7 +546,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
 --- !u!61 &193281513
@@ -680,10 +680,6 @@ PrefabInstance:
     - target: {fileID: 1281882521114903145, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2823523951759136651, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
-      propertyPath: cardLayer.m_Bits
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3912577115860299538, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1278,7 +1274,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
 --- !u!61 &385995837
@@ -1547,7 +1543,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0754f38d9d04a5d4392bddc603ece8da, type: 2}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
 --- !u!1 &422145333
@@ -3232,7 +3228,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
 --- !u!61 &1264052059
@@ -5512,7 +5508,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
 --- !u!61 &1918718452
@@ -6216,6 +6212,10 @@ PrefabInstance:
       propertyPath: cardParent
       value: 
       objectReference: {fileID: 1345077518}
+    - target: {fileID: 2030355039963530374, guid: 5adb9aeb0deaf014a85721e58eb769ec, type: 3}
+      propertyPath: cardPrefab
+      value: 
+      objectReference: {fileID: 4000751698715465155, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
     - target: {fileID: 6354110347429500089, guid: 5adb9aeb0deaf014a85721e58eb769ec, type: 3}
       propertyPath: m_Name
       value: CardManager
