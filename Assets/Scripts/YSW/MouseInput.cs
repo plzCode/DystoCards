@@ -72,10 +72,10 @@ public class MouseInput : MonoBehaviour
             Card2D card = RaycastForCard();
             if (card != null)
             {
-                switch (card.cardData.cardType)
+                switch (card.RuntimeData.cardType)
                 {
                     case CardType.Character:
-                        HumanCardData humanData = card.cardData as HumanCardData;
+                        HumanCardData humanData = card.RuntimeData as HumanCardData;
                         if (humanData != null)
                         {
                             Debug.Log($"[RightClick] {card.name} 우클릭됨! (인간 카드)");
@@ -92,7 +92,7 @@ public class MouseInput : MonoBehaviour
                         }
                         break;
                     default:
-                        Debug.Log($"[RightClick] {card.name} 우클릭됨! (기타 카드 타입: {card.cardData.cardType})");
+                        Debug.Log($"[RightClick] {card.name} 우클릭됨! (기타 카드 타입: {card.RuntimeData.cardType})");
                         break;
                 }
             }
