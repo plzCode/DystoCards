@@ -30,9 +30,9 @@ public class HumanIcon : MonoBehaviour
         if (iconImage != null) iconImage.sprite = _human.cardImage;
         if (nameText != null) nameText.text = _human.cardName;
 
-        UIBarUtility.SetBarColor(staminaBar, (int)_human.stamina, UIBarUtility.StaminaColor);
+        UIBarUtility.SetBarColor(staminaBar, (int)_human.Stamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(strengthBar, (int)_human.AttackPower, UIBarUtility.StrengthColor);
-        UIBarUtility.SetBarColor(mentalBar, (int)_human.consume_hunger, UIBarUtility.WarningColor);
+        UIBarUtility.SetBarColor(mentalBar, (int)_human.ConsumeHunger, UIBarUtility.WarningColor);
 
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(() =>

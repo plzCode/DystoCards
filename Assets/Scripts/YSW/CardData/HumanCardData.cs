@@ -3,10 +3,64 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Cards/07.HumanCard", order = 8)]
 public class HumanCardData : CharacterCardData
 {
-    public float max_mental_health = 10f;
-    public float max_hunger = 5f;
-    public float stamina = 5f;
-    public float consume_hunger = 1f;
+    [Header("Human Attributes")]
+    [SerializeField] private float max_mental_health = 10f;
+    [SerializeField] private float max_hunger = 5f;
+    [SerializeField] private float stamina = 5f;
+    [SerializeField] private float consume_hunger = 1f;
+
+    public float MaxMentalHealth
+    {
+        get => max_mental_health;
+        set
+        {
+            if (max_mental_health != value)
+            {
+                max_mental_health = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+
+    public float MaxHunger
+    {
+        get => max_hunger;
+        set
+        {
+            if (max_hunger != value)
+            {
+                max_hunger = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+
+    public float Stamina
+    {
+        get => stamina;
+        set
+        {
+            if (stamina != value)
+            {
+                stamina = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+
+    public float ConsumeHunger
+    {
+        get => consume_hunger;
+        set
+        {
+            if (consume_hunger != value)
+            {
+                consume_hunger = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+
 
     public override CardData Clone()
     {

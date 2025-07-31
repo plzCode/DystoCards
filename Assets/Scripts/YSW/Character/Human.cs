@@ -28,7 +28,10 @@ public class Human : Character
     }
     public void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            humanData.MaxHunger += 1f;
+        }
     }
 
     public void ChangeCharData(HumanCardData data)
@@ -48,44 +51,44 @@ public class Human : Character
         //_runtimeData = data;
 
         currentHealth = data.MaxHealth;
-        currentMentalHealth = data.max_mental_health;
-        currentHunger = data.max_hunger;
-        currentStamina = data.stamina;
+        currentMentalHealth = data.MaxMentalHealth;
+        currentHunger = data.MaxHunger;
+        currentStamina = data.Stamina;
     }
 
     public void ConsumeFood()
     {
-        currentHunger = Mathf.Max(0, currentHunger - humanData.consume_hunger);
-        Debug.Log($"{charData.cardName} consumed {humanData.consume_hunger} hunger. Remaining: {currentHunger}");
+        currentHunger = Mathf.Max(0, currentHunger - humanData.ConsumeHunger);
+        Debug.Log($"{charData.cardName} consumed {humanData.ConsumeHunger} hunger. Remaining: {currentHunger}");
     }
 
     public void RecoverHunger(float amount)
     {
-        currentHunger = Mathf.Min(humanData.max_hunger, currentHunger + amount);
-        Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{humanData.max_hunger}");
+        currentHunger = Mathf.Min(humanData.MaxHunger, currentHunger + amount);
+        Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{humanData.MaxHunger}");
     }
 
     public void ConsumeStamina(float amount)
     {
         currentStamina = Mathf.Max(0, currentStamina - amount);
-        Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.stamina}");
+        Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.Stamina}");
     }
 
     public void RecoverStamina(float amount)
     {
-        currentStamina = Mathf.Min(humanData.stamina, currentStamina + amount);
+        currentStamina = Mathf.Min(humanData.Stamina, currentStamina + amount);
     }
 
     public void TakeStress(float amount)
     {
         currentMentalHealth = Mathf.Max(0, currentMentalHealth - amount);
-        Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{humanData.max_mental_health}");
+        Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
     public void RecoverMentalHealth(float amount)
     {
-        currentMentalHealth = Mathf.Min(humanData.max_mental_health, currentMentalHealth + amount);
-        Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.max_mental_health}");
+        currentMentalHealth = Mathf.Min(humanData.MaxMentalHealth, currentMentalHealth + amount);
+        Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
     public override void Attack(Character target)
@@ -170,8 +173,9 @@ public class Human : Character
         RemoveEquipmentStats(itemData);
 
         // 장비 오브젝트 활성화 및 위치 복원
-        itemObject.SetActive(true);
-        itemObject.transform.position = transform.position + Vector3.right * 2f; // 예시: 우측에 복귀
+        itemObject.SetActive(true); 
+        Vector3 directionToCenter = (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane)) - transform.position).normalized;
+        itemObject.transform.position = transform.position + directionToCenter * 2.5f; // 2f는 거리
         itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
 
         var card2D = itemObject.GetComponent<Card2D>();
