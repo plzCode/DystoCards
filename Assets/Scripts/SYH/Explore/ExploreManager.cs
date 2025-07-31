@@ -36,6 +36,11 @@ public class ExploreManager : MonoBehaviour
             humanScrollView.AddHuman(humanScrollView.exampleHuman1);
             registedHumans.Add(humanScrollView.exampleHuman1);
         }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            CardManager.Instance.SpawnCardById("041", new Vector3(0, 0, 0));
+        }
     }
 
     private void Start()
