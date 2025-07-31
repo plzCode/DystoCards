@@ -5,9 +5,9 @@ public class CharacterCardData : CardData
     public CharacterType characterType;
 
     [Header("Character Attributes")]
-    public float max_health = 20f;
-    public float attack_power = 2f;
-    public float defense_power = 1f;
+    [SerializeField] private float max_health = 20f;
+    [SerializeField] private float attack_power = 2f;
+    [SerializeField] private float defense_power = 1f;
 
     public CharacterType GetCharacterType()
     {
@@ -53,6 +53,32 @@ public class CharacterCardData : CardData
                 OnDataChanged?.Invoke();
             }
         }
+    }
+    protected void RaiseDataChanged()
+    {
+        OnDataChanged?.Invoke();
+    }
+
+    // Clone 메서드 오버라이드
+    public override CardData Clone()
+    {
+        CharacterCardData clone = ScriptableObject.CreateInstance<CharacterCardData>();
+
+        // 부모 클래스 필드 복사
+        clone.cardId = this.cardId;
+        clone.cardName = this.cardName;
+        clone.cardImage = this.cardImage;
+        clone.cardType = this.cardType;
+        clone.description = this.description;
+        clone.size = this.size;
+
+        // 자식 클래스 필드 복사
+        clone.max_health = this.max_health;
+        clone.attack_power = this.attack_power;
+        clone.defense_power = this.defense_power;
+        clone.characterType = this.characterType;
+
+        return clone;
     }
 
 }

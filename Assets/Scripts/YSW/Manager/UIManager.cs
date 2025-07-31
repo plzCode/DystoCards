@@ -36,6 +36,16 @@ public class UIManager : MonoBehaviour
     public MMF_Player showFeedback;
     public MMF_Player hideFeedback;
 
+    [Header("Raycast Control")]
+    public LayerMask defaultInteractableMask;
+    public LayerMask defaultCardMask;
+
+    public LayerMask uiOnlyInteractableMask; 
+    public LayerMask uiOnlyCardMask;
+
+    [Header("Mouse Input")]
+    public MouseInput mouseInput;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -164,6 +174,10 @@ public class UIManager : MonoBehaviour
             // 클릭 캐처 활성화
             clickCatcher.panelToClose = panel;
             clickCatcher.gameObject.SetActive(true);
+
+            // 마우스 입력 차단
+            if (mouseInput != null)
+                mouseInput.SetInteractionLayers(uiOnlyInteractableMask, uiOnlyCardMask);
         }
         else
         {
@@ -184,11 +198,17 @@ public class UIManager : MonoBehaviour
             // 클릭 캐처 비활성화
             clickCatcher.panelToClose = null;
             clickCatcher.gameObject.SetActive(false);
+
+            //마우스 입력 활성화
+            if (mouseInput != null)
+                mouseInput.SetInteractionLayers(defaultInteractableMask, defaultCardMask);
         }
     }    
+
     public IEnumerator DisableAfter(float delay, GameObject panel)
     {
         yield return new WaitForSeconds(delay);
+        //TogglePanel(panel); 
         panel.SetActive(false);
     }
 
@@ -217,7 +237,8 @@ public class UIManager : MonoBehaviour
     public void HidePanel(GameObject panel)
     {
         if (panel != null)
-            panel.SetActive(false);
+            TogglePanel(panel);
+//            panel.SetActive(false);
     }
     #endregion
 

@@ -20,4 +20,4 @@ MonoBehaviour:
   size: 1
   attackPower: 5
   defensePower: 0
-  slot: 0
+  slot: 2

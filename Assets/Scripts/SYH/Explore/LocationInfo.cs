@@ -23,4 +23,6 @@ public class RewardInfo
 {
     public CardData card;     // EquipmentCardData 포함한 모든 카드 참조 가능
     public int quantity;
+    [Range(0f, 100f)]
+    public float probability = 100f;
 }

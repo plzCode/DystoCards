@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
@@ -43,11 +44,15 @@ public class CardManager : MonoBehaviour
         {
             SpawnCardById("031", new Vector3(0, 0, 0));
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SpawnCardById("051", new Vector3(0, 0, 0));
+        }        
         if (Input.GetKeyDown(KeyCode.E))
         {
             foreach (var card in fieldCards)
             {
-                Debug.Log($"Card: {card.name}, Type: {card.cardData.cardType}, ID: {card.cardData.cardId}");
+                Debug.Log($"Card: {card.name}, Type: {card.RuntimeData.cardType}, ID: {card.RuntimeData.cardId}");
             }
         }
     }
@@ -64,14 +69,15 @@ public class CardManager : MonoBehaviour
         }
 
         Card2D newCard = Instantiate(cardPrefab, position, Quaternion.identity, cardParent);
-        newCard.cardData = data;
-        newCard.name = $"Card_{data.cardName}";
 
-        AddCardScript(newCard.gameObject, data);
+        var runtimeData = data.Clone();
+        var finalCard = AddCardScript(newCard.gameObject, runtimeData);
+        finalCard.SetRuntimeData(runtimeData);
+        finalCard.name = $"Card_{runtimeData.cardName}";
 
-        Debug.Log($"[CardManager] 카드 소환: {newCard.name} (ID: {data.cardId}) at {position}");
-        RegisterCard(newCard);
-        return newCard;
+        Debug.Log($"[CardManager] 카드 소환: {finalCard.name} (ID: {runtimeData.cardId}) at {position}");
+        RegisterCard(finalCard);
+        return finalCard;
     }
 
     public Card2D SpawnCardById(string cardId, Vector3 position)
@@ -108,20 +114,25 @@ public class CardManager : MonoBehaviour
         Destroy(card.gameObject);   // GameObject 제거
     }
 
-    public void AddCardScript(GameObject obj, CardData data)
+    public Card2D AddCardScript(GameObject obj, CardData data)
     {
-        switch(data.cardType)
+        switch (data.cardType)
         {
-            case CardType.Resource:                
+            case CardType.Resource:
                 break;
-            case CardType.Food:                
-                break;
-            case CardType.Equipment:
-                obj.AddComponent<EquipmentCard2D>();
-                obj.GetComponent<EquipmentCard2D>().cardData = data;
+            case CardType.Food:
                 Destroy(obj.GetComponent<Card2D>()); // EquipmentCard2D는 Card2D를 상속하므로, Card2D 컴포넌트 제거
-                break;
-            case CardType.Heal:                
+                var food = obj.AddComponent<FoodCard2D>();
+                food.cardData = data;
+                return food;
+
+            case CardType.Equipment:
+                Destroy(obj.GetComponent<Card2D>()); // EquipmentCard2D는 Card2D를 상속하므로, Card2D 컴포넌트 제거
+                var equip = obj.AddComponent<EquipmentCard2D>();
+                equip.cardData = data;
+                return equip;
+
+            case CardType.Heal:
                 break;
             case CardType.Furniture:
                 break;
@@ -139,6 +150,8 @@ public class CardManager : MonoBehaviour
                 Debug.LogWarning($"[CardManager] Unknown card type: {data.cardType}");
                 break;
         }
+
+        return obj.GetComponent<Card2D>();
     }
 
     public void AddHumanScript(GameObject obj, CardData data)
@@ -180,7 +193,7 @@ public class CardManager : MonoBehaviour
 
     private void RemoveFromTypeDictionary(Card2D card)
     {
-        CardType type = card.cardData.cardType;
+        CardType type = card.RuntimeData.cardType;
 
         if (fieldCardsByType.ContainsKey(type))
         {
@@ -201,7 +214,7 @@ public class CardManager : MonoBehaviour
         List<Card2D> result = new();
         foreach (var card in cardList)
         {
-            if (card.cardData is CharacterCardData charData && charData.characterType == characterType)
+            if (card.RuntimeData is CharacterCardData charData && charData.characterType == characterType)
             {
                 result.Add(card);
             }
