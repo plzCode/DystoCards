@@ -7,39 +7,50 @@ public class Human : Character
     public float currentHunger;
     public float currentStamina;
 
-    private HumanCardData _runtimeData;
+    //private HumanCardData _runtimeData;
 
     [Header("Inspectable Equipment Slots")]
     public List<EquipmentSlotData> equipmentSlotList = new();  // ReorderableList에 사용
 
     private Dictionary<EquipmentSlot, EquipmentCardData> equippedItems = new();
 
-    public new HumanCardData charData 
-    {
-        get => _runtimeData;
-    }
+    public HumanCardData humanData => GetComponent<Card2D>().RuntimeData as HumanCardData;
 
     public void Start()
     {
-        if (base.charData != null)
+        var card = GetComponent<Card2D>();
+        if (card != null && card.RuntimeData is HumanCardData data)
         {
-            _runtimeData = Instantiate(base.charData as HumanCardData); // 복제본 생성
-            Initialize(_runtimeData);
+            base.charData = data;
+            Initialize(data);
         }
     }
-    
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            humanData.AttackPower += 1; 
+            Debug.Log(ReferenceEquals(humanData, GetComponent<Card2D>().RuntimeData));
+        }
+    }
+
     public void ChangeCharData(HumanCardData data)
     {
-        _runtimeData = data;
-        base.charData = data; // 부모 필드에도 저장해줌 (CharacterCardData 타입이므로 OK)
-        Initialize(_runtimeData);
+        base.charData = data;
+
+        var card = GetComponent<Card2D>();
+        if (card != null)
+        {
+            card.SetRuntimeData(data); // 내부에서 Clone과 이벤트 등록, UI 갱신 처리
+            Initialize(data);
+        }
     }
 
     public void Initialize(HumanCardData data)
     {
-        _runtimeData = data;
+        //_runtimeData = data;
 
-        currentHealth = data.max_health;
+        currentHealth = data.MaxHealth;
         currentMentalHealth = data.max_mental_health;
         currentHunger = data.max_hunger;
         currentStamina = data.stamina;
@@ -47,50 +58,50 @@ public class Human : Character
 
     public void ConsumeFood()
     {
-        currentHunger = Mathf.Max(0, currentHunger - charData.consume_hunger);
-        Debug.Log($"{charData.cardName} consumed {charData.consume_hunger} hunger. Remaining: {currentHunger}");
+        currentHunger = Mathf.Max(0, currentHunger - humanData.consume_hunger);
+        Debug.Log($"{charData.cardName} consumed {humanData.consume_hunger} hunger. Remaining: {currentHunger}");
     }
 
     public void RecoverHunger(float amount)
     {
-        currentHunger = Mathf.Min(charData.max_hunger, currentHunger + amount);
-        Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{charData.max_hunger}");
+        currentHunger = Mathf.Min(humanData.max_hunger, currentHunger + amount);
+        Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{humanData.max_hunger}");
     }
 
     public void ConsumeStamina(float amount)
     {
         currentStamina = Mathf.Max(0, currentStamina - amount);
-        Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{charData.stamina}");
+        Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.stamina}");
     }
 
     public void RecoverStamina(float amount)
     {
-        currentStamina = Mathf.Min(charData.stamina, currentStamina + amount);
+        currentStamina = Mathf.Min(humanData.stamina, currentStamina + amount);
     }
 
     public void TakeStress(float amount)
     {
         currentMentalHealth = Mathf.Max(0, currentMentalHealth - amount);
-        Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{charData.max_mental_health}");
+        Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{humanData.max_mental_health}");
     }
 
     public void RecoverMentalHealth(float amount)
     {
-        currentMentalHealth = Mathf.Min(charData.max_mental_health, currentMentalHealth + amount);
-        Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{charData.max_mental_health}");
+        currentMentalHealth = Mathf.Min(humanData.max_mental_health, currentMentalHealth + amount);
+        Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.max_mental_health}");
     }
 
     public override void Attack(Character target)
     {
-        target.TakeDamage(charData.attack_power);
-        Debug.Log($"{charData.cardName} attacks {target.charData.cardName} for {charData.attack_power} damage");
+        target.TakeDamage(charData.AttackPower);
+        Debug.Log($"{charData.cardName} attacks {target.charData.cardName} for {charData.AttackPower} damage");
     }
 
     public override void TakeDamage(float amount)
     {
-        float effectiveDamage = Mathf.Max(0, amount - charData.defense_power);
+        float effectiveDamage = Mathf.Max(0, amount - charData.DefensePower);
         currentHealth = Mathf.Max(0, currentHealth - effectiveDamage);
-        Debug.Log($"{charData.cardName} took {effectiveDamage} damage after armor. HP: {currentHealth}/{charData.max_health}");
+        Debug.Log($"{charData.cardName} took {effectiveDamage} damage after armor. HP: {currentHealth}/{charData.MaxHealth}");
 
         if (currentHealth <= 0)
         {
@@ -112,7 +123,7 @@ public class Human : Character
         equippedItems[equipment.slot] = equipment;
         ApplyEquipmentStats(equipment);
 
-        Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot} = {charData.attack_power}");
+        Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot} = {charData.AttackPower}");
         SyncDictFromList();
     }
 
@@ -129,17 +140,38 @@ public class Human : Character
 
     private void ApplyEquipmentStats(EquipmentCardData equipment)
     {
-        charData.attack_power += equipment.attackPower;
-        charData.defense_power += equipment.defensePower;
+        if (humanData != null)
+        {
+            humanData.AttackPower += equipment.attackPower;
+            humanData.DefensePower += equipment.defensePower;
+            Debug.Log($"{humanData.cardName} gained {equipment.attackPower} ATK from {equipment.cardName}");
+        }
+    }
+
+    private void RemoveEquipmentStats(EquipmentCardData equipment)
+    {
+        if (humanData != null)
+        {
+            humanData.AttackPower -= equipment.attackPower;
+            humanData.DefensePower -= equipment.defensePower;
+            Debug.Log($"{humanData.cardName} lost {equipment.attackPower} ATK from {equipment.cardName}");
+        }
+    }
+
+    /*private void ApplyEquipmentStats(EquipmentCardData equipment)
+    {
+        charData.AttackPower += equipment.attackPower;
+        charData.DefensePower += equipment.defensePower;
         Debug.Log($"{charData.cardName} gained {equipment.attackPower} attack and {equipment.defensePower} defense from {equipment.cardName}");
     }
 
     private void RemoveEquipmentStats(EquipmentCardData equipment)
     {
-        charData.attack_power -= equipment.attackPower;
-        charData.defense_power -= equipment.defensePower;
+        charData.AttackPower -= equipment.attackPower;
+        charData.DefensePower -= equipment.defensePower;
         Debug.Log($"{charData.cardName} lost {equipment.attackPower} attack and {equipment.defensePower} defense from {equipment.cardName}");
-    }
+    }*/
+
     private void SyncDictFromList()
     {
         equipmentSlotList.Clear();

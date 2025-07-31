@@ -284,13 +284,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
-  isInitialized: 0
 --- !u!61 &33909524
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -546,13 +544,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
-  isInitialized: 0
 --- !u!61 &193281513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1276,13 +1272,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
-  isInitialized: 0
 --- !u!61 &385995837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1547,13 +1541,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0754f38d9d04a5d4392bddc603ece8da, type: 2}
-  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
-  isInitialized: 0
 --- !u!1 &422145333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,19 +3087,6 @@ MonoBehaviour:
   clickCatcher: {fileID: 261962717}
   showFeedback: {fileID: 545700253}
   hideFeedback: {fileID: 2044999673}
-  defaultInteractableMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  defaultCardMask:
-    serializedVersion: 2
-    m_Bits: 64
-  uiOnlyInteractableMask:
-    serializedVersion: 2
-    m_Bits: 32
-  uiOnlyCardMask:
-    serializedVersion: 2
-    m_Bits: 0
-  mouseInput: {fileID: 1218770938}
 --- !u!114 &1218770934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3210,7 +3189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableLayerMask:
     serializedVersion: 2
-    m_Bits: 96
+    m_Bits: 64
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3247,13 +3226,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
-  isInitialized: 0
 --- !u!61 &1264052059
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5529,13 +5506,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
-  isInitialized: 0
 --- !u!61 &1918718452
 BoxCollider2D:
   m_ObjectHideFlags: 0

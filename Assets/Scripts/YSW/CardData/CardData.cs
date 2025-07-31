@@ -25,4 +25,16 @@ public class CardData : ScriptableObject
     {
         return cardType;
     }
+
+    public virtual CardData Clone()
+    {
+        CardData clone = ScriptableObject.CreateInstance<CardData>();
+        clone.cardId = this.cardId;
+        clone.cardName = this.cardName;
+        clone.cardImage = this.cardImage;
+        clone.cardType = this.cardType;
+        clone.description = this.description;
+        clone.size = this.size;
+        return clone;
+    }
 }
