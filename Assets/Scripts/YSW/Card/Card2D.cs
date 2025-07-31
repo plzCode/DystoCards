@@ -213,7 +213,7 @@ public class Card2D : MonoBehaviour
         return null;
     }
 
-    protected void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
+    public void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
     {
         List<Card2D> stack = GetStackFrom(card);
         /*foreach (var c in stack)

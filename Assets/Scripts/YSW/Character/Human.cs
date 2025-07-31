@@ -13,6 +13,7 @@ public class Human : Character
     public List<EquipmentSlotData> equipmentSlotList = new();  // ReorderableList에 사용
 
     private Dictionary<EquipmentSlot, EquipmentCardData> equippedItems = new();
+    private Dictionary<EquipmentSlot, GameObject> equippedObjects = new(); // 장비 오브젝트 저장용
 
     public HumanCardData humanData => GetComponent<Card2D>().RuntimeData as HumanCardData;
 
@@ -27,11 +28,7 @@ public class Human : Character
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            humanData.AttackPower += 1; 
-            Debug.Log(ReferenceEquals(humanData, GetComponent<Card2D>().RuntimeData));
-        }
+        
     }
 
     public void ChangeCharData(HumanCardData data)
@@ -109,7 +106,7 @@ public class Human : Character
         }
     }
 
-    public void Equip(EquipmentCardData equipment)
+    /*public void Equip(EquipmentCardData equipment)
     {
         if (equipment == null) return;
 
@@ -125,9 +122,29 @@ public class Human : Character
 
         Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot} = {charData.AttackPower}");
         SyncDictFromList();
+    }*/
+    public void Equip(EquipmentCardData equipment, GameObject itemObj)
+    {
+        if (equipment == null || itemObj == null) return;
+
+        var slot= equipment.slot;
+
+        if (equippedItems.ContainsKey(slot))
+        {
+            Unequip(slot);
+        }
+        
+        ApplyEquipmentStats(equipment); 
+        equippedItems[equipment.slot] = equipment;
+        equippedObjects[slot] = itemObj;
+
+        itemObj.SetActive(false);
+
+        Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot} = {charData.AttackPower}");
+        SyncDictFromList();
     }
 
-    public void Unequip(EquipmentSlot slot)
+    /*public void Unequip(EquipmentSlot slot)
     {
         if (equippedItems.TryGetValue(slot, out var equip))
         {
@@ -136,8 +153,37 @@ public class Human : Character
             Debug.Log($"{charData.cardName} unequipped {equip.cardName} from {slot}");
         }
         SyncDictFromList();
-    }
+    }*/
 
+    public void Unequip(EquipmentSlot slot)
+    {
+        if (!equippedItems.ContainsKey(slot))
+        {
+            Debug.LogWarning($"[Human] Unequip: {slot} 슬롯에 장착된 장비가 없습니다.");
+            return;
+        }
+
+        EquipmentCardData itemData = equippedItems[slot];
+        GameObject itemObject = equippedObjects[slot];
+
+        // 스탯 제거
+        RemoveEquipmentStats(itemData);
+
+        // 장비 오브젝트 활성화 및 위치 복원
+        itemObject.SetActive(true);
+        itemObject.transform.position = transform.position + Vector3.right * 2f; // 예시: 우측에 복귀
+        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
+
+        var card2D = itemObject.GetComponent<Card2D>();
+        card2D.BringToFrontRecursive(card2D);
+
+        // 슬롯 정보 제거
+        equippedItems.Remove(slot);
+        equippedObjects.Remove(slot);
+
+        Debug.Log($"[Human] {slot} 슬롯의 {itemData.cardName} 장비를 해제했습니다.");
+        SyncDictFromList();
+    }
     private void ApplyEquipmentStats(EquipmentCardData equipment)
     {
         if (humanData != null)
