@@ -18,11 +18,13 @@ public class ClickCatcher : MonoBehaviour, IPointerClickHandler
                 UIManager.Instance.hideFeedback.PlayFeedbacks();
 
                 float delay = UIManager.Instance.hideFeedback.TotalDuration; // MMF_Player에서 재생시간 받아오기 (GetDuration() 참고)
-                UIManager.Instance.StartCoroutine(UIManager.Instance.DisableAfter(delay, panelToClose));
+                //UIManager.Instance.StartCoroutine(UIManager.Instance.DisableAfter(delay, panelToClose));
+                UIManager.Instance.TogglePanel(panelToClose);
             }
             else
             {
-                panelToClose.SetActive(false);
+                UIManager.Instance.TogglePanel(panelToClose);
+                //panelToClose.SetActive(false);
             }
         }
 

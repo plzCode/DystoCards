@@ -112,4 +112,11 @@ public class MouseInput : MonoBehaviour
         return null;
     }
 
+    //레이어 마스크 전환 함수
+    public void SetInteractionLayers(LayerMask interactMask, LayerMask cardMask)
+    {
+        interactableLayerMask = interactMask;
+        cardLayer = cardMask;
+    }
+
 }
