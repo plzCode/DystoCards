@@ -23,7 +23,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - MapTile
   - 
   - 
   - 
@@ -40,6 +40,21 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 2615894597
+    locked: 0
+  - name: Fog
+    uniqueID: 1260230059
+    locked: 0
+  - name: Hint
+    uniqueID: 528896357
+    locked: 0
+  - name: Card
+    uniqueID: 1614885307
+    locked: 0
+  - name: Bonfire
+    uniqueID: 1827107741
     locked: 0
   m_RenderingLayers:
   - Default

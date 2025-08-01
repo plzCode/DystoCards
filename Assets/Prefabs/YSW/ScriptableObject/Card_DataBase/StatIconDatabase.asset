@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3107e5df5078504c85bf9e15d99e0d6, type: 3}
+  m_Name: StatIconDatabase
+  m_EditorClassIdentifier: 
+  iconEntries:
+  - statName: size
+    icon: {fileID: 641290683, guid: 0e421ac3999288148b76c4c6596852a0, type: 3}
+    statMappingName: "\uCC28\uC9C0\uB7C9"
+  - statName: hp
+    icon: {fileID: -5519823592105029693, guid: f3548776235fc6d4f92509c60b854d9b, type: 3}
+    statMappingName: "\uCCB4\uB825"
+  - statName: sanity
+    icon: {fileID: -3395856866206217572, guid: 4252eccaaf135904395a28fe0a139a23, type: 3}
+    statMappingName: "\uC815\uC2E0\uB825"
+  - statName: hunger
+    icon: {fileID: -6285086123478972082, guid: 459d098e830971542a04c773573adba9, type: 3}
+    statMappingName: "\uD5C8\uAE30"
+  - statName: stamina
+    icon: {fileID: 1872956865249672718, guid: 18560db19b91a3b448d2aa7d757c941c, type: 3}
+    statMappingName: "\uC2A4\uD14C\uBBF8\uB108"
+  - statName: attack
+    icon: {fileID: -3753825769889500098, guid: 4833770fbef0eef459aaf570c648a398, type: 3}
+    statMappingName: "\uACF5\uACA9\uB825"
+  - statName: defense
+    icon: {fileID: 2389193319765324094, guid: d3bffcaba2a8f1546813adeaf2b79ebe, type: 3}
+    statMappingName: "\uBC29\uC5B4\uB825"
+  - statName: consumeHunger
+    icon: {fileID: 1896981768466211261, guid: cd4d33b2ffbe8ff47872660a3f86f7c5, type: 3}
+    statMappingName: "\uC18C\uBAA8 \uD5C8\uAE30"

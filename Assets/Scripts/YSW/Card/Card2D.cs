@@ -1,14 +1,17 @@
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
 public class Card2D : MonoBehaviour
 {
     [SerializeField] public CardData cardData;
+    
+    [SerializeField] private CardData runtimeData;
+    public CardData RuntimeData => runtimeData;
 
     public static int globalSortingOrder = 0;
-    public LayerMask cardLayer;
+    public LayerMask cardLayer = 1<<6;
 
     private Vector3 dragOffset;
     private bool isDragging = false;
@@ -19,10 +22,39 @@ public class Card2D : MonoBehaviour
     private Transform dragGroupRoot;
     private Dictionary<Card2D, Transform> originalParents = new Dictionary<Card2D, Transform>();
 
-    private void OnMouseDown()
+    private CardUIRenderer uiRenderer;
+
+    public bool isInitialized = false;
+
+    private void Awake()
     {
-        //Debug.Log($"Dragging card: {transform.name}");
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        uiRenderer = GetComponent<CardUIRenderer>();
+    }
+    private void Start()
+    {
+        /*if (cardData != null)
+        {
+            runtimeData = cardData.Clone();
+
+            // UI 이벤트 바인딩
+            if (runtimeData is CharacterCardData characterData)
+            {
+                characterData.OnDataChanged += OnCardDataChanged;
+            }            
+        }
+        RenderCardUI();*/
+    }
+    private void OnDestroy()
+    {
+        if (runtimeData is CharacterCardData characterData)
+        {
+            characterData.OnDataChanged -= OnCardDataChanged;
+        }
+    }
+
+    #region Mouse Code
+    public void StartDragging(Vector3 mouseWorld)
+    {        
         dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
 
         dragGroupRoot = new GameObject("DragGroup").transform;
@@ -41,16 +73,15 @@ public class Card2D : MonoBehaviour
         isDragging = true;
     }
 
-    private void OnMouseDrag()
+    public void Dragging(Vector3 mouseWorld)
     {
         if (dragGroupRoot != null)
-        {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        {   
             dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
         }
     }
 
-    private void OnMouseUp()
+    public void EndDragging()
     {
         isDragging = false;
 
@@ -68,6 +99,12 @@ public class Card2D : MonoBehaviour
         }
 
         BringToFrontRecursive(this);
+    }
+    #endregion
+
+    public void OnCardDataChanged()
+    {
+        RenderCardUI(); // 카드 UI 다시 그림
     }
 
     public virtual void OnUse()
@@ -176,13 +213,37 @@ public class Card2D : MonoBehaviour
         return null;
     }
 
-    protected void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
+    public void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
     {
         List<Card2D> stack = GetStackFrom(card);
-        foreach (var c in stack)
+        /*foreach (var c in stack)
         {
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
             sr.sortingOrder = globalSortingOrder++;
+        }*/
+        foreach (var c in stack)
+        {
+            int baseOrder = globalSortingOrder += 3;
+
+            // 카드 본체 렌더러
+            SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
+            sr.sortingOrder = baseOrder;
+
+            // 자식들의 SpriteRenderer 순서도 조정
+            var childRenderers = c.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
+            foreach (var childRenderer in childRenderers)
+            {
+                if (childRenderer != sr) // 본체는 이미 처리했으므로 제외
+                {
+                    childRenderer.sortingOrder = baseOrder + 1;
+                }
+            }
+
+            var tmp = c.GetComponentsInChildren<TextMeshPro>(includeInactive: true);
+            foreach (var t in tmp)
+            {
+                t.sortingOrder = baseOrder + 2; // 아이콘보다 더 앞으로
+            }
         }
     }
 
@@ -235,4 +296,132 @@ public class Card2D : MonoBehaviour
                data.cardType == CardType.Character &&
                charData.characterType == characterType;
     }
+
+    //cardUI 렌더링
+    public void RenderCardUI()
+    {
+        if (uiRenderer == null || runtimeData == null) return;
+
+        var stats = GetStatDictionaryFromCardData(runtimeData);
+        uiRenderer.RenderStats(stats);
+        uiRenderer.RenderName(runtimeData.cardName);
+        uiRenderer.RenderImage(runtimeData.cardImage);
+        BringToFrontRecursive(this);
+    }
+
+    public Dictionary<string, float> GetStatDictionaryFromCardData(CardData data)
+    {
+        Dictionary<string, float> stats = new();
+
+        switch (data)
+        {
+            case FoodCardData food:
+                stats["hungerRecovery"] = food.hungerRestore;
+                break;
+            case EquipmentCardData equip:
+                stats["attack"] = equip.attackPower;
+                stats["defense"] = equip.defensePower;
+                break;
+            case HealCardData heal:
+                stats["hp"] = heal.healthAmount;
+                stats["sanity"] = heal.mentalAmount;
+                stats["stamina"] = heal.staninaAmount;
+                break;
+            case HumanCardData human:
+                stats["hp"] = human.MaxHealth;
+                stats["sanity"] = human.MaxMentalHealth;
+                stats["hunger"] = human.MaxHunger;
+                stats["stamina"] = human.Stamina;
+                stats["attack"] = human.AttackPower;
+                stats["defense"] = human.DefensePower;
+                stats["consumeHunger"] = human.ConsumeHunger;
+                break;
+            case CharacterCardData ch:
+                stats["hp"] = ch.MaxHealth;
+                stats["attack"] = ch.AttackPower;
+                stats["defense"] = ch.DefensePower;
+                break;
+        }
+
+        stats["size"] = data.size;
+        return stats;
+    }
+
+    public T GetRuntimeData<T>() where T : CardData
+    {
+        return runtimeData as T;
+    }
+    public void SetRuntimeData(CardData data)
+    {
+        runtimeData = data;
+        
+        // 이벤트 연결 등도 여기서 처리
+        if (RuntimeData is CharacterCardData stats)
+        {
+            stats.OnDataChanged += OnCardDataChanged;
+        }
+
+        // 명시적으로 초기화 메서드 호출
+        InitializeCard();
+    }
+    private void InitializeCard()
+    {
+        if (isInitialized) return;
+
+        RenderCardUI();  // 이름, 이미지, 스탯 등 렌더링
+
+        isInitialized = true;
+    }
+
 }
+
+    // 이전에 쓰던 코드
+    /*private void OnMouseDown()
+    {
+        //Debug.Log($"Dragging card: {transform.name}");
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dragOffset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, 0);
+
+        dragGroupRoot = new GameObject("DragGroup").transform;
+        dragGroupRoot.position = transform.position;
+
+        // 스택 해제: 논리 + 계층 구조 모두 제거
+        if (parentCard != null)
+        {
+            parentCard.childCards.Remove(this);
+            parentCard = null;
+            transform.SetParent(CardManager.Instance.cardParent); // Hierarchy 창에서 연결 제거
+        }
+
+        CollectStackBelow(this, dragGroupRoot);
+        BringToFrontRecursive(this);
+        isDragging = true;
+    }
+
+    private void OnMouseDrag()
+    {
+        if (dragGroupRoot != null)
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dragGroupRoot.position = new Vector3(mouseWorld.x, mouseWorld.y, 0) + dragOffset;
+        }
+    }
+    private void OnMouseUp()
+    {
+        isDragging = false;
+
+        RestoreParents();
+
+        dragGroupRoot.DetachChildren();
+        Destroy(dragGroupRoot.gameObject);
+
+        Card2D target = GetFirstOverlappingCard();
+        if (target != null && !IsInHierarchy(this, target))
+        {
+            // 가장 아래쪽 자식까지 내려가서 등록
+            Card2D actualTarget = GetDeepestChild(target);
+            StackOnto(actualTarget);
+        }
+
+        BringToFrontRecursive(this);
+    }*/

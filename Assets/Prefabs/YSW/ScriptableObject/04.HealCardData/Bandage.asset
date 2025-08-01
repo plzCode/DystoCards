@@ -15,9 +15,11 @@ MonoBehaviour:
   cardId: 041
   cardName: Bandage
   cardImage: {fileID: 0}
-  cardType: 4
-  description: 
+  cardType: 3
+  description: recover human
+  size: 1
   healthAmount: 5
-  mentalAmount: 0
+  mentalAmount: 2
+  staninaAmount: 2
   maxReuseNum: 1
-  currentReuseNum: 0
+  currentReuseNum: 1

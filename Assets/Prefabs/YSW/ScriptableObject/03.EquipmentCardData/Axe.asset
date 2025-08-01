@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 031
   cardName: Axe
-  cardImage: {fileID: 0}
+  cardImage: {fileID: -6294954599053914950, guid: dd0d352ae1258dc40986137c61414c7f, type: 3}
   cardType: 2
   description: 
+  size: 1
   attackPower: 3
   defensePower: 0
   slot: 2

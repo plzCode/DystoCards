@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Location1
   m_EditorClassIdentifier: 
   locationName: Collapsed Building
-  requiredStrength: 0
-  requiredStamina: 0
-  dangerLevel: 0
+  locationImage: {fileID: -1973542948338644661, guid: 1495be631cb0a664ca7bc9d8b95e8732, type: 3}
+  requiredStrength: 4
+  requiredStamina: 5
+  dangerLevel: 4
+  durationDays: 2
   rewards:
-  - rewardName: 
-    quantity: 0
+  - card: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+    quantity: 2
+  - card: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+    quantity: 3
+  - card: {fileID: 11400000, guid: 8404d5318b8eb024486f5da819cab954, type: 2}
+    quantity: 1
