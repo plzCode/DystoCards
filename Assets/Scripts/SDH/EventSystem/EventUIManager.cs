@@ -8,17 +8,16 @@ using UnityEngine.UI;
 /// </summary>
 public class EventUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject eventCanvas; // 이벤트 UI Canvas (비활성/활성 전환용)
+    [SerializeField] private GameObject eventUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
     [SerializeField] private TMP_Text cardText;      // 카드 이름을 보여줄 TMP_Text
     [SerializeField] private Button acceptButton;    // O 버튼
     [SerializeField] private Button rejectButton;    // X 버튼
-    [SerializeField] private GameObject fieldCards;
 
     private EventCardData currentCard; // 현재 카드 데이터
 
     private void Start()
     {
-        eventCanvas.SetActive(false); // 게임 시작 시 비활성화
+        eventUIPanel.SetActive(false); // 게임 시작 시 비활성화
 
         // 버튼 이벤트는 Start에서 한 번만 연결
         acceptButton.onClick.AddListener(AcceptCard);
@@ -36,8 +35,7 @@ public class EventUIManager : MonoBehaviour
 
         cardText.text = currentCard.description;
 
-        eventCanvas.SetActive(true);
-        fieldCards.SetActive(false);
+        UIManager.Instance.TogglePanel(eventUIPanel);
 
         Debug.Log($"[이벤트] {currentCard.cardName} 등장");
     }
@@ -47,8 +45,7 @@ public class EventUIManager : MonoBehaviour
     /// </summary>
     private void CloseEventUI()
     {
-        eventCanvas.SetActive(false);
-        fieldCards.SetActive(true);
+        UIManager.Instance.TogglePanel(eventUIPanel);
     }
 
     /// <summary>

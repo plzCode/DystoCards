@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BoxManager : MonoBehaviour
 {
-    [SerializeField] private GameObject boxUICanvas;
+    [SerializeField] private GameObject boxUIPanel;
     [SerializeField] private Button closeButton;
     [SerializeField] private Transform contentParent; // ScrollView Content (카드 UI가 붙는 부모)
     [SerializeField] private GameObject cardUIPrefab; // 카드 UI Prefab (CardUI)
@@ -28,6 +28,7 @@ public class BoxManager : MonoBehaviour
 
     private void Start()
     {
+        boxUIPanel.SetActive(false);
         // 닫기 버튼에 리스너 등록
         if (closeButton != null)
             closeButton.onClick.AddListener(CloseUI);
@@ -35,11 +36,11 @@ public class BoxManager : MonoBehaviour
 
     public void CloseUI()
     {
-        boxUICanvas.SetActive(false);
+        UIManager.Instance.TogglePanel(boxUIPanel);
     }
 
     public void OpenUI()
     {
-        boxUICanvas.SetActive(true);
+        UIManager.Instance.TogglePanel(boxUIPanel);
     }
 }
