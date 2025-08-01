@@ -174,12 +174,14 @@ public class Human : Character
 
         // 장비 오브젝트 활성화 및 위치 복원
         itemObject.SetActive(true); 
-        Vector3 directionToCenter = (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane)) - transform.position).normalized;
-        itemObject.transform.position = transform.position + directionToCenter * 2.5f; // 2f는 거리
-        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
-
+        
         var card2D = itemObject.GetComponent<Card2D>();
         card2D.BringToFrontRecursive(card2D);
+
+        Vector3 directionToCenter = (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane)) - transform.position).normalized;
+        StartCoroutine(card2D.MoveItemLerp(itemObject.transform, transform.position + directionToCenter * 3.0f, 0.6f)); // 3f는 거리
+        card2D.cardAnim.PlayFeedBack_ByName("BounceY");
+        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
 
         // 슬롯 정보 제거
         equippedItems.Remove(slot);
