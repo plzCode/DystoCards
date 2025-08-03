@@ -28,10 +28,10 @@ public class TestMonster : Character
 
         if (charData != null)
         {
-            maxHealth = charData.max_health;
-            currentHealth = charData.max_health;
-            attackPower = charData.attack_power;
-            defensePower = charData.defense_power;
+            maxHealth = charData.MaxHealth;
+            currentHealth = charData.MaxHealth;
+            attackPower = charData.AttackPower;
+            defensePower = charData.DefensePower;
         }
     }
 
