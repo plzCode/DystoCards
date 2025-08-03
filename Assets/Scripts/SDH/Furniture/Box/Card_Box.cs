@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card_Box : MonoBehaviour
 {
@@ -18,15 +20,19 @@ public class Card_Box : MonoBehaviour
     private readonly Dictionary<string, int> boxSizeMap = new Dictionary<string, int>()
     {
         { "WoodBox", 10 },
-        { "SteelBox", 20 },
+        { "SteelBox", 20 }, 
+        { "Refrigerator", 20 },
     };
 
     private void Start()
     {
         card = GetComponent<Card2D>();
-
         if (boxSizeMap.TryGetValue(card.cardData.cardName, out int size))
+        {
             maxSize = size;
+            if (card.cardData.cardName == "Refrigerator")
+                TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, () => UpdateRefrigeratorItems());
+        }
         else
             maxSize = 5; // 기본값 또는 예외 처리
 
@@ -35,13 +41,10 @@ public class Card_Box : MonoBehaviour
         cardUIPrefab = BoxManager.Instance.CardUIPrefab;
         boxManager = BoxManager.Instance;
 
-        if (boxManager != null)
-            boxManager.CloseUI(); // 시작할 때 UI 꺼두기
-
         // 최초 카드 개수 저장
         lastCardCount = GetComponentsInChildren<Card2D>(true)
             .Where(c => c != card).Count();
-
+        
         // 초기 데이터 및 UI 갱신
         UpdateBoxData();
         UpdateCardUI();
@@ -74,13 +77,13 @@ public class Card_Box : MonoBehaviour
                 if (timeSinceLastClick < doubleClickThreshold)
                 {
                     if (boxManager != null)
-                        boxManager.OpenUI(); // UI 활성화
+                        boxManager.OpenUI(this); // UI 활성화
                 }
             }
         }
     }
 
-    private void UpdateBoxData()
+    public void UpdateBoxData()
     {
         // 자기 자신(Card2D)은 제외하고 자식, 손자까지 모두 가져옴
         childCards = GetComponentsInChildren<Card2D>(true)
@@ -89,18 +92,28 @@ public class Card_Box : MonoBehaviour
 
         int totalSize = 0;
 
+        if (card.cardData.cardName == "Refrigerator")
+        {
+            // 음식이 아닌 카드 먼저 제거
+            foreach (var c in childCards.ToList())
+            {
+                if (c.cardData.cardType != CardType.Food)
+                    RemoveCard(c);
+            }
+        }
+
         foreach (var childCard in childCards)
         {
             int cardSize = childCard.cardData != null ? childCard.cardData.size : 0;
 
-            // 누적 size가 10 이상이면 더 이상 처리하지 않음
+            // 누적 size가 maxSize 이상이면 더 이상 처리하지 않음
             if (totalSize + cardSize > maxSize)
             {
                 RemoveCard(childCard);
                 break;
             }
             totalSize += cardSize;
-
+                
             if (childCard.transform.parent != this.transform)
                 childCard.transform.SetParent(this.transform);
 
@@ -114,7 +127,7 @@ public class Card_Box : MonoBehaviour
         }
     }
 
-    private void UpdateCardUI()
+    public  void UpdateCardUI()
     {
         // 기존 UI 전부 삭제
         foreach (Transform child in contentParent)
@@ -151,5 +164,20 @@ public class Card_Box : MonoBehaviour
         // 카드 부모를 필드로 설정 후 활성화
         card.transform.SetParent(this.transform.parent);
         card.gameObject.SetActive(true);
+    }
+
+    private void UpdateRefrigeratorItems()
+    {
+        if (card.cardData.cardName != "Refrigerator")
+            return;
+
+        foreach (var childCard in childCards)
+        {
+            // cardData를 FoodCardData로 안전하게 형변환
+            if (childCard.cardData is FoodCardData foodCardData)
+            {
+                foodCardData.shelfLifeTurns++;
+            }
+        }
     }
 }

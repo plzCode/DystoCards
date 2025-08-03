@@ -15,6 +15,8 @@ public class BoxManager : MonoBehaviour
     public GameObject CardUIPrefab => cardUIPrefab;
     public TMP_Text CapacityText => capacityText;
 
+    public Card_Box currentBox { get; private set; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,13 +36,32 @@ public class BoxManager : MonoBehaviour
             closeButton.onClick.AddListener(CloseUI);
     }
 
+    private void ClearCardUI()
+    {
+        foreach (Transform child in contentParent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     public void CloseUI()
     {
         UIManager.Instance.TogglePanel(boxUIPanel);
+        currentBox = null;
+        ClearCardUI();
     }
 
-    public void OpenUI()
+    public void OpenUI(Card_Box box)
     {
+        currentBox = box;
+
+        // 먼저 이전 데이터 초기화
+        ClearCardUI();
+
+        // 새 박스의 내용으로 갱신
+        box.UpdateBoxData();
+        box.UpdateCardUI();
+
         UIManager.Instance.TogglePanel(boxUIPanel);
     }
 }
