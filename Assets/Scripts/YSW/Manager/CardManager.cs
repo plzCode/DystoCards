@@ -101,7 +101,7 @@ public class CardManager : MonoBehaviour
         }
         return SpawnCard(data, position);
     }
-    public void DestroyCard(Card2D card)
+    public void DestroyCard(Card2D card, float delay = 0f)
     {
         if (card == null)
         {
@@ -111,7 +111,16 @@ public class CardManager : MonoBehaviour
         Debug.Log($"[CardManager] Destroying card: {card.name}");
         card.DetachChildrenBeforeDestroy();
         UnregisterCard(card);       // 목록 및 타입 딕셔너리에서 제거
-        Destroy(card.gameObject);   // GameObject 제거
+
+        if(delay > 0f)
+        {
+            Destroy(card.gameObject, delay);
+        }
+        else
+        {
+            Destroy(card.gameObject);   // GameObject 제거
+        }
+
     }
 
     public Card2D AddCardScript(GameObject obj, CardData data)
@@ -133,6 +142,10 @@ public class CardManager : MonoBehaviour
                 return equip;
 
             case CardType.Heal:
+                Destroy(obj.GetComponent<Card2D>()); // EquipmentCard2D는 Card2D를 상속하므로, Card2D 컴포넌트 제거
+                var heal = obj.AddComponent<HealCard2D>();
+                heal.cardData = data;
+                return heal;
                 break;
             case CardType.Furniture:
                 break;

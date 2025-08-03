@@ -1,3 +1,6 @@
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,11 +27,14 @@ public class Card2D : MonoBehaviour
 
     private CardUIRenderer uiRenderer;
 
+    public MMF_Func cardAnim;
+
     public bool isInitialized = false;
 
     private void Awake()
     {
         uiRenderer = GetComponent<CardUIRenderer>();
+        cardAnim = GetComponentInChildren<MMF_Func>();
     }
     private void Start()
     {
@@ -371,6 +377,22 @@ public class Card2D : MonoBehaviour
         RenderCardUI();  // 이름, 이미지, 스탯 등 렌더링
 
         isInitialized = true;
+    }
+
+    public IEnumerator MoveItemLerp(Transform item, Vector3 target, float duration)
+    {
+        Vector3 start = item.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0, 1, elapsed / duration); // 부드러운 curve 적용
+            item.position = Vector3.Lerp(start, target, t);
+            yield return null;
+        }
+
+        item.position = target;
     }
 
 }
