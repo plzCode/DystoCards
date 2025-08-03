@@ -8,7 +8,7 @@ public class TestMonster : Character
     public float attackPower;
     public float defensePower;
 
-    public CardData[] drops;
+    public GameObject[] drops;
 
     [Header("√ﬂ∞° Ω∫≈»")]
     public Vector2 moveDelay = new Vector2(0.5f, 2f);
@@ -116,6 +116,26 @@ public class TestMonster : Character
             }
 
             transform.position = endPos;
+        }
+    }
+
+    public override void Die()
+    {
+        base.Die();
+
+        DropItem();
+    }
+
+    public void DropItem()
+    {
+        if (drops == null || drops.Length == 0) return;
+
+        for (int i = 0; i < drops.Length; i++)
+        {
+            Vector2 offset = Random.insideUnitCircle * 0.5f;
+            Vector3 dropPos = transform.position + new Vector3(offset.x, offset.y, 0);
+
+            Instantiate(drops[i], dropPos, Quaternion.identity);
         }
     }
 }

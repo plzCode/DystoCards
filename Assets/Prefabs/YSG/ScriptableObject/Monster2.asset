@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0760ee1665720034da540068882a4f68, type: 3}
-  m_Name: Monster
+  m_Name: Monster2
   m_EditorClassIdentifier: 
-  cardId: 
-  cardName: Monster
+  cardId: 02
+  cardName: Monster2
   cardImage: {fileID: 0}
   cardType: 6
   description: 
+  size: 1
   characterType: 2
   max_health: 5
   attack_power: 1

@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SpawnEntry
+{
+    public GameObject prefab;
+    [Range(0, 100)] public float spawnProbability;
+}
+
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance { get; private set; }
@@ -9,7 +16,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Transform cards;
     public Transform battleArea;
     public Transform spawnArea;
-    [SerializeField] private List<GameObject> spawnList = new List<GameObject>();
+    [SerializeField] private List<SpawnEntry> spawnList = new List<SpawnEntry>();
+
     [Space]
     public List<Human> humans = new List<Human>();
     public List<TestMonster> monsters = new List<TestMonster>();
@@ -45,26 +53,43 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    #region 소환
     private void SpawnMonster()
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
 
-        GameObject prefab = spawnList[Random.Range(0, spawnList.Count)];
         Vector3 mapPos = spawnArea.position;
         Vector3 mapScale = spawnArea.localScale;
 
         float halfWidth = 0.5f * mapScale.x;
         float halfHeight = 0.5f * mapScale.y;
 
-        float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
-        float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
+        foreach (var entry in spawnList)
+        {
+            if (Random.Range(0f, 100f) <= entry.spawnProbability)
+            {
+                float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
+                float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
 
-        Vector3 spawnPos = new Vector3(randX, randY, 0f);
-
-        GameObject go = Instantiate(prefab, spawnPos, Quaternion.identity);
-        go.transform.SetParent(cards);
+                Vector3 spawnPos = new Vector3(randX, randY, 0f);
+                GameObject go = Instantiate(entry.prefab, spawnPos, Quaternion.identity);
+                go.transform.SetParent(cards);
+            }
+        }
     }
 
+    public void TrySpawnMonster(int probability = 0)
+    {
+        if (spawnList.Count == 0 || spawnArea == null) return;
+
+        if (Random.value < (float)(probability / 100f))
+        {
+            SpawnMonster();
+        }
+    }
+    #endregion
+
+    #region 전투
     public void StartBattle()
     {
         if (!inBattle) ArrangeCharacters();
@@ -130,32 +155,34 @@ public class BattleManager : MonoBehaviour
 
         while (humans.Count > 0 && monsters.Count > 0)
         {
-            yield return new WaitForSeconds(0.5f);
+            List<Character> turnOrder = new List<Character>();
+            foreach (var h in humans) if (h != null) turnOrder.Add(h);
+            foreach (var m in monsters) if (m != null) turnOrder.Add(m);
 
-            for (int i = 0; i < humans.Count; i++)
+            Shuffle(turnOrder);
+
+            foreach (var attacker in turnOrder)
             {
-                if (monsters.Count == 0) break;
+                if (humans.Count == 0 || monsters.Count == 0) break;
+                if (attacker == null) continue;
 
-                Human p = humans[i];
-                int randIndex = Random.Range(0, monsters.Count);
-                var target = monsters[randIndex];
+                Character target = null;
 
-                yield return StartCoroutine(AttackEffect(p, target));
-                yield return new WaitForSeconds(0.5f);
+                if (attacker is Human)
+                {
+                    if (monsters.Count == 0) break;
+                    target = monsters[Random.Range(0, monsters.Count)];
+                }
+                else if (attacker is TestMonster)
+                {
+                    if (humans.Count == 0) break;
+                    target = humans[Random.Range(0, humans.Count)];
+                }
 
-                if (monsters.Count == 0) break;
-            }
+                if (target == null) continue;
 
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                if (humans.Count == 0) break;
-
-                TestMonster m = monsters[i];
-                int randIndex = Random.Range(0, humans.Count);
-                var target = humans[randIndex];
-
-                yield return StartCoroutine(AttackEffect(m, target));
-                yield return new WaitForSeconds(0.5f);
+                yield return StartCoroutine(AttackEffect(attacker, target));
+                yield return new WaitForSeconds(0.1f);
             }
 
             DebugResult();
@@ -165,8 +192,11 @@ public class BattleManager : MonoBehaviour
 
         foreach (var monster in monsters)
         {
-            monster.GetComponent<Rigidbody2D>().simulated = true;
-            monster?.StartMove();
+            if (monster != null)
+            {
+                monster.GetComponent<Rigidbody2D>().simulated = true;
+                monster.StartMove();
+            }
         }
 
         humans.Clear();
@@ -174,6 +204,19 @@ public class BattleManager : MonoBehaviour
         battleArea?.gameObject.SetActive(false);
     }
 
+    private void Shuffle<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int randIndex = Random.Range(0, i + 1);
+            T temp = list[i];
+            list[i] = list[randIndex];
+            list[randIndex] = temp;
+        }
+    }
+    #endregion
+
+    #region 효과 및 로그
     private IEnumerator AttackEffect(Character attacker, Character target)
     {
         Transform attackerTr = attacker.transform;
@@ -237,4 +280,5 @@ public class BattleManager : MonoBehaviour
         monsterHealthLog = monsterHealthLog.TrimEnd(' ', '/');
         Debug.Log(monsterHealthLog);
     }
+    #endregion
 }

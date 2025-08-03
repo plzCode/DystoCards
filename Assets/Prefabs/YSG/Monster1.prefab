@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6407241541857335171}
   - component: {fileID: 5370701792962574165}
   m_Layer: 6
-  m_Name: Monster
+  m_Name: Monster1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,12 +176,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 547a0947af8cd9f4eaa2d67244f68bc2, type: 2}
+  cardData: {fileID: 11400000, guid: eb310584284712d40b462d9c680ffd4c, type: 2}
+  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
+  isInitialized: 0
 --- !u!114 &5370701792962574165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,12 +197,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5b839b14eb39b4aaeea1e7a14fed35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charData: {fileID: 11400000, guid: 547a0947af8cd9f4eaa2d67244f68bc2, type: 2}
+  charData: {fileID: 11400000, guid: eb310584284712d40b462d9c680ffd4c, type: 2}
   currentHealth: 0
   maxHealth: 0
   attackPower: 0
   defensePower: 0
-  drops: []
+  drops:
+  - {fileID: 6800949613585632219, guid: efc08b649cb0892449c59771bba9c9d8, type: 3}
+  - {fileID: 6800949613585632219, guid: 9309c32dbf391a0428b90c763763bb70, type: 3}
   moveDelay: {x: 0.5, y: 2}
   moveDistance: 1
   moveDuration: 0.5
