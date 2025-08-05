@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +11,11 @@ public class CombinationManager : MonoBehaviour
 {
     [SerializeField] private List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject fieldCards;        // 필드에 놓인 카드들의 부모 오브젝트
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject); // 씬이 넘어가도 유지
+    }
 
     private void Update()
     {
@@ -60,7 +67,7 @@ public class CombinationManager : MonoBehaviour
             stackGroup.Add(card);
 
             // Human 타입인지 확인
-            if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
+            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
                 humanCount++;
 
             // 다음 카드로 이동 (자식이 있으면 첫 번째 자식으로, 없으면 null)
@@ -74,7 +81,7 @@ public class CombinationManager : MonoBehaviour
         Debug.Log($"- 마지막 카드: {stackGroup[^1].name}");
 
         // 스택의 마지막 카드가 Human인지 확인
-        bool lastCardIsHuman = stackGroup[^1].IsCharacterOfType(stackGroup[^1].cardData, CharacterType.Human);
+        bool lastCardIsHuman = stackGroup[^1].IsCharacterOfType(stackGroup[^1].RuntimeData, CharacterType.Human);
         Debug.Log($"- 마지막 카드가 Human인가? {lastCardIsHuman}");
 
         // 조건: Human 카드가 딱 1개이며, 스택의 마지막 카드여야 함
@@ -93,7 +100,7 @@ public class CombinationManager : MonoBehaviour
         // Human 카드를 따로 저장하고 나머지 카드만 조합 대상으로 분류
         foreach (var card in cards)
         {
-            if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
+            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
                 triggerCard = card;
             else
                 filteredCards.Add(card);
@@ -145,6 +152,26 @@ public class CombinationManager : MonoBehaviour
                         newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
                     }
 
+                    string scriptName = recipe.scriptName;
+
+                    if (!string.IsNullOrEmpty(scriptName))
+                    {
+                        Type type = AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(a => a.GetTypes())
+                            .FirstOrDefault(t => t.Name == scriptName || t.FullName == scriptName);
+
+                        if (type != null && typeof(MonoBehaviour).IsAssignableFrom(type))
+                        {
+                            newCard.gameObject.AddComponent(type);
+                            Debug.Log($"스크립트 부착 완료: {scriptName}");
+                        }
+                        else
+                        {
+                            Debug.LogError($"스크립트 '{scriptName}' 를 찾을 수 없습니다. 클래스명이 정확한지 확인해주세요.");
+                        }
+                    }
+
+                    Debug.Log($"newCard.cardData.cardName: {newCard.RuntimeData.cardName}");
                     Debug.Log("새 카드 생성: " + recipe.result.name);
                 }
 
@@ -175,10 +202,10 @@ public class CombinationManager : MonoBehaviour
         var inputDict = new Dictionary<CardData, int>();
         foreach (var card in inputCards)
         {
-            if (inputDict.ContainsKey(card.cardData))
-                inputDict[card.cardData]++;
+            if (inputDict.ContainsKey(card.RuntimeData))
+                inputDict[card.RuntimeData]++;
             else
-                inputDict[card.cardData] = 1;
+                inputDict[card.RuntimeData] = 1;
         }
 
         // 레시피 재료와 비교

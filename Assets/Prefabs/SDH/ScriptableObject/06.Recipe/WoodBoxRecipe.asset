@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38d458f782d30484dbe4c6b538aaa799, type: 3}
-  m_Name: AxeRecipe
+  m_Name: WoodBoxRecipe
   m_EditorClassIdentifier: 
   cardId: 061
   cardName: Recipe
@@ -20,8 +20,6 @@ MonoBehaviour:
   size: 1
   ingredients:
   - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-    quantity: 2
-  - ingredient: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
-    quantity: 1
-  result: {fileID: 11400000, guid: 8404d5318b8eb024486f5da819cab954, type: 2}
-  scriptName: 
+    quantity: 3
+  result: {fileID: 11400000, guid: d596c0e8b1883644fada7df5b4ba7f54, type: 2}
+  scriptName: Card_Storage
