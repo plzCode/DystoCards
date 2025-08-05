@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b658419291b628c4b9c1a513b4e811a0, type: 3}
-  m_Name: Food
+  m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
+  m_Name: Picture
   m_EditorClassIdentifier: 
   cardId: 000
-  cardName: Food
+  cardName: Picture
   cardImage: {fileID: 0}
-  cardType: 1
+  cardType: 4
   description: 
   size: 1
-  hungerRestore: 3
-  isPerishable: 0
-  shelfLifeTurns: 2
+  furnitureType: 0

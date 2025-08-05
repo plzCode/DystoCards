@@ -117,7 +117,15 @@ public class Card_Box : MonoBehaviour
             if (childCard.transform.parent != this.transform)
                 childCard.transform.SetParent(this.transform);
 
-            childCard.gameObject.SetActive(false);
+            // 시각적으로 숨김
+            var renderer = childCard.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+                renderer.enabled = false;
+
+            // Collider2D 끄기
+            var collider = childCard.GetComponent<Collider2D>();
+            if (collider != null)
+                collider.enabled = false;
         }
 
         // 차지량 UI 텍스트 갱신
@@ -163,7 +171,15 @@ public class Card_Box : MonoBehaviour
 
         // 카드 부모를 필드로 설정 후 활성화
         card.transform.SetParent(this.transform.parent);
-        card.gameObject.SetActive(true);
+
+        // 다시 보이도록 설정
+        var renderer = card.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+            renderer.enabled = true;
+
+        var collider = card.GetComponent<Collider2D>();
+        if (collider != null)
+            collider.enabled = true;
     }
 
     private void UpdateRefrigeratorItems()
