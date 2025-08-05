@@ -13,7 +13,7 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance { get; private set; }
 
-    [SerializeField] private Transform cards;
+    public Transform cards;
     public Transform battleArea;
     public Transform spawnArea;
     [SerializeField] private List<SpawnEntry> spawnList = new List<SpawnEntry>();
@@ -66,12 +66,12 @@ public class BattleManager : MonoBehaviour
 
         foreach (var entry in spawnList)
         {
-            if (Random.Range(0f, 100f) <= entry.spawnProbability)
+            if (Random.Range(0, 100) <= entry.spawnProbability)
             {
                 float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
                 float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
 
-                Vector3 spawnPos = new Vector3(randX, randY, 0f);
+                Vector3 spawnPos = new Vector3(randX, randY, 0);
                 GameObject go = Instantiate(entry.prefab, spawnPos, Quaternion.identity);
                 go.transform.SetParent(cards);
             }
@@ -82,7 +82,7 @@ public class BattleManager : MonoBehaviour
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
 
-        if (Random.value < (float)(probability / 100f))
+        if (Random.value < (float)(probability / 100))
         {
             SpawnMonster();
         }
@@ -101,12 +101,12 @@ public class BattleManager : MonoBehaviour
         if (humans.Count == 0 && monsters.Count == 0) return;
 
         float spacing = 1.5f;
-        float margin = 1.0f;
+        float margin = 1;
 
         float humanWidth = (humans.Count - 1) * spacing;
         float monsterWidth = (monsters.Count - 1) * spacing;
-        float maxWidth = Mathf.Max(humanWidth, monsterWidth) + margin * 2f;
-        float totalHeight = 2f + margin * 2f;
+        float maxWidth = Mathf.Max(humanWidth, monsterWidth) + margin * 2;
+        float totalHeight = 2 + margin * 2;
 
         if (!battleArea.gameObject.activeSelf)
         {
@@ -128,23 +128,23 @@ public class BattleManager : MonoBehaviour
                 battleArea.position = totalPos / totalCount;
         }
 
-        battleArea.localScale = new Vector3(maxWidth, totalHeight, 1f);
+        battleArea.localScale = new Vector3(maxWidth, totalHeight, 1);
         battleArea.gameObject.SetActive(true);
 
-        float topY = totalHeight / 2f - margin;
-        float bottomY = -totalHeight / 2f + margin;
+        float topY = totalHeight / 2 - margin;
+        float bottomY = -totalHeight / 2 + margin;
 
-        float humanStartX = -humanWidth / 2f;
+        float humanStartX = -humanWidth / 2;
         for (int i = 0; i < humans.Count; i++)
         {
-            Vector3 localPos = new Vector3(humanStartX + i * spacing, topY, 0f);
+            Vector3 localPos = new Vector3(humanStartX + i * spacing, topY, 0);
             humans[i].transform.position = battleArea.position + localPos;
         }
 
-        float monsterStartX = -monsterWidth / 2f;
+        float monsterStartX = -monsterWidth / 2;
         for (int i = 0; i < monsters.Count; i++)
         {
-            Vector3 localPos = new Vector3(monsterStartX + i * spacing, bottomY, 0f);
+            Vector3 localPos = new Vector3(monsterStartX + i * spacing, bottomY, 0);
             monsters[i].transform.position = battleArea.position + localPos;
         }
     }
@@ -216,7 +216,7 @@ public class BattleManager : MonoBehaviour
     }
     #endregion
 
-    #region 효과 및 로그
+    #region 효과
     private IEnumerator AttackEffect(Character attacker, Character target)
     {
         Transform attackerTr = attacker.transform;
@@ -265,6 +265,7 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+    #endregion
 
     private void DebugResult()
     {
@@ -280,5 +281,4 @@ public class BattleManager : MonoBehaviour
         monsterHealthLog = monsterHealthLog.TrimEnd(' ', '/');
         Debug.Log(monsterHealthLog);
     }
-    #endregion
 }

@@ -11,7 +11,7 @@ public class TestMonster : Character
     public GameObject[] drops;
 
     [Header("√ﬂ∞° Ω∫≈»")]
-    public Vector2 moveDelay = new Vector2(0.5f, 2f);
+    public Vector2 moveDelay = new Vector2(0.5f, 2);
     public float moveDistance = 1;
     public float moveDuration = 0.5f;
     private Transform moveTarget;
@@ -135,7 +135,8 @@ public class TestMonster : Character
             Vector2 offset = Random.insideUnitCircle * 0.5f;
             Vector3 dropPos = transform.position + new Vector3(offset.x, offset.y, 0);
 
-            Instantiate(drops[i], dropPos, Quaternion.identity);
+            GameObject go = Instantiate(drops[i], dropPos, Quaternion.identity);
+            go.transform.SetParent(BattleManager.Instance.cards);
         }
     }
 }

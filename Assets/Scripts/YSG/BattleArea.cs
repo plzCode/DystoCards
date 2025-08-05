@@ -30,7 +30,7 @@ public class BattleArea : MonoBehaviour
             Vector3 center = transform.position;
             Vector3 direction = (collision.transform.position - center).normalized;
 
-            float pushDistance = 1.0f; 
+            float pushDistance = 1; 
             Vector3 newPos = transform.position + direction * (transform.localScale.x * 0.5f + pushDistance);
 
             collision.transform.position = newPos;
