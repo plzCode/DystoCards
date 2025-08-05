@@ -1267,8 +1267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 77a536190f67d2843aad63b11e602603, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 77a536190f67d2843aad63b11e602603, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1853,7 +1853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a53a727c483ca45ae295fe72ad73f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 158a305e402b06b4199fa2370408ecee, type: 2}
+  cardData: {fileID: 0}
   runtimeData: {fileID: 11400000, guid: 158a305e402b06b4199fa2370408ecee, type: 2}
   cardLayer:
     serializedVersion: 2
@@ -2169,8 +2169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 274ea4e7c2adfd045b2c334eca64e315, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 274ea4e7c2adfd045b2c334eca64e315, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3769,162 +3769,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530956679}
   m_CullTransparentMesh: 1
---- !u!1 &1534368492
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1534368493}
-  - component: {fileID: 1534368496}
-  - component: {fileID: 1534368495}
-  - component: {fileID: 1534368497}
-  m_Layer: 6
-  m_Name: Food
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1534368493
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534368492}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.85, y: -2.15, z: 0}
-  m_LocalScale: {x: 2, y: 3, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5277903654063822374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1534368495
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534368492}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!212 &1534368496
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534368492}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!114 &1534368497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534368492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28a53a727c483ca45ae295fe72ad73f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 158a305e402b06b4199fa2370408ecee, type: 2}
-  runtimeData: {fileID: 0}
-  cardLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  parentCard: {fileID: 0}
-  childCards: []
-  cardAnim: {fileID: 0}
-  isInitialized: 0
 --- !u!1 &1534725112
 GameObject:
   m_ObjectHideFlags: 0
@@ -6072,7 +5916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 5d6c2c3e563b9d544942a74f69a88591, type: 2}
+  cardData: {fileID: 0}
   runtimeData: {fileID: 11400000, guid: 5d6c2c3e563b9d544942a74f69a88591, type: 2}
   cardLayer:
     serializedVersion: 2
@@ -6543,8 +6387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: bfc79583adb172940b9a79a45629add0, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: bfc79583adb172940b9a79a45629add0, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6665,8 +6509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 848397836f5b10d4eaa113b94f2d7bda, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 848397836f5b10d4eaa113b94f2d7bda, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6886,8 +6730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6994,7 +6838,6 @@ Transform:
   - {fileID: 4796498951537869885}
   - {fileID: 7703483863943236361}
   - {fileID: 3648968028330327260}
-  - {fileID: 1534368493}
   - {fileID: 681998419}
   - {fileID: 4516528358948922141}
   - {fileID: 942920451194154376}
@@ -7055,8 +6898,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: d596c0e8b1883644fada7df5b4ba7f54, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: d596c0e8b1883644fada7df5b4ba7f54, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -7177,8 +7020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: d9ff1ce85b199d24b92ea80e61f2aee0, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: d9ff1ce85b199d24b92ea80e61f2aee0, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -7214,8 +7057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -7351,8 +7194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -7646,8 +7489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b33088ff45b214e85c9cca4980f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
-  runtimeData: {fileID: 0}
+  cardData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64

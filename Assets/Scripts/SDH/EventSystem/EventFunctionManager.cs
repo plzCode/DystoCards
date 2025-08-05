@@ -70,7 +70,7 @@ public class EventFunctionManager : MonoBehaviour
 
         foreach (var card in allCards)
         {
-            if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
+            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
             {
                 Human human = card.GetComponent<Human>();
                 if (human != null)

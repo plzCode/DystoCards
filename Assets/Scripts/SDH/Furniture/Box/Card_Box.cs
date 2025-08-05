@@ -27,10 +27,10 @@ public class Card_Box : MonoBehaviour
     private void Start()
     {
         card = GetComponent<Card2D>();
-        if (boxSizeMap.TryGetValue(card.cardData.cardName, out int size))
+        if (boxSizeMap.TryGetValue(card.RuntimeData.cardName, out int size))
         {
             maxSize = size;
-            if (card.cardData.cardName == "Refrigerator")
+            if (card.RuntimeData.cardName == "Refrigerator")
                 TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, () => UpdateRefrigeratorItems());
         }
         else
@@ -92,19 +92,19 @@ public class Card_Box : MonoBehaviour
 
         int totalSize = 0;
 
-        if (card.cardData.cardName == "Refrigerator")
+        if (card.RuntimeData.cardName == "Refrigerator")
         {
             // 음식이 아닌 카드 먼저 제거
             foreach (var c in childCards.ToList())
             {
-                if (c.cardData.cardType != CardType.Food)
+                if (c.RuntimeData.cardType != CardType.Food)
                     RemoveCard(c);
             }
         }
 
         foreach (var childCard in childCards)
         {
-            int cardSize = childCard.cardData != null ? childCard.cardData.size : 0;
+            int cardSize = childCard.RuntimeData != null ? childCard.RuntimeData.size : 0;
 
             // 누적 size가 maxSize 이상이면 더 이상 처리하지 않음
             if (totalSize + cardSize > maxSize)
@@ -160,7 +160,7 @@ public class Card_Box : MonoBehaviour
             TMP_Text tmp = go.GetComponentInChildren<TMP_Text>();
             if (tmp != null)
             {
-                tmp.text = childCard.cardData.cardName;
+                tmp.text = childCard.RuntimeData.cardName;
             }
         }
     }
@@ -184,13 +184,13 @@ public class Card_Box : MonoBehaviour
 
     private void UpdateRefrigeratorItems()
     {
-        if (card.cardData.cardName != "Refrigerator")
+        if (card.RuntimeData.cardName != "Refrigerator")
             return;
 
         foreach (var childCard in childCards)
         {
             // cardData를 FoodCardData로 안전하게 형변환
-            if (childCard.cardData is FoodCardData foodCardData)
+            if (childCard.RuntimeData is FoodCardData foodCardData)
             {
                 foodCardData.shelfLifeTurns++;
             }
