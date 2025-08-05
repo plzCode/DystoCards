@@ -50,9 +50,9 @@ public class ExploreInfo : MonoBehaviour
 
         humanImage.sprite = _human.cardImage;
         humanName.text = _human.cardName;
-        UIBarUtility.SetBarColor(humanStaminaBar, (int)_human.stamina, UIBarUtility.StaminaColor);
+        UIBarUtility.SetBarColor(humanStaminaBar, (int)_human.Stamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(humanStrengthBar, (int)_human.AttackPower, UIBarUtility.StrengthColor);
-        UIBarUtility.SetBarColor(humanMentality, (int)_human.consume_hunger, UIBarUtility.WarningColor);
+        UIBarUtility.SetBarColor(humanMentality, (int)_human.ConsumeHunger, UIBarUtility.WarningColor);
         ExpressSuccessPercent(current_locationInfo,current_humanInfo);
 
     }
@@ -122,7 +122,7 @@ public class ExploreInfo : MonoBehaviour
         if (current_humanInfo == null || current_locationInfo == null)
             return false;
 
-        return current_humanInfo.stamina >= current_locationInfo.requiredStamina;
+        return current_humanInfo.Stamina >= current_locationInfo.requiredStamina;
     }
 
     public void OnClick_ExploreRegister()

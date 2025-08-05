@@ -11,7 +11,7 @@ public class EquipmentCard2D : Card2D
             var equipData = cardData as EquipmentCardData;
             if (equipData != null)
             {
-                human.Equip(equipData);
+                human.Equip(equipData, this.gameObject);
                 Debug.Log($"Equipped {equipData.cardName} to {human.charData.cardName}");
 
                 // 자식 카드 먼저 분리
@@ -26,7 +26,8 @@ public class EquipmentCard2D : Card2D
 
                 target.childCards.Remove(this);
 
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                gameObject.SetActive(false); // 게임 오브젝트 비활성화
             }
         }
     }

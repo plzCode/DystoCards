@@ -33,7 +33,7 @@ public class StatPanelManager : MonoBehaviour
                     CreateEntry(kv.Key, human.currentHunger, kv.Value,  StatVisualType.Bar);
                     continue;
                 case var _ when kv.Key == "consumeHunger":
-                    CreateEntry(kv.Key, human.humanData.consume_hunger, 0, StatVisualType.Number);
+                    CreateEntry(kv.Key, human.humanData.ConsumeHunger, 0, StatVisualType.Number);
                     continue;
                 case var _ when kv.Key == "attack":
                     CreateEntry(kv.Key, human.humanData.AttackPower, 0, StatVisualType.Number);

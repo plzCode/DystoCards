@@ -54,6 +54,10 @@ public class CharacterCardData : CardData
             }
         }
     }
+    protected void RaiseDataChanged()
+    {
+        OnDataChanged?.Invoke();
+    }
 
     // Clone 메서드 오버라이드
     public override CardData Clone()

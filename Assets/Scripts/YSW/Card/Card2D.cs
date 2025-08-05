@@ -1,3 +1,6 @@
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,11 +27,14 @@ public class Card2D : MonoBehaviour
 
     private CardUIRenderer uiRenderer;
 
+    public MMF_Func cardAnim;
+
     public bool isInitialized = false;
 
     private void Awake()
     {
         uiRenderer = GetComponent<CardUIRenderer>();
+        cardAnim = GetComponentInChildren<MMF_Func>();
     }
     private void Start()
     {
@@ -213,7 +219,7 @@ public class Card2D : MonoBehaviour
         return null;
     }
 
-    protected void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
+    public void BringToFrontRecursive(Card2D card) //카드 스택 전체의 스프라이트 렌더링 순서를 갱신하여 앞쪽으로 보이도록 함.
     {
         List<Card2D> stack = GetStackFrom(card);
         /*foreach (var c in stack)
@@ -329,12 +335,12 @@ public class Card2D : MonoBehaviour
                 break;
             case HumanCardData human:
                 stats["hp"] = human.MaxHealth;
-                stats["sanity"] = human.max_mental_health;
-                stats["hunger"] = human.max_hunger;
-                stats["stamina"] = human.stamina;
+                stats["sanity"] = human.MaxMentalHealth;
+                stats["hunger"] = human.MaxHunger;
+                stats["stamina"] = human.Stamina;
                 stats["attack"] = human.AttackPower;
                 stats["defense"] = human.DefensePower;
-                stats["consumeHunger"] = human.consume_hunger;
+                stats["consumeHunger"] = human.ConsumeHunger;
                 break;
             case CharacterCardData ch:
                 stats["hp"] = ch.MaxHealth;
@@ -371,6 +377,22 @@ public class Card2D : MonoBehaviour
         RenderCardUI();  // 이름, 이미지, 스탯 등 렌더링
 
         isInitialized = true;
+    }
+
+    public IEnumerator MoveItemLerp(Transform item, Vector3 target, float duration)
+    {
+        Vector3 start = item.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0, 1, elapsed / duration); // 부드러운 curve 적용
+            item.position = Vector3.Lerp(start, target, t);
+            yield return null;
+        }
+
+        item.position = target;
     }
 
 }

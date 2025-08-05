@@ -36,6 +36,11 @@ public class ExploreManager : MonoBehaviour
             humanScrollView.AddHuman(humanScrollView.exampleHuman1);
             registedHumans.Add(humanScrollView.exampleHuman1);
         }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            CardManager.Instance.SpawnCardById("041", new Vector3(0, 0, 0));
+        }
     }
 
     private void Start()
@@ -104,7 +109,7 @@ public class ExploreManager : MonoBehaviour
         if (location == null || human == null)
             return 0;
 
-        if (human.stamina < location.requiredStamina)
+        if (human.Stamina < location.requiredStamina)
             return 1;
 
         float baseSuccess = 100f;
@@ -127,9 +132,9 @@ public class ExploreManager : MonoBehaviour
 
         // 허기 패널티
         float hungerPenalty = 0f;
-        if (human.consume_hunger < location.durationDays)
+        if (human.ConsumeHunger < location.durationDays)
         {
-            float hungerLack = location.durationDays - human.consume_hunger;
+            float hungerLack = location.durationDays - human.ConsumeHunger;
             hungerPenalty = Mathf.Clamp(hungerLack * 5f, 0f, 30f); // 하루 부족당 -5%
         }
 

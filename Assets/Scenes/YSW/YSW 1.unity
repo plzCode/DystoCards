@@ -290,6 +290,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &33909524
 BoxCollider2D:
@@ -552,6 +553,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &193281513
 BoxCollider2D:
@@ -1282,6 +1284,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &385995837
 BoxCollider2D:
@@ -1553,6 +1556,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!1 &422145333
 GameObject:
@@ -2109,6 +2113,70 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+--- !u!1001 &573512736
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3352819768358978887, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_Name
+      value: Card_ver3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147953832629871856, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185567007362505832, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      propertyPath: managedReferences[4070729618944426263].ParticlesPrefab
+      value: 
+      objectReference: {fileID: 6231179254812234501, guid: 9769217d989b43643952a8ea313d42af, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1306241470850634877, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
 --- !u!1 &841015131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,6 +3321,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &1264052059
 BoxCollider2D:
@@ -5535,6 +5604,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &1918718452
 BoxCollider2D:
@@ -6303,3 +6373,4 @@ SceneRoots:
   - {fileID: 1218770937}
   - {fileID: 1861856734}
   - {fileID: 169979079}
+  - {fileID: 573512736}
