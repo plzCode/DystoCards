@@ -24,7 +24,7 @@ public class TestMonster : Character
 
     private void Awake()
     {
-        charData = GetComponent<Card2D>().cardData as CharacterCardData;
+        charData = GetComponent<Card2D>().RuntimeData as CharacterCardData;
 
         if (charData != null)
         {

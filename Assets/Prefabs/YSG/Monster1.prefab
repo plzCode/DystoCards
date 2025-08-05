@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: eb310584284712d40b462d9c680ffd4c, type: 2}
-  runtimeData: {fileID: 0}
+  runtimeData: {fileID: 11400000, guid: eb310584284712d40b462d9c680ffd4c, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
