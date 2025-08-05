@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BoxManager : MonoBehaviour
+public class StorageManager : MonoBehaviour
 {
     [SerializeField] private GameObject boxUIPanel;
     [SerializeField] private Button closeButton;
@@ -10,12 +10,11 @@ public class BoxManager : MonoBehaviour
     [SerializeField] private GameObject cardUIPrefab; // Ä«µå UI Prefab (CardUI)
     [SerializeField] private TMP_Text capacityText;
 
-    public static BoxManager Instance { get; private set; } // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
+    public static StorageManager Instance { get; private set; } // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
     public Transform ContentParent => contentParent;
     public GameObject CardUIPrefab => cardUIPrefab;
     public TMP_Text CapacityText => capacityText;
-
-    public Card_Box currentBox { get; private set; }
+    public Card_Storage currentBox { get; private set; }
 
     private void Awake()
     {
@@ -51,7 +50,7 @@ public class BoxManager : MonoBehaviour
         ClearCardUI();
     }
 
-    public void OpenUI(Card_Box box)
+    public void OpenUI(Card_Storage box)
     {
         currentBox = box;
 

@@ -22,4 +22,4 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
     quantity: 3
   result: {fileID: 11400000, guid: d596c0e8b1883644fada7df5b4ba7f54, type: 2}
-  scriptName: Card_Box
+  scriptName: Card_Storage

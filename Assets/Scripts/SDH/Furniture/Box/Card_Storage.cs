@@ -5,11 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Card_Box : MonoBehaviour
+public class Card_Storage : MonoBehaviour
 {
     private Transform contentParent; // ScrollView Content (카드 UI가 붙는 부모)
     private GameObject cardUIPrefab; // 카드 UI Prefab (CardUI)
-    private BoxManager boxManager;
+    private StorageManager boxManager;
     private List<Card2D> childCards = new List<Card2D>();
     private Card2D card;
     private int lastCardCount;
@@ -31,15 +31,15 @@ public class Card_Box : MonoBehaviour
         {
             maxSize = size;
             if (card.RuntimeData.cardName == "Refrigerator")
-                TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, () => UpdateRefrigeratorItems());
+                TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayEnd, () => UpdateRefrigeratorItems());
         }
         else
             maxSize = 5; // 기본값 또는 예외 처리
 
         // 싱글톤에서 참조로 가져옴
-        contentParent = BoxManager.Instance.ContentParent;
-        cardUIPrefab = BoxManager.Instance.CardUIPrefab;
-        boxManager = BoxManager.Instance;
+        contentParent = StorageManager.Instance.ContentParent;
+        cardUIPrefab = StorageManager.Instance.CardUIPrefab;
+        boxManager = StorageManager.Instance;
 
         // 최초 카드 개수 저장
         lastCardCount = GetComponentsInChildren<Card2D>(true)
@@ -149,7 +149,7 @@ public class Card_Box : MonoBehaviour
             GameObject go = Instantiate(cardUIPrefab, contentParent);
 
             // CardUI 컴포넌트 가져오기
-            var cardUI = go.GetComponent<BoxCardUI>();
+            var cardUI = go.GetComponent<StorageCardUI>();
             if (cardUI != null)
             {
                 cardUI.linkedCard = childCard; // 실제 카드 연결

@@ -12,6 +12,11 @@ public class CombinationManager : MonoBehaviour
     [SerializeField] private List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject fieldCards;        // 필드에 놓인 카드들의 부모 오브젝트
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject); // 씬이 넘어가도 유지
+    }
+
     private void Update()
     {
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴

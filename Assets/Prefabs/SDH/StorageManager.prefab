@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1988634351997433577}
-  - component: {fileID: 8239944919127088167}
+  - component: {fileID: 8842862779072827514}
   m_Layer: 0
-  m_Name: BoxManager
+  m_Name: StorageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8239944919127088167
+--- !u!114 &8842862779072827514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 575301186909699048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4427c2e8a35e2bc4d85eca19d634ce0f, type: 3}
+  m_Script: {fileID: 11500000, guid: e2d78e7a5dc338a469caecaaf70de890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxUIPanel: {fileID: 0}
   closeButton: {fileID: 0}
   contentParent: {fileID: 0}
-  cardUIPrefab: {fileID: 6920553070491397939, guid: 14707df2c6e497043b5ff092330d52e2, type: 3}
+  cardUIPrefab: {fileID: 0}
   capacityText: {fileID: 0}
