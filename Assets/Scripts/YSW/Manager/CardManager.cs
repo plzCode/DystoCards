@@ -114,6 +114,11 @@ public class CardManager : MonoBehaviour
 
         if(delay > 0f)
         {
+            var dissovle = card.GetComponent<Dissolve>();
+            if (dissovle != null)
+            {
+                dissovle.StartCoroutine(dissovle.Vanish(true, true)); // Dissolve 컴포넌트가 있다면 서서히 제거
+            }
             Destroy(card.gameObject, delay);
         }
         else

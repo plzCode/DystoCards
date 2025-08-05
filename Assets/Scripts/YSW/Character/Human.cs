@@ -165,9 +165,10 @@ public class Human : Character
             Debug.LogWarning($"[Human] Unequip: {slot} 슬롯에 장착된 장비가 없습니다.");
             return;
         }
-
         EquipmentCardData itemData = equippedItems[slot];
         GameObject itemObject = equippedObjects[slot];
+
+        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
 
         // 스탯 제거
         RemoveEquipmentStats(itemData);
@@ -177,11 +178,11 @@ public class Human : Character
         
         var card2D = itemObject.GetComponent<Card2D>();
         card2D.BringToFrontRecursive(card2D);
-
+        card2D.transform.position = transform.position;
         Vector3 directionToCenter = (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane)) - transform.position).normalized;
         StartCoroutine(card2D.MoveItemLerp(itemObject.transform, transform.position + directionToCenter * 3.0f, 0.6f)); // 3f는 거리
         card2D.cardAnim.PlayFeedBack_ByName("BounceY");
-        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
+        
 
         // 슬롯 정보 제거
         equippedItems.Remove(slot);
