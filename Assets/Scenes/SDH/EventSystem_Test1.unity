@@ -1260,6 +1260,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3de47f9336579f42b74e1d4b9c4f34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  cardLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isOverInteractable: 0
 --- !u!212 &131582336374602011
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1283,7 +1290,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1381,11 +1388,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
+  isInitialized: 0
 --- !u!4 &1182067240008108438
 Transform:
   m_ObjectHideFlags: 0
@@ -1546,7 +1556,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1728,11 +1738,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 5d6c2c3e563b9d544942a74f69a88591, type: 2}
+  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
+  isInitialized: 0
 --- !u!1 &5445241816210810052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,11 +1862,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
+  isInitialized: 0
 --- !u!1 &6873492073625903166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,7 +1978,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2007,11 +2023,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+  runtimeData: {fileID: 0}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
+  isInitialized: 0
 --- !u!114 &8747487564927276789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2024,6 +2043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043e60cb877d61a438f8d8a0dd8cfaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mmf_Player: {fileID: 0}
 --- !u!1 &8749087261574499476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,7 +2083,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

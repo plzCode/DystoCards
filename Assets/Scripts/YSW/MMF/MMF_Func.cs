@@ -6,6 +6,14 @@ public class MMF_Func : MonoBehaviour
 {
     public MMF_Player mmf_Players;
 
+    private void OnEnable()
+    {
+        if(mmf_Players != null)
+        {
+            mmf_Players.Initialization();
+        }
+    }
+
     public float PlayFeedBack_ByName(string feedbackName)
     {
         float duration = 0f;
