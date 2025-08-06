@@ -117,6 +117,9 @@ public class Card_Storage : MonoBehaviour
             if (childCard.transform.parent != this.transform)
                 childCard.transform.SetParent(this.transform);
 
+            // 카드 자체는 활성 유지
+            childCard.gameObject.SetActive(true);
+
             // 시각적으로 숨김
             var renderer = childCard.GetComponent<SpriteRenderer>();
             if (renderer != null)
@@ -127,11 +130,8 @@ public class Card_Storage : MonoBehaviour
             if (collider != null)
                 collider.enabled = false;
 
-            for(int i = 0; i< childCard.transform.childCount; i++)
-            {
-                var child = childCard.transform.GetChild(i);
-                child.gameObject.SetActive(false); // 자식 카드도 비활성화
-            }
+            foreach (Transform child in childCard.transform)
+                child.gameObject.SetActive(false); // 자식 카드 비활성화
         }
 
         // 차지량 UI 텍스트 갱신
@@ -187,11 +187,8 @@ public class Card_Storage : MonoBehaviour
         if (collider != null)
             collider.enabled = true;
 
-        for (int i = 0; i < card.transform.childCount; i++)
-        {
-            var child = card.transform.GetChild(i);
-            child.gameObject.SetActive(true); // 자식 카드도 비활성화
-        }
+        foreach (Transform child in card.transform)
+            child.gameObject.SetActive(true); // 자식 카드 활성화
     }
 
     private void UpdateRefrigeratorItems()
