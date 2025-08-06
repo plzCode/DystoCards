@@ -6,6 +6,7 @@ public class CharacterCardData : CardData
 
     [Header("Character Attributes")]
     [SerializeField] private float max_health = 20f;
+    [SerializeField] private float current_health = 20f; // 현재 체력, 필요시 사용
     [SerializeField] private float attack_power = 2f;
     [SerializeField] private float defense_power = 1f;
 
@@ -24,6 +25,19 @@ public class CharacterCardData : CardData
             if (max_health != value)
             {
                 max_health = value;
+                OnDataChanged?.Invoke();
+            }
+        }
+    }
+
+    public float CurrentHealth
+    {
+        get => current_health;
+        set
+        {
+            if (current_health != value)
+            {
+                current_health = value;
                 OnDataChanged?.Invoke();
             }
         }

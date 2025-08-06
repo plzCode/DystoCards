@@ -337,10 +337,10 @@ public class Card2D : MonoBehaviour
                 stats["sanity"] = heal.mentalAmount;
                 stats["stamina"] = heal.staninaAmount;
                 break;
-            case HumanCardData human:
-                stats["hp"] = human.MaxHealth;
-                stats["sanity"] = human.MaxMentalHealth;
-                stats["hunger"] = human.MaxHunger;
+            case HumanCardData human:                
+                stats["hp"] = human.CurrentHealth;
+                stats["sanity"] = human.CurrentMentalHealth;
+                stats["hunger"] = human.CurrentHunger;
                 stats["stamina"] = human.Stamina;
                 stats["attack"] = human.AttackPower;
                 stats["defense"] = human.DefensePower;

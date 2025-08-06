@@ -4,17 +4,34 @@ public class Character : MonoBehaviour
 {
     public CharacterCardData charData;
 
-    public float currentHealth;
+    [SerializeField]
+    public float currentHealth
+    {
+        get => charData.CurrentHealth;
+        set
+        {
+            if (charData.CurrentHealth != value)
+            {
+                charData.CurrentHealth = value;
+            }
+        }
+    }
+
+    public void Start()
+    {
+        if(charData != null)
+            Initialize(charData);
+    }
 
     public void Initialize(CharacterCardData data)
     {
         charData = (CharacterCardData)data.Clone();
-        currentHealth = data.MaxHealth;
     }
 
     public virtual void TakeDamage(float amount)
-    {
+    {        
         currentHealth = Mathf.Max(0, currentHealth - amount);
+        //charData.CurrentHealth = currentHealth; // Update the current health in charData
         Debug.Log($"{charData.cardName} took {amount} damage. HP: {currentHealth}/{charData.MaxHealth}");
 
         if (currentHealth <= 0)

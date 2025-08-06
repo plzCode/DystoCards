@@ -21,16 +21,16 @@ public class StatPanelManager : MonoBehaviour
             switch (kv)
             {
                 case var _ when kv.Key == "hp":
-                    CreateEntry(kv.Key, human.currentHealth, kv.Value, StatVisualType.Bar);
+                    CreateEntry(kv.Key, human.humanData.MaxHealth, kv.Value, StatVisualType.Bar);
                     continue;
                 case var _ when kv.Key == "sanity":
-                    CreateEntry(kv.Key, human.currentMentalHealth, kv.Value, StatVisualType.Bar);
+                    CreateEntry(kv.Key, human.humanData.MaxMentalHealth, kv.Value, StatVisualType.Bar);
                     continue;
                 case var _ when kv.Key == "stamina":
-                    CreateEntry(kv.Key, human.currentStamina, kv.Value, StatVisualType.Bar);
+                    CreateEntry(kv.Key, human.humanData.Stamina, kv.Value, StatVisualType.Bar);
                     continue;
                 case var _ when kv.Key == "hunger":
-                    CreateEntry(kv.Key, human.currentHunger, kv.Value,  StatVisualType.Bar);
+                    CreateEntry(kv.Key, human.humanData.MaxHunger, kv.Value,  StatVisualType.Bar);
                     continue;
                 case var _ when kv.Key == "consumeHunger":
                     CreateEntry(kv.Key, human.humanData.ConsumeHunger, 0, StatVisualType.Number);
