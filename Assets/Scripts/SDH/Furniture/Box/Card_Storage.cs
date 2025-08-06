@@ -126,6 +126,12 @@ public class Card_Storage : MonoBehaviour
             var collider = childCard.GetComponent<Collider2D>();
             if (collider != null)
                 collider.enabled = false;
+
+            for(int i = 0; i< childCard.transform.childCount; i++)
+            {
+                var child = childCard.transform.GetChild(i);
+                child.gameObject.SetActive(false); // 자식 카드도 비활성화
+            }
         }
 
         // 차지량 UI 텍스트 갱신
@@ -180,6 +186,12 @@ public class Card_Storage : MonoBehaviour
         var collider = card.GetComponent<Collider2D>();
         if (collider != null)
             collider.enabled = true;
+
+        for (int i = 0; i < card.transform.childCount; i++)
+        {
+            var child = card.transform.GetChild(i);
+            child.gameObject.SetActive(true); // 자식 카드도 비활성화
+        }
     }
 
     private void UpdateRefrigeratorItems()
