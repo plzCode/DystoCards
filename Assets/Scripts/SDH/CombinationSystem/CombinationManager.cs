@@ -67,11 +67,17 @@ public class CombinationManager : MonoBehaviour
             stackGroup.Add(card);
 
             // Human 타입인지 확인
-            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
+            if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
                 humanCount++;
 
             // 다음 카드로 이동 (자식이 있으면 첫 번째 자식으로, 없으면 null)
-            current = current.childCount > 0 ? current.GetChild(0) : null;
+            //current = current.childCount > 0 ? current.GetChild(0) : null;
+            if(card.childCards != null && card.childCards.Count > 0)
+            {
+                current = card.childCards[0].transform; // 첫 번째 자식 카드로 이동
+            }
+            else
+                current = null; // 더 이상 자식이 없으면 순회 종료            
         }
 
         // 디버그 출력으로 스택 상태를 확인
@@ -81,7 +87,7 @@ public class CombinationManager : MonoBehaviour
         Debug.Log($"- 마지막 카드: {stackGroup[^1].name}");
 
         // 스택의 마지막 카드가 Human인지 확인
-        bool lastCardIsHuman = stackGroup[^1].IsCharacterOfType(stackGroup[^1].RuntimeData, CharacterType.Human);
+        bool lastCardIsHuman = stackGroup[^1].IsCharacterOfType(stackGroup[^1].cardData, CharacterType.Human);
         Debug.Log($"- 마지막 카드가 Human인가? {lastCardIsHuman}");
 
         // 조건: Human 카드가 딱 1개이며, 스택의 마지막 카드여야 함
@@ -100,7 +106,7 @@ public class CombinationManager : MonoBehaviour
         // Human 카드를 따로 저장하고 나머지 카드만 조합 대상으로 분류
         foreach (var card in cards)
         {
-            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
+            if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
                 triggerCard = card;
             else
                 filteredCards.Add(card);
@@ -130,6 +136,8 @@ public class CombinationManager : MonoBehaviour
 
                     // 새로운 카드 생성
                     Card2D newCard = CardManager.Instance.SpawnCard(recipe.result, spawnPosition);
+                    newCard.BringToFrontRecursive(newCard);
+                    newCard.cardAnim.PlayFeedBack_ByName("BounceY");
 
                     // 새 카드의 부모를 fieldCards로 설정
                     newCard.transform.SetParent(fieldCards.transform);
@@ -202,10 +210,10 @@ public class CombinationManager : MonoBehaviour
         var inputDict = new Dictionary<CardData, int>();
         foreach (var card in inputCards)
         {
-            if (inputDict.ContainsKey(card.RuntimeData))
-                inputDict[card.RuntimeData]++;
+            if (inputDict.ContainsKey(card.cardData))
+                inputDict[card.cardData]++;
             else
-                inputDict[card.RuntimeData] = 1;
+                inputDict[card.cardData] = 1;
         }
 
         // 레시피 재료와 비교

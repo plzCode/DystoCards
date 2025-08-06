@@ -47,8 +47,13 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SpawnCardById("051", new Vector3(0, 0, 0));
-        }        
-        if (Input.GetKeyDown(KeyCode.E))
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SpawnCardById("001", new Vector3(0, 0, 0));
+        }
+            if (Input.GetKeyDown(KeyCode.E))
         {
             foreach (var card in fieldCards)
             {
@@ -72,6 +77,7 @@ public class CardManager : MonoBehaviour
 
         var runtimeData = data.Clone();
         var finalCard = AddCardScript(newCard.gameObject, runtimeData);
+        finalCard.cardData = data;
         finalCard.SetRuntimeData(runtimeData);
         finalCard.name = $"Card_{runtimeData.cardName}";
 
