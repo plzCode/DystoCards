@@ -45,6 +45,14 @@ public class CardInfoUI : MonoBehaviour
                 equipmentItem.transform.SetParent(char_Equipment);
                 equipmentItem.AddComponent<Image>().sprite = item.equipment.cardImage;
                 equipmentItem.transform.localScale = Vector3.one;
+                Button button = equipmentItem.AddComponent<Button>();
+                button.onClick.AddListener(() => 
+                {
+                    character.Unequip(item.equipment.slot);
+                    Destroy(equipmentItem); // 장비 아이템 제거
+                    // 장비 아이템 클릭 시 처리
+                    Debug.Log($"Clicked on equipment: {item.equipment.cardName}");
+                });
                 // 추가적인 UI 설정 필요
             }
         }

@@ -11,6 +11,7 @@ public class Card2D : MonoBehaviour
     [SerializeField] public CardData cardData;
     
     [SerializeField] private CardData runtimeData;
+
     public CardData RuntimeData => runtimeData;
 
     public static int globalSortingOrder = 0;
@@ -31,10 +32,13 @@ public class Card2D : MonoBehaviour
 
     public bool isInitialized = false;
 
+    public Dissolve dissolveEffect;
+
     private void Awake()
     {
         uiRenderer = GetComponent<CardUIRenderer>();
         cardAnim = GetComponentInChildren<MMF_Func>();
+        dissolveEffect = GetComponentInChildren<Dissolve>();
     }
     private void Start()
     {
