@@ -100,13 +100,9 @@ public class BattleManager : MonoBehaviour
     {
         if (humans.Count == 0 && monsters.Count == 0) return;
 
-        float spacing = 1.5f;
-        float margin = 1;
-
-        float humanWidth = (humans.Count - 1) * spacing;
-        float monsterWidth = (monsters.Count - 1) * spacing;
-        float maxWidth = Mathf.Max(humanWidth, monsterWidth) + margin * 2;
-        float totalHeight = 2 + margin * 2;
+        float margin = 1f;
+        float spacingX = 0.5f;
+        float spacingY = 1f;
 
         if (!battleArea.gameObject.activeSelf)
         {
@@ -128,24 +124,62 @@ public class BattleManager : MonoBehaviour
                 battleArea.position = totalPos / totalCount;
         }
 
+        List<float> humanWidths = new List<float>();
+        List<float> humanHeights = new List<float>();
+        foreach (var h in humans)
+        {
+            var sr = h.GetComponent<SpriteRenderer>();
+            float w = sr?.bounds.size.x ?? 1f;
+            float hgt = sr?.bounds.size.y ?? 1f;
+            humanWidths.Add(w);
+            humanHeights.Add(hgt);
+        }
+
+        List<float> monsterWidths = new List<float>();
+        List<float> monsterHeights = new List<float>();
+        foreach (var m in monsters)
+        {
+            var sr = m.GetComponent<SpriteRenderer>();
+            float w = sr?.bounds.size.x ?? 1f;
+            float hgt = sr?.bounds.size.y ?? 1f;
+            monsterWidths.Add(w);
+            monsterHeights.Add(hgt);
+        }
+
+        float humanTotalWidth = -spacingX;
+        foreach (float w in humanWidths)
+            humanTotalWidth += w + spacingX;
+
+        float monsterTotalWidth = -spacingX;
+        foreach (float w in monsterWidths)
+            monsterTotalWidth += w + spacingX;
+
+        float maxWidth = Mathf.Max(humanTotalWidth, monsterTotalWidth) + margin * 2;
+        float maxHumanHeight = humanHeights.Count > 0 ? Mathf.Max(humanHeights.ToArray()) : 1f;
+        float maxMonsterHeight = monsterHeights.Count > 0 ? Mathf.Max(monsterHeights.ToArray()) : 1f;
+        float totalHeight = maxHumanHeight + maxMonsterHeight + spacingY + margin * 2;
+
         battleArea.localScale = new Vector3(maxWidth, totalHeight, 1);
         battleArea.gameObject.SetActive(true);
 
-        float topY = totalHeight / 2 - margin;
-        float bottomY = -totalHeight / 2 + margin;
+        float centerY = battleArea.position.y;
+        float humanY = centerY + (maxHumanHeight + spacingY) / 2;
+        float monsterY = centerY - (maxMonsterHeight + spacingY) / 2;
 
-        float humanStartX = -humanWidth / 2;
+        float humanX = battleArea.position.x - humanTotalWidth / 2;
         for (int i = 0; i < humans.Count; i++)
         {
-            Vector3 localPos = new Vector3(humanStartX + i * spacing, topY, 0);
-            humans[i].transform.position = battleArea.position + localPos;
+            float width = humanWidths[i];
+            humans[i].transform.position = new Vector3(humanX + width / 2, humanY, 0);
+            humanX += width + spacingX;
         }
 
-        float monsterStartX = -monsterWidth / 2;
+        float monsterX = battleArea.position.x - monsterTotalWidth / 2;
         for (int i = 0; i < monsters.Count; i++)
         {
-            Vector3 localPos = new Vector3(monsterStartX + i * spacing, bottomY, 0);
-            monsters[i].transform.position = battleArea.position + localPos;
+            float width = monsterWidths[i];
+            monsters[i].transform.position = new Vector3(monsterX + width / 2, monsterY, 0);
+            monsterX += width + spacingX;
         }
     }
 

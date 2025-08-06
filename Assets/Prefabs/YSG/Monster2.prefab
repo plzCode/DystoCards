@@ -185,6 +185,7 @@ MonoBehaviour:
   childCards: []
   cardAnim: {fileID: 0}
   isInitialized: 0
+  dissolveEffect: {fileID: 0}
 --- !u!114 &5370701792962574165
 MonoBehaviour:
   m_ObjectHideFlags: 0
