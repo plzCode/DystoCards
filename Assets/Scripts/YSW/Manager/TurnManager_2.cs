@@ -1,4 +1,5 @@
-using System;
+/*using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
@@ -20,7 +21,8 @@ public class TurnManager : MonoBehaviour
     public TurnPhase CurrentPhase { get; private set; } = TurnPhase.EventDraw;
 
     public event Action<TurnPhase> OnTurnPhaseChanged;
-    private Dictionary<TurnPhase, Action> phaseStartActions = new();
+
+    private Dictionary<TurnPhase, List<Func<IEnumerator>>> phaseCoroutines = new();
 
     public int TurnCount { get; private set; } = 1;
 
@@ -42,16 +44,17 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        BeginTurnPhase(CurrentPhase);
+        StartCoroutine(RunPhaseSequence(CurrentPhase));
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
             NextPhase();
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            RegisterPhaseAction(TurnPhase.DayAction, () => Debug.Log("Custom action for Day Action phase."));
+            RegisterPhaseAction(TurnPhase.DayAction, WaitForUserConfirmExample);
         }
     }
 
@@ -60,7 +63,7 @@ public class TurnManager : MonoBehaviour
         CurrentPhase = GetNextPhase(CurrentPhase);
         Debug.Log($"[TurnManager] Phase changed to: {CurrentPhase}");
         OnTurnPhaseChanged?.Invoke(CurrentPhase);
-        BeginTurnPhase(CurrentPhase);
+        StartCoroutine(RunPhaseSequence(CurrentPhase));
 
         if (mmf_Player != null)
         {
@@ -76,14 +79,19 @@ public class TurnManager : MonoBehaviour
             case TurnPhase.DayAction: return TurnPhase.DayEnd;
             case TurnPhase.DayEnd: return TurnPhase.ExploreAction;
             case TurnPhase.ExploreAction: return TurnPhase.ExploreEnd;
-            case TurnPhase.ExploreEnd: TurnCount++; return TurnPhase.EventDraw;
-            default: return TurnPhase.EventDraw;
+            case TurnPhase.ExploreEnd:
+                TurnCount++;
+                return TurnPhase.EventDraw;
+            default:
+                return TurnPhase.EventDraw;
         }
     }
 
-    private void BeginTurnPhase(TurnPhase phase)
+    private IEnumerator RunPhaseSequence(TurnPhase phase)
     {
-        // 각 Phase별로 자동 처리되는 로직이 있다면 여기에 정의
+        Debug.Log($"[TurnManager] Begin phase: {phase}");
+
+        // 자동 처리 로직 (기본 메시지)
         switch (phase)
         {
             case TurnPhase.EventDraw:
@@ -102,18 +110,55 @@ public class TurnManager : MonoBehaviour
                 Debug.Log("Process exploration results.");
                 break;
         }
-        //커스텀 등록된 액션 실행
-        if (phaseStartActions.TryGetValue(phase, out var action))
+
+        // 등록된 코루틴 실행
+        if (phaseCoroutines.TryGetValue(phase, out var actions))
         {
-            action?.Invoke();
+            foreach (var action in actions)
+            {
+                // 매 액션 실행 전에 userConfirmed 초기화
+                userConfirmed = false;
+
+                // 액션 자체를 실행
+                yield return StartCoroutine(action());
+
+                // 액션 종료를 기다림
+                yield return new WaitUntil(() => userConfirmed);
+            }
+        }
+
+        // 피드백
+        if (mmf_Player != null)
+        {
+            mmf_Player.PlayFeedbacks();
         }
     }
 
-    public void RegisterPhaseAction(TurnPhase phase, Action action)
+    // 외부에서 호출되는 confirm 메서드
+    public void ConfirmUserInput()
     {
-        if (!phaseStartActions.ContainsKey(phase))
-            phaseStartActions[phase] = action;
-        else
-            phaseStartActions[phase] += action;
+        Debug.Log("User input confirmed.");
+        userConfirmed = true;
+    }
+
+    // 예시로 등록하는 액션 함수
+    public IEnumerator WaitForUserConfirmExample()
+    {
+        Debug.Log("[PhaseAction] 사용자 입력을 기다리는 중...");
+
+        // 여기서 UI 버튼 등을 보여주고 외부에서 ConfirmUserInput()을 호출하게 만들 수 있음
+        
+
+        // 버튼 클릭 시 TurnManager.Instance.ConfirmUserInput() 호출됨
+
+        yield break; // 종료는 여기서 하지 않고 WaitUntil이 다음 액션까지 대기함
+    }
+
+    public void RegisterPhaseAction(TurnPhase phase, Func<IEnumerator> coroutineAction)
+    {
+        if (!phaseCoroutines.ContainsKey(phase))
+            phaseCoroutines[phase] = new List<Func<IEnumerator>>();
+        phaseCoroutines[phase].Add(coroutineAction);
     }
 }
+*/
