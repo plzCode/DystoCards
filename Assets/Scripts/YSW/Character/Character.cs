@@ -31,7 +31,9 @@ public class Character : MonoBehaviour
     #region 전투 시스템 정해지면 수정 필요
     public virtual void Die()
     {
-
+        var card = GetComponent<Card2D>();
+        if (card != null)
+            CardManager.Instance.DestroyCard(card);
     }
     public virtual void ChooseTarget()
     {

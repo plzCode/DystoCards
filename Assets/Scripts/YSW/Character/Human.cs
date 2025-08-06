@@ -91,22 +91,25 @@ public class Human : Character
         Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
-    public override void Attack(Character target)
+    /*public override void Attack(Character target)
     {
         target.TakeDamage(charData.AttackPower);
         Debug.Log($"{charData.cardName} attacks {target.charData.cardName} for {charData.AttackPower} damage");
-    }
+    }*/
 
     public override void TakeDamage(float amount)
     {
-        float effectiveDamage = Mathf.Max(0, amount - charData.DefensePower);
+        /*float effectiveDamage = Mathf.Max(0, amount - charData.DefensePower);
         currentHealth = Mathf.Max(0, currentHealth - effectiveDamage);
         Debug.Log($"{charData.cardName} took {effectiveDamage} damage after armor. HP: {currentHealth}/{charData.MaxHealth}");
 
         if (currentHealth <= 0)
         {
             Die();
-        }
+        }*/
+        base.TakeDamage(amount);
+        //HumanRuntimeData는 구독이 안되어있어서 숫자가 바뀌어도 StatRendering이 되지 않음, 
+
     }
 
     /*public void Equip(EquipmentCardData equipment)

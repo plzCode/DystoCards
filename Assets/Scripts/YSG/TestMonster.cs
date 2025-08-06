@@ -121,10 +121,8 @@ public class TestMonster : Character
 
     public override void Die()
     {
-        base.Die();
-
         DropItem();
-        Destroy(gameObject);
+        base.Die();
     }
 
     public void DropItem()
