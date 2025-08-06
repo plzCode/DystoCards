@@ -124,6 +124,7 @@ public class TestMonster : Character
         base.Die();
 
         DropItem();
+        Destroy(gameObject);
     }
 
     public void DropItem()
