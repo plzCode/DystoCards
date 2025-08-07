@@ -12,12 +12,22 @@ public class CombinationManager : MonoBehaviour
     [SerializeField] private List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject fieldCards;        // 필드에 놓인 카드들의 부모 오브젝트
 
+    public static CombinationManager Instance { get; private set; }
+
     private void Awake()
     {
+        // 싱글톤 인스턴스 지정
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
         DontDestroyOnLoad(gameObject); // 씬이 넘어가도 유지
     }
 
-    private void Update()
+    public void CheckCombination()
     {
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
