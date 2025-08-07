@@ -4,10 +4,13 @@ using UnityEngine.UI;
 
 public class MinimapIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public MinimapController minimapController;    
+    
+    [SerializeField] private MinimapController minimapController;    
+    [SerializeField] private ExploreInfo exploreInfoUI;
+    [SerializeField] private Image iconImage;
+    [SerializeField] private Button iconButton;
     public LocationInfo locationInfo;
-    public ExploreInfo exploreInfoUI;
-    public Button iconButton; 
+
 
     private Vector3 originalScale;
     private Vector3 targetScale;
@@ -54,6 +57,12 @@ public class MinimapIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         minimapController.isDraggingIcon = false;
+    }
+
+    public void SetInfo()
+    {
+        iconImage.sprite = locationInfo.locationImage;
+        iconButton.enabled = true;
     }
 
     void OnDisable()

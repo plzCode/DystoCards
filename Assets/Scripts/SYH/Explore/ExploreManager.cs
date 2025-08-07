@@ -7,15 +7,21 @@ public class ExploreManager : MonoBehaviour
     public List<HumanCardData> registedHumans = new List<HumanCardData>();
     public static ExploreManager Instance { get; private set; }
 
+    public List<MinimapIcon> mapLocationList;
+
     // 여러 탐험지를 저장
     public List<ExplorationData> registeredExplorations = new List<ExplorationData>();
 
     [SerializeField] private UIThemeData uiThemeData; // UI 색상 정보
 
     [SerializeField] private HumanScrollView humanScrollView;
+    [SerializeField] private RewardScrollView rewardScrollView;
+    [SerializeField] private OpendLocationScroll opendLocationInfo;
 
     public event System.Action<ExplorationData> OnExploreAdded;
     public event System.Action<ExplorationData> OnExploreCompleted;
+
+    
 
     void Awake()
     {
@@ -28,6 +34,10 @@ public class ExploreManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         UIBarUtility.Init(uiThemeData);
+
+        rewardScrollView.Init();
+
+        mapLocationList.Sort((a, b) => a.locationInfo.openDay.CompareTo(b.locationInfo.openDay));
     }
     private void Update()
     {
@@ -47,6 +57,9 @@ public class ExploreManager : MonoBehaviour
     {
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, () => { });
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreEnd,()=>ProcessExploreEnd());
+        TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, () => CheckOpenLocation());
+
+        
     }
 
     public bool AddExplore(HumanCardData human, LocationInfo location)
@@ -91,7 +104,7 @@ public class ExploreManager : MonoBehaviour
             if (data.remainingDays <= 0)
             {
                 Debug.Log($"[탐험 완료] {data.human.cardName}의 {data.location.locationName} 탐험이 완료되었습니다.");
-                ProcessExploreResult(data.location, CaculateSuccessPercent(data.location, data.human));
+                //ProcessExploreResult(data.location, CaculateSuccessPercent(data.location, data.human));
                 completed.Add(data);
             }
         }
@@ -173,11 +186,71 @@ public class ExploreManager : MonoBehaviour
         // 추후 인벤토리 시스템 연결 가능
     }
 
+    public List<RewardInfo> GetRewards(LocationInfo location, HumanCardData human)
+    {
+        float successRate = CaculateSuccessPercent(location, human);
+        List<RewardInfo> givenRewards = new List<RewardInfo>();
+
+        foreach (var reward in location.rewards)
+        {
+            
+            float roll = Random.Range(0f, 100f);
+            if (roll <= reward.probability)
+            {
+                RewardInfo calculatedRewards = new RewardInfo();
+                float rawQuantity = reward.quantity * (successRate / 100f);
+                int actualQuantity = Mathf.FloorToInt(rawQuantity);
+
+                if (Random.value < rawQuantity - actualQuantity)
+                    actualQuantity += 1;
+                calculatedRewards.card = reward.card;
+                calculatedRewards.quantity = actualQuantity;
+                if (actualQuantity != 0)
+                {
+                    givenRewards.Add(calculatedRewards);
+                }
+                
+            }
+        }
+
+        return givenRewards;
+    }
+
 
     // 선택적으로: 전체 초기화 메서드
     public void ClearExplores()
     {
         registeredExplorations.Clear();
         Debug.Log("[ExploreManager] 모든 탐색 정보가 초기화됨.");
+    }
+
+    void CheckOpenLocation()
+    {
+        int lastCount = -1;
+        List<LocationInfo> opendLocations = new List<LocationInfo>();
+        for (int i = 0; i < mapLocationList.Count; i++)
+        {
+            if (mapLocationList[i].locationInfo.openDay <= TurnManager.Instance.TurnCount)
+            {
+                lastCount = i;
+                opendLocations.Add(mapLocationList[i].locationInfo);
+                mapLocationList[i].SetInfo();
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (lastCount >= 0)
+        {
+            opendLocationInfo.ShowOpendLocationList(opendLocations);
+        }
+
+
+        if (lastCount >= 0 && lastCount < mapLocationList.Count)
+        {
+            mapLocationList.RemoveRange(0, lastCount + 1);
+        }
     }
 }

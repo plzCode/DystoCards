@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d5df1c0f4f8fdb4d8fd71b19989f867, type: 3}
-  m_Name: Location3
+  m_Name: Location4
   m_EditorClassIdentifier: 
-  locationName: School
-  locationImage: {fileID: -91903354144237191, guid: 7299744293663824193512a95b9cbc6c, type: 3}
-  requiredStrength: 3
-  requiredStamina: 5
-  dangerLevel: 2
-  durationDays: 1
-  openDay: 2
+  locationName: Warning
+  locationImage: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
+  requiredStrength: 5
+  requiredStamina: 6
+  dangerLevel: 5
+  durationDays: 4
+  openDay: 4
   rewards:
   - card: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-    quantity: 4
+    quantity: 7
     probability: 100
   - card: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
-    quantity: 1
+    quantity: 5
     probability: 100

@@ -290,6 +290,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &33909524
 BoxCollider2D:
@@ -552,6 +553,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &193281513
 BoxCollider2D:
@@ -683,7 +685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1281882521114903145, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3912577115860299538, guid: 499b16bac22dc6b4183fb5e22bb3f928, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1282,6 +1284,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &385995837
 BoxCollider2D:
@@ -1553,6 +1556,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!1 &422145333
 GameObject:
@@ -3095,6 +3099,19 @@ MonoBehaviour:
   clickCatcher: {fileID: 261962717}
   showFeedback: {fileID: 545700253}
   hideFeedback: {fileID: 2044999673}
+  defaultInteractableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  defaultCardMask:
+    serializedVersion: 2
+    m_Bits: 0
+  uiOnlyInteractableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  uiOnlyCardMask:
+    serializedVersion: 2
+    m_Bits: 0
+  mouseInput: {fileID: 0}
 --- !u!114 &1218770934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3240,6 +3257,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &1264052059
 BoxCollider2D:
@@ -3443,7 +3461,7 @@ GameObject:
   - component: {fileID: 1281715154}
   - component: {fileID: 1281715153}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ExploreManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5570,6 +5588,7 @@ MonoBehaviour:
     m_Bits: 64
   parentCard: {fileID: 0}
   childCards: []
+  cardAnim: {fileID: 0}
   isInitialized: 0
 --- !u!61 &1918718452
 BoxCollider2D:
