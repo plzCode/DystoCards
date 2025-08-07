@@ -105,7 +105,6 @@ public class MouseInput : MonoBehaviour
             {
                 Debug.Log($"[MiddleClick] {card.name} »Ÿ ≈¨∏Øµ !");
                 //float delay = card.cardAnim.PlayFeedBack_ByName("DustParticle");
-                card.DetachChildrenBeforeDestroy();
                 CardManager.Instance.DestroyCard(card, 1f);
 
             }

@@ -109,6 +109,7 @@ public class Card2D : MonoBehaviour
         }
 
         BringToFrontRecursive(this);
+        CombinationManager.Instance.CheckCombination();
     }
     #endregion
 
