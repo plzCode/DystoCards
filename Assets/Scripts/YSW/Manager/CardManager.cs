@@ -109,6 +109,9 @@ public class CardManager : MonoBehaviour
     }
     public void DestroyCard(Card2D card, float delay = 0f)
     {
+        card.isStackable = false; // 스택 가능 여부를 false로 설정하여 스택에서 제거
+        card.DetachChildrenBeforeDestroy(); // 자식 오브젝트들을 분리
+
         if (card == null)
         {
             Debug.LogWarning("[CardManager] DestroyCard: null 카드입니다.");

@@ -31,7 +31,7 @@ public class Card2D : MonoBehaviour
     public MMF_Func cardAnim;
 
     public bool isInitialized = false;
-
+    public bool isStackable = true;
     public Dissolve dissolveEffect;
 
     private void Awake()
@@ -157,6 +157,12 @@ public class Card2D : MonoBehaviour
 
     public virtual void StackOnto(Card2D target) //현재 카드를 target 카드 위에 스택(부착)하는 역할.
     {
+        if(target.isStackable == false)
+        {
+            Debug.LogWarning($"Cannot stack onto {target.name} because it is not stackable.");
+            return;
+        }
+
         // 기존 부모 카드가 있다면, 자식 리스트에서 자신을 제거
         if (parentCard != null)
         {
