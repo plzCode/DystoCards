@@ -26,7 +26,7 @@ public class HumanScrollView : MonoBehaviour
 
     
 
-    public void AddHuman(HumanCardData data)
+    public void AddHuman(Human data)
     {
         HumanIcon icon = null;
 
@@ -53,9 +53,9 @@ public class HumanScrollView : MonoBehaviour
 
     private void OnEnable()
     {
-        List<HumanCardData> humans = ExploreManager.Instance.registedHumans;
+        List<Human> humans = ExploreManager.Instance.registedHumans;
 
-        
+
         for (int i = 0; i < pooledIcons.Count; i++)
         {
             if (i < humans.Count)

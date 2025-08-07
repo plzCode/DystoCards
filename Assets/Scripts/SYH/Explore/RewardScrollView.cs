@@ -39,7 +39,7 @@ public class RewardScrollView : MonoBehaviour
         gameObject.SetActive(true);
         Debug.Log("보상 보이기");
         // 보상 리스트 가져오기
-        var rewards = ExploreManager.Instance.GetRewards(data.location, data.human);       
+        var rewards = ExploreManager.Instance.GetRewards(data.location, data.human.humanData);       
 
         RewardSlotUI targetInfo = null;
 
@@ -53,7 +53,7 @@ public class RewardScrollView : MonoBehaviour
             }
         }
 
-        targetInfo.Set(rewards,data.location.locationImage,data.human.cardImage);
+        targetInfo.Set(rewards,data.location.locationImage,data.human.humanData.cardImage);
         targetInfo.gameObject.SetActive(true);
 
     }
