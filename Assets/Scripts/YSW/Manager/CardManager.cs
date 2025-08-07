@@ -55,9 +55,18 @@ public class CardManager : MonoBehaviour
         }
             if (Input.GetKeyDown(KeyCode.E))
         {
-            foreach (var card in fieldCards)
+            /*foreach (var card in fieldCards)
             {
                 Debug.Log($"Card: {card.name}, Type: {card.RuntimeData.cardType}, ID: {card.RuntimeData.cardId}");
+            }*/
+            List<Card2D> cards = GetCardsByType(CardType.Character);
+            if(cards != null)
+            {
+                List<Card2D> humans = GetCharacterType(cards, CharacterType.Human);
+                foreach(var human in humans)
+                {
+                    Debug.Log(human.name);
+                }
             }
         }
     }

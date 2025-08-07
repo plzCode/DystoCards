@@ -59,35 +59,41 @@ public class Human : Character
     public void ConsumeFood()
     {
         currentHunger = Mathf.Max(0, currentHunger - humanData.ConsumeHunger);
+        humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} consumed {humanData.ConsumeHunger} hunger. Remaining: {currentHunger}");
     }
 
     public void RecoverHunger(float amount)
     {
         currentHunger = Mathf.Min(humanData.MaxHunger, currentHunger + amount);
+        humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{humanData.MaxHunger}");
     }
 
     public void ConsumeStamina(float amount)
     {
         currentStamina = Mathf.Max(0, currentStamina - amount);
+        humanData.Stamina = currentStamina;
         Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.Stamina}");
     }
 
     public void RecoverStamina(float amount)
     {
         currentStamina = Mathf.Min(humanData.Stamina, currentStamina + amount);
+        humanData.Stamina = currentStamina;
     }
 
     public void TakeStress(float amount)
     {
         currentMentalHealth = Mathf.Max(0, currentMentalHealth - amount);
+        humanData.CurrentMentalHealth = currentMentalHealth;
         Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
     public void RecoverMentalHealth(float amount)
     {
         currentMentalHealth = Mathf.Min(humanData.MaxMentalHealth, currentMentalHealth + amount);
+        humanData.CurrentMentalHealth = currentMentalHealth;
         Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
