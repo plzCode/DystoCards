@@ -152,24 +152,6 @@ public class CombinationManager : MonoBehaviour
                     // 새 카드의 부모를 fieldCards로 설정
                     newCard.transform.SetParent(fieldCards.transform);
 
-                    // newCard localPosition.z 0으로 설정
-                    Vector3 newLocalPos = newCard.transform.localPosition;
-                    newLocalPos.z = 0f;
-                    newCard.transform.localPosition = newLocalPos;
-
-                    // triggerCard localPosition.z 0으로 설정
-                    Vector3 triggerLocalPos = triggerCard.transform.localPosition;
-                    triggerLocalPos.z = 0f;
-                    triggerCard.transform.localPosition = triggerLocalPos;
-
-                    // 렌더링 순서 조정 (Human 카드보다 위에 보이도록)
-                    SpriteRenderer newCardRenderer = newCard.GetComponent<SpriteRenderer>();
-                    if (triggerRenderer != null && newCardRenderer != null)
-                    {
-                        newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
-                        newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
-                    }
-
                     string scriptName = recipe.scriptName;
 
                     if (!string.IsNullOrEmpty(scriptName))
