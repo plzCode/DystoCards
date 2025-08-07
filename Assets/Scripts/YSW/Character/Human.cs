@@ -59,54 +59,63 @@ public class Human : Character
     public void ConsumeFood()
     {
         currentHunger = Mathf.Max(0, currentHunger - humanData.ConsumeHunger);
+        humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} consumed {humanData.ConsumeHunger} hunger. Remaining: {currentHunger}");
     }
 
     public void RecoverHunger(float amount)
     {
         currentHunger = Mathf.Min(humanData.MaxHunger, currentHunger + amount);
+        humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{humanData.MaxHunger}");
     }
 
     public void ConsumeStamina(float amount)
     {
         currentStamina = Mathf.Max(0, currentStamina - amount);
+        humanData.Stamina = currentStamina;
         Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.Stamina}");
     }
 
     public void RecoverStamina(float amount)
     {
         currentStamina = Mathf.Min(humanData.Stamina, currentStamina + amount);
+        humanData.Stamina = currentStamina;
     }
 
     public void TakeStress(float amount)
     {
         currentMentalHealth = Mathf.Max(0, currentMentalHealth - amount);
+        humanData.CurrentMentalHealth = currentMentalHealth;
         Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
     public void RecoverMentalHealth(float amount)
     {
         currentMentalHealth = Mathf.Min(humanData.MaxMentalHealth, currentMentalHealth + amount);
+        humanData.CurrentMentalHealth = currentMentalHealth;
         Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
-    public override void Attack(Character target)
+    /*public override void Attack(Character target)
     {
         target.TakeDamage(charData.AttackPower);
         Debug.Log($"{charData.cardName} attacks {target.charData.cardName} for {charData.AttackPower} damage");
-    }
+    }*/
 
     public override void TakeDamage(float amount)
     {
-        float effectiveDamage = Mathf.Max(0, amount - charData.DefensePower);
+        /*float effectiveDamage = Mathf.Max(0, amount - charData.DefensePower);
         currentHealth = Mathf.Max(0, currentHealth - effectiveDamage);
         Debug.Log($"{charData.cardName} took {effectiveDamage} damage after armor. HP: {currentHealth}/{charData.MaxHealth}");
 
         if (currentHealth <= 0)
         {
             Die();
-        }
+        }*/
+        base.TakeDamage(amount);
+        //HumanRuntimeData는 구독이 안되어있어서 숫자가 바뀌어도 StatRendering이 되지 않음, 
+
     }
 
     /*public void Equip(EquipmentCardData equipment)
@@ -165,9 +174,10 @@ public class Human : Character
             Debug.LogWarning($"[Human] Unequip: {slot} 슬롯에 장착된 장비가 없습니다.");
             return;
         }
-
         EquipmentCardData itemData = equippedItems[slot];
         GameObject itemObject = equippedObjects[slot];
+
+        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
 
         // 스탯 제거
         RemoveEquipmentStats(itemData);
@@ -177,11 +187,11 @@ public class Human : Character
         
         var card2D = itemObject.GetComponent<Card2D>();
         card2D.BringToFrontRecursive(card2D);
-
+        card2D.transform.position = transform.position;
         Vector3 directionToCenter = (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane)) - transform.position).normalized;
         StartCoroutine(card2D.MoveItemLerp(itemObject.transform, transform.position + directionToCenter * 3.0f, 0.6f)); // 3f는 거리
         card2D.cardAnim.PlayFeedBack_ByName("BounceY");
-        itemObject.transform.SetParent(CardManager.Instance.cardParent); // 부모에서 분리
+        
 
         // 슬롯 정보 제거
         equippedItems.Remove(slot);

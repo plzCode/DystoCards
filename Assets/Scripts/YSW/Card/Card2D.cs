@@ -11,6 +11,7 @@ public class Card2D : MonoBehaviour
     [SerializeField] public CardData cardData;
     
     [SerializeField] private CardData runtimeData;
+
     public CardData RuntimeData => runtimeData;
 
     public static int globalSortingOrder = 0;
@@ -30,11 +31,14 @@ public class Card2D : MonoBehaviour
     public MMF_Func cardAnim;
 
     public bool isInitialized = false;
+    public bool isStackable = true;
+    public Dissolve dissolveEffect;
 
     private void Awake()
     {
         uiRenderer = GetComponent<CardUIRenderer>();
         cardAnim = GetComponentInChildren<MMF_Func>();
+        dissolveEffect = GetComponentInChildren<Dissolve>();
     }
     private void Start()
     {
@@ -105,6 +109,7 @@ public class Card2D : MonoBehaviour
         }
 
         BringToFrontRecursive(this);
+        CombinationManager.Instance.CheckCombination();
     }
     #endregion
 
@@ -153,6 +158,12 @@ public class Card2D : MonoBehaviour
 
     public virtual void StackOnto(Card2D target) //현재 카드를 target 카드 위에 스택(부착)하는 역할.
     {
+        if(target.isStackable == false)
+        {
+            Debug.LogWarning($"Cannot stack onto {target.name} because it is not stackable.");
+            return;
+        }
+
         // 기존 부모 카드가 있다면, 자식 리스트에서 자신을 제거
         if (parentCard != null)
         {
@@ -333,10 +344,10 @@ public class Card2D : MonoBehaviour
                 stats["sanity"] = heal.mentalAmount;
                 stats["stamina"] = heal.staninaAmount;
                 break;
-            case HumanCardData human:
-                stats["hp"] = human.MaxHealth;
-                stats["sanity"] = human.MaxMentalHealth;
-                stats["hunger"] = human.MaxHunger;
+            case HumanCardData human:                
+                stats["hp"] = human.CurrentHealth;
+                stats["sanity"] = human.CurrentMentalHealth;
+                stats["hunger"] = human.CurrentHunger;
                 stats["stamina"] = human.Stamina;
                 stats["attack"] = human.AttackPower;
                 stats["defense"] = human.DefensePower;

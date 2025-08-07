@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 001
   cardName: Wood
-  cardImage: {fileID: -1784782533756910241, guid: 79c2a0c9ddc195f45bfb396729745456, type: 3}
+  cardImage: {fileID: 21300000, guid: e305d4ff6fcb66148a89b78f93cc03fa, type: 3}
   cardType: 0
   description: 
   size: 1

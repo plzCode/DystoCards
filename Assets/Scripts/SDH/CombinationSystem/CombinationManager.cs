@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +12,22 @@ public class CombinationManager : MonoBehaviour
     [SerializeField] private List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject fieldCards;        // 필드에 놓인 카드들의 부모 오브젝트
 
-    private void Update()
+    public static CombinationManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        // 싱글톤 인스턴스 지정
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // 씬이 넘어가도 유지
+    }
+
+    public void CheckCombination()
     {
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
@@ -64,7 +81,13 @@ public class CombinationManager : MonoBehaviour
                 humanCount++;
 
             // 다음 카드로 이동 (자식이 있으면 첫 번째 자식으로, 없으면 null)
-            current = current.childCount > 0 ? current.GetChild(0) : null;
+            //current = current.childCount > 0 ? current.GetChild(0) : null;
+            if(card.childCards != null && card.childCards.Count > 0)
+            {
+                current = card.childCards[0].transform; // 첫 번째 자식 카드로 이동
+            }
+            else
+                current = null; // 더 이상 자식이 없으면 순회 종료            
         }
 
         // 디버그 출력으로 스택 상태를 확인
@@ -123,28 +146,32 @@ public class CombinationManager : MonoBehaviour
 
                     // 새로운 카드 생성
                     Card2D newCard = CardManager.Instance.SpawnCard(recipe.result, spawnPosition);
+                    newCard.BringToFrontRecursive(newCard);
+                    newCard.cardAnim.PlayFeedBack_ByName("BounceY");
 
                     // 새 카드의 부모를 fieldCards로 설정
                     newCard.transform.SetParent(fieldCards.transform);
 
-                    // newCard localPosition.z 0으로 설정
-                    Vector3 newLocalPos = newCard.transform.localPosition;
-                    newLocalPos.z = 0f;
-                    newCard.transform.localPosition = newLocalPos;
+                    string scriptName = recipe.scriptName;
 
-                    // triggerCard localPosition.z 0으로 설정
-                    Vector3 triggerLocalPos = triggerCard.transform.localPosition;
-                    triggerLocalPos.z = 0f;
-                    triggerCard.transform.localPosition = triggerLocalPos;
-
-                    // 렌더링 순서 조정 (Human 카드보다 위에 보이도록)
-                    SpriteRenderer newCardRenderer = newCard.GetComponent<SpriteRenderer>();
-                    if (triggerRenderer != null && newCardRenderer != null)
+                    if (!string.IsNullOrEmpty(scriptName))
                     {
-                        newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
-                        newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
+                        Type type = AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(a => a.GetTypes())
+                            .FirstOrDefault(t => t.Name == scriptName || t.FullName == scriptName);
+
+                        if (type != null && typeof(MonoBehaviour).IsAssignableFrom(type))
+                        {
+                            newCard.gameObject.AddComponent(type);
+                            Debug.Log($"스크립트 부착 완료: {scriptName}");
+                        }
+                        else
+                        {
+                            Debug.LogError($"스크립트 '{scriptName}' 를 찾을 수 없습니다. 클래스명이 정확한지 확인해주세요.");
+                        }
                     }
 
+                    Debug.Log($"newCard.cardData.cardName: {newCard.RuntimeData.cardName}");
                     Debug.Log("새 카드 생성: " + recipe.result.name);
                 }
 

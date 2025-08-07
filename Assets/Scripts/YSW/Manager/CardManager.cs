@@ -47,12 +47,26 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SpawnCardById("051", new Vector3(0, 0, 0));
-        }        
-        if (Input.GetKeyDown(KeyCode.E))
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            foreach (var card in fieldCards)
+            SpawnCardById("001", new Vector3(0, 0, 0));
+        }
+            if (Input.GetKeyDown(KeyCode.E))
+        {
+            /*foreach (var card in fieldCards)
             {
                 Debug.Log($"Card: {card.name}, Type: {card.RuntimeData.cardType}, ID: {card.RuntimeData.cardId}");
+            }*/
+            List<Card2D> cards = GetCardsByType(CardType.Character);
+            if(cards != null)
+            {
+                List<Card2D> humans = GetCharacterType(cards, CharacterType.Human);
+                foreach(var human in humans)
+                {
+                    Debug.Log(human.name);
+                }
             }
         }
     }
@@ -72,6 +86,7 @@ public class CardManager : MonoBehaviour
 
         var runtimeData = data.Clone();
         var finalCard = AddCardScript(newCard.gameObject, runtimeData);
+        finalCard.cardData = data;
         finalCard.SetRuntimeData(runtimeData);
         finalCard.name = $"Card_{runtimeData.cardName}";
 
@@ -103,6 +118,9 @@ public class CardManager : MonoBehaviour
     }
     public void DestroyCard(Card2D card, float delay = 0f)
     {
+        card.isStackable = false; // 스택 가능 여부를 false로 설정하여 스택에서 제거
+        card.DetachChildrenBeforeDestroy(); // 자식 오브젝트들을 분리
+
         if (card == null)
         {
             Debug.LogWarning("[CardManager] DestroyCard: null 카드입니다.");
@@ -114,6 +132,11 @@ public class CardManager : MonoBehaviour
 
         if(delay > 0f)
         {
+            var dissovle = card.GetComponent<Dissolve>();
+            if (dissovle != null)
+            {
+                dissovle.StartCoroutine(dissovle.Vanish(true, true)); // Dissolve 컴포넌트가 있다면 서서히 제거
+            }
             Destroy(card.gameObject, delay);
         }
         else
