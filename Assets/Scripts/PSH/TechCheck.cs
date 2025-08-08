@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class TechCheck : MonoBehaviour
 {
+
     [Header("기술 데이터 (ScriptableObject)")]
     [SerializeField] private TechCardData techCard; // 이 버튼이 제어할 기술
 
@@ -36,16 +37,16 @@ public class TechCheck : MonoBehaviour
             return;
         }
 
-        // 이미 연구 완료된 경우 → 버튼 비활성화
-        if (TechBook.Instance.IsUnlocked(techCard))
-        {
-            Debug.Log($"기술 이미 해금됨: {techCard.cardName}");
-            DisableButtonCompletely();
-        }
-        else
-        {
-            Debug.Log($" 기술 잠금 상태: {techCard.cardName}");
-        }
+        //// 이미 연구 완료된 경우 → 버튼 비활성화
+        //if (TechBook.Instance.IsUnlocked(techCard))
+        //{
+        //    Debug.Log($"기술 이미 해금됨: {techCard.cardName}");
+        //    DisableButtonCompletely();
+        //}
+        //else
+        //{
+        //    Debug.Log($" 기술 잠금 상태: {techCard.cardName}");
+        //}
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public class TechCheck : MonoBehaviour
         }
 
         // 기술 연구 해금 
-        TechBook.Instance.UnlockTech(techCard); // 내부에서 RecipeBook 처리 포함
+        //Instance.UnlockTech(techCard); // 내부에서 RecipeBook 처리 포함
 
         // UI 처리
         if (uiToClose != null) uiToClose.SetActive(false);
