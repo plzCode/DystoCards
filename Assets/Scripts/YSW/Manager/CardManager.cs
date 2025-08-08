@@ -53,11 +53,24 @@ public class CardManager : MonoBehaviour
         {
             SpawnCardById("001", new Vector3(0, 0, 0));
         }
-            if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            foreach (var card in fieldCards)
+            SpawnCardById("002", new Vector3(0, 0, 0));
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            /*foreach (var card in fieldCards)
             {
                 Debug.Log($"Card: {card.name}, Type: {card.RuntimeData.cardType}, ID: {card.RuntimeData.cardId}");
+            }*/
+            List<Card2D> cards = GetCardsByType(CardType.Character);
+            if(cards != null)
+            {
+                List<Card2D> humans = GetCharacterType(cards, CharacterType.Human);
+                foreach(var human in humans)
+                {
+                    Debug.Log(human.name);
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ExploreInfo : MonoBehaviour
 {
     [Header("장소 UI 요소")]
+    [SerializeField] private Sprite defaultLocoImg;
     [SerializeField] private Image exploreImage;
     [SerializeField] private TextMeshProUGUI exploreName;
     [SerializeField] private GameObject exploreStaminaBar;
@@ -13,6 +14,7 @@ public class ExploreInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI successPercent;
 
     [Header("인물 UI 요소")]
+    [SerializeField] private Sprite defaultHumanImg;
     [SerializeField] private Image humanImage;
     [SerializeField] private TextMeshProUGUI humanName;
     [SerializeField] private GameObject humanStaminaBar;
@@ -24,7 +26,7 @@ public class ExploreInfo : MonoBehaviour
     //[SerializeField] private ExplorationData current_ExplorationData;
 
     [Header("현재 인물 정보")]
-    [SerializeField] private HumanCardData current_humanInfo;
+    [SerializeField] private Human current_humanInfo;
 
 
 
@@ -40,20 +42,21 @@ public class ExploreInfo : MonoBehaviour
         UIBarUtility.SetBarColor(exploreStaminaBar, _location.requiredStamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(exploreDangerBar, _location.dangerLevel, UIBarUtility.WarningColor);
         //successPercent.text = "Succes Percent : " +(100 - _location.dangerLevel * 10).ToString();
-        ExpressSuccessPercent(current_locationInfo,current_humanInfo);
+        ExpressSuccessPercent(current_locationInfo,current_humanInfo.humanData);
     }
 
-    public void SetHumanInfo(HumanCardData _human)
+    public void SetHumanInfo(Human _human)
     {
         current_humanInfo = _human;
+        HumanCardData _humandata = _human.humanData;
         //current_ExplorationData.human = _human;
 
-        humanImage.sprite = _human.cardImage;
-        humanName.text = _human.cardName;
-        UIBarUtility.SetBarColor(humanStaminaBar, (int)_human.Stamina, UIBarUtility.StaminaColor);
-        UIBarUtility.SetBarColor(humanStrengthBar, (int)_human.AttackPower, UIBarUtility.StrengthColor);
-        UIBarUtility.SetBarColor(humanMentality, (int)_human.ConsumeHunger, UIBarUtility.WarningColor);
-        ExpressSuccessPercent(current_locationInfo,current_humanInfo);
+        humanImage.sprite = _humandata.cardImage;
+        humanName.text = _humandata.cardName;
+        UIBarUtility.SetBarColor(humanStaminaBar, (int)_humandata.Stamina, UIBarUtility.StaminaColor);
+        UIBarUtility.SetBarColor(humanStrengthBar, (int)_humandata.AttackPower, UIBarUtility.StrengthColor);
+        UIBarUtility.SetBarColor(humanMentality, (int)_humandata.ConsumeHunger, UIBarUtility.WarningColor);
+        ExpressSuccessPercent(current_locationInfo,current_humanInfo.humanData);
 
     }
 
@@ -122,7 +125,7 @@ public class ExploreInfo : MonoBehaviour
         if (current_humanInfo == null || current_locationInfo == null)
             return false;
 
-        return current_humanInfo.Stamina >= current_locationInfo.requiredStamina;
+        return current_humanInfo.humanData.Stamina >= current_locationInfo.requiredStamina;
     }
 
     public void OnClick_ExploreRegister()
@@ -143,6 +146,36 @@ public class ExploreInfo : MonoBehaviour
         }
 
         
+    }
+
+    private void OnEnable()
+    {
+        Clear();
+    }
+
+    public void Clear()
+    {
+        // 장소 정보 초기화
+        exploreImage.sprite = defaultLocoImg;
+        exploreName.text = "";
+        UIBarUtility.SetBarColor(exploreStrengthBar, 0, UIBarUtility.StrengthColor);
+        UIBarUtility.SetBarColor(exploreStaminaBar, 0, UIBarUtility.StaminaColor);
+        UIBarUtility.SetBarColor(exploreDangerBar, 0, UIBarUtility.WarningColor);
+
+        // 인물 정보 초기화
+        humanImage.sprite = defaultHumanImg;
+        humanName.text = "";
+        UIBarUtility.SetBarColor(humanStaminaBar, 0, UIBarUtility.StaminaColor);
+        UIBarUtility.SetBarColor(humanStrengthBar, 0, UIBarUtility.StrengthColor);
+        UIBarUtility.SetBarColor(humanMentality, 0, UIBarUtility.WarningColor);
+
+        // 성공률 텍스트 초기화
+        successPercent.text = "-";
+        successPercent.color = Color.white;
+
+        // 현재 정보 null 처리
+        current_locationInfo = null;
+        current_humanInfo = null;
     }
 
 }

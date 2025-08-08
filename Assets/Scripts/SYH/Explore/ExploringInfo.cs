@@ -20,7 +20,7 @@ public class ExploringInfo : MonoBehaviour
     {
         Data = data;
         // UI에 데이터 반영 (예: 이름, 위치, 남은 일수 표시 등)
-        HumanCardData humanInfo = data.human;
+        HumanCardData humanInfo = data.human.humanData;
         LocationInfo locationInfo = data.location;
 
         humanImage.sprite = humanInfo.cardImage;

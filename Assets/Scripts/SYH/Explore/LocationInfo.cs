@@ -11,6 +11,7 @@ public class LocationInfo : ScriptableObject
     [Range(0, 10)] public int requiredStamina;
     [Range(0, 10)] public int dangerLevel;
     [Range(0, 10)] public int durationDays;
+    [Range(0, 100)] public int openDay;
     
 
     [Header("보상 목록")]
