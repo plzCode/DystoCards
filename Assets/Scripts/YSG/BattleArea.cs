@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class BattleArea : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("MapTile"), true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
-
         if (collision.TryGetComponent(out Human human))
         {
             if (!BattleManager.Instance.humans.Contains(human))
             {
                 BattleManager.Instance.humans.Add(human);
+                human.GetComponent<Card2D>().isStackable = false;
             }
         }
         else if (collision.TryGetComponent(out TestMonster monster))
@@ -26,16 +25,8 @@ public class BattleArea : MonoBehaviour
                 BattleManager.Instance.monsters.Add(monster);
             }
         }
-        else
+        else if (collision.TryGetComponent(out Card2D card))
         {
-            Vector3 center = transform.position;
-            Vector3 direction = (collision.transform.position - center).normalized;
-
-            float pushDistance = 1; 
-            Vector3 newPos = transform.position + direction * (transform.localScale.x * 0.5f + pushDistance);
-
-            collision.transform.position = newPos;
-            return;
         }
 
         BattleManager.Instance.Arrange();

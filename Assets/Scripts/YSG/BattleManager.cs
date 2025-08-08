@@ -105,7 +105,7 @@ public class BattleManager : MonoBehaviour
     {
         if (humans.Count == 0 && monsters.Count == 0) return;
 
-        float margin = 0.3f;
+        float margin = 0.05f;
         float spacingX = 0.1f;
         float spacingY = 0.2f;
 

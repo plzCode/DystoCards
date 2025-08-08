@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6226988127601251254}
   - component: {fileID: 9082169603565959092}
   - component: {fileID: 1273100675344278833}
+  - component: {fileID: 2005883479922365618}
   - component: {fileID: 133765468524865252}
   m_Layer: 0
   m_Name: BattleArea
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1614885307
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.39215687}
@@ -135,6 +136,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &2005883479922365618
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842897043688346038}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &133765468524865252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +228,7 @@ MonoBehaviour:
   - cardData: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
     spawnProbability: 100
   - cardData: {fileID: 11400000, guid: e2879ebe9ee4a62419ef2f9bec5ea20e, type: 2}
-    spawnProbability: 0
+    spawnProbability: 50
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740
