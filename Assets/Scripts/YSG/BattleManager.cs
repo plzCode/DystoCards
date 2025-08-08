@@ -298,6 +298,8 @@ public class BattleManager : MonoBehaviour
             sr.color = originalColor;
             yield return new WaitForSeconds(0.1f);
         }
+
+        sr.color = originalColor;
     }
     #endregion
 

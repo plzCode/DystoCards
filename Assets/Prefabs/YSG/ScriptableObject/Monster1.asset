@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0760ee1665720034da540068882a4f68, type: 3}
   m_Name: Monster1
   m_EditorClassIdentifier: 
-  cardId: 01
+  cardId: 
   cardName: Monster1
   cardImage: {fileID: 0}
   cardType: 6
@@ -20,5 +20,5 @@ MonoBehaviour:
   size: 1
   characterType: 2
   max_health: 10
-  attack_power: 2
+  attack_power: 3
   defense_power: 0
