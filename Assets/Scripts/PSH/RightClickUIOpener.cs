@@ -11,6 +11,23 @@ public class RightClickUIOpener : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+
+        if (uiPanel == null)
+        {
+            // 비활성화된 상태 포함 전체에서 찾기
+            Canvas[] canvases = Resources.FindObjectsOfTypeAll<Canvas>();
+            foreach (Canvas canvas in canvases)
+            {
+                if (canvas.gameObject.CompareTag("TechUI"))
+                {
+                    uiPanel = canvas.gameObject;
+                    break;
+                }
+            }
+        }
+
+
+
         uiPanel.SetActive(false); // 시작 시 비활성화
     }
 

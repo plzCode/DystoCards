@@ -1,177 +1,222 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
-/// °ÔÀÓ ³» Ä«µå Á¶ÇÕÀ» °ü¸®ÇÏ´Â ¸Å´ÏÀú Å¬·¡½º
-/// ÃÖ»óÀ§ Ä«µå ½ºÅÃÀ» °Ë»çÇÏ¿© À¯È¿ÇÑ Á¶ÇÕÀÌ¸é »õ Ä«µå·Î »ı¼ºÇÔ
+/// ê²Œì„ ë‚´ ì¹´ë“œ ì¡°í•©ì„ ê´€ë¦¬í•˜ëŠ” ë§¤ë‹ˆì € í´ë˜ìŠ¤
+/// ìµœìƒìœ„ ì¹´ë“œ ìŠ¤íƒì„ ê²€ì‚¬í•˜ì—¬ ìœ íš¨í•œ ì¡°í•©ì´ë©´ ìƒˆ ì¹´ë“œë¡œ ìƒì„±í•¨
 /// </summary>
 public class CombinationManager : MonoBehaviour
 {
-    [SerializeField] private List<RecipeCardData> recipes; // Á¶ÇÕ °¡´ÉÇÑ ·¹½ÃÇÇ ¸ñ·Ï
-    [SerializeField] private GameObject fieldCards;        // ÇÊµå¿¡ ³õÀÎ Ä«µåµéÀÇ ºÎ¸ğ ¿ÀºêÁ§Æ®
+    [SerializeField] private List<RecipeCardData> recipes; // ì¡°í•© ê°€ëŠ¥í•œ ë ˆì‹œí”¼ ëª©ë¡
+    [SerializeField] private GameObject fieldCards;        // í•„ë“œì— ë†“ì¸ ì¹´ë“œë“¤ì˜ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸
+    [SerializeField] private GameObject MainTech;           // ë©”ì¸ í…Œí¬ ì¹´ë“œ í”„ë¦¬íŒ¹
 
     private void Update()
     {
-        // ¾À ³» Á¸ÀçÇÏ´Â ¸ğµç Card2D ÄÄÆ÷³ÍÆ®¸¦ Ã£¾Æ¼­ ¹è¿­·Î °¡Á®¿È
+        // ì”¬ ë‚´ ì¡´ì¬í•˜ëŠ” ëª¨ë“  Card2D ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ì•„ì„œ ë°°ì—´ë¡œ ê°€ì ¸ì˜´
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
-        List<Card2D> topCards = new List<Card2D>(); // ÃÖ»óÀ§ Ä«µåµé(½ºÅÃÀÇ ¸Ç À§ Ä«µå) ÀúÀå¿ë ¸®½ºÆ®
+        List<Card2D> topCards = new List<Card2D>(); // ìµœìƒìœ„ ì¹´ë“œë“¤(ìŠ¤íƒì˜ ë§¨ ìœ„ ì¹´ë“œ) ì €ì¥ìš© ë¦¬ìŠ¤íŠ¸
 
-        // ¸ğµç Ä«µå Áß¿¡¼­ ºÎ¸ğ°¡ fieldCardsÀÎ °æ¿ì¸¸ °ñ¶ó¼­ topCards¿¡ Ãß°¡
+        // ëª¨ë“  ì¹´ë“œ ì¤‘ì—ì„œ ë¶€ëª¨ê°€ fieldCardsì¸ ê²½ìš°ë§Œ ê³¨ë¼ì„œ topCardsì— ì¶”ê°€
         foreach (var card in allCards)
             if (card.transform.parent == fieldCards.transform)
                 topCards.Add(card);
 
-        // °¢ ÃÖ»óÀ§ Ä«µåº°·Î Á¶ÇÕÀÌ °¡´ÉÇÑ ½ºÅÃÀÎÁö °Ë»çÇÏ°í, À¯È¿ÇÏ¸é Á¶ÇÕ ½Ãµµ
+        // ê° ìµœìƒìœ„ ì¹´ë“œë³„ë¡œ ì¡°í•©ì´ ê°€ëŠ¥í•œ ìŠ¤íƒì¸ì§€ ê²€ì‚¬í•˜ê³ , ìœ íš¨í•˜ë©´ ì¡°í•© ì‹œë„
         foreach (var topCard in topCards)
         {
-            // ÀÚ½Ä Ä«µå°¡ ¾øÀ¸¸é ´ÜÀÏ Ä«µåÀÌ¹Ç·Î Á¶ÇÕ °Ë»ç¿¡¼­ Á¦¿Ü
+            // ìì‹ ì¹´ë“œê°€ ì—†ìœ¼ë©´ ë‹¨ì¼ ì¹´ë“œì´ë¯€ë¡œ ì¡°í•© ê²€ì‚¬ì—ì„œ ì œì™¸
             if (topCard.transform.childCount == 0)
                 continue;
 
-            // À¯È¿ÇÑ Á¶ÇÕ ½ºÅÃÀÎÁö °Ë»ç -> Á¶°Ç¿¡ ¸ÂÀ¸¸é ½ºÅÃÀ» ¹İÈ¯
+            // ìœ íš¨í•œ ì¡°í•© ìŠ¤íƒì¸ì§€ ê²€ì‚¬ -> ì¡°ê±´ì— ë§ìœ¼ë©´ ìŠ¤íƒì„ ë°˜í™˜
             if (IsValidCombinationStack(topCard, out List<Card2D> stackGroup))
-                TryCombine(stackGroup); // Á¶ÇÕ ½Ãµµ
+                TryCombine(stackGroup); // ì¡°í•© ì‹œë„
         }
     }
 
     /// <summary>
-    /// Á¶ÇÕ °¡´ÉÇÑ Ä«µå ½ºÅÃÀÎÁö °Ë»çÇÏ´Â ÇÔ¼ö
-    /// Á¶°Ç: Human Ä«µå°¡ µü 1°³ Æ÷ÇÔµÇ¾î ÀÖÀ¸¸ç, ¹İµå½Ã ½ºÅÃÀÇ ¸¶Áö¸·(¸Ç ¾Æ·¡)¿¡ À§Ä¡ÇØ¾ß ÇÔ
+    /// ì¡°í•© ê°€ëŠ¥í•œ ì¹´ë“œ ìŠ¤íƒì¸ì§€ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
+    /// ì¡°ê±´: Human ì¹´ë“œê°€ ë”± 1ê°œ í¬í•¨ë˜ì–´ ìˆìœ¼ë©°, ë°˜ë“œì‹œ ìŠ¤íƒì˜ ë§ˆì§€ë§‰(ë§¨ ì•„ë˜)ì— ìœ„ì¹˜í•´ì•¼ í•¨
     /// </summary>
-    /// <param name="topCard">½ºÅÃÀÇ ÃÖ»óÀ§ Ä«µå</param>
-    /// <param name="stackGroup">½ºÅÃ¿¡ Æ÷ÇÔµÈ Ä«µåµéÀ» ¹İÈ¯</param>
-    /// <returns>Á¶°ÇÀ» ¸¸Á·ÇÏ¸é true</returns>
+    /// <param name="topCard">ìŠ¤íƒì˜ ìµœìƒìœ„ ì¹´ë“œ</param>
+    /// <param name="stackGroup">ìŠ¤íƒì— í¬í•¨ëœ ì¹´ë“œë“¤ì„ ë°˜í™˜</param>
+    /// <returns>ì¡°ê±´ì„ ë§Œì¡±í•˜ë©´ true</returns>
     private bool IsValidCombinationStack(Card2D topCard, out List<Card2D> stackGroup)
     {
         stackGroup = new List<Card2D>();
         int humanCount = 0;
+        int techCount = 0;
 
         Transform current = topCard.transform;
 
-        // ½ºÅÃÀ» À§¿¡¼­ ¾Æ·¡·Î ¼øÈ¸ÇÏ¸ç Ä«µåµéÀ» ¼öÁı
+        // ìŠ¤íƒì„ ìœ„ì—ì„œ ì•„ë˜ë¡œ ìˆœíšŒí•˜ë©° ì¹´ë“œë“¤ì„ ìˆ˜ì§‘
         while (current != null)
         {
             Card2D card = current.GetComponent<Card2D>();
 
-            // Card2D°¡ ¾øÀ¸¸é ½ºÅÃ ¼øÈ¸ Á¾·á
+            // Card2Dê°€ ì—†ìœ¼ë©´ ìŠ¤íƒ ìˆœíšŒ ì¢…ë£Œ
             if (card == null)
                 break;
 
             stackGroup.Add(card);
 
-            // Human Å¸ÀÔÀÎÁö È®ÀÎ
+            // Human íƒ€ì…ì¸ì§€ í™•ì¸
             if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
                 humanCount++;
 
-            // ´ÙÀ½ Ä«µå·Î ÀÌµ¿ (ÀÚ½ÄÀÌ ÀÖÀ¸¸é Ã¹ ¹øÂ° ÀÚ½ÄÀ¸·Î, ¾øÀ¸¸é null)
+            // Tech íƒ€ì…ì¸ì§€ í™•ì¸ 
+            if (card.IsTechOfType(card.cardData, TechType.Tech))
+                techCount++;
+
+
+            // ë‹¤ìŒ ì¹´ë“œë¡œ ì´ë™ (ìì‹ì´ ìˆìœ¼ë©´ ì²« ë²ˆì§¸ ìì‹ìœ¼ë¡œ, ì—†ìœ¼ë©´ null)
             current = current.childCount > 0 ? current.GetChild(0) : null;
         }
 
-        // µğ¹ö±× Ãâ·ÂÀ¸·Î ½ºÅÃ »óÅÂ¸¦ È®ÀÎ
-        Debug.Log($"[IsValidCombinationStack] ½ºÅÃ °Ë»ç: {topCard.name}");
-        Debug.Log($"- ½ºÅÃ Ä«µå ¼ö: {stackGroup.Count}");
-        Debug.Log($"- Human Ä«µå °³¼ö: {humanCount}");
-        Debug.Log($"- ¸¶Áö¸· Ä«µå: {stackGroup[^1].name}");
+        // ë””ë²„ê·¸ ì¶œë ¥ìœ¼ë¡œ ìŠ¤íƒ ìƒíƒœë¥¼ í™•ì¸
+        Debug.Log($"[IsValidCombinationStack] ìŠ¤íƒ ê²€ì‚¬: {topCard.name}");
+        Debug.Log($"- ìŠ¤íƒ ì¹´ë“œ ìˆ˜: {stackGroup.Count}");
+        Debug.Log($"- Human ì¹´ë“œ ê°œìˆ˜: {humanCount}");
+        Debug.Log($"- Tech ì¹´ë“œ ê°œìˆ˜: {techCount}");
+        Debug.Log($"- ë§ˆì§€ë§‰ ì¹´ë“œ: {stackGroup[^1].name}");
 
-        // ½ºÅÃÀÇ ¸¶Áö¸· Ä«µå°¡ HumanÀÎÁö È®ÀÎ
+        // ìŠ¤íƒì˜ ë§ˆì§€ë§‰ ì¹´ë“œê°€ Humanì¸ì§€ í™•ì¸
         bool lastCardIsHuman = stackGroup[^1].IsCharacterOfType(stackGroup[^1].cardData, CharacterType.Human);
-        Debug.Log($"- ¸¶Áö¸· Ä«µå°¡ HumanÀÎ°¡? {lastCardIsHuman}");
+        Debug.Log($"- ë§ˆì§€ë§‰ ì¹´ë“œê°€ Humanì¸ê°€? {lastCardIsHuman}");
 
-        // Á¶°Ç: Human Ä«µå°¡ µü 1°³ÀÌ¸ç, ½ºÅÃÀÇ ¸¶Áö¸· Ä«µå¿©¾ß ÇÔ
+        // ì¡°ê±´: Human ì¹´ë“œê°€ ë”± 1ê°œì´ë©°, ìŠ¤íƒì˜ ë§ˆì§€ë§‰ ì¹´ë“œì—¬ì•¼ í•¨
         return humanCount == 1 && lastCardIsHuman;
     }
 
     /// <summary>
-    /// Ä«µå ¸®½ºÆ®¸¦ ±â¹İÀ¸·Î Á¶ÇÕÀ» ½ÃµµÇÏ°í, ¼º°ø ½Ã »õ Ä«µå¸¦ »ı¼ºÇÔ
+    /// ì¹´ë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ì¡°í•©ì„ ì‹œë„í•˜ê³ , ì„±ê³µ ì‹œ ìƒˆ ì¹´ë“œë¥¼ ìƒì„±í•¨
     /// </summary>
-    /// <param name="cards">Á¶ÇÕ¿¡ »ç¿ëµÉ Ä«µå ¸®½ºÆ®</param>
+    /// <param name="cards">ì¡°í•©ì— ì‚¬ìš©ë  ì¹´ë“œ ë¦¬ìŠ¤íŠ¸</param>
     public void TryCombine(List<Card2D> cards)
     {
-        List<Card2D> filteredCards = new List<Card2D>(); // Human Ä«µå¸¦ Á¦¿ÜÇÑ Á¶ÇÕ ´ë»ó Ä«µåµé
-        Card2D triggerCard = null; // Human Ä«µå ÀúÀå¿ë (Á¶ÇÕÀÇ Æ®¸®°Å ¿ªÇÒ)
+        List<Card2D> filteredCards = new List<Card2D>(); // Human ì¹´ë“œë¥¼ ì œì™¸í•œ ì¡°í•© ëŒ€ìƒ ì¹´ë“œë“¤
+        Card2D triggerCard = null; // Human ì¹´ë“œ ì €ì¥ìš© (ì¡°í•©ì˜ íŠ¸ë¦¬ê±° ì—­í• )
+        Card2D techCard = null; // Tech ì¹´ë“œ í™•ì¸ìš©
 
-        // Human Ä«µå¸¦ µû·Î ÀúÀåÇÏ°í ³ª¸ÓÁö Ä«µå¸¸ Á¶ÇÕ ´ë»óÀ¸·Î ºĞ·ù
+        // Human ì¹´ë“œë¥¼ ë”°ë¡œ ì €ì¥í•˜ê³  ë‚˜ë¨¸ì§€ ì¹´ë“œë§Œ ì¡°í•© ëŒ€ìƒìœ¼ë¡œ ë¶„ë¥˜
         foreach (var card in cards)
         {
             if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
                 triggerCard = card;
+
+            else if (card.IsTechOfType(card.cardData, TechType.Tech))
+                techCard = card;
             else
                 filteredCards.Add(card);
         }
 
-        // ¸ğµç ·¹½ÃÇÇ¸¦ ¼øÈ¸ÇÏ¸ç Á¶ÇÕ Á¶°ÇÀÌ ¸Â´ÂÁö È®ÀÎ
+        // ëª¨ë“  ë ˆì‹œí”¼ë¥¼ ìˆœíšŒí•˜ë©° ì¡°í•© ì¡°ê±´ì´ ë§ëŠ”ì§€ í™•ì¸
         foreach (var recipe in recipes)
         {
             if (MatchRecipe(filteredCards, recipe))
             {
-                Debug.Log("·¹½ÃÇÇ ÀÏÄ¡!");
+                Debug.Log("ë ˆì‹œí”¼ ì¼ì¹˜!");
 
-                // Human Ä«µå¸¦ ½ºÅÃ¿¡¼­ ºĞ¸® (ÀÚ½Ä °ü°è ÇØÁ¦)
+                // Human ì¹´ë“œë¥¼ ìŠ¤íƒì—ì„œ ë¶„ë¦¬ (ìì‹ ê´€ê³„ í•´ì œ)
                 if (triggerCard != null)
                     triggerCard.transform.SetParent(null);
 
-                // Á¶ÇÕ¿¡ »ç¿ëµÈ Ä«µå(Àç·á Ä«µå)µéÀ» ¸ğµÎ ÆÄ±«
+                if (techCard != null)
+                    techCard.transform.SetParent(null);
+
+
+                // ì¡°í•©ì— ì‚¬ìš©ëœ ì¹´ë“œ(ì¬ë£Œ ì¹´ë“œ)ë“¤ì„ ëª¨ë‘ íŒŒê´´
                 foreach (var card in filteredCards)
                     CardManager.Instance.DestroyCard(card);
 
                 if (triggerCard != null)
                 {
-                    // »õ Ä«µå »ı¼º À§Ä¡ °è»ê (Human Ä«µå ±âÁØ ¾à°£ ¾Æ·¡ÂÊÀ¸·Î)
-                    SpriteRenderer triggerRenderer = triggerCard.GetComponent<SpriteRenderer>();
-                    Vector3 spawnPosition = triggerCard.transform.position;
-                    spawnPosition.y -= 0.2f;
-
-                    // »õ·Î¿î Ä«µå »ı¼º
-                    Card2D newCard = CardManager.Instance.SpawnCard(recipe.result, spawnPosition);
-
-                    // »õ Ä«µåÀÇ ºÎ¸ğ¸¦ fieldCards·Î ¼³Á¤
-                    newCard.transform.SetParent(fieldCards.transform);
-
-                    // newCard localPosition.z 0À¸·Î ¼³Á¤
-                    Vector3 newLocalPos = newCard.transform.localPosition;
-                    newLocalPos.z = 0f;
-                    newCard.transform.localPosition = newLocalPos;
-
-                    // triggerCard localPosition.z 0À¸·Î ¼³Á¤
-                    Vector3 triggerLocalPos = triggerCard.transform.localPosition;
-                    triggerLocalPos.z = 0f;
-                    triggerCard.transform.localPosition = triggerLocalPos;
-
-                    // ·»´õ¸µ ¼ø¼­ Á¶Á¤ (Human Ä«µåº¸´Ù À§¿¡ º¸ÀÌµµ·Ï)
-                    SpriteRenderer newCardRenderer = newCard.GetComponent<SpriteRenderer>();
-                    if (triggerRenderer != null && newCardRenderer != null)
+                    if (techCard != null)
                     {
-                        newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
-                        newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
+                        // Tech ì¹´ë“œê°€ ìˆë‹¤ë©´ í•´ë‹¹ ì¹´ë“œë„ íŒŒê´´
+                        CardManager.Instance.DestroyCard(techCard);
+                        Instantiate(MainTech, techCard.transform.position, Quaternion.identity);
+                        TechCardData techCardData = techCard.cardData as TechCardData;
+  
+
+                        Action onceAction = null;
+                        onceAction = () =>
+                        {
+                            techCardData.remainingTime -= 1;
+                            Debug.Log($"[CombinationManager] ê¸°ìˆ  ì‹œê°„ ê°ì†Œ: {techCardData.remainingTime}");
+                            TurnManager.Instance.UnregisterPhaseAction(TurnPhase.ExploreAction, onceAction); // í•œ ë²ˆ ì‹¤í–‰ í›„ ì œê±°
+
+                            if (techCardData.remainingTime <= 0 ^ techCardData.unlockRecipe != null && !recipes.Contains(techCardData.unlockRecipe))
+                            {
+                                recipes.Add(techCardData.unlockRecipe);
+                                Debug.Log($"[CombinationManager] ë ˆì‹œí”¼ ì¶”ê°€ë¨: {techCardData.unlockRecipe.cardName}");
+                            }
+                        };
+
+                        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, onceAction);
+
                     }
 
-                    Debug.Log("»õ Ä«µå »ı¼º: " + recipe.result.name);
-                }
+                    else
+                    {
+                        // ìƒˆ ì¹´ë“œ ìƒì„± ìœ„ì¹˜ ê³„ì‚° (Human ì¹´ë“œ ê¸°ì¤€ ì•½ê°„ ì•„ë˜ìª½ìœ¼ë¡œ)
+                        SpriteRenderer triggerRenderer = triggerCard.GetComponent<SpriteRenderer>();
+                        Vector3 spawnPosition = triggerCard.transform.position;
+                        spawnPosition.y -= 0.2f;
 
-                // Human Ä«µåÀÇ ½ºÅ×¹Ì³ª °¨¼Ò Ã³¸®
+                        // ìƒˆë¡œìš´ ì¹´ë“œ ìƒì„±
+                        Card2D newCard = CardManager.Instance.SpawnCard(recipe.result, spawnPosition);
+
+                        // ìƒˆ ì¹´ë“œì˜ ë¶€ëª¨ë¥¼ fieldCardsë¡œ ì„¤ì •
+                        newCard.transform.SetParent(fieldCards.transform);
+
+                        // newCard localPosition.z 0ìœ¼ë¡œ ì„¤ì •
+                        Vector3 newLocalPos = newCard.transform.localPosition;
+                        newLocalPos.z = 0f;
+                        newCard.transform.localPosition = newLocalPos;
+
+                        // triggerCard localPosition.z 0ìœ¼ë¡œ ì„¤ì •
+                        Vector3 triggerLocalPos = triggerCard.transform.localPosition;
+                        triggerLocalPos.z = 0f;
+                        triggerCard.transform.localPosition = triggerLocalPos;
+
+                        // ë Œë”ë§ ìˆœì„œ ì¡°ì • (Human ì¹´ë“œë³´ë‹¤ ìœ„ì— ë³´ì´ë„ë¡)
+                        SpriteRenderer newCardRenderer = newCard.GetComponent<SpriteRenderer>();
+                        if (triggerRenderer != null && newCardRenderer != null)
+                        {
+                            newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
+                            newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
+                        }
+
+                        Debug.Log("ìƒˆ ì¹´ë“œ ìƒì„±: " + recipe.result.name);
+
+                    }
+                }
+                // Human ì¹´ë“œì˜ ìŠ¤í…Œë¯¸ë‚˜ ê°ì†Œ ì²˜ë¦¬
                 Human human = triggerCard.GetComponent<Human>();
                 if (human != null)
                 {
                     human.ConsumeStamina(1);
                 }
 
-                return; // Á¶ÇÕ ¼º°ø ½Ã ÇÔ¼ö Á¾·á
+                return; // ì¡°í•© ì„±ê³µ ì‹œ í•¨ìˆ˜ ì¢…ë£Œ
             }
         }
-
-        // ÀÏÄ¡ÇÏ´Â ·¹½ÃÇÇ°¡ ¾øÀ» °æ¿ì ·Î±× Ãâ·Â
-        Debug.Log("ÀÏÄ¡ÇÏ´Â ·¹½ÃÇÇ ¾øÀ½");
+        // ì¼ì¹˜í•˜ëŠ” ë ˆì‹œí”¼ê°€ ì—†ì„ ê²½ìš° ë¡œê·¸ ì¶œë ¥
+        Debug.Log("ì¼ì¹˜í•˜ëŠ” ë ˆì‹œí”¼ ì—†ìŒ");
     }
 
     /// <summary>
-    /// ÇöÀç Ä«µå ¸®½ºÆ®°¡ ÁÖ¾îÁø ·¹½ÃÇÇ¿Í Á¤È®È÷ ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ
+    /// í˜„ì¬ ì¹´ë“œ ë¦¬ìŠ¤íŠ¸ê°€ ì£¼ì–´ì§„ ë ˆì‹œí”¼ì™€ ì •í™•íˆ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
     /// </summary>
-    /// <param name="inputCards">Á¶ÇÕ¿¡ »ç¿ëµÈ Ä«µåµé (Human Á¦¿Ü)</param>
-    /// <param name="recipe">°Ë»çÇÒ ·¹½ÃÇÇ</param>
-    /// <returns>ÀÏÄ¡ÇÏ¸é true</returns>
+    /// <param name="inputCards">ì¡°í•©ì— ì‚¬ìš©ëœ ì¹´ë“œë“¤ (Human ì œì™¸)</param>
+    /// <param name="recipe">ê²€ì‚¬í•  ë ˆì‹œí”¼</param>
+    /// <returns>ì¼ì¹˜í•˜ë©´ true</returns>
     private bool MatchRecipe(List<Card2D> inputCards, RecipeCardData recipe)
     {
-        // ÀÔ·Â Ä«µåµéÀ» Ä«µå Á¾·ùº° °³¼ö·Î Áı°è
+        // ì…ë ¥ ì¹´ë“œë“¤ì„ ì¹´ë“œ ì¢…ë¥˜ë³„ ê°œìˆ˜ë¡œ ì§‘ê³„
         var inputDict = new Dictionary<CardData, int>();
         foreach (var card in inputCards)
         {
@@ -181,25 +226,25 @@ public class CombinationManager : MonoBehaviour
                 inputDict[card.cardData] = 1;
         }
 
-        // ·¹½ÃÇÇ Àç·á¿Í ºñ±³
+        // ë ˆì‹œí”¼ ì¬ë£Œì™€ ë¹„êµ
         foreach (var ingredient in recipe.ingredients)
         {
             var cardData = ingredient.ingredient;
             var requiredCount = ingredient.quantity;
 
-            // ¿ä±¸ÇÏ´Â Ä«µå°¡ ¾ø°Å³ª, °³¼ö°¡ ºÎÁ·ÇÏ¸é ÀÏÄ¡ÇÏÁö ¾ÊÀ½
+            // ìš”êµ¬í•˜ëŠ” ì¹´ë“œê°€ ì—†ê±°ë‚˜, ê°œìˆ˜ê°€ ë¶€ì¡±í•˜ë©´ ì¼ì¹˜í•˜ì§€ ì•ŠìŒ
             if (!inputDict.TryGetValue(cardData, out int currentCount) || currentCount < requiredCount)
                 return false;
 
-            // »ç¿ëÇÑ Àç·á´Â µñ¼Å³Ê¸®¿¡¼­ °³¼ö Â÷°¨
+            // ì‚¬ìš©í•œ ì¬ë£ŒëŠ” ë”•ì…”ë„ˆë¦¬ì—ì„œ ê°œìˆ˜ ì°¨ê°
             inputDict[cardData] -= requiredCount;
 
             if (inputDict[cardData] == 0)
                 inputDict.Remove(cardData);
         }
 
-        // ¸ğµç Àç·á¸¦ Á¤È®È÷ »ç¿ëÇß´ÂÁö È®ÀÎ
-        // ³²Àº Ä«µå°¡ ÀÖÀ¸¸é ºÒÀÏÄ¡
+        // ëª¨ë“  ì¬ë£Œë¥¼ ì •í™•íˆ ì‚¬ìš©í–ˆëŠ”ì§€ í™•ì¸
+        // ë‚¨ì€ ì¹´ë“œê°€ ìˆìœ¼ë©´ ë¶ˆì¼ì¹˜
         return inputDict.Count == 0;
     }
 }

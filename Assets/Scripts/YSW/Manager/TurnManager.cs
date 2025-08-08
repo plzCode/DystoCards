@@ -103,6 +103,7 @@ public class TurnManager : MonoBehaviour
         //커스텀 등록된 액션 실행
         if (phaseStartActions.TryGetValue(phase, out var action))
         {
+            Debug.Log($"[TurnManager] Executing actions for phase: {phase}");
             action?.Invoke();
         }
     }
@@ -113,5 +114,14 @@ public class TurnManager : MonoBehaviour
             phaseStartActions[phase] = action;
         else
             phaseStartActions[phase] += action;
+    }
+
+    public void UnregisterPhaseAction(TurnPhase phase, Action action)
+    {
+        if (phaseStartActions.ContainsKey(phase))
+        {
+            Debug.Log($"[TurnManager] Unregistering action from {phase}");
+            phaseStartActions[phase] -= action;
+        }
     }
 }
