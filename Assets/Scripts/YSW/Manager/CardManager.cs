@@ -198,6 +198,7 @@ public class CardManager : MonoBehaviour
     {
         Human human = obj.AddComponent<Human>();
         human.ChangeCharData(data as HumanCardData);
+        human.AddComponent<FacilityParentWatcher>();
     }
 
     // ==============카드 등록 / 제거==============
