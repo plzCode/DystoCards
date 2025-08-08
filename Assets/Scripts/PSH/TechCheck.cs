@@ -70,7 +70,8 @@ public class TechCheck : MonoBehaviour
 
         // 해금된 기술 결과 프리팹 생성
         if (techResultPrefab != null)
-            Instantiate(techResultPrefab, techObject.transform.position, Quaternion.identity);
+            //Instantiate(techResultPrefab, techObject.transform.position, Quaternion.identity);
+            CardManager.Instance.SpawnCardById("0001", new Vector3(0,0,0));
 
         //if (uiToClose != null)
         //{

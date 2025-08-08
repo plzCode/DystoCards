@@ -12,7 +12,7 @@ public class RightClickUIOpener : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        if (uiPanel == null)
+        /*if (uiPanel == null)
         {
             // 비활성화된 상태 포함 전체에서 찾기
             Canvas[] canvases = Resources.FindObjectsOfTypeAll<Canvas>();
@@ -24,16 +24,16 @@ public class RightClickUIOpener : MonoBehaviour
                     break;
                 }
             }
-        }
+        }*/
 
 
-
-        uiPanel.SetActive(false); // 시작 시 비활성화
+        if(uiPanel != null)
+            uiPanel.SetActive(false); // 시작 시 비활성화
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // 우클릭
+        /*if (Input.GetMouseButtonDown(1)) // 우클릭
         {
             Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, interactableLayer);
@@ -43,7 +43,7 @@ public class RightClickUIOpener : MonoBehaviour
                 Debug.Log($"우클릭 대상: {hit.collider.name}");
                 OpenUI(hit.collider.gameObject);
             }
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -54,16 +54,16 @@ public class RightClickUIOpener : MonoBehaviour
         }
     }
 
-    void OpenUI(GameObject target)
+    public void OpenUI(GameObject target)
     {
         uiPanel.SetActive(true);
 
         // 선택한 오브젝트 위치에 따라 UI를 옮기고 싶을 경우:
-        Vector3 screenPos = mainCamera.WorldToScreenPoint(target.transform.position);
-        uiPanel.transform.position = screenPos;
+        /*Vector3 screenPos = mainCamera.WorldToScreenPoint(target.transform.position);
+        uiPanel.transform.position = screenPos;*/
     }
 
-    void CloseUI()
+    public void CloseUI()
     {
         uiPanel.SetActive(false);
     }
