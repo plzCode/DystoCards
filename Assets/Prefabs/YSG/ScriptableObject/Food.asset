@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b658419291b628c4b9c1a513b4e811a0, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
-  cardId: 
-  cardName: Food
-  cardImage: {fileID: 0}
+  cardId: 997
+  cardName: "\uC0DD\uACE0\uAE30"
+  cardImage: {fileID: -809115827362613520, guid: a16eca7d8366aae428390b0c9ac115fd, type: 3}
   cardType: 1
-  description: "\uC784\uC2DC \uC74C\uC2DD"
+  description: 
   size: 1
   hungerRestore: 1
   isPerishable: 0

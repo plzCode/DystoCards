@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class SpawnEntry
 {
-    public GameObject prefab;
+    public CardData cardData;
     [Range(0, 100)] public float spawnProbability;
 }
 
@@ -47,13 +48,12 @@ public class BattleManager : MonoBehaviour
         humans.RemoveAll(card => card == null);
         monsters.RemoveAll(card => card == null);
 
-        if (Input.GetKeyUp(KeyCode.T)) // 임시
+        if (Input.GetKeyUp(KeyCode.T))
         {
             SpawnMonster();
         }
     }
 
-    #region 소환
     private void SpawnMonster()
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
@@ -66,14 +66,23 @@ public class BattleManager : MonoBehaviour
 
         foreach (var entry in spawnList)
         {
+            if (entry.cardData == null) continue;
             if (Random.Range(0, 100) <= entry.spawnProbability)
             {
                 float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
                 float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
-
                 Vector3 spawnPos = new Vector3(randX, randY, 0);
-                GameObject go = Instantiate(entry.prefab, spawnPos, Quaternion.identity);
-                go.transform.SetParent(cards);
+                var card = CardManager.Instance.SpawnCard(entry.cardData, spawnPos);
+                if (card != null)
+                {
+                    card.transform.SetParent(cards);
+                    card.AddComponent<TestMonster>();
+
+                    card.AddComponent<Rigidbody2D>();
+                    Rigidbody2D rb = card.GetComponent<Rigidbody2D>();
+                    rb.gravityScale = 0;
+                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
             }
         }
     }
@@ -87,9 +96,7 @@ public class BattleManager : MonoBehaviour
             SpawnMonster();
         }
     }
-    #endregion
 
-    #region 전투
     public void StartBattle()
     {
         if (!inBattle) ArrangeCharacters();
@@ -248,9 +255,7 @@ public class BattleManager : MonoBehaviour
             list[randIndex] = temp;
         }
     }
-    #endregion
 
-    #region 효과
     private IEnumerator AttackEffect(Character attacker, Character target)
     {
         Transform attackerTr = attacker.transform;
@@ -301,7 +306,6 @@ public class BattleManager : MonoBehaviour
 
         sr.color = originalColor;
     }
-    #endregion
 
     private void DebugResult()
     {

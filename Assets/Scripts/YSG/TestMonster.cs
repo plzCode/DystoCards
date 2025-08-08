@@ -3,17 +3,14 @@ using UnityEngine;
 
 public class TestMonster : Character
 {
-    [Header("Ä«µå ½ºÅÈ")]
+    [Header("Card Stats")]
     public float maxHealth;
     public float attackPower;
     public float defensePower;
 
-    public GameObject[] drops;
-
-    [Header("Ãß°¡ ½ºÅÈ")]
-    public Vector2 moveDelay = new Vector2(0.5f, 2);
-    public float moveDistance = 1;
-    public float moveDuration = 0.5f;
+    private Vector2 moveDelay = new Vector2(0.5f, 2);
+    private float moveDistance = 1;
+    private float moveDuration = 0.5f;
     private Transform moveTarget;
 
     private void OnValidate()
@@ -78,6 +75,8 @@ public class TestMonster : Character
     {
         if (collision.gameObject.TryGetComponent<Human>(out var human))
         {
+            Debug.Log(human.name);
+
             StopAllCoroutines();
 
             GetComponent<Rigidbody2D>().simulated = false;
@@ -122,20 +121,21 @@ public class TestMonster : Character
     public override void Die()
     {
         DropItem();
+
         base.Die();
     }
 
     public void DropItem()
     {
-        if (drops == null || drops.Length == 0) return;
+        MonsterCardData monsterData = charData as MonsterCardData;
+        if (monsterData == null || monsterData.Drops == null || monsterData.Drops.Length == 0)
+            return;
 
-        for (int i = 0; i < drops.Length; i++)
+        CardData drop = monsterData.Drops[Random.Range(0, monsterData.Drops.Length)];
+        if (drop != null)
         {
-            Vector2 offset = Random.insideUnitCircle * 0.5f;
-            Vector3 dropPos = transform.position + new Vector3(offset.x, offset.y, 0);
-
-            GameObject go = Instantiate(drops[i], dropPos, Quaternion.identity);
-            go.transform.SetParent(BattleManager.Instance.cards);
+            Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
+            CardManager.Instance.SpawnCard(drop, spawnPos);
         }
     }
 }
