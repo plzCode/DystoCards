@@ -12,12 +12,22 @@ public class CombinationManager : MonoBehaviour
     [SerializeField] private List<RecipeCardData> recipes; // 조합 가능한 레시피 목록
     [SerializeField] private GameObject fieldCards;        // 필드에 놓인 카드들의 부모 오브젝트
 
+    public static CombinationManager Instance { get; private set; }
+
     private void Awake()
     {
+        // 싱글톤 인스턴스 지정
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
         DontDestroyOnLoad(gameObject); // 씬이 넘어가도 유지
     }
 
-    private void Update()
+    public void CheckCombination()
     {
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
@@ -141,24 +151,6 @@ public class CombinationManager : MonoBehaviour
 
                     // 새 카드의 부모를 fieldCards로 설정
                     newCard.transform.SetParent(fieldCards.transform);
-
-                    // newCard localPosition.z 0으로 설정
-                    Vector3 newLocalPos = newCard.transform.localPosition;
-                    newLocalPos.z = 0f;
-                    newCard.transform.localPosition = newLocalPos;
-
-                    // triggerCard localPosition.z 0으로 설정
-                    Vector3 triggerLocalPos = triggerCard.transform.localPosition;
-                    triggerLocalPos.z = 0f;
-                    triggerCard.transform.localPosition = triggerLocalPos;
-
-                    // 렌더링 순서 조정 (Human 카드보다 위에 보이도록)
-                    SpriteRenderer newCardRenderer = newCard.GetComponent<SpriteRenderer>();
-                    if (triggerRenderer != null && newCardRenderer != null)
-                    {
-                        newCardRenderer.sortingLayerName = triggerRenderer.sortingLayerName;
-                        newCardRenderer.sortingOrder = triggerRenderer.sortingOrder + 1;
-                    }
 
                     string scriptName = recipe.scriptName;
 

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class Human : Character
@@ -10,10 +10,10 @@ public class Human : Character
     //private HumanCardData _runtimeData;
 
     [Header("Inspectable Equipment Slots")]
-    public List<EquipmentSlotData> equipmentSlotList = new();  // ReorderableList¿¡ »ç¿ë
+    public List<EquipmentSlotData> equipmentSlotList = new();  // ReorderableListì— ì‚¬ìš©
 
     private Dictionary<EquipmentSlot, EquipmentCardData> equippedItems = new();
-    private Dictionary<EquipmentSlot, GameObject> equippedObjects = new(); // Àåºñ ¿ÀºêÁ§Æ® ÀúÀå¿ë
+    private Dictionary<EquipmentSlot, GameObject> equippedObjects = new(); // ì¥ë¹„ ì˜¤ë¸Œì íŠ¸ ì €ì¥ìš©
 
     public HumanCardData humanData => GetComponent<Card2D>().RuntimeData as HumanCardData;
 
@@ -41,7 +41,7 @@ public class Human : Character
         var card = GetComponent<Card2D>();
         if (card != null)
         {
-            card.SetRuntimeData(data); // ³»ºÎ¿¡¼­ Clone°ú ÀÌº¥Æ® µî·Ï, UI °»½Å Ã³¸®
+            card.SetRuntimeData(data); // ë‚´ë¶€ì—ì„œ Cloneê³¼ ì´ë²¤íŠ¸ ë“±ë¡, UI ê°±ì‹  ì²˜ë¦¬
             Initialize(data);
         }
     }
@@ -59,35 +59,41 @@ public class Human : Character
     public void ConsumeFood()
     {
         currentHunger = Mathf.Max(0, currentHunger - humanData.ConsumeHunger);
+        humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} consumed {humanData.ConsumeHunger} hunger. Remaining: {currentHunger}");
     }
 
     public void RecoverHunger(float amount)
     {
         currentHunger = Mathf.Min(humanData.MaxHunger, currentHunger + amount);
+        humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} recovered {amount} hunger. Current: {currentHunger}/{humanData.MaxHunger}");
     }
 
     public void ConsumeStamina(float amount)
     {
         currentStamina = Mathf.Max(0, currentStamina - amount);
+        humanData.Stamina = currentStamina;
         Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.Stamina}");
     }
 
     public void RecoverStamina(float amount)
     {
         currentStamina = Mathf.Min(humanData.Stamina, currentStamina + amount);
+        humanData.Stamina = currentStamina;
     }
 
     public void TakeStress(float amount)
     {
         currentMentalHealth = Mathf.Max(0, currentMentalHealth - amount);
+        humanData.CurrentMentalHealth = currentMentalHealth;
         Debug.Log($"{charData.cardName} took {amount} stress. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
     public void RecoverMentalHealth(float amount)
     {
         currentMentalHealth = Mathf.Min(humanData.MaxMentalHealth, currentMentalHealth + amount);
+        humanData.CurrentMentalHealth = currentMentalHealth;
         Debug.Log($"{charData.cardName} recovered {amount} mental health. Mental: {currentMentalHealth}/{humanData.MaxMentalHealth}");
     }
 
@@ -108,7 +114,7 @@ public class Human : Character
             Die();
         }*/
         base.TakeDamage(amount);
-        //HumanRuntimeData´Â ±¸µ¶ÀÌ ¾ÈµÇ¾îÀÖ¾î¼­ ¼ıÀÚ°¡ ¹Ù²î¾îµµ StatRenderingÀÌ µÇÁö ¾ÊÀ½, 
+        //HumanRuntimeDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½Ö¾î¼­ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ù²ï¿½ï¿½îµµ StatRenderingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 
 
     }
 
@@ -116,7 +122,7 @@ public class Human : Character
     {
         if (equipment == null) return;
 
-        // ÀÌ¹Ì ÀåÂøÇÑ Àåºñ°¡ ÀÖ´Ù¸é Á¦°Å
+        // ì´ë¯¸ ì¥ì°©í•œ ì¥ë¹„ê°€ ìˆë‹¤ë©´ ì œê±°
         if (equippedItems.TryGetValue(equipment.slot, out var oldEquip))
         {
             RemoveEquipmentStats(oldEquip);
@@ -165,33 +171,31 @@ public class Human : Character
     {
         if (!equippedItems.ContainsKey(slot))
         {
-            Debug.LogWarning($"[Human] Unequip: {slot} ½½·Ô¿¡ ÀåÂøµÈ Àåºñ°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"[Human] Unequip: {slot} ìŠ¬ë¡¯ì— ì¥ì°©ëœ ì¥ë¹„ê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
         EquipmentCardData itemData = equippedItems[slot];
         GameObject itemObject = equippedObjects[slot];
 
-        itemObject.transform.SetParent(CardManager.Instance.cardParent); // ºÎ¸ğ¿¡¼­ ºĞ¸®
 
-        // ½ºÅÈ Á¦°Å
+        // ìŠ¤íƒ¯ ì œê±°
         RemoveEquipmentStats(itemData);
 
-        // Àåºñ ¿ÀºêÁ§Æ® È°¼ºÈ­ ¹× À§Ä¡ º¹¿ø
+        // ì¥ë¹„ ì˜¤ë¸Œì íŠ¸ í™œì„±í™” ë° ìœ„ì¹˜ ë³µì›
         itemObject.SetActive(true); 
         
         var card2D = itemObject.GetComponent<Card2D>();
         card2D.BringToFrontRecursive(card2D);
         card2D.transform.position = transform.position;
         Vector3 directionToCenter = (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane)) - transform.position).normalized;
-        StartCoroutine(card2D.MoveItemLerp(itemObject.transform, transform.position + directionToCenter * 3.0f, 0.6f)); // 3f´Â °Å¸®
+        StartCoroutine(card2D.MoveItemLerp(itemObject.transform, transform.position + directionToCenter * 3.0f, 0.6f)); // 3fëŠ” ê±°ë¦¬
         card2D.cardAnim.PlayFeedBack_ByName("BounceY");
-        
 
-        // ½½·Ô Á¤º¸ Á¦°Å
+        // ìŠ¬ë¡¯ ì •ë³´ ì œê±°
         equippedItems.Remove(slot);
         equippedObjects.Remove(slot);
 
-        Debug.Log($"[Human] {slot} ½½·ÔÀÇ {itemData.cardName} Àåºñ¸¦ ÇØÁ¦Çß½À´Ï´Ù.");
+        Debug.Log($"[Human] {slot} ìŠ¬ë¡¯ì˜ {itemData.cardName} ì¥ë¹„ë¥¼ í•´ì œí–ˆìŠµë‹ˆë‹¤.");
         SyncDictFromList();
     }
     private void ApplyEquipmentStats(EquipmentCardData equipment)
@@ -241,7 +245,7 @@ public class Human : Character
         }
 
 #if UNITY_EDITOR
-        UnityEditor.EditorUtility.SetDirty(this); // º¯°æ »çÇ× ÀúÀå
+        UnityEditor.EditorUtility.SetDirty(this); // ë³€ê²½ ì‚¬í•­ ì €ì¥
 #endif
     }
 }
