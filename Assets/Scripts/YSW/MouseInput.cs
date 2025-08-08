@@ -97,6 +97,18 @@ public class MouseInput : MonoBehaviour
                 }
             }
         }
+
+        if(Input.GetMouseButtonDown(2)) // »Ÿ ≈¨∏Ø
+        {
+            Card2D card = RaycastForCard();
+            if (card != null)
+            {
+                Debug.Log($"[MiddleClick] {card.name} »Ÿ ≈¨∏Øµ !");
+                //float delay = card.cardAnim.PlayFeedBack_ByName("DustParticle");
+                CardManager.Instance.DestroyCard(card, 1f);
+
+            }
+        }
     }
 
     private Card2D RaycastForCard()

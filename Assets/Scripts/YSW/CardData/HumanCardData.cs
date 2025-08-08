@@ -5,7 +5,9 @@ public class HumanCardData : CharacterCardData
 {
     [Header("Human Attributes")]
     [SerializeField] private float max_mental_health = 10f;
+    [SerializeField] private float current_mental_health = 10f;
     [SerializeField] private float max_hunger = 5f;
+    [SerializeField] private float current_hunger = 5f;
     [SerializeField] private float stamina = 5f;
     [SerializeField] private float consume_hunger = 1f;
 
@@ -21,6 +23,18 @@ public class HumanCardData : CharacterCardData
             }
         }
     }
+    public float CurrentMentalHealth
+    {
+        get => current_mental_health;
+        set
+        {
+            if(current_mental_health != value)
+            {
+                current_mental_health = value;
+                RaiseDataChanged();
+            }
+        }
+    }
 
     public float MaxHunger
     {
@@ -30,6 +44,18 @@ public class HumanCardData : CharacterCardData
             if (max_hunger != value)
             {
                 max_hunger = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+    public float CurrentHunger
+    {
+        get => current_hunger;
+        set
+        {
+            if(current_hunger != value)
+            {
+                current_hunger = value;
                 RaiseDataChanged();
             }
         }

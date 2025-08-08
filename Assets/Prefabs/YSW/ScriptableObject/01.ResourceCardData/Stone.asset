@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 002
   cardName: Stone
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 5169587137744067886, guid: 8d3e69ae6fc7c28499689748c9b0e8ed, type: 3}
   cardType: 0
   description: 
   size: 1

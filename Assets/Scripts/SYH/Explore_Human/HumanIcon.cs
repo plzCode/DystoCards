@@ -20,24 +20,24 @@ public class HumanIcon : MonoBehaviour
 
 
 
-    public void Setup(HumanCardData _human, ExploreInfo exploreInfo, GameObject parentScrollView)
+    public void Setup(Human _human, ExploreInfo exploreInfo, GameObject parentScrollView)
     {
-        humanCardData = _human;
+        humanCardData = _human.humanData;
         exploreInfoUI = exploreInfo;
         scrollView = parentScrollView;
 
         // UI ¼¼ÆÃ
-        if (iconImage != null) iconImage.sprite = _human.cardImage;
-        if (nameText != null) nameText.text = _human.cardName;
+        if (iconImage != null) iconImage.sprite = humanCardData.cardImage;
+        if (nameText != null) nameText.text = humanCardData.cardName;
 
-        UIBarUtility.SetBarColor(staminaBar, (int)_human.Stamina, UIBarUtility.StaminaColor);
-        UIBarUtility.SetBarColor(strengthBar, (int)_human.AttackPower, UIBarUtility.StrengthColor);
-        UIBarUtility.SetBarColor(mentalBar, (int)_human.ConsumeHunger, UIBarUtility.WarningColor);
+        UIBarUtility.SetBarColor(staminaBar, (int)humanCardData.Stamina, UIBarUtility.StaminaColor);
+        UIBarUtility.SetBarColor(strengthBar, (int)humanCardData.AttackPower, UIBarUtility.StrengthColor);
+        UIBarUtility.SetBarColor(mentalBar, (int)humanCardData.ConsumeHunger, UIBarUtility.WarningColor);
 
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(() =>
         {
-            exploreInfoUI.SetHumanInfo(humanCardData);
+            exploreInfoUI.SetHumanInfo(_human);
             scrollView.SetActive(false);
         });
     }
