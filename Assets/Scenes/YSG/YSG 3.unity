@@ -10391,7 +10391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &360430537
 Transform:
   m_ObjectHideFlags: 0
@@ -30125,6 +30125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventManager
       objectReference: {fileID: 0}
+    - target: {fileID: 441791403748901813, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1246465154766403331, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
       propertyPath: cardText
       value: 
@@ -30413,7 +30417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1086669251
 Transform:
   m_ObjectHideFlags: 0
@@ -36297,7 +36301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1265641609
 Transform:
   m_ObjectHideFlags: 0
@@ -38909,6 +38913,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346581668}
   m_CullTransparentMesh: 1
+--- !u!1 &1359712895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2842897043688346038, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+  m_PrefabInstance: {fileID: 4470785695969553983}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1359712900
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359712895}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1359974025
 GameObject:
   m_ObjectHideFlags: 0
@@ -61671,6 +61707,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2842897043688346038, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3150400323947821210, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_Name
       value: BattleManager
@@ -61679,14 +61719,6 @@ PrefabInstance:
       propertyPath: cards
       value: 
       objectReference: {fileID: 1345077518}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[0].cardData
-      value: 
-      objectReference: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[1].cardData
-      value: 
-      objectReference: {fileID: 11400000, guid: e2879ebe9ee4a62419ef2f9bec5ea20e, type: 2}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -61727,10 +61759,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9082169603565959092, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9082169603565959092, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9082169603565959092, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1614885307
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2842897043688346038, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1359712900}
   m_SourcePrefab: {fileID: 100100000, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
 --- !u!1 &4496058197491792097
 GameObject:

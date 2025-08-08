@@ -19,9 +19,9 @@ MonoBehaviour:
   description: 
   size: 1
   characterType: 2
-  max_health: 10
-  current_health: 10
-  attack_power: 3
+  max_health: 5
+  current_health: 5
+  attack_power: 2
   defense_power: 1
   drops:
   - {fileID: 11400000, guid: 9861ac035eb8abf44a1b37db938d3595, type: 2}

@@ -9,6 +9,8 @@ public class BattleArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.name);
+
         if (collision.TryGetComponent(out Human human))
         {
             if (!BattleManager.Instance.humans.Contains(human))
@@ -21,7 +23,6 @@ public class BattleArea : MonoBehaviour
             if (!BattleManager.Instance.monsters.Contains(monster))
             {
                 monster.StopAllCoroutines();
-                monster.GetComponent<Rigidbody2D>().simulated = false;
                 BattleManager.Instance.monsters.Add(monster);
             }
         }
@@ -37,7 +38,7 @@ public class BattleArea : MonoBehaviour
             return;
         }
 
-        BattleManager.Instance.ArrangeCharacters();
+        BattleManager.Instance.Arrange();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -46,6 +47,7 @@ public class BattleArea : MonoBehaviour
         {
             if (BattleManager.Instance.humans.Contains(human) && BattleManager.Instance.humans.Count > 1)
             {
+                human.GetComponent<Card2D>().isStackable = true;
                 BattleManager.Instance.humans.Remove(human);
             }
         }

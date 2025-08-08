@@ -197,10 +197,10 @@ MonoBehaviour:
   battleArea: {fileID: 6226988127601251254}
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
-  - prefab: {fileID: 8496976044789702832, guid: 7b98cd2b63e7e6347a0a7a0fca4704f5, type: 3}
-    spawnProbability: 50
-  - prefab: {fileID: 8496976044789702832, guid: 5e5dbc9588828884b84b2ba844b9af39, type: 3}
-    spawnProbability: 50
+  - cardData: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
+    spawnProbability: 100
+  - cardData: {fileID: 11400000, guid: e2879ebe9ee4a62419ef2f9bec5ea20e, type: 2}
+    spawnProbability: 0
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740

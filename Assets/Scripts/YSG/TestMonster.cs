@@ -13,6 +13,8 @@ public class TestMonster : Character
     private float moveDuration = 0.5f;
     private Transform moveTarget;
 
+    public float detectionRadius = 1.0f;
+
     private void OnValidate()
     {
         moveDelay.x = Mathf.Max(0.01f, moveDelay.x);
@@ -34,7 +36,7 @@ public class TestMonster : Character
 
     private void Start()
     {
-        StartMove();
+        ChaseTarget();
     }
 
     private void Update()
@@ -48,6 +50,8 @@ public class TestMonster : Character
         {
             moveTarget = SetTarget();
         }
+
+        CheckTarget();
     }
 
     private Transform SetTarget()
@@ -71,28 +75,8 @@ public class TestMonster : Character
         return moveTarget;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent<Human>(out var human))
-        {
-            Debug.Log(human.name);
-
-            StopAllCoroutines();
-
-            GetComponent<Rigidbody2D>().simulated = false;
-
-            if (!BattleManager.Instance.humans.Contains(human))
-                BattleManager.Instance.humans.Add(human);
-
-            if (!BattleManager.Instance.monsters.Contains(this))
-                BattleManager.Instance.monsters.Add(this);
-
-            BattleManager.Instance.StartBattle();
-        }
-    }
-
-    public void StartMove() => StartCoroutine(Move());
-    private IEnumerator Move()
+    public void ChaseTarget() => StartCoroutine(Chase());
+    private IEnumerator Chase()
     {
         while (true)
         {
@@ -115,6 +99,30 @@ public class TestMonster : Character
             }
 
             transform.position = endPos;
+        }
+    }
+
+    private void CheckTarget()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent<Human>(out var human))
+            {
+                StopAllCoroutines();
+
+                if (!BattleManager.Instance.humans.Contains(human))
+                {
+                    BattleManager.Instance.humans.Add(human);
+                    human.GetComponent<Card2D>().isStackable = false;
+                }
+
+                if (!BattleManager.Instance.monsters.Contains(this))
+                    BattleManager.Instance.monsters.Add(this);
+
+                BattleManager.Instance.StartBattle();
+                break;
+            }
         }
     }
 
