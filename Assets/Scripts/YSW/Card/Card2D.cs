@@ -314,6 +314,13 @@ public class Card2D : MonoBehaviour
                charData.characterType == characterType;
     }
 
+    public bool IsTechOfType(CardData data, TechType techType)
+    {
+        return data is TechCardData charData &&
+               data.cardType == CardType.Tech &&
+               charData.techType == techType;
+    }
+
     //cardUI 렌더링
     public void RenderCardUI()
     {
