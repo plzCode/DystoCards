@@ -53,7 +53,11 @@ public class CardManager : MonoBehaviour
         {
             SpawnCardById("001", new Vector3(0, 0, 0));
         }
-            if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SpawnCardById("002", new Vector3(0, 0, 0));
+        }
+        if (Input.GetKeyDown(KeyCode.E))
         {
             /*foreach (var card in fieldCards)
             {

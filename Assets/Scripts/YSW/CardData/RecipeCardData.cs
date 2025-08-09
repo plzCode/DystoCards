@@ -7,6 +7,7 @@ public class RecipeCardData : CardData
     public List<IngredientEntry> ingredients = new List<IngredientEntry>();
     public CardData result;
     public string scriptName;
+    public bool unlocked = false;
 
     public override CardData Clone()
     {
@@ -23,6 +24,7 @@ public class RecipeCardData : CardData
         clone.ingredients = this.ingredients;
         clone.result = this.result;
         clone.scriptName = this.scriptName;
-        
+        clone.unlocked = this.unlocked;
+
         return clone;}
 }
