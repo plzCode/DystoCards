@@ -42,7 +42,11 @@ public class ExploreInfo : MonoBehaviour
         UIBarUtility.SetBarColor(exploreStaminaBar, _location.requiredStamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(exploreDangerBar, _location.dangerLevel, UIBarUtility.WarningColor);
         //successPercent.text = "Succes Percent : " +(100 - _location.dangerLevel * 10).ToString();
-        ExpressSuccessPercent(current_locationInfo,current_humanInfo.humanData);
+        if (current_locationInfo != null && current_humanInfo != null)
+        {
+            ExpressSuccessPercent(current_locationInfo, current_humanInfo.humanData);
+        }
+        
     }
 
     public void SetHumanInfo(Human _human)
@@ -56,7 +60,10 @@ public class ExploreInfo : MonoBehaviour
         UIBarUtility.SetBarColor(humanStaminaBar, (int)_humandata.Stamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(humanStrengthBar, (int)_humandata.AttackPower, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(humanMentality, (int)_humandata.ConsumeHunger, UIBarUtility.WarningColor);
-        ExpressSuccessPercent(current_locationInfo,current_humanInfo.humanData);
+        if (current_locationInfo != null && current_humanInfo != null)
+        {
+            ExpressSuccessPercent(current_locationInfo, current_humanInfo.humanData);
+        }
 
     }
 
