@@ -18,10 +18,11 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
-    public TurnPhase CurrentPhase { get; private set; } = TurnPhase.EventDraw;
+    [SerializeField] public TurnPhase CurrentPhase { get; private set; } = TurnPhase.EventDraw;
+
 
     public event Action<TurnPhase> OnTurnPhaseChanged;
-    private Dictionary<TurnPhase, Queue<Action>> phaseActions = new();
+    private Dictionary<TurnPhase, List<Action>> phaseActions = new();
 
     public int TurnCount { get; private set; } = 1;
     public MMF_Player mmf_Player;
@@ -51,9 +52,14 @@ public class TurnManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
             NextPhase();
 
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            RegisterPhaseAction(TurnPhase.EventDraw, () => StartCoroutine(SampleAction("Custom action for Day Action phase.")));
+            RegisterPhaseAction(TurnPhase.DayAction, () => Debug.Log("TestAction"));
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            UnregisterPhaseAction(TurnPhase.DayAction, () => Debug.Log("TestAction")); //아직 기능하지 않음
         }
     }
 
@@ -109,10 +115,18 @@ public class TurnManager : MonoBehaviour
         // 등록된 액션 순차 실행
         if (phaseActions.TryGetValue(phase, out var actionsQueue))
         {
-            while (actionsQueue.Count > 0)
+            /*while (actionsQueue.Count > 0)
             {
                 isActionRunning = true;
                 var action = actionsQueue.Dequeue();
+                action?.Invoke();
+                yield return new WaitUntil(() => isActionRunning == false);
+            }*/
+
+            for(int i = 0; i< actionsQueue.Count; i++)
+            {
+                isActionRunning = true;
+                var action = actionsQueue[i];
                 action?.Invoke();
                 yield return new WaitUntil(() => isActionRunning == false);
             }
@@ -122,15 +136,17 @@ public class TurnManager : MonoBehaviour
     public void RegisterPhaseAction(TurnPhase phase, Action action)
     {
         if (!phaseActions.ContainsKey(phase))
-            phaseActions[phase] = new Queue<Action>();
+            phaseActions[phase] = new List<Action>();
 
-        phaseActions[phase].Enqueue(action);
+        phaseActions[phase].Add(action);
     }
 
     public void UnregisterPhaseAction(TurnPhase phase, Action action)
     {
-        // Queue에서는 특정 Action 제거가 복잡해서, 일반적으로 필요시 재구성
-        Debug.LogWarning("[TurnManager] Unregister is not directly supported for queued actions.");
+        if (phaseActions[phase].Contains(action))
+        {
+            phaseActions[phase].Remove(action);
+        }
     }
 
     public void MarkActionComplete()
@@ -170,5 +186,23 @@ public class TurnManager : MonoBehaviour
         Debug.Log("스페이스 눌림 → 다음 액션으로");
         isActionRunning = false;
     }
+
+}
+
+public class PhaseAction
+{
+    public string Id;
+    public Action Act;
+
+    public PhaseAction(string id, Action act)
+    {
+        this.Id = id;
+        this.Act = act;
+    }
+
+    public override bool Equals(object obj) => obj is PhaseAction other && Id == other.Id;
+    
+
+    public override int GetHashCode() => Id.GetHashCode();
 
 }
