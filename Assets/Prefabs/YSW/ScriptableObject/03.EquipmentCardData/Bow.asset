@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
-  m_Name: Bed
+  m_Script: {fileID: 11500000, guid: 429ce4d7337e57047a0bdd73addd001a, type: 3}
+  m_Name: Bow
   m_EditorClassIdentifier: 
-  cardId: 051
-  cardName: "\uCE68\uB300"
-  cardImage: {fileID: 0}
-  cardType: 4
-  description: "\uCE68\uB300\uC5D0\uC11C \uD734\uC2DD\uC744 \uCDE8\uD558\uC5EC \uD68C\uBCF5\uD55C\uB2E4."
+  cardId: 038
+  cardName: "\uD65C"
+  cardImage: {fileID: -1874692459, guid: 6a8fae21059931a4287164c6d5e0bfe4, type: 3}
+  cardType: 2
+  description: 
   size: 1
-  furnitureType: 0
+  attackPower: 3
+  defensePower: 0
+  slot: 2

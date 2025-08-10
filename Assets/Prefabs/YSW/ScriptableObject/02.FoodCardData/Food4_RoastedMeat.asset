@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b658419291b628c4b9c1a513b4e811a0, type: 3}
+  m_Name: Food4_RoastedMeat
+  m_EditorClassIdentifier: 
+  cardId: 024
+  cardName: "\uAD6C\uC6B4 \uACE0\uAE30"
+  cardImage: {fileID: 5315658670779129397, guid: 4e4ec3dfa0889d5479d534cb1cb73cd6, type: 3}
+  cardType: 1
+  description: 
+  size: 1
+  hungerRestore: 5
+  isPerishable: 0
+  shelfLifeTurns: 5

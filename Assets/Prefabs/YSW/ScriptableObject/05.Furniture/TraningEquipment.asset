@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
-  m_Name: Bed
+  m_Name: TraningEquipment
   m_EditorClassIdentifier: 
-  cardId: 051
-  cardName: "\uCE68\uB300"
-  cardImage: {fileID: 0}
+  cardId: 058
+  cardName: "\uD6C8\uB828\uAE30\uAD6C"
+  cardImage: {fileID: -5126918546578705894, guid: cc55c73841630ca46832b3e94df9babd, type: 3}
   cardType: 4
-  description: "\uCE68\uB300\uC5D0\uC11C \uD734\uC2DD\uC744 \uCDE8\uD558\uC5EC \uD68C\uBCF5\uD55C\uB2E4."
+  description: "\uCE90\uB9AD\uD130\uB97C \uB2E8\uB828 \uC2DC\uD0AC \uC218 \uC788\uB2E4."
   size: 1
   furnitureType: 0

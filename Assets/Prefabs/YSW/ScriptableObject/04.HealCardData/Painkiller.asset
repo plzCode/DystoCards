@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 754a4d205f562e642b43c45955018920, type: 3}
-  m_Name: Bandage
+  m_Name: Painkiller
   m_EditorClassIdentifier: 
-  cardId: 041
-  cardName: "\uBD95\uB300"
-  cardImage: {fileID: 6022540703457439708, guid: b74c57637a128f64f825606d65e06de5, type: 3}
+  cardId: 044
+  cardName: "\uC9C4\uD1B5\uC81C"
+  cardImage: {fileID: 3907572615452461515, guid: 7fcfa0722e76aa340a5f08a10d275317, type: 3}
   cardType: 3
-  description: "\uBD80\uC0C1\uC744 \uCE58\uB8CC\uD55C\uB2E4."
+  description: "\uC2EC\uAC01\uD55C \uBD80\uC0C1\uC744 \uBE60\uB974\uAC8C \uD68C\uBCF5\uD55C\uB2E4."
   size: 1
-  healthAmount: 3
-  mentalAmount: 1
-  staninaAmount: 2
+  healthAmount: 4
+  mentalAmount: 2
+  staninaAmount: 3
   maxReuseNum: 1
   currentReuseNum: 1

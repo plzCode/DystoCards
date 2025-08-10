@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
-  m_Name: Bed
+  m_Name: SteelBox
   m_EditorClassIdentifier: 
-  cardId: 051
-  cardName: "\uCE68\uB300"
-  cardImage: {fileID: 0}
+  cardId: 056
+  cardName: "\uC0C1\uC790(\uCCA0)"
+  cardImage: {fileID: -236737914123531238, guid: 53a4386fd3e65dd4d894cb032e979676, type: 3}
   cardType: 4
-  description: "\uCE68\uB300\uC5D0\uC11C \uD734\uC2DD\uC744 \uCDE8\uD558\uC5EC \uD68C\uBCF5\uD55C\uB2E4."
+  description: "\uB9CE\uC740 \uCE74\uB4DC\uB97C \uBCF4\uAD00\uD560 \uC218 \uC788\uB2E4."
   size: 1
   furnitureType: 0

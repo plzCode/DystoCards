@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
-  m_Name: Bed
+  m_Name: Refrigerator
   m_EditorClassIdentifier: 
-  cardId: 051
-  cardName: "\uCE68\uB300"
-  cardImage: {fileID: 0}
+  cardId: 052
+  cardName: "\uB0C9\uC7A5\uACE0"
+  cardImage: {fileID: 8063565088541166495, guid: fa051d00f9b61954aa0389461e551cbf, type: 3}
   cardType: 4
-  description: "\uCE68\uB300\uC5D0\uC11C \uD734\uC2DD\uC744 \uCDE8\uD558\uC5EC \uD68C\uBCF5\uD55C\uB2E4."
+  description: "\uC74C\uC2DD\uC744 \uBCF4\uAD00\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+    \uC74C\uC2DD\uC758 \uC720\uD1B5\uAE30\uD55C\uC774 \uB298\uC5B4\uB0A9\uB2C8\uB2E4."
   size: 1
   furnitureType: 0

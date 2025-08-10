@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
-  m_Name: Wood
+  m_Name: Res7_Gold
   m_EditorClassIdentifier: 
-  cardId: 001
-  cardName: Wood
+  cardId: 007
+  cardName: "\uAE08"
   cardImage: {fileID: 21300000, guid: e305d4ff6fcb66148a89b78f93cc03fa, type: 3}
   cardType: 0
-  description: 
+  description: "\uAE08"
   size: 1
   quantity: 1
   resourceType: 0
