@@ -13,7 +13,7 @@ public class CardUIRenderer : MonoBehaviour
     public TextMeshPro cardNameText;
     public float spacing = 0.2f;
 
-    public SpriteRenderer cardImage;
+    public Image cardImage;
 
     public void RenderStats(Dictionary<string, float> stats)
     {
