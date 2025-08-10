@@ -7590,7 +7590,6 @@ Transform:
   - {fileID: 671219947}
   - {fileID: 683672096}
   - {fileID: 360430537}
-  - {fileID: 1086669251}
   - {fileID: 1265641609}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10391,7 +10390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &360430537
 Transform:
   m_ObjectHideFlags: 0
@@ -30871,77 +30870,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -297.4}
   m_SizeDelta: {x: 445.4, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1086669250
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1086669251}
-  - component: {fileID: 1086669252}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1086669251
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086669250}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 256553791}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1086669252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086669250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f4374a701414df4586653afcc6eb3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipPanel: {fileID: 1028501565}
-  tooltipText: {fileID: 0}
-  tooltipOffset: {x: 20, y: -20}
-  fadeCanvas: {fileID: 0}
-  defaultFadeDuration: 1
-  defaultCursor: {fileID: 0}
-  interactCursor: {fileID: 0}
-  denyCursor: {fileID: 0}
-  cursorHotspot: {x: 0, y: 0}
-  cardInfoPanel: {fileID: 0}
-  iconDatabase: {fileID: 0}
-  clickCatcher: {fileID: 80611345}
-  showFeedback: {fileID: 0}
-  hideFeedback: {fileID: 0}
-  defaultInteractableMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  defaultCardMask:
-    serializedVersion: 2
-    m_Bits: 64
-  uiOnlyInteractableMask:
-    serializedVersion: 2
-    m_Bits: 32
-  uiOnlyCardMask:
-    serializedVersion: 2
-    m_Bits: 0
-  mouseInput: {fileID: 0}
 --- !u!1 &1089574013
 GameObject:
   m_ObjectHideFlags: 0
