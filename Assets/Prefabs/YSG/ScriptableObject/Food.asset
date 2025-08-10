@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b658419291b628c4b9c1a513b4e811a0, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
-  cardId: 997
+  cardId: 996
   cardName: "\uC0DD\uACE0\uAE30"
   cardImage: {fileID: 0}
   cardType: 1

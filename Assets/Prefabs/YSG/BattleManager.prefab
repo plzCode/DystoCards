@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1614885307
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.39215687}
@@ -144,14 +144,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2842897043688346038}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -162,7 +162,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &133765468524865252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,9 +226,11 @@ MonoBehaviour:
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
   - cardData: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
-    spawnProbability: 100
+    spawnProbability: 0
   - cardData: {fileID: 11400000, guid: e2879ebe9ee4a62419ef2f9bec5ea20e, type: 2}
-    spawnProbability: 50
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: adfd94f2d35b460468dd4da99bb7a333, type: 2}
+    spawnProbability: 100
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740

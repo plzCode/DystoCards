@@ -40,20 +40,20 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        cards = CardManager.Instance.cardParent;
         battleArea?.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        humans.RemoveAll(card => card == null);
-        monsters.RemoveAll(card => card == null);
+        humans.RemoveAll(h => h == null);
+        monsters.RemoveAll(m => m == null);
 
         if (Input.GetKeyUp(KeyCode.T))
-        {
             SpawnMonster();
-        }
     }
 
+    #region 소환
     private void SpawnMonster()
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
@@ -77,7 +77,6 @@ public class BattleManager : MonoBehaviour
                 {
                     card.GetComponent<Card2D>().isStackable = false;
                     card.AddComponent<TestMonster>();
-
                     card.transform.SetParent(cards);
                 }
             }
@@ -87,16 +86,16 @@ public class BattleManager : MonoBehaviour
     public void TrySpawnMonster(int probability = 0)
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
-
-        if (Random.value < (float)(probability / 100))
-        {
+        if (Random.value < (float)probability / 100f)
             SpawnMonster();
-        }
     }
+    #endregion
 
+    #region 전투
     public void StartBattle()
     {
-        if (inBattle) return; 
+        if (inBattle) return;
+        UnstackAll();
         Arrange();
         StartCoroutine(BattleSequence());
     }
@@ -205,6 +204,9 @@ public class BattleManager : MonoBehaviour
                 if (humans.Count == 0 || monsters.Count == 0) break;
                 if (attacker == null) continue;
 
+                if (attacker is Human human && !humans.Contains(human)) continue;
+                if (attacker is TestMonster monster && !monsters.Contains(monster)) continue;
+
                 Character target = null;
 
                 if (attacker is Human)
@@ -266,6 +268,38 @@ public class BattleManager : MonoBehaviour
             var card = c.GetComponent<Card2D>();
             if (card != null) card.isStackable = true;
         }
+    }
+    #endregion
+
+    #region 카드
+    private void UnstackAll()
+    {
+        foreach (var human in humans)
+        {
+            var card = human.GetComponent<Card2D>();
+            if (card != null) Unstack(card);
+        }
+        foreach (var monster in monsters)
+        {
+            var card = monster.GetComponent<Card2D>();
+            if (card != null) Unstack(card);
+        }
+    }
+
+    public void Unstack(Card2D card)
+    {
+        if (card.parentCard != null)
+        {
+            card.parentCard.childCards.Remove(card);
+            card.parentCard = null;
+        }
+        foreach (var child in new List<Card2D>(card.childCards))
+        {
+            if (child != null)
+                Unstack(child);
+        }
+        card.childCards.Clear();
+        card.transform.SetParent(cards);
     }
 
     private IEnumerator AttackCoroutine(Character attacker, Character target)
@@ -331,4 +365,5 @@ public class BattleManager : MonoBehaviour
         if (sr != null)
             sr.color = Color.white;
     }
+    #endregion
 }

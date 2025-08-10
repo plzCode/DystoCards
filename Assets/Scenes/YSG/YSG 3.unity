@@ -663,6 +663,7 @@ MonoBehaviour:
   - {fileID: 557251924}
   registeredExplorations: []
   uiThemeData: {fileID: 11400000, guid: ba3fb0e392d199140862ec595f864060, type: 2}
+  addExploreScroll: {fileID: 0}
   humanScrollView: {fileID: 212879891}
   rewardScrollView: {fileID: 549152305}
   opendLocationInfo: {fileID: 1284942016}
@@ -61675,30 +61676,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2005883479922365618, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: m_BodyType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2005883479922365618, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: m_Constraints
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2005883479922365618, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2842897043688346038, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3150400323947821210, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_Name
       value: BattleManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: cards
-      value: 
-      objectReference: {fileID: 1345077518}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
