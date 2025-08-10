@@ -46,13 +46,19 @@ public class EventFunctionManager : MonoBehaviour
         switch (functionKey)
         {
             case "Heal":
-                HealPlayer();
+                Heal();
+                break;
+            case "Injure":
+                Injure();
                 break;
             case "SpawnEnemy":
                 SpawnEnemy();
                 break;
-            case "GiveGold":
-                GiveGold();
+            case "ResourceGain":
+                ResourceGain();
+                break;
+            case "RecruitHuman":
+                RecruitHuman();
                 break;
             default:
                 Debug.LogWarning($"{functionKey}는 등록되지 않은 이벤트입니다.");
@@ -61,10 +67,8 @@ public class EventFunctionManager : MonoBehaviour
     }
 
     // 플레이어를 치료하는 이벤트 실행
-    private void HealPlayer()
+    private void Heal()
     {
-        Debug.Log("플레이어를 치료합니다!");
-
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
 
@@ -79,6 +83,22 @@ public class EventFunctionManager : MonoBehaviour
         }
     }
 
+    private void Injure()
+    {
+        // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
+        Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
+
+        foreach (var card in allCards)
+        {
+            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
+            {
+                Human human = card.GetComponent<Human>();
+                if (human != null)
+                    human.TakeDamage(1);
+            }
+        }
+    }
+
     // 적을 소환하는 이벤트 실행
     private void SpawnEnemy()
     {
@@ -87,7 +107,15 @@ public class EventFunctionManager : MonoBehaviour
     }
 
     // 골드를 지급하는 이벤트 실행
-    private void GiveGold()
+    private void ResourceGain()
+    {
+        Debug.Log("골드를 지급합니다!");
+        // 실제 골드 지급 로직은 여기에 작성
+    }
+
+
+    // 골드를 지급하는 이벤트 실행
+    private void RecruitHuman()
     {
         Debug.Log("골드를 지급합니다!");
         // 실제 골드 지급 로직은 여기에 작성

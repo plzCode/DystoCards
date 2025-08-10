@@ -8,20 +8,26 @@ using UnityEngine.UI;
 /// </summary>
 public class EventUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject eventUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
-    [SerializeField] private TMP_Text cardText;       // 카드 이름을 보여줄 TMP_Text
-    [SerializeField] private Button acceptButton;     // O 버튼
-    [SerializeField] private Button rejectButton;     // X 버튼
+    [SerializeField] private GameObject eventChoiceUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
+    [SerializeField] private TMP_Text descriptionText;      // 카드 설명을 보여줄 TMP_Text
+    [SerializeField] private Button acceptButton;           // O 버튼
+    [SerializeField] private Button rejectButton;           // X 버튼
+    [SerializeField] private GameObject eventResultUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
+    [SerializeField] private TMP_Text resultText;           // 카드 결과를 보여줄 TMP_Text
+    [SerializeField] private Button closeButton;            // X 버튼
 
     private EventCardData currentCard; // 현재 카드 데이터
 
     private void Start()
     {
-        eventUIPanel.SetActive(false); // 게임 시작 시 비활성화
+        // 게임 시작 시 비활성화
+        eventChoiceUIPanel.SetActive(false);
+        eventResultUIPanel.SetActive(false);
 
         // 버튼 이벤트는 Start에서 한 번만 연결
         acceptButton.onClick.AddListener(AcceptCard);
         rejectButton.onClick.AddListener(RejectCard);
+        closeButton.onClick.AddListener(CloseResult);
 
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.EventDraw, () => OpenEventUI());
     }
@@ -33,9 +39,9 @@ public class EventUIManager : MonoBehaviour
     {
         currentCard = EventFunctionManager.Instance.GetRandomCard();
 
-        cardText.text = currentCard.description;
+        descriptionText.text = currentCard.description;
 
-        UIManager.Instance.TogglePanel(eventUIPanel);
+        UIManager.Instance.TogglePanel(eventChoiceUIPanel);
 
         Debug.Log($"[이벤트] {currentCard.cardName} 등장");
     }
@@ -43,9 +49,9 @@ public class EventUIManager : MonoBehaviour
     /// <summary>
     /// 이벤트 UI 닫기
     /// </summary>
-    private void CloseEventUI()
+    private void CloseResult()
     {
-        UIManager.Instance.TogglePanel(eventUIPanel);
+        UIManager.Instance.TogglePanel(eventResultUIPanel);
     }
 
     /// <summary>
@@ -57,7 +63,9 @@ public class EventUIManager : MonoBehaviour
         Debug.Log($"[{currentCard.cardName}] O 버튼 선택됨");
 
         EventFunctionManager.Instance.Execute(currentCard.functionKey);
-        CloseEventUI();
+        UIManager.Instance.TogglePanel(eventChoiceUIPanel);
+        resultText.text = currentCard.eventResult;
+        UIManager.Instance.TogglePanel(eventResultUIPanel);
     }
 
     /// <summary>
@@ -68,6 +76,6 @@ public class EventUIManager : MonoBehaviour
     {
         Debug.Log($"[{currentCard.cardName}] X 버튼 선택됨");
 
-        CloseEventUI();
+        UIManager.Instance.TogglePanel(eventChoiceUIPanel);
     }
 }

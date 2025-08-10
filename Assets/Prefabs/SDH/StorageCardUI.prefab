@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 4359437426250628342}
   - component: {fileID: 6186903152862971974}
   - component: {fileID: 1067339893749071238}
+  - component: {fileID: -3386940202948303889}
   m_Layer: 5
   m_Name: StorageCardUI
   m_TagString: Untagged
@@ -227,3 +228,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linkedCard: {fileID: 0}
   box: {fileID: 0}
+--- !u!114 &-3386940202948303889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920553070491397939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83aa9bad64f76014d83c0059da86ca88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: 1.2
+  scaleSpeed: 5
