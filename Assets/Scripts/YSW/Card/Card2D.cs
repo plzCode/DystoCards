@@ -246,6 +246,9 @@ public class Card2D : MonoBehaviour
             SpriteRenderer sr = c.GetComponent<SpriteRenderer>();
             sr.sortingOrder = baseOrder;
 
+            Canvas cv = c.GetComponentInChildren<Canvas>();
+            cv.sortingOrder = baseOrder;
+
             // 자식들의 SpriteRenderer 순서도 조정
             var childRenderers = c.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
             foreach (var childRenderer in childRenderers)
@@ -253,6 +256,16 @@ public class Card2D : MonoBehaviour
                 if (childRenderer != sr) // 본체는 이미 처리했으므로 제외
                 {
                     childRenderer.sortingOrder = baseOrder + 1;
+                }
+            }
+
+            // 자식들의 SpriteRenderer 순서도 조정
+            var canvasRenderers = c.GetComponentsInChildren<Canvas>(includeInactive: true);
+            foreach (var canvasRender in canvasRenderers)
+            {
+                if (canvasRender != sr) // 본체는 이미 처리했으므로 제외
+                {
+                    canvasRender.sortingOrder = baseOrder + 1;
                 }
             }
 
