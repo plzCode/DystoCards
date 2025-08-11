@@ -53,6 +53,7 @@ public class EventUIManager : MonoBehaviour
     {
         UIManager.Instance.TogglePanel(eventResultUIPanel);
         EventFunctionManager.Instance.Execute(currentCard.functionKey);
+        TurnManager.Instance.MarkActionComplete();
     }
 
     /// <summary>
@@ -63,7 +64,6 @@ public class EventUIManager : MonoBehaviour
     {
         Debug.Log($"[{currentCard.cardName}] O ¹öÆ° ¼±ÅÃµÊ");
 
-        //EventFunctionManager.Instance.Execute(currentCard.functionKey);
         UIManager.Instance.TogglePanel(eventChoiceUIPanel);
         resultText.text = currentCard.eventResult;
         UIManager.Instance.TogglePanel(eventResultUIPanel);

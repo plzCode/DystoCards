@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fab1cdc9f282f54d80cb803af6096eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventCanvas: {fileID: 0}
-  cardText: {fileID: 0}
+  eventChoiceUIPanel: {fileID: 0}
+  descriptionText: {fileID: 0}
   acceptButton: {fileID: 0}
   rejectButton: {fileID: 0}
+  eventResultUIPanel: {fileID: 0}
+  resultText: {fileID: 0}
+  closeButton: {fileID: 0}
 --- !u!114 &2437055736403887307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +65,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventCardDatabase:
-  - {fileID: 11400000, guid: d1e04ab32c5ff914aa5e18de1f68345c, type: 2}
   - {fileID: 11400000, guid: 8de84d15253cb1a4e844dafe17aa2876, type: 2}
+  - {fileID: 11400000, guid: 6bcc4c32b8a56d248bfc8d43920f1465, type: 2}
+  - {fileID: 11400000, guid: d1e04ab32c5ff914aa5e18de1f68345c, type: 2}
+  - {fileID: 11400000, guid: bb61aa609d3b3ec42b61550d259690f2, type: 2}
   - {fileID: 11400000, guid: 339e137c2dcbaa84c8fdb91bda67b2fe, type: 2}
+  suppliesDatabase:
+  - {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+  - {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+  humanDatabase:
+  - {fileID: 11400000, guid: a061724cde80279408ead7859b6db2ce, type: 2}
+  - {fileID: 11400000, guid: 68702df96a05aac4989c19b9aa2911b8, type: 2}
+  - {fileID: 11400000, guid: 0beea17f4be934b47b9d23fb5da32ec2, type: 2}
