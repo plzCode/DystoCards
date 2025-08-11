@@ -1499,7 +1499,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1914707886665973071, guid: b8ef46b0f15db864683d2838eb005ffe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 465538523}
   m_SourcePrefab: {fileID: 100100000, guid: b8ef46b0f15db864683d2838eb005ffe, type: 3}
 --- !u!224 &16299032 stripped
 RectTransform:
@@ -1516,7 +1519,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1416250348514695039, guid: b8ef46b0f15db864683d2838eb005ffe, type: 3}
   m_PrefabInstance: {fileID: 16299031}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 465538519}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -8311,6 +8314,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280457876}
   m_CullTransparentMesh: 1
+--- !u!1 &284615438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 284615439}
+  m_Layer: 5
+  m_Name: -----------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &284615439
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284615438}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1218770937}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &286354762
 GameObject:
   m_ObjectHideFlags: 0
@@ -12567,6 +12605,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463629260}
   m_CullTransparentMesh: 1
+--- !u!1 &465538519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1914707886665973071, guid: b8ef46b0f15db864683d2838eb005ffe, type: 3}
+  m_PrefabInstance: {fileID: 16299031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &465538523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465538519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83aa9bad64f76014d83c0059da86ca88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: 1.2
+  scaleSpeed: 5
 --- !u!1 &468860758
 GameObject:
   m_ObjectHideFlags: 0
@@ -29131,9 +29188,49 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
-      propertyPath: eventCardDatabase.Array.size
+      propertyPath: cardDatas.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'cardDatas.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'cardDatas.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: humanDatabase.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'humanDatabase.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a061724cde80279408ead7859b6db2ce, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'humanDatabase.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 68702df96a05aac4989c19b9aa2911b8, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'humanDatabase.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0beea17f4be934b47b9d23fb5da32ec2, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: suppliesDatabase.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: eventCardDatabase.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'suppliesDatabase.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'suppliesDatabase.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
     - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
       propertyPath: 'eventCardDatabase.Array.data[0]'
       value: 
@@ -29146,6 +29243,14 @@ PrefabInstance:
       propertyPath: 'eventCardDatabase.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: d1e04ab32c5ff914aa5e18de1f68345c, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'eventCardDatabase.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bb61aa609d3b3ec42b61550d259690f2, type: 2}
+    - target: {fileID: 2437055736403887307, guid: 6109dc27c92605443b7eea1cef5062ca, type: 3}
+      propertyPath: 'eventCardDatabase.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 339e137c2dcbaa84c8fdb91bda67b2fe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33421,7 +33526,6 @@ RectTransform:
   - {fileID: 261962713}
   - {fileID: 725234347}
   - {fileID: 136878147}
-  - {fileID: 16299032}
   - {fileID: 1186144791}
   - {fileID: 1338576004}
   - {fileID: 1814865084}
@@ -33430,6 +33534,8 @@ RectTransform:
   - {fileID: 1056554262}
   - {fileID: 2117129368}
   - {fileID: 1313127286}
+  - {fileID: 284615439}
+  - {fileID: 16299032}
   - {fileID: 131074131972826134}
   - {fileID: 1243532375}
   m_Father: {fileID: 0}
@@ -39746,6 +39852,7 @@ GameObject:
   - component: {fileID: 1470210159}
   - component: {fileID: 1470210158}
   - component: {fileID: 1470210157}
+  - component: {fileID: 1470210160}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -39855,6 +39962,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470210155}
   m_CullTransparentMesh: 1
+--- !u!114 &1470210160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470210155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83aa9bad64f76014d83c0059da86ca88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: 1.2
+  scaleSpeed: 5
 --- !u!1 &1471956520
 GameObject:
   m_ObjectHideFlags: 0

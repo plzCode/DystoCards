@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +9,8 @@ public class EventFunctionManager : MonoBehaviour
 {
     public static EventFunctionManager Instance { get; private set; } // 싱글톤 인스턴스
     [SerializeField] private EventCardData[] eventCardDatabase;       // 이벤트 카드 데이터베이스 (Inspector에서 할당)
+    [SerializeField] private List<CardData> suppliesDatabase;
+    [SerializeField] private List<HumanCardData> humanDatabase;
 
     private void Awake()
     {
@@ -102,22 +105,33 @@ public class EventFunctionManager : MonoBehaviour
     // 적을 소환하는 이벤트 실행
     private void SpawnEnemy()
     {
-        Debug.Log("적을 소환합니다!");
-        // 실제 소환 로직은 여기에 작성
+        BattleManager.Instance.SpawnMonster();
     }
 
-    // 골드를 지급하는 이벤트 실행
     private void ResourceGain()
     {
-        Debug.Log("골드를 지급합니다!");
-        // 실제 골드 지급 로직은 여기에 작성
+        // 랜덤하게 하나 선택
+        int randomIndex = Random.Range(0, suppliesDatabase.Count);
+        CardData selectedData = suppliesDatabase[randomIndex];
+
+        // 새로운 카드 생성
+        Card2D newCard = CardManager.Instance.SpawnCard(selectedData, Vector3.zero);
+        newCard.BringToFrontRecursive(newCard); // 카드가 위에 보이도록 정렬
+        newCard.cardAnim.PlayFeedBack_ByName("BounceY"); // 생성 애니메이션 실행
     }
 
-
-    // 골드를 지급하는 이벤트 실행
     private void RecruitHuman()
     {
-        Debug.Log("골드를 지급합니다!");
-        // 실제 골드 지급 로직은 여기에 작성
+        // 랜덤하게 하나 선택
+        int randomIndex = Random.Range(0, humanDatabase.Count);
+        CardData selectedData = humanDatabase[randomIndex];
+
+        // 데이터베이스에서 해당 human 제거
+        humanDatabase.RemoveAt(randomIndex);
+
+        // 새로운 카드 생성
+        Card2D newCard = CardManager.Instance.SpawnCard(selectedData, Vector3.zero);
+        newCard.BringToFrontRecursive(newCard); // 카드가 위에 보이도록 정렬
+        newCard.cardAnim.PlayFeedBack_ByName("BounceY"); // 생성 애니메이션 실행
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 class UIButtonScaleEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private float scaleFactor = 1.1f; // 버튼이 커질 배율 (1.0 = 원래 크기, 1.1 = 10% 커짐)
+    [SerializeField] private float scaleFactor = 1.2f; // 버튼이 커질 배율 (1.0 = 원래 크기, 1.1 = 10% 커짐)
     [SerializeField] private float scaleSpeed = 5f; // 크기 변경 속도
 
     private Vector3 originalScale; // 버튼 원래 크기 저장 변수
