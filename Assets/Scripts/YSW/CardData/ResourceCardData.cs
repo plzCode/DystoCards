@@ -28,5 +28,5 @@ public class ResourceCardData : CardData
 public enum ResourceType
 {
     Wood,
-    Stone,
+    Stone
 }

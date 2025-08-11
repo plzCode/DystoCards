@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -12,10 +13,13 @@ public class TechCheck : MonoBehaviour
 
     [Header("기술 데이터 (ScriptableObject)")]
     [SerializeField] private TechCardData techCard; // 이 버튼이 제어할 기술
+    [SerializeField] private RecipeCardData techRecipe; // 기술 해금에 필요한 레시피 (선택적, 필요시 연결)
+    [SerializeField] private RecipeCardData recipeCard; // 기술 해금에 필요한 레시피 (선택적, 필요시 연결)
+    [SerializeField] private RecipeCardData beforeRecipe; // 기술 해금 전 필요한 레시피 (선택적, 필요시 연결)
 
     [Header("연결된 오브젝트")]
-    [SerializeField] private GameObject techObject;         // 현재 기술 카드 오브젝트 (파괴 대상)
-    [SerializeField] private GameObject techResultPrefab;   // 해금 후 생성될 프리팹
+    //[SerializeField] private GameObject techObject;         // 현재 기술 카드 오브젝트 (파괴 대상)
+    //[SerializeField] private GameObject techResultPrefab;   // 해금 후 생성될 프리팹
     [SerializeField] private GameObject techTooltipUI;      // 툴팁 UI
     [SerializeField] private GameObject uiToClose;          // 버튼 누를 시 닫을 UI
 
@@ -25,10 +29,11 @@ public class TechCheck : MonoBehaviour
 
     private bool alreadyDisabled = false;
 
-    private void Start()
+    private void Awake()
     {
         button = GetComponent<Button>();
         buttonImage = GetComponent<Image>();
+
         buttonText = GetComponentInChildren<Text>();
 
         if (techCard == null)
@@ -37,55 +42,65 @@ public class TechCheck : MonoBehaviour
             return;
         }
 
-        //// 이미 연구 완료된 경우 → 버튼 비활성화
-        //if (TechBook.Instance.IsUnlocked(techCard))
-        //{
-        //    Debug.Log($"기술 이미 해금됨: {techCard.cardName}");
-        //    DisableButtonCompletely();
-        //}
-        //else
-        //{
-        //    Debug.Log($" 기술 잠금 상태: {techCard.cardName}");
-        //}
+        //RefreshInteractable();
     }
 
-    /// <summary>
-    /// 버튼 클릭 시 실행되는 함수 (UI에서 연결 필요)
-    /// </summary>
-    public void OnTechButtonClicked()
+    public void OnTechButton()
     {
-        if (techCard == null)
+        var cm = CombinationManager.Instance;
+        if (cm == null) return;
+        var unlock = techCard.unlockRecipe;
+
+        bool hasUnlock = (unlock != null) && cm.HasRecipe(unlock);
+        bool hasRequired = (recipeCard != null) && cm.HasRecipe(recipeCard);
+        bool hasBeforeRecipe = (beforeRecipe != null) && !cm.HasRecipe(beforeRecipe);
+
+        Debug.Log(
+            $"[TechCheck] hasUnlock={hasUnlock}, hasRequired={hasRequired}, " +
+            $"unlock={(unlock ? unlock.cardName : "null")}, required={(recipeCard ? recipeCard.cardName : "null")}"
+        );
+
+        if(hasBeforeRecipe)
         {
-            Debug.LogWarning("[TechCheck] techCard가 설정되지 않았습니다.");
+            DisableButtonCompletely();
             return;
         }
 
-        // 기술 연구 해금 
-        //Instance.UnlockTech(techCard); // 내부에서 RecipeBook 처리 포함
+        // 1) 해금 없음 + 필요한 것 있음 -> 버튼 비활성화
+        if (hasUnlock && hasRequired)
+        {
+            DisableButtonCompletely();
+            Debug.Log("[TechCheck] → 비활성화 분기 진입");
+            return;
+        }
 
-        // UI 처리
+        // 2) 해금 없음 + 필요 없음 -> techRecipe 추가
+        if (!hasUnlock && !hasRequired)
+        {
+            if (techRecipe == null)
+            {
+                Debug.LogWarning("[TechCheck] techRecipe가 지정되지 않았습니다.");
+                return;
+            }
+
+            if (!cm.HasRecipe(techRecipe))
+            {
+                cm.AddRecipeUnique(techRecipe); // CombinationManager에 AddRecipeUnique 메서드 필요
+                Debug.Log($"[TechCheck] techRecipe 추가: {techRecipe.cardName}");
+            }
+
+            EnableButtonCompletely();
+            //return;
+        }
+
+        // 3) 나머지 경우 -> 정상 동작 (UI 닫고, 카드 스폰)
         if (uiToClose != null) uiToClose.SetActive(false);
         if (techTooltipUI != null) techTooltipUI.SetActive(false);
-        if (techObject != null) Destroy(techObject);
-
-        // 해금된 기술 결과 프리팹 생성
-        if (techResultPrefab != null)
-            //Instantiate(techResultPrefab, techObject.transform.position, Quaternion.identity);
-            CardManager.Instance.SpawnCardById("0001", new Vector3(0,0,0));
-
-        //if (uiToClose != null)
-        //{
-        //    uiToClose.SetActive(false); // UI 창 끄기
-        //    Instantiate(SelectTech, Tech.transform.position, Quaternion.identity); // 선택한 테크카드 생성
-        //    Destroy(Tech);
-        //    TechTip.SetActive(false);
-        //}
-
-
-
-
-        //DisableButtonCompletely();
+        CardManager.Instance.SpawnCardById(techCard.cardId, Vector3.zero);
+        EnableButtonCompletely();
     }
+
+
 
     /// <summary>
     /// 버튼을 완전히 비활성화 (중복 눌림 방지, UI 효과 제거)
@@ -98,5 +113,57 @@ public class TechCheck : MonoBehaviour
         if (button != null) button.interactable = false;
         if (buttonImage != null) buttonImage.raycastTarget = false;
         if (buttonText != null) buttonText.raycastTarget = false;
+    }
+
+    private void EnableButtonCompletely()
+    {
+        alreadyDisabled = false;
+
+        if (button != null) button.interactable = true;
+        if (buttonImage != null) buttonImage.raycastTarget = true;
+        if (buttonText != null) buttonText.raycastTarget = true;
+    }
+
+    private void RefreshInteractable()
+    {
+        var cm = CombinationManager.Instance;
+        if (cm == null || techCard == null) return;
+
+        var unlock = techCard.unlockRecipe;
+        bool hasUnlock = (unlock != null) && cm.HasRecipe(unlock);
+        bool hasRequired = (recipeCard != null) && cm.HasRecipe(recipeCard);
+        bool missingBefore = (beforeRecipe != null) && cm.HasRecipe(beforeRecipe);
+
+        Debug.Log($"hasUnlock={hasUnlock}, " +
+                  $"hasRequired={hasRequired}, " +
+                  $"missingBefore={missingBefore}, " +
+                  $"unlock={(unlock != null ? unlock.cardName : "null")}, " +
+                  $"required={(recipeCard != null ? recipeCard.cardName : "null")}, " +
+                  $"before={(beforeRecipe != null ? beforeRecipe.cardName : "null")}");
+
+        // 예: 필요한 레시피가 없거나 before가 없으면 비활성화
+        bool shouldDisable = hasRequired && hasUnlock;
+
+
+        if(missingBefore)
+        {
+            if(shouldDisable)
+            {
+                DisableButtonCompletely();
+            }
+            else
+            {
+                EnableButtonCompletely();
+            }
+        }
+        else
+            DisableButtonCompletely();
+
+    }
+
+
+    private void OnEnable()
+    {
+        RefreshInteractable();   // ★ UI 들어오자마자 판정 → 이미 꺼져있음
     }
 }
