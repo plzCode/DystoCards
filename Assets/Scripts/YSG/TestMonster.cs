@@ -56,7 +56,7 @@ public class TestMonster : Character
         CheckTarget();
     }
 
-    private Transform SetTarget()
+    public Transform SetTarget()
     {
         Human[] humans = FindObjectsByType<Human>(FindObjectsSortMode.None);
         moveTarget = null;
@@ -104,7 +104,7 @@ public class TestMonster : Character
         }
     }
 
-    private void CheckTarget()
+    public void CheckTarget()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
         foreach (var hit in hits)
