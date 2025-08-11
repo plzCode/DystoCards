@@ -54,11 +54,8 @@ public class BattleArea : MonoBehaviour
 
             list.Add(comp);
 
-            var card = comp.GetComponent<Card2D>();
-            if (card != null)
-            {
-                card.isStackable = false;
-            }
+            BattleManager.Instance.Unstack(comp.GetComponent<Card2D>());
+
             return true;
         }
         return false;

@@ -19056,7 +19056,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1827107741
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 5801255725635399724, guid: 15b818bd150a45f468af7fb24c88a9ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -61679,6 +61679,14 @@ PrefabInstance:
     - target: {fileID: 3150400323947821210, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_Name
       value: BattleManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764133697349035906, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764133697349035906, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_LocalPosition.x

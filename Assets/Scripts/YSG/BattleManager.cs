@@ -82,26 +82,20 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
-
-    public void TrySpawnMonster(int probability = 0)
-    {
-        if (spawnList.Count == 0 || spawnArea == null) return;
-        if (Random.value < (float)probability / 100f)
-            SpawnMonster();
-    }
     #endregion
 
     #region ÀüÅõ
     public void StartBattle()
     {
         if (inBattle) return;
-        UnstackAll();
         Arrange();
         StartCoroutine(BattleSequence());
     }
 
     public void Arrange()
     {
+        UnstackAll();
+
         if (humans.Count == 0 && monsters.Count == 0) return;
 
         float margin = 0.05f;
@@ -115,11 +109,13 @@ public class BattleManager : MonoBehaviour
 
             foreach (var h in humans)
             {
+                h.transform.SetParent(cards);
                 totalPos += h.transform.position;
                 totalCount++;
             }
             foreach (var m in monsters)
             {
+                m.transform.SetParent(cards);
                 totalPos += m.transform.position;
                 totalCount++;
             }
@@ -288,6 +284,9 @@ public class BattleManager : MonoBehaviour
 
     public void Unstack(Card2D card)
     {
+        if (card.cardData is HumanCardData) card.isStackable = false;
+        card.transform.SetParent(cards);
+
         if (card.parentCard != null)
         {
             card.parentCard.childCards.Remove(card);
@@ -296,10 +295,20 @@ public class BattleManager : MonoBehaviour
         foreach (var child in new List<Card2D>(card.childCards))
         {
             if (child != null)
+            {
                 Unstack(child);
+            }
         }
+        foreach (Transform childTrans in card.transform)
+        {
+            Card2D childCard = childTrans.GetComponent<Card2D>();
+            if (childCard != null)
+            {
+                Unstack(childCard);
+            }
+        }
+
         card.childCards.Clear();
-        card.transform.SetParent(cards);
     }
 
     private IEnumerator AttackCoroutine(Character attacker, Character target)

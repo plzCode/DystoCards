@@ -23,5 +23,4 @@ MonoBehaviour:
   current_health: 8
   attack_power: 0
   defense_power: 100
-  drops:
-  - {fileID: 0}
+  drops: []

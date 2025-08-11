@@ -34,8 +34,10 @@ public class TestMonster : Character
         }
     }
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+
         ChaseTarget();
     }
 
@@ -113,8 +115,8 @@ public class TestMonster : Character
 
                 if (!BattleManager.Instance.humans.Contains(human))
                 {
+                    BattleManager.Instance.Unstack(human.GetComponent<Card2D>());
                     BattleManager.Instance.humans.Add(human);
-                    human.GetComponent<Card2D>().isStackable = false;
                 }
 
                 if (!BattleManager.Instance.monsters.Contains(this))
