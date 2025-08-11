@@ -36,8 +36,6 @@ public class TestMonster : Character
 
     private new void Start()
     {
-        base.Start();
-
         ChaseTarget();
     }
 
