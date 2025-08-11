@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class EventUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject eventUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
-    [SerializeField] private TMP_Text cardText;      // 카드 이름을 보여줄 TMP_Text
-    [SerializeField] private Button acceptButton;    // O 버튼
-    [SerializeField] private Button rejectButton;    // X 버튼
+    [SerializeField] private TMP_Text cardText;       // 카드 이름을 보여줄 TMP_Text
+    [SerializeField] private Button acceptButton;     // O 버튼
+    [SerializeField] private Button rejectButton;     // X 버튼
 
     private EventCardData currentCard; // 현재 카드 데이터
 

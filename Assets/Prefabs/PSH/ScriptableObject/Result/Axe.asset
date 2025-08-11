@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429ce4d7337e57047a0bdd73addd001a, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  cardId: 00031
-  cardName: Axe_Tech
+  cardId: 0031
+  cardName: Axe
   cardImage: {fileID: -6294954599053914950, guid: dd0d352ae1258dc40986137c61414c7f, type: 3}
-  cardType: 2
+  cardType: 5
   description: 
   size: 1
   attackPower: 3

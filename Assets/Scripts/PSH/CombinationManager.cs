@@ -27,7 +27,9 @@ public class CombinationManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // 씬이 넘어가도 유지
     }
 
-
+    /// <summary>
+    /// 현재 필드 상의 모든 카드 중 최상위 카드 스택을 검사하여 조합 가능한 경우 조합을 시도
+    /// </summary>
     public void CheckCombination()
     {
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
@@ -192,6 +194,8 @@ public class CombinationManager : MonoBehaviour
 
                     // 새로운 카드 생성
                     Card2D newCard = CardManager.Instance.SpawnCard(recipe.result, spawnPosition);
+                    newCard.BringToFrontRecursive(newCard); // 카드가 위에 보이도록 정렬
+                    newCard.cardAnim.PlayFeedBack_ByName("BounceY"); // 생성 애니메이션 실행
 
                     // 새 카드의 부모를 fieldCards로 설정
                     newCard.transform.SetParent(fieldCards.transform);

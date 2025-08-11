@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bed
   m_EditorClassIdentifier: 
   cardId: 051
-  cardName: Bed
+  cardName: "\uCE68\uB300"
   cardImage: {fileID: 0}
   cardType: 4
-  description: 
+  description: "\uCE68\uB300\uC5D0\uC11C \uD734\uC2DD\uC744 \uCDE8\uD558\uC5EC \uD68C\uBCF5\uD55C\uB2E4."
   size: 1
   furnitureType: 0

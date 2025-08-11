@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 429ce4d7337e57047a0bdd73addd001a, type: 3}
-  m_Name: Axe
+  m_Name: Gun
   m_EditorClassIdentifier: 
-  cardId: 031
-  cardName: Axe
-  cardImage: {fileID: -6294954599053914950, guid: dd0d352ae1258dc40986137c61414c7f, type: 3}
+  cardId: 037
+  cardName: "\uAD8C\uCD1D"
+  cardImage: {fileID: -7551388724692371049, guid: 9ac280f10da979d49a2d7822693847f4, type: 3}
   cardType: 2
   description: 
   size: 1
-  attackPower: 3
+  attackPower: 7
   defensePower: 0
   slot: 2

@@ -16,6 +16,7 @@ public class ExploreManager : MonoBehaviour
 
     [SerializeField] private UIThemeData uiThemeData; // UI 색상 정보
 
+    [SerializeField] private ExploringScrollView addExploreScroll;
     [SerializeField] private HumanScrollView humanScrollView;
     [SerializeField] private RewardScrollView rewardScrollView;
     [SerializeField] private OpendLocationScroll opendLocationInfo;
@@ -69,6 +70,7 @@ public class ExploreManager : MonoBehaviour
             registedHumans.Add(humans[i].gameObject.GetComponent<Human>());
         }
 
+        addExploreScroll.gameObject.SetActive(true);
     }
 
     public bool AddExplore(Human human, LocationInfo location)
@@ -116,6 +118,11 @@ public class ExploreManager : MonoBehaviour
                 //ProcessExploreResult(data.location, CaculateSuccessPercent(data.location, data.human));
                 completed.Add(data);
             }
+        }
+
+        if (completed.Count==0)
+        {
+            rewardScrollView.gameObject.SetActive(true);
         }
 
         foreach (var data in completed)

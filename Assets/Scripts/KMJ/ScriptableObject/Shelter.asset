@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b658419291b628c4b9c1a513b4e811a0, type: 3}
-  m_Name: CanFood
+  m_Script: {fileID: 11500000, guid: 2f9a9756042d54d42b7d9a224569c263, type: 3}
+  m_Name: Shelter
   m_EditorClassIdentifier: 
-  cardId: 051
-  cardName: CanFood
+  cardId: 
+  cardName: Shelter
   cardImage: {fileID: 0}
-  cardType: 1
+  cardType: 4
   description: 
   size: 1
-  hungerRestore: 3
-  isPerishable: 0
-  shelfLifeTurns: 0
+  facilityType: 1

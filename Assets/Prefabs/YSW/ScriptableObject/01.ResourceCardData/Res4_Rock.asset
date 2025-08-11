@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
-  m_Name: Stone
+  m_Name: Res4_Rock
   m_EditorClassIdentifier: 
-  cardId: 002
-  cardName: Stone
-  cardImage: {fileID: 5169587137744067886, guid: 8d3e69ae6fc7c28499689748c9b0e8ed, type: 3}
+  cardId: 004
+  cardName: "\uB3CC"
+  cardImage: {fileID: -145414343910627834, guid: c9eb26aef0cadde4ca90938b7a240c69, type: 3}
   cardType: 0
-  description: 
+  description: "\uD3C9\uBC94\uD55C \uB3CC\uC774\uB2E4."
   size: 1
   quantity: 1
   resourceType: 1
