@@ -81,6 +81,11 @@ public class AudioManager : MonoBehaviour
         if (clip != null)
             sfxSource.PlayOneShot(clip);
     }
+    public void PlaySFX(AudioClip audioClip)
+    {        
+        if (audioClip != null)
+            sfxSource.PlayOneShot(audioClip);
+    }
 
     public async void PlaySFXLoop(string addressKey)
     {
@@ -88,6 +93,16 @@ public class AudioManager : MonoBehaviour
         if (clip != null)
         {
             sfxSource.clip = clip;
+            sfxSource.loop = true;
+            sfxSource.Play();
+        }
+    }
+
+    public void PlaySFXLoop(AudioClip audioClip)
+    {
+        if (audioClip != null)
+        {
+            sfxSource.clip = audioClip;
             sfxSource.loop = true;
             sfxSource.Play();
         }
@@ -113,6 +128,17 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayBGM(AudioClip audioClip, bool loop = true)
+    {
+        if (audioClip != null)
+        {
+            StopBGM();
+            bgmSource.clip = audioClip;
+            bgmSource.loop = loop;
+            bgmSource.Play();
+        }
+    }
+
     public void StopBGM()
     {
         bgmSource.Stop();
@@ -128,8 +154,22 @@ public class AudioManager : MonoBehaviour
         bgmFadeCoroutine = StartCoroutine(FadeInCoroutine(clip, duration, loop));
     }
 
+    public void FadeInBGM(AudioClip audioClip, float duration, bool loop = true)
+    {
+        if (audioClip == null) return;
+        if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine);
+        bgmFadeCoroutine = StartCoroutine(FadeInCoroutine(audioClip, duration, loop));
+    }
+
     public void FadeOutBGM(float duration)
     {
+        if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine);
+        bgmFadeCoroutine = StartCoroutine(FadeOutCoroutine(duration));
+    }
+
+    public void FadeOutBGM(AudioClip audioClip, float duration)
+    {
+        if (audioClip == null) return;
         if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine);
         bgmFadeCoroutine = StartCoroutine(FadeOutCoroutine(duration));
     }
