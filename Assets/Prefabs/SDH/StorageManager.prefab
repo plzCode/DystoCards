@@ -47,5 +47,5 @@ MonoBehaviour:
   boxUIPanel: {fileID: 0}
   closeButton: {fileID: 0}
   contentParent: {fileID: 0}
-  cardUIPrefab: {fileID: 0}
+  cardUIPrefab: {fileID: 6920553070491397939, guid: 14707df2c6e497043b5ff092330d52e2, type: 3}
   capacityText: {fileID: 0}

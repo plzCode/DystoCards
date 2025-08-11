@@ -663,6 +663,7 @@ MonoBehaviour:
   - {fileID: 557251924}
   registeredExplorations: []
   uiThemeData: {fileID: 11400000, guid: ba3fb0e392d199140862ec595f864060, type: 2}
+  addExploreScroll: {fileID: 113959720}
   humanScrollView: {fileID: 212879891}
   rewardScrollView: {fileID: 549152305}
   opendLocationInfo: {fileID: 1284942016}
@@ -7590,7 +7591,6 @@ Transform:
   - {fileID: 671219947}
   - {fileID: 683672096}
   - {fileID: 360430537}
-  - {fileID: 1086669251}
   - {fileID: 1265641609}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10391,7 +10391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &360430537
 Transform:
   m_ObjectHideFlags: 0
@@ -15936,10 +15936,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefb6e933926c444cb2343e9b1087c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
-  message: {fileID: 0}
-  yesBtn: {fileID: 0}
-  noBtn: {fileID: 0}
+  root: {fileID: 574476336}
+  message: {fileID: 197742587}
+  yesBtn: {fileID: 2122684941}
+  noBtn: {fileID: 1416697946}
 --- !u!222 &574476339
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17687,6 +17687,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1396300708}
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: MarkActionComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1396300708}
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: NextPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &636988602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18344,8 +18368,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18364,17 +18388,17 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: -99
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 0
-  m_fontSizeMax: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -18385,19 +18409,19 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
   m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
+  m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0
@@ -30871,77 +30895,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -297.4}
   m_SizeDelta: {x: 445.4, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1086669250
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1086669251}
-  - component: {fileID: 1086669252}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1086669251
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086669250}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 256553791}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1086669252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086669250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f4374a701414df4586653afcc6eb3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipPanel: {fileID: 1028501565}
-  tooltipText: {fileID: 0}
-  tooltipOffset: {x: 20, y: -20}
-  fadeCanvas: {fileID: 0}
-  defaultFadeDuration: 1
-  defaultCursor: {fileID: 0}
-  interactCursor: {fileID: 0}
-  denyCursor: {fileID: 0}
-  cursorHotspot: {x: 0, y: 0}
-  cardInfoPanel: {fileID: 0}
-  iconDatabase: {fileID: 0}
-  clickCatcher: {fileID: 80611345}
-  showFeedback: {fileID: 0}
-  hideFeedback: {fileID: 0}
-  defaultInteractableMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  defaultCardMask:
-    serializedVersion: 2
-    m_Bits: 64
-  uiOnlyInteractableMask:
-    serializedVersion: 2
-    m_Bits: 32
-  uiOnlyCardMask:
-    serializedVersion: 2
-    m_Bits: 0
-  mouseInput: {fileID: 0}
 --- !u!1 &1089574013
 GameObject:
   m_ObjectHideFlags: 0
@@ -58215,6 +58168,30 @@ MonoBehaviour:
       - m_Target: {fileID: 549152305}
         m_TargetAssemblyTypeName: RewardScrollView, Assembly-CSharp
         m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1396300708}
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: MarkActionComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1396300708}
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: NextPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
