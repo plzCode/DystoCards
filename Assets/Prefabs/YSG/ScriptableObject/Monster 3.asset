@@ -9,16 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0760ee1665720034da540068882a4f68, type: 3}
-  m_Name: Monster2
+  m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
+  m_Name: Monster 3
   m_EditorClassIdentifier: 
-  cardId: 02
-  cardName: Monster2
-  cardImage: {fileID: 0}
+  cardId: 997
+  cardName: Monster3
+  cardImage: {fileID: 496806899, guid: 6582f34ddd5f686408c019550cd94c9d, type: 3}
   cardType: 6
   description: 
   size: 1
   characterType: 2
-  max_health: 5
-  attack_power: 1
-  defense_power: 0
+  max_health: 8
+  current_health: 8
+  attack_power: 0
+  defense_power: 100
+  drops: []
