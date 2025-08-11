@@ -54,7 +54,7 @@ public class BattleManager : MonoBehaviour
     }
 
     #region 소환
-    private void SpawnMonster()
+    public void SpawnMonster()
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
 
@@ -247,7 +247,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void EndBattle<T>(List<T> characters) where T : Character
+    public void EndBattle<T>(List<T> characters) where T : Character
     {
         foreach (var c in characters)
         {
@@ -268,7 +268,7 @@ public class BattleManager : MonoBehaviour
     #endregion
 
     #region 카드
-    private void UnstackAll()
+    public void UnstackAll()
     {
         foreach (var human in humans)
         {
