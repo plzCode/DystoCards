@@ -11,10 +11,11 @@ public class MonsterSteal : MonsterAct
 
         if (stealItem != null)
             moveTarget = base.SetTarget();
-        
+
         CheckTarget();
     }
 
+    #region 이동
     public override Transform SetTarget()
     {
         Card2D[] items = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
@@ -62,12 +63,15 @@ public class MonsterSteal : MonsterAct
     }
 
     public void RunAway() => StartCoroutine(MoveCoroutine(false));
+    #endregion
 
+    #region 전투
     public override void DropItem()
     {
-        base.DropItem();
+        if (stealItem != null)
+            CardManager.Instance.SpawnCard(stealItem, transform.position);
 
-        CardManager.Instance.SpawnCard(stealItem, transform.position);
+        base.DropItem();
     }
 
     private void OnBecameInvisible()
@@ -76,4 +80,5 @@ public class MonsterSteal : MonsterAct
         if (card != null)
             CardManager.Instance.DestroyCard(card);
     }
+    #endregion
 }

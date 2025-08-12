@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon1_Rat
+  m_Name: Mon801_Rat
   m_EditorClassIdentifier: 
   cardId: 901
   cardName: "\uB4E4\uC950"
@@ -25,7 +25,8 @@ MonoBehaviour:
   defense_power: 0
   moveSpeed: 2.5
   act: 0
-  dropCount: 1
   dropList:
-  - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
-  - {fileID: 11400000, guid: ac9a0a0c9090a1c4698043ca09b9a63a, type: 2}
+  - item: {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+    chance: 100
+  - item: {fileID: 11400000, guid: ac9a0a0c9090a1c4698043ca09b9a63a, type: 2}
+    chance: 30

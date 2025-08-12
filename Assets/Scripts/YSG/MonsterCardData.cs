@@ -6,16 +6,22 @@ public enum MonsterActionType
     ItemSteal
 }
 
+[System.Serializable]
+public class DropItem
+{
+    public CardData item;
+    [Range(0, 100)] public int chance = 100;
+}
+
 [CreateAssetMenu(menuName = "Cards/11.MonsterCard", order = 12)]
 public class MonsterCardData : CharacterCardData
 {
-    [Header("Monster Attributes")]
-    [SerializeField] private float moveSpeed;
+       [Header("Monster Attributes")]
+    [SerializeField] private float moveSpeed = 1;
     [SerializeField] private MonsterActionType act;
 
     [Header("Drop Attributes")]
-    [SerializeField] private int dropCount;
-    [SerializeField] private CardData[] dropList;
+    [SerializeField] private DropItem[] dropList;
 
     public float MoveSpeed
     {
@@ -43,7 +49,7 @@ public class MonsterCardData : CharacterCardData
         }
     }
 
-    public CardData[] Drops
+    public DropItem[] Drops
     {
         get => dropList;
         set
@@ -71,10 +77,9 @@ public class MonsterCardData : CharacterCardData
         clone.AttackPower = this.AttackPower;
         clone.DefensePower = this.DefensePower;
 
-        clone.moveSpeed = this.MoveSpeed;
+        clone.moveSpeed = this.moveSpeed;
         clone.act = this.act;
 
-        clone.dropCount = this.dropCount;
         clone.dropList = this.dropList;
 
         return clone;

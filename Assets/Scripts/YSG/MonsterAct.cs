@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MonsterAct : Character
@@ -11,6 +13,8 @@ public class MonsterAct : Character
     protected Vector2 moveDelay = new Vector2(0.5f, 2);
     public float moveSpeed;
     protected Transform moveTarget;
+
+    public TextMeshPro hpValue;
 
     private void OnValidate()
     {
@@ -35,6 +39,7 @@ public class MonsterAct : Character
 
     private new void Start()
     {
+        SetCurrentHealth();
         ChaseTarget();
     }
 
@@ -51,8 +56,31 @@ public class MonsterAct : Character
         }
 
         CheckTarget();
+
+        if (hpValue != null)
+            hpValue.text = currentHealth.ToString("F0");
+        else
+            SetCurrentHealth();
     }
 
+    private void SetCurrentHealth()
+    {
+        Transform statAnchor = transform.Find("StatAnchor");
+        if (statAnchor != null)
+        {
+            Transform hp = statAnchor.Find("hp");
+            if (hp != null)
+            {
+                Transform value = hp.Find("Value");
+                if (value != null)
+                {
+                    hpValue = value.GetComponent<TextMeshPro>();
+                }
+            }
+        }
+    }
+
+    #region 이동
     public virtual Transform SetTarget()
     {
         Human[] humans = FindObjectsByType<Human>(FindObjectsSortMode.None);
@@ -125,7 +153,9 @@ public class MonsterAct : Character
             }
         }
     }
+    #endregion
 
+    #region 전투
     public override void Die()
     {
         DropItem();
@@ -141,13 +171,17 @@ public class MonsterAct : Character
 
         Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
 
-        foreach (CardData drop in monsterData.Drops)
+        foreach (var drop in monsterData.Drops)
         {
-            if (drop != null)
+            if (drop == null || drop.item == null) continue;
+
+            int roll = Random.Range(0, 100);
+            if (roll < drop.chance)
             {
-                CardManager.Instance.SpawnCard(drop, spawnPos);
+                CardManager.Instance.SpawnCard(drop.item, spawnPos);
                 spawnPos += Vector3.right * 0.5f;
             }
         }
     }
+    #endregion
 }
