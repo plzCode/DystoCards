@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 904
   cardName: "\uAE4C\uB9C8\uADC0"
-  cardImage: {fileID: 21300000, guid: ce8aad2b16550c84fae59a1e0a559fb7, type: 3}
+  cardImage: {fileID: 21300000, guid: 8d45b364038294f4c9a30dae4118739f, type: 3}
   cardType: 6
-  description: "\uC57C\uC0DD\uC758 \uAE4C\uB9C8\uADC0"
+  description: "\uAE4C\uB9C8\uADC0, \uBB3C\uAC74\uC744 \uD6D4\uCCD0\uAC00\uB2C8 \uC8FC\uC758!"
   size: 1
   characterType: 2
   max_health: 5

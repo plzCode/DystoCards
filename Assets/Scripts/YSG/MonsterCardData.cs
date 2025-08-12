@@ -6,7 +6,7 @@ public enum MonsterActionType
     ItemSteal
 }
 
-[CreateAssetMenu(menuName = "Cards/11.MonsterCardData", order = 12)]
+[CreateAssetMenu(menuName = "Cards/11.MonsterCard", order = 12)]
 public class MonsterCardData : CharacterCardData
 {
     [Header("Monster Attributes")]
@@ -73,6 +73,8 @@ public class MonsterCardData : CharacterCardData
 
         clone.moveSpeed = this.MoveSpeed;
         clone.act = this.act;
+
+        clone.dropCount = this.dropCount;
         clone.dropList = this.dropList;
 
         return clone;

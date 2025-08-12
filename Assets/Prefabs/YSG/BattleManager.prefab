@@ -225,9 +225,9 @@ MonoBehaviour:
   battleArea: {fileID: 6226988127601251254}
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
-  - cardData: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
+  - cardData: {fileID: 11400000, guid: 6fb327fef67f6fb42beae8e1ec14e090, type: 2}
     spawnProbability: 100
-  - cardData: {fileID: 11400000, guid: 7ba42445977eb3c46b3ea288ea528b0e, type: 2}
+  - cardData: {fileID: 11400000, guid: 90d9099fe10276d45a92368fa983a124, type: 2}
     spawnProbability: 100
   - cardData: {fileID: 11400000, guid: 7ba42445977eb3c46b3ea288ea528b0e, type: 2}
     spawnProbability: 100
