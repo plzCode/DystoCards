@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: c8a56e65764e537409531a30a9303762
-  m_SerializeEntries:
-  - m_GUID: 845069e0cbe8fcb4492510f0996819d6
-    m_Address: SFX/Food/Bite_Potato
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - SFX
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f829e78c89a983e4caa0e97ec2448e72, type: 2}
   m_SchemaSet:

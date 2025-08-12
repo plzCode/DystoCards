@@ -37,11 +37,11 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            PlaySFX("SFX/Food/Bite_Potato");
+            PlaySFX("Bite_Potato");
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            PlayBGM("SFX/Food/Bite_Potato");
+            PlayBGM("Bite_Potato");
         }
     }
 
