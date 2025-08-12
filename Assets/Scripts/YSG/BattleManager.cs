@@ -49,8 +49,24 @@ public class BattleManager : MonoBehaviour
         humans.RemoveAll(h => h == null);
         monsters.RemoveAll(m => m == null);
 
-        if (Input.GetKeyUp(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
+        {
             SpawnMonster();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Y)) // 아이템 드랍 테스트 (임시)
+        {
+            SpawnMonster();
+            foreach (Transform child in cards)
+                child.GetComponent<Character>()?.Die();
+        }
+
+        if (Input.GetKeyUp(KeyCode.U)) // 모든 카드 제거 (임시)
+        {
+            foreach (Transform child in cards)
+                CardManager.Instance.DestroyCard(child.GetComponent<Card2D>());
+
+        }
     }
 
     #region 소환

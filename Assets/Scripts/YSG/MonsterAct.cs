@@ -159,27 +159,66 @@ public class MonsterAct : Character
     public override void Die()
     {
         DropItem();
-
         base.Die();
     }
 
     public virtual void DropItem()
     {
         MonsterCardData monsterData = charData as MonsterCardData;
-        if (monsterData == null || monsterData.Drops == null || monsterData.Drops.Length == 0)
+        if (monsterData == null || monsterData.DropList == null || monsterData.DropList.Length == 0)
             return;
 
         Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
 
-        foreach (var drop in monsterData.Drops)
+        var onlyDrops = new List<DropItem>();
+        foreach (var drop in monsterData.DropList)
         {
-            if (drop == null || drop.item == null) continue;
+            if (drop != null && drop.isOnly)
+                onlyDrops.Add(drop);
+        }
 
-            int roll = Random.Range(0, 100);
-            if (roll < drop.chance)
+        foreach (var drop in monsterData.DropList)
+        {
+            if (drop == null || drop.item == null || drop.isOnly)
+                continue;
+
+            int totalCount = drop.minCount;
+
+            int extraPossible = drop.maxCount - drop.minCount;
+            for (int i = 0; i < extraPossible; i++)
+            {
+                if (Random.Range(0, 100) < drop.chance)
+                    totalCount++;
+            }
+
+            for (int i = 0; i < totalCount; i++)
             {
                 CardManager.Instance.SpawnCard(drop.item, spawnPos);
                 spawnPos += Vector3.right * 0.5f;
+            }
+        }
+
+        if (onlyDrops.Count > 0)
+        {
+            float totalChance = 0f;
+            foreach (var drop in onlyDrops)
+                totalChance += drop.chance;
+
+            if (totalChance > 0)
+            {
+                float rand = Random.Range(0f, totalChance);
+                float sum = 0f;
+
+                foreach (var drop in onlyDrops)
+                {
+                    sum += drop.chance;
+                    if (rand <= sum)
+                    {
+                        CardManager.Instance.SpawnCard(drop.item, spawnPos);
+                        spawnPos += Vector3.right * 0.5f;
+                        break;
+                    }
+                }
             }
         }
     }

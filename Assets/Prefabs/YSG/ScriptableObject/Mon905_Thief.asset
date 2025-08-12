@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon901_Default
+  m_Name: Mon905_Thief
   m_EditorClassIdentifier: 
-  cardId: 901
-  cardName: "\uC0DD\uC874\uC790"
-  cardImage: {fileID: 21300000, guid: d380d15ed1cb24f43a6fd62209827d20, type: 3}
+  cardId: 905
+  cardName: "\uC880\uB3C4\uB451"
+  cardImage: {fileID: 0}
   cardType: 6
   description: 
   size: 1
@@ -24,15 +24,20 @@ MonoBehaviour:
   attack_power: 2
   defense_power: 1
   moveSpeed: 1
-  act: 0
+  act: 1
   dropList:
-  - item: {fileID: 11400000, guid: ccb5f92a42365ed4fba877b05f07e74f, type: 2}
-    chance: 50
+  - item: {fileID: 11400000, guid: 4c308ce633de21c48b52bb23128e1005, type: 2}
+    chance: 75
     minCount: 0
     maxCount: 1
-    isOnly: 0
-  - item: {fileID: 11400000, guid: 19743069912131641b0b0a7188c12601, type: 2}
-    chance: 50
+    isOnly: 1
+  - item: {fileID: 11400000, guid: 96b5c3dc556eace4287253d7f3f9eae4, type: 2}
+    chance: 15
     minCount: 0
     maxCount: 1
-    isOnly: 0
+    isOnly: 1
+  - item: {fileID: 11400000, guid: 7910e65a0e29a99429dec0bf524d548e, type: 2}
+    chance: 5
+    minCount: 0
+    maxCount: 1
+    isOnly: 1

@@ -11,12 +11,28 @@ public class DropItem
 {
     public CardData item;
     [Range(0, 100)] public int chance = 100;
+
+    [Min(0)] public int minCount = 0;
+    [Min(1)] public int maxCount = 1;
+
+    public bool isOnly = false;
+
+    public void Validate()
+    {
+        if (isOnly)
+        {
+            minCount = 0;
+            maxCount = 1;
+        }
+
+        if (maxCount < minCount) maxCount = minCount;
+    }
 }
 
 [CreateAssetMenu(menuName = "Cards/11.MonsterCard", order = 12)]
 public class MonsterCardData : CharacterCardData
 {
-       [Header("Monster Attributes")]
+    [Header("Monster Attributes")]
     [SerializeField] private float moveSpeed = 1;
     [SerializeField] private MonsterActionType act;
 
@@ -49,7 +65,7 @@ public class MonsterCardData : CharacterCardData
         }
     }
 
-    public DropItem[] Drops
+    public DropItem[] DropList
     {
         get => dropList;
         set
@@ -80,7 +96,26 @@ public class MonsterCardData : CharacterCardData
         clone.moveSpeed = this.moveSpeed;
         clone.act = this.act;
 
-        clone.dropList = this.dropList;
+        if (this.dropList != null)
+        {
+            clone.dropList = new DropItem[this.dropList.Length];
+            for (int i = 0; i < this.dropList.Length; i++)
+            {
+                if (this.dropList[i] != null)
+                {
+                    var drop = new DropItem
+                    {
+                        item = this.dropList[i].item,
+                        chance = this.dropList[i].chance,
+                        minCount = this.dropList[i].minCount,
+                        maxCount = this.dropList[i].maxCount,
+                        isOnly = this.dropList[i].isOnly
+                    };
+                    drop.Validate();
+                    clone.dropList[i] = drop;
+                }
+            }
+        }
 
         return clone;
     }

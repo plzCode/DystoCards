@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
   m_Name: Mon802_Wolf
   m_EditorClassIdentifier: 
-  cardId: 902
+  cardId: 802
   cardName: "\uB291\uB300"
   cardImage: {fileID: 21300000, guid: 52c65357076f6c747afb345a58892476, type: 3}
   cardType: 6
@@ -27,8 +27,12 @@ MonoBehaviour:
   act: 0
   dropList:
   - item: {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
-    chance: 100
-  - item: {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
     chance: 50
+    minCount: 1
+    maxCount: 2
+    isOnly: 0
   - item: {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}
     chance: 80
+    minCount: 0
+    maxCount: 1
+    isOnly: 0

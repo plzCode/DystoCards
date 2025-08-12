@@ -225,13 +225,19 @@ MonoBehaviour:
   battleArea: {fileID: 6226988127601251254}
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
-  - cardData: {fileID: 11400000, guid: 6fb327fef67f6fb42beae8e1ec14e090, type: 2}
-    spawnProbability: 100
-  - cardData: {fileID: 11400000, guid: 90d9099fe10276d45a92368fa983a124, type: 2}
-    spawnProbability: 100
-  - cardData: {fileID: 11400000, guid: 7ba42445977eb3c46b3ea288ea528b0e, type: 2}
-    spawnProbability: 100
-  - cardData: {fileID: 11400000, guid: c1887175bee35ab46baa811e2d0d63ad, type: 2}
+  - cardData: {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: c4c2ff56dc4d542489a2e88a5eb1ce65, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 932d53127118a24439940b240752fb04, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 2fbd65552c9757940ace171f71acdf2d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 146f653a41a81db47a99d6340c82e15e, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: bae6e0cfc2649da44a8e5b165c9c301d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
     spawnProbability: 100
   humans: []
   monsters: []
