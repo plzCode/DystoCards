@@ -1,19 +1,22 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
-using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using System.IO;
+using System.Linq;
 
 public class AddressableBatchRegister : EditorWindow
 {
-    [SerializeField] public string folderPath = "Assets/Audio"; // µÓ∑œ«“ ∆˙¥ı ∞Ê∑Œ
-    [SerializeField] public string groupName = "SFX";
+    string folderPath = "Assets/Audio"; // Îì±Î°ùÌï† Ìè¥Îçî Í≤ΩÎ°ú
+    string groupName = "SFX";
+    string labelName = "SFX";
 
     [MenuItem("Tools/Addressables/Batch Register Audio")]
     public static void ShowWindow()
     {
-        GetWindow(typeof(AddressableBatchRegister));
+        var window = GetWindow<AddressableBatchRegister>(true, "Addressable Batch Register");
+        window.minSize = new Vector2(350, 150);
+        window.Show();
     }
 
     void OnGUI()
@@ -21,8 +24,10 @@ public class AddressableBatchRegister : EditorWindow
         GUILayout.Label("Batch Register Addressables", EditorStyles.boldLabel);
         folderPath = EditorGUILayout.TextField("Folder Path:", folderPath);
         groupName = EditorGUILayout.TextField("Group Name:", groupName);
+        labelName = EditorGUILayout.TextField("Label Name:", labelName);
 
-        if (GUILayout.Button("Register All in Folder"))
+        GUILayout.Space(10);
+        if (GUILayout.Button("Register All in Folder", GUILayout.Height(30)))
         {
             RegisterAllAssetsInFolder();
         }
@@ -31,7 +36,20 @@ public class AddressableBatchRegister : EditorWindow
     void RegisterAllAssetsInFolder()
     {
         var settings = AddressableAssetSettingsDefaultObject.Settings;
+        if (settings == null)
+        {
+            Debug.LogError("AddressableAssetSettings not found. Make sure Addressables is set up.");
+            return;
+        }
+
         var group = settings.FindGroup(groupName) ?? settings.DefaultGroup;
+
+        // ÎùºÎ≤® ÏóÜÏúºÎ©¥ ÏÉùÏÑ±
+        if (!settings.GetLabels().Contains(labelName))
+        {
+            settings.AddLabel(labelName);
+            Debug.Log($"‚úÖ Created new label: {labelName}");
+        }
 
         string[] assetGUIDs = AssetDatabase.FindAssets("", new[] { folderPath });
         foreach (var guid in assetGUIDs)
@@ -40,8 +58,9 @@ public class AddressableBatchRegister : EditorWindow
             var entry = settings.CreateOrMoveEntry(guid, group);
             string key = Path.GetFileNameWithoutExtension(assetPath);
             entry.address = key;
+            entry.SetLabel(labelName, true);
         }
 
-        Debug.Log($"Registered {assetGUIDs.Length} assets from {folderPath} to Addressables in group '{groupName}'.");
+        Debug.Log($"‚úÖ Registered {assetGUIDs.Length} assets from '{folderPath}' to group '{groupName}' with label '{labelName}'.");
     }
 }

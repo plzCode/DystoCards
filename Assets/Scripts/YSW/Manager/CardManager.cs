@@ -42,7 +42,7 @@ public class CardManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SpawnCardById("031", new Vector3(0, 0, 0));
+            SpawnCardById("0391", new Vector3(0, 0, 0));
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
