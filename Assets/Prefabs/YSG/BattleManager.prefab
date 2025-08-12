@@ -226,9 +226,13 @@ MonoBehaviour:
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
   - cardData: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
-    spawnProbability: 50
-  - cardData: {fileID: 11400000, guid: e2879ebe9ee4a62419ef2f9bec5ea20e, type: 2}
-    spawnProbability: 50
+    spawnProbability: 100
+  - cardData: {fileID: 11400000, guid: 7ba42445977eb3c46b3ea288ea528b0e, type: 2}
+    spawnProbability: 100
+  - cardData: {fileID: 11400000, guid: 7ba42445977eb3c46b3ea288ea528b0e, type: 2}
+    spawnProbability: 100
+  - cardData: {fileID: 11400000, guid: c1887175bee35ab46baa811e2d0d63ad, type: 2}
+    spawnProbability: 100
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740
@@ -257,8 +261,8 @@ Transform:
   m_GameObject: {fileID: 7240948860794185740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 6, z: 1}
+  m_LocalPosition: {x: 6, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6061415237212470753}

@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon1_Dog
+  m_Name: Mon3_Bear
   m_EditorClassIdentifier: 
-  cardId: 901
-  cardName: "\uB4E4\uAC1C"
-  cardImage: {fileID: 21300000, guid: f941b47e96c60bd4d84ca3dbb1ea4a84, type: 3}
+  cardId: 903
+  cardName: "\uACF0"
+  cardImage: {fileID: 21300000, guid: ea0b1af203de5044884fb33175e746d4, type: 3}
   cardType: 6
-  description: "\uC57C\uC0DD \uB4E4\uAC1C"
+  description: "\uC57C\uC0DD \uACF0"
   size: 1
   characterType: 2
-  max_health: 5
-  current_health: 5
-  attack_power: 2
-  defense_power: 1
-  moveSpeed: 2
+  max_health: 10
+  current_health: 10
+  attack_power: 4
+  defense_power: 2
+  moveSpeed: 1
   act: 0
-  dropCount: 1
+  dropCount: 4
   dropList:
   - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
   - {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}

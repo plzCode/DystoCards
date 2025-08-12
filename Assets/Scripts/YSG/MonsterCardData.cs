@@ -12,7 +12,10 @@ public class MonsterCardData : CharacterCardData
     [Header("Monster Attributes")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private MonsterActionType act;
-    [SerializeField] private CardData[] drops;
+
+    [Header("Drop Attributes")]
+    [SerializeField] private int dropCount;
+    [SerializeField] private CardData[] dropList;
 
     public float MoveSpeed
     {
@@ -42,12 +45,12 @@ public class MonsterCardData : CharacterCardData
 
     public CardData[] Drops
     {
-        get => drops;
+        get => dropList;
         set
         {
-            if (drops != value)
+            if (dropList != value)
             {
-                drops = value;
+                dropList = value;
                 RaiseDataChanged();
             }
         }
@@ -70,7 +73,7 @@ public class MonsterCardData : CharacterCardData
 
         clone.moveSpeed = this.MoveSpeed;
         clone.act = this.act;
-        clone.drops = this.drops;
+        clone.dropList = this.dropList;
 
         return clone;
     }

@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon2_Bear
+  m_Name: Mon2_Wolf
   m_EditorClassIdentifier: 
   cardId: 902
-  cardName: "\uACF0"
-  cardImage: {fileID: 21300000, guid: ea0b1af203de5044884fb33175e746d4, type: 3}
+  cardName: "\uB291\uB300"
+  cardImage: {fileID: 0}
   cardType: 6
-  description: "\uB3D9\uBB3C\uC6D0\uC5D0\uC11C \uD0C8\uCD9C\uD55C \uACF0"
+  description: "\uC57C\uC0DD \uB291\uB300"
   size: 1
   characterType: 2
   max_health: 8
   current_health: 8
   attack_power: 3
   defense_power: 1
-  drops:
-  - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+  moveSpeed: 2.5
+  act: 0
+  dropCount: 2
+  dropList:
   - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
   - {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}
