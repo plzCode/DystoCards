@@ -186,14 +186,6 @@ public class Card_Storage : MonoBehaviour
                 cardUI.box = this;
             }
 
-            /*
-            // 카드 이름 표시
-            TMP_Text tmp = go.GetComponentInChildren<TMP_Text>();
-            if (tmp != null)
-            {
-                tmp.text = childCard.RuntimeData.cardName;
-            }
-            */
             Image img = go.GetComponentInChildren<Image>();
             if (img != null)
             {
@@ -212,6 +204,9 @@ public class Card_Storage : MonoBehaviour
     public void RemoveCard(Card2D card)
     {
         childCards.Remove(card);
+
+        // 카드 비활성화 (시각적으로만)
+        card.gameObject.SetActive(true);
 
         // 부모를 원래 위치로
         card.transform.SetParent(this.transform.parent);

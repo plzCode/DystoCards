@@ -572,7 +572,7 @@ MonoBehaviour:
   - {fileID: 557251924}
   registeredExplorations: []
   uiThemeData: {fileID: 11400000, guid: ba3fb0e392d199140862ec595f864060, type: 2}
-  addExploreScroll: {fileID: 0}
+  addExploreScroll: {fileID: 113959720}
   humanScrollView: {fileID: 212879891}
   rewardScrollView: {fileID: 549152305}
   opendLocationInfo: {fileID: 1284942016}
@@ -60111,6 +60111,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1218770937}
     m_Modifications:
+    - target: {fileID: 1341696209106491128, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3710385169862867306, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
       propertyPath: m_Name
       value: EventResultUI_Panel
@@ -60118,6 +60122,26 @@ PrefabInstance:
     - target: {fileID: 3710385169862867306, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931309905102028575, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931309905102028575, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931309905102028575, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931309905102028575, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931309905102028575, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8774672521229770628, guid: 1062e71e7ac446c4cb4302d9048eb731, type: 3}
       propertyPath: m_Pivot.x

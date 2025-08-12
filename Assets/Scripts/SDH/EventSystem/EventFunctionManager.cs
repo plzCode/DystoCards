@@ -8,7 +8,7 @@ using UnityEngine;
 public class EventFunctionManager : MonoBehaviour
 {
     public static EventFunctionManager Instance { get; private set; } // 싱글톤 인스턴스
-    [SerializeField] private EventCardData[] eventCardDatabase;       // 이벤트 카드 데이터베이스 (Inspector에서 할당)
+    [SerializeField] private List<EventCardData> eventCardDatabase;   // 이벤트 카드 데이터베이스 (Inspector에서 할당)
     [SerializeField] private List<CardData> suppliesDatabase;
     [SerializeField] private List<HumanCardData> humanDatabase;
 
@@ -25,19 +25,23 @@ public class EventFunctionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 랜덤한 이벤트 카드를 하나 반환
+    /// 랜덤한 이벤트 카드를 하나 반환하고 데이터베이스에서 제거
     /// </summary>
     /// <returns>랜덤 카드 1개</returns>
     public EventCardData GetRandomCard()
     {
-        if (eventCardDatabase == null || eventCardDatabase.Length == 0)
+        if (eventCardDatabase == null || eventCardDatabase.Count == 0)
         {
             Debug.LogWarning("이벤트 카드 데이터베이스가 비어있습니다.");
             return null;
         }
 
-        int index = Random.Range(0, eventCardDatabase.Length);
-        return eventCardDatabase[index];
+        int index = Random.Range(0, eventCardDatabase.Count);
+        EventCardData selectedCard = eventCardDatabase[index];
+
+        eventCardDatabase.RemoveAt(index); // 뽑은 카드 삭제
+
+        return selectedCard;
     }
 
     /// <summary>

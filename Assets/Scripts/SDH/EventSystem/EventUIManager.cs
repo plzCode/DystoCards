@@ -53,7 +53,7 @@ public class EventUIManager : MonoBehaviour
     {
         UIManager.Instance.TogglePanel(eventResultUIPanel);
         EventFunctionManager.Instance.Execute(currentCard.functionKey);
-        TurnManager.Instance.MarkActionComplete();
+        //TurnManager.Instance.MarkActionComplete();
     }
 
     /// <summary>
