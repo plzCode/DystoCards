@@ -23,6 +23,6 @@ MonoBehaviour:
   current_health: 5
   attack_power: 2
   defense_power: 1
-  drops:
-  - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+  moveSpeed: 3
   act: 1
+  drops: []

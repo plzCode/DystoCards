@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class MonsterSteal : MonsterAct
@@ -12,7 +11,7 @@ public class MonsterSteal : MonsterAct
 
         if (stealItem != null)
             moveTarget = base.SetTarget();
-
+        
         CheckTarget();
     }
 
@@ -43,6 +42,8 @@ public class MonsterSteal : MonsterAct
     {
         base.CheckTarget();
 
+        if (stealItem != null) return;
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1);
         foreach (var hit in hits)
         {
@@ -54,36 +55,13 @@ public class MonsterSteal : MonsterAct
                 CardManager.Instance.DestroyCard(card);
 
                 StopAllCoroutines();
-                StartCoroutine(Run());
+
+                RunAway();
             }
         }
     }
 
-    private IEnumerator Run()
-    {
-        while (true)
-        {
-            float waitTime = Random.Range(moveDelay.x, moveDelay.y);
-            yield return new WaitForSeconds(waitTime);
-
-            if (moveTarget == null) continue;
-
-            Vector3 startPos = transform.position;
-            Vector3 dir = (moveTarget.position - startPos).normalized;
-            Vector3 endPos = startPos - dir * moveDistance;
-
-            float elapsed = 0f;
-            while (elapsed < moveDuration)
-            {
-                elapsed += Time.deltaTime;
-                float t = Mathf.Clamp01(elapsed / moveDuration);
-                transform.position = Vector3.Lerp(startPos, endPos, t);
-                yield return null;
-            }
-
-            transform.position = endPos;
-        }
-    }
+    public void RunAway() => StartCoroutine(MoveCoroutine(false));
 
     public override void DropItem()
     {

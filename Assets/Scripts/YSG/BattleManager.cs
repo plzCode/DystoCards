@@ -79,7 +79,7 @@ public class BattleManager : MonoBehaviour
 
                     MonsterCardData mon = card.cardData as MonsterCardData;
 
-                    switch (mon.act)
+                    switch (mon.Act)
                     {
                         case MonsterActionType.Default:
                             card.AddComponent<MonsterAct>(); break;
@@ -266,13 +266,29 @@ public class BattleManager : MonoBehaviour
             var sr = c.GetComponent<SpriteRenderer>();
             if (sr != null) sr.color = Color.white;
 
-            if (c is MonsterAct monster)
+            if (c.charData.characterType == CharacterType.Human)
             {
-                monster.ChaseTarget();
-            }
+                var humanCard = c.GetComponent<Card2D>();
 
-            var card = c.GetComponent<Card2D>();
-            if (card != null) card.isStackable = true;
+                humanCard.isStackable = true;
+            }
+            else if (c.charData.characterType == CharacterType.Monster)
+            {
+                var monsterCard = c.GetComponent<Card2D>();
+
+                var monsterData = monsterCard.cardData as MonsterCardData;
+                if (monsterData == null) continue;
+
+                switch (monsterData.Act)
+                {
+                    case MonsterActionType.Default:
+                        c.GetComponent<MonsterAct>().ChaseTarget();
+                        break;
+                    case MonsterActionType.ItemSteal:
+                        c.GetComponent<MonsterSteal>().RunAway();
+                        break;
+                }
+            }
         }
     }
     #endregion

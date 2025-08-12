@@ -10,8 +10,35 @@ public enum MonsterActionType
 public class MonsterCardData : CharacterCardData
 {
     [Header("Monster Attributes")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private MonsterActionType act;
     [SerializeField] private CardData[] drops;
-    public MonsterActionType act;
+
+    public float MoveSpeed
+    {
+        get => moveSpeed;
+        set
+        {
+            if (moveSpeed != value)
+            {
+                moveSpeed = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+
+    public MonsterActionType Act
+    {
+        get => act;
+        set
+        {
+            if (act != value)
+            {
+                act = value;
+                RaiseDataChanged();
+            }
+        }
+    }
 
     public CardData[] Drops
     {
@@ -41,8 +68,9 @@ public class MonsterCardData : CharacterCardData
         clone.AttackPower = this.AttackPower;
         clone.DefensePower = this.DefensePower;
 
-        clone.drops = this.drops;
+        clone.moveSpeed = this.MoveSpeed;
         clone.act = this.act;
+        clone.drops = this.drops;
 
         return clone;
     }

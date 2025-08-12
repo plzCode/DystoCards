@@ -9,8 +9,7 @@ public class MonsterAct : Character
     public float defensePower;
 
     protected Vector2 moveDelay = new Vector2(0.5f, 2);
-    protected float moveDistance = 1;
-    protected float moveDuration = 0.5f;
+    public float moveSpeed;
     protected Transform moveTarget;
 
     private void OnValidate()
@@ -23,12 +22,14 @@ public class MonsterAct : Character
     {
         charData = GetComponent<Card2D>().RuntimeData as CharacterCardData;
 
-        if (charData != null)
+        if (charData != null && charData is MonsterCardData data)
         {
-            maxHealth = charData.MaxHealth;
-            currentHealth = charData.MaxHealth;
-            attackPower = charData.AttackPower;
-            defensePower = charData.DefensePower;
+            maxHealth = data.MaxHealth;
+            currentHealth = data.MaxHealth;
+            attackPower = data.AttackPower;
+            defensePower = data.DefensePower;
+
+            moveSpeed = data.MoveSpeed;
         }
     }
 
@@ -73,8 +74,9 @@ public class MonsterAct : Character
         return moveTarget;
     }
 
-    public void ChaseTarget() => StartCoroutine(Chase());
-    private IEnumerator Chase()
+    public void ChaseTarget() => StartCoroutine(MoveCoroutine(true));
+
+    protected IEnumerator MoveCoroutine(bool isChasing)
     {
         while (true)
         {
@@ -84,14 +86,14 @@ public class MonsterAct : Character
             if (moveTarget == null) continue;
 
             Vector3 startPos = transform.position;
-            Vector3 dir = (moveTarget.position - startPos).normalized;
-            Vector3 endPos = startPos + dir * moveDistance;
+            Vector3 dir = (moveTarget.position - startPos).normalized * (isChasing ? +1 : -1);
+            Vector3 endPos = startPos + dir * moveSpeed;
 
             float elapsed = 0f;
-            while (elapsed < moveDuration)
+            while (elapsed < 1)
             {
                 elapsed += Time.deltaTime;
-                float t = Mathf.Clamp01(elapsed / moveDuration);
+                float t = Mathf.Clamp01(elapsed);
                 transform.position = Vector3.Lerp(startPos, endPos, t);
                 yield return null;
             }
