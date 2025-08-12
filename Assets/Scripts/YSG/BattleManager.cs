@@ -21,7 +21,7 @@ public class BattleManager : MonoBehaviour
 
     [Space]
     public List<Human> humans = new List<Human>();
-    public List<TestMonster> monsters = new List<TestMonster>();
+    public List<MonsterAct> monsters = new List<MonsterAct>();
 
     public bool inBattle { get; private set; } = false;
 
@@ -76,7 +76,17 @@ public class BattleManager : MonoBehaviour
                 if (card != null)
                 {
                     card.GetComponent<Card2D>().isStackable = false;
-                    card.AddComponent<TestMonster>();
+
+                    MonsterCardData mon = card.cardData as MonsterCardData;
+
+                    switch (mon.act)
+                    {
+                        case MonsterActionType.Default:
+                            card.AddComponent<MonsterAct>(); break;
+                        case MonsterActionType.ItemSteal:
+                            card.AddComponent<MonsterSteal>(); break;
+                    }
+
                     card.transform.SetParent(cards);
                 }
             }
@@ -201,7 +211,7 @@ public class BattleManager : MonoBehaviour
                 if (attacker == null) continue;
 
                 if (attacker is Human human && !humans.Contains(human)) continue;
-                if (attacker is TestMonster monster && !monsters.Contains(monster)) continue;
+                if (attacker is MonsterAct monster && !monsters.Contains(monster)) continue;
 
                 Character target = null;
 
@@ -210,7 +220,7 @@ public class BattleManager : MonoBehaviour
                     if (monsters.Count == 0) break;
                     target = monsters[Random.Range(0, monsters.Count)];
                 }
-                else if (attacker is TestMonster)
+                else if (attacker is MonsterAct)
                 {
                     if (humans.Count == 0) break;
                     target = humans[Random.Range(0, humans.Count)];
@@ -256,7 +266,7 @@ public class BattleManager : MonoBehaviour
             var sr = c.GetComponent<SpriteRenderer>();
             if (sr != null) sr.color = Color.white;
 
-            if (c is TestMonster monster)
+            if (c is MonsterAct monster)
             {
                 monster.ChaseTarget();
             }
@@ -284,7 +294,7 @@ public class BattleManager : MonoBehaviour
 
     public void Unstack(Card2D card)
     {
-        if (card.cardData is HumanCardData) card.isStackable = false;
+        if (card.cardData.cardType == CardType.Character) card.isStackable = false;
         card.transform.SetParent(cards);
 
         if (card.parentCard != null)

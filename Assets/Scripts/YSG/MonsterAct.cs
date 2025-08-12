@@ -1,19 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-public class TestMonster : Character
+public class MonsterAct : Character
 {
     [Header("Card Stats")]
     public float maxHealth;
     public float attackPower;
     public float defensePower;
 
-    private Vector2 moveDelay = new Vector2(0.5f, 2);
-    private float moveDistance = 1;
-    private float moveDuration = 0.5f;
-    private Transform moveTarget;
-
-    public float detectionRadius = 1.0f;
+    protected Vector2 moveDelay = new Vector2(0.5f, 2);
+    protected float moveDistance = 1;
+    protected float moveDuration = 0.5f;
+    protected Transform moveTarget;
 
     private void OnValidate()
     {
@@ -39,7 +37,7 @@ public class TestMonster : Character
         ChaseTarget();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (BattleManager.Instance.inBattle)
         {
@@ -54,7 +52,7 @@ public class TestMonster : Character
         CheckTarget();
     }
 
-    public Transform SetTarget()
+    public virtual Transform SetTarget()
     {
         Human[] humans = FindObjectsByType<Human>(FindObjectsSortMode.None);
         moveTarget = null;
@@ -102,9 +100,9 @@ public class TestMonster : Character
         }
     }
 
-    public void CheckTarget()
+    public virtual void CheckTarget()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1);
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent<Human>(out var human))
@@ -133,17 +131,21 @@ public class TestMonster : Character
         base.Die();
     }
 
-    public void DropItem()
+    public virtual void DropItem()
     {
         MonsterCardData monsterData = charData as MonsterCardData;
         if (monsterData == null || monsterData.Drops == null || monsterData.Drops.Length == 0)
             return;
 
-        CardData drop = monsterData.Drops[Random.Range(0, monsterData.Drops.Length)];
-        if (drop != null)
+        Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
+
+        foreach (CardData drop in monsterData.Drops)
         {
-            Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
-            CardManager.Instance.SpawnCard(drop, spawnPos);
+            if (drop != null)
+            {
+                CardManager.Instance.SpawnCard(drop, spawnPos);
+                spawnPos += Vector3.right * 0.5f;
+            }
         }
     }
 }

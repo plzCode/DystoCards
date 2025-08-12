@@ -57106,6 +57106,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2730680156196216971, guid: 89f970a11832b8b4a83aa3337a25804f, type: 3}
+      propertyPath: fieldCards
+      value: 
+      objectReference: {fileID: 1345077517}
     - target: {fileID: 2789160912971716032, guid: 89f970a11832b8b4a83aa3337a25804f, type: 3}
       propertyPath: fieldCards
       value: 
@@ -60195,8 +60199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   techCard: {fileID: 11400000, guid: 0ebe782515ebe9b469d07068b7850447, type: 2}
-  techObject: {fileID: 0}
-  techResultPrefab: {fileID: 5168264262291691275, guid: 5dd23a0ed765d094e9a4aa1c10639b13, type: 3}
+  techRecipe: {fileID: 0}
+  recipeCard: {fileID: 0}
+  beforeRecipe: {fileID: 0}
   techTooltipUI: {fileID: 6434548441932491841}
   uiToClose: {fileID: 1313127285}
 --- !u!114 &496835689700769521
@@ -61679,6 +61684,38 @@ PrefabInstance:
     - target: {fileID: 3150400323947821210, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_Name
       value: BattleManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764133697349035906, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764133697349035906, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: spawnList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: spawnList.Array.data[1].cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ba42445977eb3c46b3ea288ea528b0e, type: 2}
+    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: spawnList.Array.data[2].cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: c1887175bee35ab46baa811e2d0d63ad, type: 2}
+    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: spawnList.Array.data[0].spawnProbability
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: spawnList.Array.data[1].spawnProbability
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
+      propertyPath: spawnList.Array.data[2].spawnProbability
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_LocalPosition.x

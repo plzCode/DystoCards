@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Monster 1
+  m_Name: Mon3_Crow
   m_EditorClassIdentifier: 
-  cardId: 999
-  cardName: Monster1
-  cardImage: {fileID: 1978829596, guid: 6582f34ddd5f686408c019550cd94c9d, type: 3}
+  cardId: 903
+  cardName: "\uAE4C\uB9C8\uADC0"
+  cardImage: {fileID: 21300000, guid: ce8aad2b16550c84fae59a1e0a559fb7, type: 3}
   cardType: 6
-  description: 
+  description: "\uC57C\uC0DD\uC758 \uAE4C\uB9C8\uADC0"
   size: 1
   characterType: 2
   max_health: 5
@@ -24,4 +24,5 @@ MonoBehaviour:
   attack_power: 2
   defense_power: 1
   drops:
-  - {fileID: 11400000, guid: 9861ac035eb8abf44a1b37db938d3595, type: 2}
+  - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+  act: 1

@@ -1,10 +1,17 @@
 using UnityEngine;
 
+public enum MonsterActionType
+{
+    Default,
+    ItemSteal
+}
+
 [CreateAssetMenu(menuName = "Cards/11.MonsterCardData", order = 12)]
 public class MonsterCardData : CharacterCardData
 {
     [Header("Monster Attributes")]
     [SerializeField] private CardData[] drops;
+    public MonsterActionType act;
 
     public CardData[] Drops
     {
@@ -13,7 +20,7 @@ public class MonsterCardData : CharacterCardData
         {
             if (drops != value)
             {
-                drops=value;
+                drops = value;
                 RaiseDataChanged();
             }
         }
@@ -35,6 +42,7 @@ public class MonsterCardData : CharacterCardData
         clone.DefensePower = this.DefensePower;
 
         clone.drops = this.drops;
+        clone.act = this.act;
 
         return clone;
     }

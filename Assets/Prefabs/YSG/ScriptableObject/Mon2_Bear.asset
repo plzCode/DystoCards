@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Monster 2
+  m_Name: Mon2_Bear
   m_EditorClassIdentifier: 
-  cardId: 998
-  cardName: Monster2
-  cardImage: {fileID: 496806899, guid: 6582f34ddd5f686408c019550cd94c9d, type: 3}
+  cardId: 902
+  cardName: "\uACF0"
+  cardImage: {fileID: 21300000, guid: ea0b1af203de5044884fb33175e746d4, type: 3}
   cardType: 6
-  description: 
+  description: "\uB3D9\uBB3C\uC6D0\uC5D0\uC11C \uD0C8\uCD9C\uD55C \uACF0"
   size: 1
   characterType: 2
   max_health: 8
@@ -24,5 +24,6 @@ MonoBehaviour:
   attack_power: 3
   defense_power: 1
   drops:
-  - {fileID: 11400000, guid: 9861ac035eb8abf44a1b37db938d3595, type: 2}
-  - {fileID: 11400000, guid: bb453601839f7c441a9fef87a890a7b7, type: 2}
+  - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+  - {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+  - {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}
