@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
   m_Name: Resource
   m_EditorClassIdentifier: 
-  cardId: 
-  cardName: Resource
+  cardId: 995
+  cardName: "\uAC00\uC8FD"
   cardImage: {fileID: 0}
   cardType: 0
-  description: "\uC784\uC2DC \uC790\uC6D0"
+  description: 
   size: 1
   quantity: 1
   resourceType: 0

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class SpawnEntry
 {
-    public GameObject prefab;
+    public CardData cardData;
     [Range(0, 100)] public float spawnProbability;
 }
 
@@ -39,22 +40,21 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        cards = CardManager.Instance.cardParent;
         battleArea?.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        humans.RemoveAll(card => card == null);
-        monsters.RemoveAll(card => card == null);
+        humans.RemoveAll(h => h == null);
+        monsters.RemoveAll(m => m == null);
 
-        if (Input.GetKeyUp(KeyCode.T)) // 임시
-        {
+        if (Input.GetKeyUp(KeyCode.T))
             SpawnMonster();
-        }
     }
 
     #region 소환
-    private void SpawnMonster()
+    public void SpawnMonster()
     {
         if (spawnList.Count == 0 || spawnArea == null) return;
 
@@ -66,25 +66,20 @@ public class BattleManager : MonoBehaviour
 
         foreach (var entry in spawnList)
         {
-            if (Random.Range(0, 100) <= entry.spawnProbability)
+            if (entry.cardData == null) continue;
+            if (Random.value <= entry.spawnProbability / 100)
             {
                 float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
                 float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
-
                 Vector3 spawnPos = new Vector3(randX, randY, 0);
-                GameObject go = Instantiate(entry.prefab, spawnPos, Quaternion.identity);
-                go.transform.SetParent(cards);
+                var card = CardManager.Instance.SpawnCard(entry.cardData, spawnPos);
+                if (card != null)
+                {
+                    card.GetComponent<Card2D>().isStackable = false;
+                    card.AddComponent<TestMonster>();
+                    card.transform.SetParent(cards);
+                }
             }
-        }
-    }
-
-    public void TrySpawnMonster(int probability = 0)
-    {
-        if (spawnList.Count == 0 || spawnArea == null) return;
-
-        if (Random.value < (float)(probability / 100))
-        {
-            SpawnMonster();
         }
     }
     #endregion
@@ -92,17 +87,20 @@ public class BattleManager : MonoBehaviour
     #region 전투
     public void StartBattle()
     {
-        if (!inBattle) ArrangeCharacters();
+        if (inBattle) return;
+        Arrange();
         StartCoroutine(BattleSequence());
     }
 
-    public void ArrangeCharacters()
+    public void Arrange()
     {
+        UnstackAll();
+
         if (humans.Count == 0 && monsters.Count == 0) return;
 
-        float margin = 1f;
-        float spacingX = 0.5f;
-        float spacingY = 1f;
+        float margin = 0.05f;
+        float spacingX = 0.1f;
+        float spacingY = 0.2f;
 
         if (!battleArea.gameObject.activeSelf)
         {
@@ -111,11 +109,13 @@ public class BattleManager : MonoBehaviour
 
             foreach (var h in humans)
             {
+                h.transform.SetParent(cards);
                 totalPos += h.transform.position;
                 totalCount++;
             }
             foreach (var m in monsters)
             {
+                m.transform.SetParent(cards);
                 totalPos += m.transform.position;
                 totalCount++;
             }
@@ -200,6 +200,9 @@ public class BattleManager : MonoBehaviour
                 if (humans.Count == 0 || monsters.Count == 0) break;
                 if (attacker == null) continue;
 
+                if (attacker is Human human && !humans.Contains(human)) continue;
+                if (attacker is TestMonster monster && !monsters.Contains(monster)) continue;
+
                 Character target = null;
 
                 if (attacker is Human)
@@ -215,26 +218,21 @@ public class BattleManager : MonoBehaviour
 
                 if (target == null) continue;
 
-                yield return StartCoroutine(AttackEffect(attacker, target));
+                yield return StartCoroutine(AttackCoroutine(attacker, target));
                 yield return new WaitForSeconds(0.1f);
-            }
 
-            DebugResult();
+                Arrange();
+            }
         }
 
         inBattle = false;
 
-        foreach (var monster in monsters)
-        {
-            if (monster != null)
-            {
-                monster.GetComponent<Rigidbody2D>().simulated = true;
-                monster.StartMove();
-            }
-        }
+        EndBattle(humans);
+        EndBattle(monsters);
 
         humans.Clear();
         monsters.Clear();
+
         battleArea?.gameObject.SetActive(false);
     }
 
@@ -248,13 +246,79 @@ public class BattleManager : MonoBehaviour
             list[randIndex] = temp;
         }
     }
+
+    public void EndBattle<T>(List<T> characters) where T : Character
+    {
+        foreach (var c in characters)
+        {
+            if (c == null) continue;
+
+            var sr = c.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = Color.white;
+
+            if (c is TestMonster monster)
+            {
+                monster.ChaseTarget();
+            }
+
+            var card = c.GetComponent<Card2D>();
+            if (card != null) card.isStackable = true;
+        }
+    }
     #endregion
 
-    #region 효과
-    private IEnumerator AttackEffect(Character attacker, Character target)
+    #region 카드
+    public void UnstackAll()
     {
+        foreach (var human in humans)
+        {
+            var card = human.GetComponent<Card2D>();
+            if (card != null) Unstack(card);
+        }
+        foreach (var monster in monsters)
+        {
+            var card = monster.GetComponent<Card2D>();
+            if (card != null) Unstack(card);
+        }
+    }
+
+    public void Unstack(Card2D card)
+    {
+        if (card.cardData is HumanCardData) card.isStackable = false;
+        card.transform.SetParent(cards);
+
+        if (card.parentCard != null)
+        {
+            card.parentCard.childCards.Remove(card);
+            card.parentCard = null;
+        }
+        foreach (var child in new List<Card2D>(card.childCards))
+        {
+            if (child != null)
+            {
+                Unstack(child);
+            }
+        }
+        foreach (Transform childTrans in card.transform)
+        {
+            Card2D childCard = childTrans.GetComponent<Card2D>();
+            if (childCard != null)
+            {
+                Unstack(childCard);
+            }
+        }
+
+        card.childCards.Clear();
+    }
+
+    private IEnumerator AttackCoroutine(Character attacker, Character target)
+    {
+        if (attacker == null || target == null) yield break;
+
         Transform attackerTr = attacker.transform;
         Transform targetTr = target.transform;
+
+        if (attackerTr == null || targetTr == null) yield break;
 
         Vector3 originPos = attackerTr.position;
         Vector3 targetPos = targetTr.position;
@@ -263,56 +327,52 @@ public class BattleManager : MonoBehaviour
         float t = 0;
         while (t < 1)
         {
+            if (attacker == null || target == null) yield break;
+            if (attackerTr == null) yield break;
+
             t += Time.deltaTime * 10;
             attackerTr.position = Vector3.Lerp(originPos, midPos, t);
             yield return null;
         }
 
-        yield return StartCoroutine(HitEffect(target));
+        if (attacker != null && target != null)
+        {
+            attacker.Attack(target);
+        }
+
+        yield return StartCoroutine(HitCoroutine(target));
 
         t = 0;
         while (t < 1)
         {
+            if (attacker == null || target == null) yield break;
+            if (attackerTr == null) yield break;
+
             t += Time.deltaTime * 10;
             attackerTr.position = Vector3.Lerp(midPos, originPos, t);
             yield return null;
         }
-
-        attacker.Attack(target);
-        Debug.Log($"{attacker.name}가 {target.name}를 공격 : 타겟 {target.currentHealth}-{attacker.charData.AttackPower}={target.currentHealth - attacker.charData.AttackPower}");
-
-        ArrangeCharacters();
     }
 
-    private IEnumerator HitEffect(Character hitter)
+    private IEnumerator HitCoroutine(Character hitter)
     {
+        if (hitter == null) yield break;
+
         SpriteRenderer sr = hitter.GetComponent<SpriteRenderer>();
         if (sr == null) yield break;
 
-        Color originalColor = sr.color;
-
         for (int i = 0; i < 2; i++)
         {
-            sr.color = Color.clear;
+            if (sr == null) yield break;
+            sr.color = Color.red;
             yield return new WaitForSeconds(0.1f);
-            sr.color = originalColor;
+            if (sr == null) yield break;
+            sr.color = Color.white;
             yield return new WaitForSeconds(0.1f);
         }
+
+        if (sr != null)
+            sr.color = Color.white;
     }
     #endregion
-
-    private void DebugResult()
-    {
-        string playerHealthLog = "플레이어 체력 : ";
-        foreach (var p in humans)
-            playerHealthLog += $"{p.currentHealth} / ";
-        playerHealthLog = playerHealthLog.TrimEnd(' ', '/');
-        Debug.Log(playerHealthLog);
-
-        string monsterHealthLog = "몬스터 체력 : ";
-        foreach (var m in monsters)
-            monsterHealthLog += $"{m.currentHealth} / ";
-        monsterHealthLog = monsterHealthLog.TrimEnd(' ', '/');
-        Debug.Log(monsterHealthLog);
-    }
 }
