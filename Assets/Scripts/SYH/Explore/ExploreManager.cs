@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class ExploreManager : MonoBehaviour
 {
-
+    // 등록된 인물을 저장
     public List<Human> registedHumans = new List<Human>();
+    // 탐사를 나간 사람을 저장
+    public List<Human> exploringHumans = new List<Human>();
     public static ExploreManager Instance { get; private set; }
 
     public List<MinimapIcon> mapLocationList;
@@ -48,6 +50,7 @@ public class ExploreManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             CardManager.Instance.SpawnCardById("041", new Vector3(0, 0, 0));
+            CardManager.Instance.SpawnCardById("021", new Vector3(0, 0, 0));
         }
         
     }
@@ -98,6 +101,7 @@ public class ExploreManager : MonoBehaviour
 
         ExplorationData newData = new ExplorationData(human, location);
         registeredExplorations.Add(newData);
+        exploringHumans.Add(newData.human);
         OnExploreAdded?.Invoke(newData); 
         Debug.Log($"[ExploreManager] 탐색 등록됨: {human.humanData.cardName} → {location.locationName}");
         return true;
@@ -127,9 +131,11 @@ public class ExploreManager : MonoBehaviour
 
         foreach (var data in completed)
         {
+            
+            registeredExplorations.Remove(data);
+            exploringHumans.Remove(data.human);
+            OnExploreCompleted?.Invoke(data);
             data.human.ConsumeStamina(data.location.requiredStamina);
-            registeredExplorations.Remove(data);            
-            OnExploreCompleted?.Invoke(data);  
 
         }
     }

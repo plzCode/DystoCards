@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5df1c0f4f8fdb4d8fd71b19989f867, type: 3}
   m_Name: Location2
   m_EditorClassIdentifier: 
-  locationName: Building
+  locationName: "\uC544\uD30C\uD2B8"
   locationImage: {fileID: -1973542948338644661, guid: 1495be631cb0a664ca7bc9d8b95e8732, type: 3}
   requiredStrength: 2
   requiredStamina: 1

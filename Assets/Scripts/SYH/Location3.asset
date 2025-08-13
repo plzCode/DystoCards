@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5df1c0f4f8fdb4d8fd71b19989f867, type: 3}
   m_Name: Location3
   m_EditorClassIdentifier: 
-  locationName: School
+  locationName: "\uD559\uAD50"
   locationImage: {fileID: -91903354144237191, guid: 7299744293663824193512a95b9cbc6c, type: 3}
   requiredStrength: 3
   requiredStamina: 5
