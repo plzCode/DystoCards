@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dissolve : MonoBehaviour
 {
     [SerializeField] private float _dissolveTime = 0.75f;
 
     [SerializeField] private List<SpriteRenderer> _spriteRenderers;
+    [SerializeField] private List<Image> _images;
     private List<Material> _materials;
 
     [SerializeField] private Transform _name;
@@ -29,6 +31,13 @@ public class Dissolve : MonoBehaviour
             }
         }
 
+        if(_images != null)
+        {
+            foreach(var image in _images)
+            {
+                _materials.Add(image.material);
+            }
+        }
     }
 
 
