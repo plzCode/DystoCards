@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1614885307
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.39215687}
@@ -225,11 +225,21 @@ MonoBehaviour:
   battleArea: {fileID: 6226988127601251254}
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
-  - cardData: {fileID: 11400000, guid: 8fccb2279f7d0394c81dc9a186b52923, type: 2}
+  - cardData: {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}
     spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: e2879ebe9ee4a62419ef2f9bec5ea20e, type: 2}
+  - cardData: {fileID: 11400000, guid: c4c2ff56dc4d542489a2e88a5eb1ce65, type: 2}
     spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: adfd94f2d35b460468dd4da99bb7a333, type: 2}
+  - cardData: {fileID: 11400000, guid: 932d53127118a24439940b240752fb04, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 2fbd65552c9757940ace171f71acdf2d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 146f653a41a81db47a99d6340c82e15e, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: bae6e0cfc2649da44a8e5b165c9c301d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
     spawnProbability: 100
   humans: []
   monsters: []
@@ -260,7 +270,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 6, z: 1}
+  m_LocalScale: {x: 1, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6061415237212470753}

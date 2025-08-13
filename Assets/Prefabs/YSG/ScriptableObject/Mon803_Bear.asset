@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
+  m_Name: Mon803_Bear
+  m_EditorClassIdentifier: 
+  cardId: 803
+  cardName: "\uACF0"
+  cardImage: {fileID: 21300000, guid: 129fd5ec90aaeee419abf44ea778d44a, type: 3}
+  cardType: 6
+  description: "\uB3D9\uBB3C\uC6D0\uC5D0 \uB3C4\uB9DD\uCCD0 \uB098\uC628 \uACF0"
+  size: 1
+  characterType: 2
+  max_health: 8
+  current_health: 8
+  attack_power: 4
+  defense_power: 2
+  moveSpeed: 1.5
+  act: 0
+  dropList:
+  - item: {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
+    chance: 70
+    minCount: 1
+    maxCount: 3
+    isOnly: 0
+  - item: {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}
+    chance: 60
+    minCount: 1
+    maxCount: 2
+    isOnly: 0

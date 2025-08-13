@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38d458f782d30484dbe4c6b538aaa799, type: 3}
+  m_Name: Hammer_1
+  m_EditorClassIdentifier: 
+  cardId: 063008
+  cardName: "\uB9DD\uCE58 (\uB098\uBB34)"
+  cardImage: {fileID: 0}
+  cardType: 5
+  description: 
+  size: 1
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+    quantity: 2
+  - ingredient: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+    quantity: 1
+  - ingredient: {fileID: 11400000, guid: 2067c7da2d08bd241ac2d45c1277a602, type: 2}
+    quantity: 1
+  result: {fileID: 11400000, guid: 994883399fca94846ac34acfb0c0a413, type: 2}
+  scriptName: 

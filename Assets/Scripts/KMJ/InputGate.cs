@@ -1,1 +1,0 @@
-﻿public static class InputGate { public static bool Enabled = true; }

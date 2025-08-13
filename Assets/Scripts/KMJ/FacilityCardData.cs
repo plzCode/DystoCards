@@ -3,4 +3,5 @@
 public class FacilityCardData : CardData
 {
     public FacilityType facilityType;
+
 }
