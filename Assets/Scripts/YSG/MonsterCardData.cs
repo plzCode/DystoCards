@@ -3,7 +3,8 @@ using UnityEngine;
 public enum MonsterActionType
 {
     Default,
-    ItemSteal
+    Steal,
+    Robbery,
 }
 
 [System.Serializable]

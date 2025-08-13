@@ -10,24 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon905_Thief
+  m_Name: Mon906_Thug
   m_EditorClassIdentifier: 
-  cardId: 905
-  cardName: "\uC880\uB3C4\uB451"
+  cardId: 906
+  cardName: "\uC0AC\uB0E5\uAFBC"
   cardImage: {fileID: 0}
   cardType: 6
-  description: "\uC880\uB3C4\uB451\uC73C\uB85C \uC804\uB77D\uD574\uBC84\uB9B0 \uC0DD\uC874\uC790"
+  description: "\uC804\uC9C1 \uAE61\uD328\uC600\uB358 \uC0DD\uC874\uC790"
   size: 1
   characterType: 2
-  max_health: 10
-  current_health: 10
-  attack_power: 2
-  defense_power: 1
-  moveSpeed: 1.5
-  act: 1
+  max_health: 13
+  current_health: 13
+  attack_power: 4
+  defense_power: 3
+  moveSpeed: 1.2
+  act: 0
   dropList:
-  - item: {fileID: 11400000, guid: e6fb7a662169be644baa9351ac816bfc, type: 2}
-    chance: 30
+  - item: {fileID: 11400000, guid: 9079736763943814087b5adf1f799afa, type: 2}
+    chance: 50
+    minCount: 0
+    maxCount: 1
+    isOnly: 0
+  - item: {fileID: 11400000, guid: 3d3b5a09d61557845941dd5067382d87, type: 2}
+    chance: 50
     minCount: 0
     maxCount: 1
     isOnly: 0
@@ -35,14 +40,14 @@ MonoBehaviour:
     chance: 75
     minCount: 0
     maxCount: 1
-    isOnly: 1
+    isOnly: 0
   - item: {fileID: 11400000, guid: 96b5c3dc556eace4287253d7f3f9eae4, type: 2}
     chance: 15
     minCount: 0
     maxCount: 1
-    isOnly: 1
+    isOnly: 0
   - item: {fileID: 11400000, guid: 7910e65a0e29a99429dec0bf524d548e, type: 2}
     chance: 3
     minCount: 0
     maxCount: 1
-    isOnly: 1
+    isOnly: 0

@@ -99,8 +99,10 @@ public class BattleManager : MonoBehaviour
                     {
                         case MonsterActionType.Default:
                             card.AddComponent<MonsterAct>(); break;
-                        case MonsterActionType.ItemSteal:
+                        case MonsterActionType.Steal:
                             card.AddComponent<MonsterSteal>(); break;
+                        case MonsterActionType.Robbery:
+                            card.AddComponent<MonsterAct>(); break;
                     }
 
                     card.transform.SetParent(cards);
@@ -300,7 +302,7 @@ public class BattleManager : MonoBehaviour
                     case MonsterActionType.Default:
                         c.GetComponent<MonsterAct>().ChaseTarget();
                         break;
-                    case MonsterActionType.ItemSteal:
+                    case MonsterActionType.Steal:
                         c.GetComponent<MonsterSteal>().RunAway();
                         break;
                 }

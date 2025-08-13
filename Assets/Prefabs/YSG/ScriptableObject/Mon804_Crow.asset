@@ -22,7 +22,7 @@ MonoBehaviour:
   max_health: 5
   current_health: 5
   attack_power: 2
-  defense_power: 1
-  moveSpeed: 3
+  defense_power: 0
+  moveSpeed: 3.2
   act: 1
   dropList: []

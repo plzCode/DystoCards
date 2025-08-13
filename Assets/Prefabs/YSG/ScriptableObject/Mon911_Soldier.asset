@@ -10,29 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon901_Default
+  m_Name: Mon911_Soldier
   m_EditorClassIdentifier: 
-  cardId: 901
-  cardName: "\uC0DD\uC874\uC790"
-  cardImage: {fileID: 21300000, guid: 314940e0d2606f8448d7ab3b4804202a, type: 3}
+  cardId: 911
+  cardName: "\uAD70\uC778"
+  cardImage: {fileID: 0}
   cardType: 6
-  description: 
+  description: "\uC644\uC804 \uBB34\uC7A5\uD55C \uAD70\uC778"
   size: 1
   characterType: 2
-  max_health: 10
-  current_health: 10
-  attack_power: 2
-  defense_power: 1
-  moveSpeed: 1
+  max_health: 18
+  current_health: 18
+  attack_power: 8
+  defense_power: 4
+  moveSpeed: 1.4
   act: 0
   dropList:
-  - item: {fileID: 11400000, guid: ccb5f92a42365ed4fba877b05f07e74f, type: 2}
+  - item: {fileID: 11400000, guid: 45d477851dc872847868b776ad5386b6, type: 2}
     chance: 50
     minCount: 0
     maxCount: 1
     isOnly: 0
-  - item: {fileID: 11400000, guid: 19743069912131641b0b0a7188c12601, type: 2}
+  - item: {fileID: 11400000, guid: 87923d8c0a905aa4f9578fe2e4d16145, type: 2}
     chance: 50
+    minCount: 0
+    maxCount: 1
+    isOnly: 0
+  - item: {fileID: 11400000, guid: ec00022e40e5eb84894a4fa08c2d804a, type: 2}
+    chance: 60
     minCount: 0
     maxCount: 1
     isOnly: 0

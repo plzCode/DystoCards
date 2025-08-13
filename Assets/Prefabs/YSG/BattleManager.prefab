@@ -240,7 +240,21 @@ MonoBehaviour:
   - cardData: {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
     spawnProbability: 0
   - cardData: {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
-    spawnProbability: 100
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: d6605fcc2efac5546a5f8fda1529b09e, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: a29898059e717b84aa9ee5cad79975c2, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: fe63b8b4706fd534cb4d10bde8aea1c8, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 895cc371b5a0c8048ba29f7a78f84fcd, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 7ec131e26489e384596260cf26f69781, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: fc894a6c53877764da3065a5e49bf0ef, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 10efa1a43903c744a8bcb7d94d2640eb, type: 2}
+    spawnProbability: 0
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740

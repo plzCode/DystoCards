@@ -15779,10 +15779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefb6e933926c444cb2343e9b1087c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
-  message: {fileID: 0}
-  yesBtn: {fileID: 0}
-  noBtn: {fileID: 0}
 --- !u!222 &574476339
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17068,8 +17064,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 622134787}
-  btnPrefab: {fileID: 9169601795141017286, guid: f51e6d51fdb9a0d44b1269e41a102b7e, type: 3}
   listRoot: {fileID: 229234793}
+  btnPrefab: {fileID: 9169601795141017286, guid: f51e6d51fdb9a0d44b1269e41a102b7e, type: 3}
+  miniGameRoot: {fileID: 0}
+  pfMini_Harvest: {fileID: 0}
+  pfMini_Clean: {fileID: 0}
+  pfMini_Felling: {fileID: 0}
+  pfMini_Mining: {fileID: 0}
 --- !u!114 &622134790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34664,7 +34665,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f6776d1d637cb43af2472ea2d50311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popup: {fileID: 574476338}
 --- !u!1 &1218770932
 GameObject:
   m_ObjectHideFlags: 0
@@ -61686,11 +61686,7 @@ PrefabInstance:
       value: BattleManager
       objectReference: {fileID: 0}
     - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[4].spawnProbability
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[7].spawnProbability
+      propertyPath: spawnList.Array.data[14].spawnProbability
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
