@@ -34,7 +34,7 @@ public class CharacterTaskRunner : MonoBehaviour
         int n = FindObjectsOfType<CharacterCard2D>()
             .Count(c => c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.Farm)) ||
                         c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.Shelter)) ||
-                        c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.Workbench)));
+                        c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.ForestMine)));
 
         Debug.Log($"<color=yellow>[Runner] 작업 가능 인물 : {n}</color>");
     }
@@ -44,6 +44,6 @@ public class CharacterTaskRunner : MonoBehaviour
         return FindObjectsOfType<CharacterCard2D>()
             .Any(c => c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.Farm)) ||
                       c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.Shelter)) ||
-                      c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.Workbench)));
+                      c.HasAnyAvailable(ActionLibrary.GetActions(FacilityType.ForestMine)));
     }
 }

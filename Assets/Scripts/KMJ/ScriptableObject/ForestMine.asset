@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f9a9756042d54d42b7d9a224569c263, type: 3}
-  m_Name: Workbench
+  m_Name: ForestMine
   m_EditorClassIdentifier: 
   cardId: 
-  cardName: WorkBench
+  cardName: ForestMine
   cardImage: {fileID: 0}
-  cardType: 4
+  cardType: 9
   description: 
   size: 1
-  facilityType: 2
+  facilityType: 1
