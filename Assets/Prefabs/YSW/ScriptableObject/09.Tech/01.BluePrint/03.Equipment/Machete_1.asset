@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429ce4d7337e57047a0bdd73addd001a, type: 3}
-  m_Name: Axe
+  m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
+  m_Name: Machete_1
   m_EditorClassIdentifier: 
-  cardId: 0031
-  cardName: Axe
-  cardImage: {fileID: -6294954599053914950, guid: dd0d352ae1258dc40986137c61414c7f, type: 3}
-  cardType: 5
+  cardId: 0913011
+  cardName: "\uCE7C (\uB098\uBB34)"
+  cardImage: {fileID: 5924066515334356195, guid: 1fc511a487bf70749ae0b3f074f8c862, type: 3}
+  cardType: 0
   description: 
   size: 1
-  attackPower: 3
-  defensePower: 0
-  slot: 2
+  quantity: 0
+  resourceType: 0
