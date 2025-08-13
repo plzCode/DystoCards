@@ -238,6 +238,8 @@ MonoBehaviour:
   - cardData: {fileID: 11400000, guid: bae6e0cfc2649da44a8e5b165c9c301d, type: 2}
     spawnProbability: 0
   - cardData: {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
     spawnProbability: 100
   humans: []
   monsters: []

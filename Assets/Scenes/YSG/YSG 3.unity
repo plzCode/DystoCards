@@ -61686,20 +61686,12 @@ PrefabInstance:
       value: BattleManager
       objectReference: {fileID: 0}
     - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[7].cardData
-      value: 
-      objectReference: {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[6].spawnProbability
-      value: 0
+      propertyPath: spawnList.Array.data[4].spawnProbability
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: spawnList.Array.data[7].spawnProbability
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_LocalPosition.x
