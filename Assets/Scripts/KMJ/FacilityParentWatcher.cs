@@ -22,6 +22,10 @@ public class FacilityParentWatcher : MonoBehaviour
             lastParent.TryGetComponent(out Card2D facCard) &&
             facCard.cardData is FacilityCardData facData)
         {
+            // 겹침 검사: 겹쳐져 있으면 메뉴 열지 않음
+            if (lastParent.TryGetComponent<FacilityNoOverlap>(out var noOL) && noOL.IsOverlappingAny())
+                return;
+
             Debug.Log($"[Watcher] ① parent={lastParent.name} ② facCard OK " +
               $"③ ActionMenu.Instance={(ActionMenu.Instance == null ? "NULL" : "OK")}");
 

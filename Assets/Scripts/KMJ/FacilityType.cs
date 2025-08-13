@@ -1,2 +1,2 @@
 ﻿
-public enum FacilityType { Farm, Shelter, Workbench }
+public enum FacilityType { Farm, ForestMine, Shelter }
