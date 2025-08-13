@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 902
   cardName: "\uBC8C\uBAA9\uAFBC"
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 3705b9b49783149459ee373d0ef4650d, type: 3}
   cardType: 6
   description: "\uC804\uC9C1 \uBC8C\uBAA9\uAFBC\uC600\uB358 \uC0DD\uC874\uC790"
   size: 1
@@ -25,6 +25,8 @@ MonoBehaviour:
   defense_power: 2
   moveSpeed: 1
   act: 0
+  spawnTurn: 2
+  spawnChance: 0
   dropList:
   - item: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
     chance: 70

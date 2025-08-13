@@ -18939,7 +18939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &683672095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61684,10 +61684,6 @@ PrefabInstance:
     - target: {fileID: 3150400323947821210, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_Name
       value: BattleManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5378215499681372390, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
-      propertyPath: spawnList.Array.data[14].spawnProbability
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6061415237212470753, guid: 846a30a8cabd2ce40baf1762294ff037, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,7 +14,7 @@ public class MonsterAct : Character
     public float moveSpeed;
     protected Transform moveTarget;
 
-    public TextMeshPro hpValue;
+    protected TextMeshPro hpValue;
 
     private void OnValidate()
     {
@@ -39,7 +39,6 @@ public class MonsterAct : Character
 
     private new void Start()
     {
-        SetCurrentHealth();
         ChaseTarget();
     }
 
@@ -63,7 +62,7 @@ public class MonsterAct : Character
             SetCurrentHealth();
     }
 
-    private void SetCurrentHealth()
+    protected void SetCurrentHealth()
     {
         Transform statAnchor = transform.Find("StatAnchor");
         if (statAnchor != null)

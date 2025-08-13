@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
-  m_Name: Mon804_Crow
+  m_Name: Mon891_Crow
   m_EditorClassIdentifier: 
-  cardId: 803
+  cardId: 891
   cardName: "\uAE4C\uB9C8\uADC0"
   cardImage: {fileID: 21300000, guid: 8d45b364038294f4c9a30dae4118739f, type: 3}
   cardType: 6
@@ -25,4 +25,6 @@ MonoBehaviour:
   defense_power: 0
   moveSpeed: 3.2
   act: 1
+  spawnTurn: 2
+  spawnChance: 0
   dropList: []

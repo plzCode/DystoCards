@@ -25,24 +25,11 @@ MonoBehaviour:
   defense_power: 1
   moveSpeed: 1.5
   act: 1
+  spawnTurn: 3
+  spawnChance: 0
   dropList:
   - item: {fileID: 11400000, guid: e6fb7a662169be644baa9351ac816bfc, type: 2}
     chance: 30
     minCount: 0
     maxCount: 1
     isOnly: 0
-  - item: {fileID: 11400000, guid: 4c308ce633de21c48b52bb23128e1005, type: 2}
-    chance: 75
-    minCount: 0
-    maxCount: 1
-    isOnly: 1
-  - item: {fileID: 11400000, guid: 96b5c3dc556eace4287253d7f3f9eae4, type: 2}
-    chance: 15
-    minCount: 0
-    maxCount: 1
-    isOnly: 1
-  - item: {fileID: 11400000, guid: 7910e65a0e29a99429dec0bf524d548e, type: 2}
-    chance: 3
-    minCount: 0
-    maxCount: 1
-    isOnly: 1

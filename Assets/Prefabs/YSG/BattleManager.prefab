@@ -224,37 +224,23 @@ MonoBehaviour:
   cards: {fileID: 0}
   battleArea: {fileID: 6226988127601251254}
   spawnArea: {fileID: 3764133697349035906}
-  spawnList:
-  - cardData: {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: c4c2ff56dc4d542489a2e88a5eb1ce65, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 932d53127118a24439940b240752fb04, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 2fbd65552c9757940ace171f71acdf2d, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 146f653a41a81db47a99d6340c82e15e, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: bae6e0cfc2649da44a8e5b165c9c301d, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: d6605fcc2efac5546a5f8fda1529b09e, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: a29898059e717b84aa9ee5cad79975c2, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: fe63b8b4706fd534cb4d10bde8aea1c8, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 895cc371b5a0c8048ba29f7a78f84fcd, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 7ec131e26489e384596260cf26f69781, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: fc894a6c53877764da3065a5e49bf0ef, type: 2}
-    spawnProbability: 0
-  - cardData: {fileID: 11400000, guid: 10efa1a43903c744a8bcb7d94d2640eb, type: 2}
-    spawnProbability: 0
+  monsterCardList:
+  - {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}
+  - {fileID: 11400000, guid: c4c2ff56dc4d542489a2e88a5eb1ce65, type: 2}
+  - {fileID: 11400000, guid: 932d53127118a24439940b240752fb04, type: 2}
+  - {fileID: 11400000, guid: 2509161cea2df14499c5a578cdc3d289, type: 2}
+  - {fileID: 11400000, guid: 2fbd65552c9757940ace171f71acdf2d, type: 2}
+  - {fileID: 11400000, guid: 146f653a41a81db47a99d6340c82e15e, type: 2}
+  - {fileID: 11400000, guid: bae6e0cfc2649da44a8e5b165c9c301d, type: 2}
+  - {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
+  - {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
+  - {fileID: 11400000, guid: d6605fcc2efac5546a5f8fda1529b09e, type: 2}
+  - {fileID: 11400000, guid: a29898059e717b84aa9ee5cad79975c2, type: 2}
+  - {fileID: 11400000, guid: fe63b8b4706fd534cb4d10bde8aea1c8, type: 2}
+  - {fileID: 11400000, guid: 895cc371b5a0c8048ba29f7a78f84fcd, type: 2}
+  - {fileID: 11400000, guid: 7ec131e26489e384596260cf26f69781, type: 2}
+  - {fileID: 11400000, guid: fc894a6c53877764da3065a5e49bf0ef, type: 2}
+  - {fileID: 11400000, guid: 10efa1a43903c744a8bcb7d94d2640eb, type: 2}
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740
@@ -284,7 +270,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6061415237212470753}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mon906_Thug
   m_EditorClassIdentifier: 
   cardId: 906
-  cardName: "\uC0AC\uB0E5\uAFBC"
+  cardName: "\uAE61\uD328"
   cardImage: {fileID: 0}
   cardType: 6
   description: "\uC804\uC9C1 \uAE61\uD328\uC600\uB358 \uC0DD\uC874\uC790"
@@ -25,6 +25,8 @@ MonoBehaviour:
   defense_power: 3
   moveSpeed: 1.2
   act: 0
+  spawnTurn: 5
+  spawnChance: 10
   dropList:
   - item: {fileID: 11400000, guid: 9079736763943814087b5adf1f799afa, type: 2}
     chance: 50

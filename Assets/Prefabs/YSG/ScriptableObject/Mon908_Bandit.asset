@@ -25,6 +25,8 @@ MonoBehaviour:
   defense_power: 2
   moveSpeed: 1.2
   act: 2
+  spawnTurn: 5
+  spawnChance: 0
   dropList:
   - item: {fileID: 11400000, guid: e6fb7a662169be644baa9351ac816bfc, type: 2}
     chance: 40

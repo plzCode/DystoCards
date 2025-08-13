@@ -23,9 +23,11 @@ MonoBehaviour:
   max_health: 15
   current_health: 15
   attack_power: 6
-  defense_power: 3
+  defense_power: 4
   moveSpeed: 1.2
   act: 0
+  spawnTurn: 6
+  spawnChance: 0
   dropList:
   - item: {fileID: 11400000, guid: 993e53380108820499ae5b7b95b0fc6e, type: 2}
     chance: 50
@@ -38,7 +40,7 @@ MonoBehaviour:
     maxCount: 1
     isOnly: 0
   - item: {fileID: 11400000, guid: 7afb92628e03e0f48b9930b1dae2227f, type: 2}
-    chance: 60
+    chance: 50
     minCount: 0
     maxCount: 1
     isOnly: 0
