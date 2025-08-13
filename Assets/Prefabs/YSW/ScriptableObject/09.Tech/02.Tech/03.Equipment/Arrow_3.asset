@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Arrow_3
   m_EditorClassIdentifier: 
   cardId: 0923002
-  cardName: "\uD654\uC0B4 (\uCCA0)"
+  cardName: "\uD654\uC0B4 (\uCCA0) \uC5F0\uAD6C"
   cardImage: {fileID: 4755096292201967803, guid: 550ffb59c0c202b4fa50e095d73bae26, type: 3}
   cardType: 8
   description: 

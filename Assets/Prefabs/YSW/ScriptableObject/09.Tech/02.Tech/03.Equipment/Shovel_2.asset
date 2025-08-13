@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shovel_2
   m_EditorClassIdentifier: 
   cardId: 0923011
-  cardName: "\uC0BD (\uB3CC)"
+  cardName: "\uC0BD (\uB3CC) \uC5F0\uAD6C"
   cardImage: {fileID: -321203206286891293, guid: 051ed57dee11d874288e509e848fd9c8, type: 3}
   cardType: 8
   description: 

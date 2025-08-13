@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hammer_3
   m_EditorClassIdentifier: 
   cardId: 0923006
-  cardName: "\uB9DD\uCE58 (\uCCA0)"
+  cardName: "\uB9DD\uCE58 (\uCCA0) \uC5F0\uAD6C"
   cardImage: {fileID: 1667976610488112944, guid: c2f3071c8506a9b40a5452fd617ee625, type: 3}
   cardType: 8
   description: 

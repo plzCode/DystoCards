@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Axe_2
   m_EditorClassIdentifier: 
   cardId: 0923003
-  cardName: "\uB3C4\uB07C (\uB3CC)"
+  cardName: "\uB3C4\uB07C (\uB3CC) \uC5F0\uAD6C"
   cardImage: {fileID: -6563384026678012562, guid: b2f7fd75c15f4744f9963f5c4d8f7e08, type: 3}
   cardType: 8
   description: 

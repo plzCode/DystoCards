@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Machete_3
   m_EditorClassIdentifier: 
   cardId: 0923008
-  cardName: "\uCE7C (\uCCA0)"
+  cardName: "\uCE7C (\uCCA0) \uC5F0\uAD6C"
   cardImage: {fileID: 2117959178020034190, guid: 097fa446eeb42234583b9d4ae94e8661, type: 3}
   cardType: 8
   description: 
