@@ -26,34 +26,12 @@ public class HumanScrollView : MonoBehaviour
 
     
 
-    public void AddHuman(Human data)
-    {
-        HumanIcon icon = null;
-
-        // 비활성화된 아이콘 직접 탐색
-        foreach (var i in pooledIcons)
-        {
-            if (!i.gameObject.activeSelf)
-            {
-                icon = i;
-                break;
-            }
-        }
-
-        if (icon != null)
-        {            
-            icon.Setup(data, exploreInfoUI, gameObject);
-            icon.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("풀에 남은 아이콘이 없습니다.");
-        }
-    }
+    
 
     private void OnEnable()
     {
         List<Human> humans = ExploreManager.Instance.registedHumans;
+        
 
 
         for (int i = 0; i < pooledIcons.Count; i++)
