@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
+  m_Name: VegetableStew
+  m_EditorClassIdentifier: 
+  cardId: 0912005
+  cardName: "\uC57C\uCC44 \uC2A4\uD29C"
+  cardImage: {fileID: 2777867908797879960, guid: 9b19ec53627808b47a0557c2e0813fd1, type: 3}
+  cardType: 0
+  description: 
+  size: 1
+  quantity: 0
+  resourceType: 0

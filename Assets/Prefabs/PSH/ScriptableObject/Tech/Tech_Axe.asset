@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 02001
   cardName: Tech_Axe
-  cardImage: {fileID: 0}
+  cardImage: {fileID: -6449723894494966426, guid: 4b0c9a7b28b4a9c4492fecfb01f099df, type: 3}
   cardType: 8
   description: 
   size: 1
   ingredients: []
-  remainingTime: 1
+  remainingTime: 0
   totalTime: 1
   techType: 0
   unlockRecipe: {fileID: 11400000, guid: cea2a4010bbe8a14c93083fe2024ecb4, type: 2}
