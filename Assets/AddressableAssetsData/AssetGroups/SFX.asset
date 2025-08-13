@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 308c65ecb94936845b1479347a1460b0
+    m_Address: Book_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3acdc151dcc723146895f94de88e82a8
     m_Address: Click_2
     m_ReadOnly: 0
@@ -35,6 +41,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 48b3f196e7ce2d045a2ed18512a03e8e
     m_Address: Click_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 586cef31e0b74084288dc1ab6c56623d
+    m_Address: Burn_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67da51a401dc1b64082a87b820ed9c00
+    m_Address: Drop
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
@@ -59,6 +77,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b785d868f1641ae41a7e7158e7a88485
     m_Address: Access_Denied_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dca1f06ca38a20e48a5210ed30c6120c
+    m_Address: Burn_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecfa7322d400e434589eb0c0088a9a0e
+    m_Address: Book_2
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX

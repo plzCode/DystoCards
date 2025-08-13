@@ -47,6 +47,7 @@ public class MouseInput : MonoBehaviour
                 selectedCard = card;
                 Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 selectedCard.StartDragging(mouseWorld);
+                AudioManager.Instance.PlaySFX("Click_3");
             }
         }
         else if (Input.GetMouseButton(0) && selectedCard != null)
@@ -58,6 +59,7 @@ public class MouseInput : MonoBehaviour
         {
             selectedCard.EndDragging();
             selectedCard = null;
+            AudioManager.Instance.PlaySFX("Click_3");
         }
 
         // 우클릭 카드 삭제
@@ -86,6 +88,7 @@ public class MouseInput : MonoBehaviour
 
                             // 패널 보이기
                             UIManager.Instance.TogglePanel(infoPanel);
+                            AudioManager.Instance.PlaySFX("Book_1");
 
                             // 카드 정보 초기화
                             infoPanel.GetComponent<CardInfoUI>().Initialize(card.gameObject);
