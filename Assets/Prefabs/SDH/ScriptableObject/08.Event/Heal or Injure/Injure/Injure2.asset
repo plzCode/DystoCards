@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbebd79220c40cc46a2e4efccf3f5482, type: 3}
-  m_Name: Heal
+  m_Name: Injure2
   m_EditorClassIdentifier: 
   cardId: 
-  cardName: Heal
+  cardName: Injure
   cardImage: {fileID: 0}
   cardType: 7
-  description: Heal
-  functionKey: Heal
+  description: "\uC2E0\uAE30\uD558\uAC8C \uC0DD\uAE34 \uBC84\uC12F\uC744 \uBC1C\uACAC\uD588\uC2B5\uB2C8\uB2E4.\\n\uBA39\uC744\uAE4C?"
+  size: 0
+  functionKey: Injure
+  eventResult: "\uBC84\uC12F\uC73C\uB85C \uB053\uC778 \uC2A4\uD504\uB97C \uBA39\uC740
+    \uC0DD\uC870\uC790\uB4E4\uC740 \uBCF5\uD1B5\uC5D0 \uC2DC\uB2EC\uB838\uB2E4."
