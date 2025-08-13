@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6905650449602669803}
-  - component: {fileID: 2789160912971716032}
+  - component: {fileID: 2730680156196216971}
   m_Layer: 0
   m_Name: CombinationManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2789160912971716032
+--- !u!114 &2730680156196216971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3932471994563659611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 685971d9f335e194f9ee9a91e43679e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ce204a94b4f22a4faf9ebe3daf80a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
-  - {fileID: 11400000, guid: e45935626060ca34bad1c491439ed54c, type: 2}
-  cardPrefab: {fileID: 2847533782095384242, guid: 192640ba66cb0174783915bea1393f0d, type: 3}
-  cardDataA: {fileID: 0}
-  cardDataB: {fileID: 0}
+  - {fileID: 11400000, guid: 2b9c2dd700b3fac4fba254603d5a4bed, type: 2}
+  - {fileID: 11400000, guid: 67f1f8d739a2c7d40bf868dd3201e3ae, type: 2}
+  fieldCards: {fileID: 0}

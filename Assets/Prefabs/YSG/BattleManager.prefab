@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6226988127601251254}
   - component: {fileID: 9082169603565959092}
   - component: {fileID: 1273100675344278833}
+  - component: {fileID: 2005883479922365618}
   - component: {fileID: 133765468524865252}
   m_Layer: 0
   m_Name: BattleArea
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1614885307
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.39215687}
@@ -135,6 +136,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &2005883479922365618
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842897043688346038}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!114 &133765468524865252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,10 +225,22 @@ MonoBehaviour:
   battleArea: {fileID: 6226988127601251254}
   spawnArea: {fileID: 3764133697349035906}
   spawnList:
-  - prefab: {fileID: 8496976044789702832, guid: 7b98cd2b63e7e6347a0a7a0fca4704f5, type: 3}
-    spawnProbability: 50
-  - prefab: {fileID: 8496976044789702832, guid: 5e5dbc9588828884b84b2ba844b9af39, type: 3}
-    spawnProbability: 50
+  - cardData: {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: c4c2ff56dc4d542489a2e88a5eb1ce65, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 932d53127118a24439940b240752fb04, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 2fbd65552c9757940ace171f71acdf2d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 146f653a41a81db47a99d6340c82e15e, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: bae6e0cfc2649da44a8e5b165c9c301d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 55b3a37bfce9387439b0e2c1b3ada17d, type: 2}
+    spawnProbability: 0
+  - cardData: {fileID: 11400000, guid: 60f976845413fb443911972f3ef81e76, type: 2}
+    spawnProbability: 100
   humans: []
   monsters: []
 --- !u!1 &7240948860794185740
@@ -230,7 +270,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 6, z: 1}
+  m_LocalScale: {x: 1, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6061415237212470753}

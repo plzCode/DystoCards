@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
+  m_Name: Mon902_Logger
+  m_EditorClassIdentifier: 
+  cardId: 902
+  cardName: "\uBAA9\uC218"
+  cardImage: {fileID: 0}
+  cardType: 6
+  description: 
+  size: 1
+  characterType: 2
+  max_health: 12
+  current_health: 12
+  attack_power: 3
+  defense_power: 2
+  moveSpeed: 1
+  act: 0
+  dropList:
+  - item: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+    chance: 50
+    minCount: 1
+    maxCount: 2
+    isOnly: 0
+  - item: {fileID: 11400000, guid: 8404d5318b8eb024486f5da819cab954, type: 2}
+    chance: 75
+    minCount: 0
+    maxCount: 1
+    isOnly: 1
+  - item: {fileID: 11400000, guid: b24c8bc3b33cdc644b2b21fc3a6c284f, type: 2}
+    chance: 15
+    minCount: 0
+    maxCount: 1
+    isOnly: 1
+  - item: {fileID: 11400000, guid: 9fc4f99990071fe43955b912469d6222, type: 2}
+    chance: 5
+    minCount: 0
+    maxCount: 1
+    isOnly: 1

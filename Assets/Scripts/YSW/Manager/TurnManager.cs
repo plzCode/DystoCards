@@ -86,7 +86,7 @@ public class TurnManager : MonoBehaviour
         switch (phase)
         {
             case TurnPhase.EventDraw:
-                Debug.Log("Draw an event card.");
+                //Debug.Log("Draw an event card.");
                 break;
             case TurnPhase.DayAction:
                 Debug.Log("Player can act during the day.");
@@ -158,7 +158,7 @@ public class TurnManager : MonoBehaviour
         // 두 번째 액션: 플레이어가 스페이스 누르면 완료
         RegisterPhaseAction(TurnPhase.EventDraw, () =>
         {
-            Debug.Log("Action 2 시작 - 스페이스 키를 누르면 완료");
+            //Debug.Log("Action 2 시작 - 스페이스 키를 누르면 완료");
             StartCoroutine(WaitForSpaceKey());
         });
     }

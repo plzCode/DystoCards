@@ -360,10 +360,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 16299036}
     - target: {fileID: 8842862779072827514, guid: 7d95b01b54005484fba010bd89ee82cc, type: 3}
-      propertyPath: cardUIPrefab
-      value: 
-      objectReference: {fileID: 6920553070491397939, guid: 14707df2c6e497043b5ff092330d52e2, type: 3}
-    - target: {fileID: 8842862779072827514, guid: 7d95b01b54005484fba010bd89ee82cc, type: 3}
       propertyPath: contentParent
       value: 
       objectReference: {fileID: 734466514}
@@ -55226,6 +55222,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2730680156196216971, guid: 89f970a11832b8b4a83aa3337a25804f, type: 3}
+      propertyPath: fieldCards
+      value: 
+      objectReference: {fileID: 1345077517}
     - target: {fileID: 2789160912971716032, guid: 89f970a11832b8b4a83aa3337a25804f, type: 3}
       propertyPath: fieldCards
       value: 
@@ -58193,9 +58193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436c9be52922875478ed3f6be3d5cde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  techCard: {fileID: 11400000, guid: 0ebe782515ebe9b469d07068b7850447, type: 2}
-  techObject: {fileID: 0}
-  techResultPrefab: {fileID: 5168264262291691275, guid: 5dd23a0ed765d094e9a4aa1c10639b13, type: 3}
+  techCard: {fileID: 11400000, guid: c71c71e112935a947b590213cc63220e, type: 2}
+  techRecipe: {fileID: 0}
+  recipeCard: {fileID: 0}
+  beforeRecipe: {fileID: 0}
   techTooltipUI: {fileID: 6434548441932491841}
   uiToClose: {fileID: 1313127285}
 --- !u!114 &496835689700769521
@@ -60111,7 +60112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6460182799727912258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60529,10 +60530,6 @@ PrefabInstance:
       propertyPath: cardParent
       value: 
       objectReference: {fileID: 1345077518}
-    - target: {fileID: 2030355039963530374, guid: 5adb9aeb0deaf014a85721e58eb769ec, type: 3}
-      propertyPath: cardPrefab
-      value: 
-      objectReference: {fileID: 4000751698715465155, guid: 6c0275ae47035014da8282aff321c10f, type: 3}
     - target: {fileID: 6354110347429500089, guid: 5adb9aeb0deaf014a85721e58eb769ec, type: 3}
       propertyPath: m_Name
       value: CardManager
