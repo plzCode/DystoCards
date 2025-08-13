@@ -9,6 +9,8 @@ public class ExploreManager : MonoBehaviour
     public List<Human> registedHumans = new List<Human>();
     // 탐사를 나간 사람을 저장
     public List<Human> exploringHumans = new List<Human>();
+    // 탐사 중인 정보 저장
+    public List<ExploringInfo> exploringInfos = new List<ExploringInfo>();
     public static ExploreManager Instance { get; private set; }
 
     public List<MinimapIcon> mapLocationList;
@@ -109,6 +111,8 @@ public class ExploreManager : MonoBehaviour
 
     private void ProcessExploreEnd()
     {
+       
+
         List<ExplorationData> completed = new List<ExplorationData>();
 
         foreach (var data in registeredExplorations)
@@ -137,6 +141,21 @@ public class ExploreManager : MonoBehaviour
             OnExploreCompleted?.Invoke(data);
             data.human.ConsumeStamina(data.location.requiredStamina);
 
+        }
+        ExpressDuringDays();
+
+    }
+
+    private void ExpressDuringDays()
+    {
+        Debug.Log("남은일짜 검사기");
+        foreach (var exploringInfo in exploringInfos)
+        {
+            
+            if (exploringInfo.gameObject.activeSelf)
+            {
+                exploringInfo.RefreshRemainDays();
+            }
         }
     }
 

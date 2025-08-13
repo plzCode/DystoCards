@@ -30,13 +30,13 @@ public class ExploringInfo : MonoBehaviour
         UIBarUtility.SetBarColor(remainDaysBar, data.remainingDays, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(locationDangerBar, locationInfo.dangerLevel, UIBarUtility.WarningColor);
 
-        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, () => { });
-        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreEnd, () => RefreshRemainDays());
+        
 
     }
 
     public void RefreshRemainDays()
     {
+        Debug.Log("_______Ä¥ÇÏ±â_______");
         UIBarUtility.SetBarColor(remainDaysBar, Data.remainingDays, UIBarUtility.StrengthColor);
     }
 }
