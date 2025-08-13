@@ -15,6 +15,7 @@
 /[Mm]emoryCaptures/
 
 /Assets/Resources/
+/Assets/Resources_moved/
 
 # Recordings can get excessive in size
 /[Rr]ecordings/
@@ -489,3 +490,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/unity,windows,visualstudio
+Assets/Scripts/YSW/Dissolve.cs

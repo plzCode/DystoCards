@@ -189,7 +189,7 @@ MonoBehaviour:
   iconPrefab: {fileID: 7321745616647998877, guid: e40b55d9080a9964683055f397c2d988, type: 3}
   maxIconWidth: 32
   minIconWidth: 10
-  filledColor: {r: 0, g: 1, b: 0, a: 1}
+  filledColor: {r: 1, g: 1, b: 1, a: 1}
   emptyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &2560920014270396114
 GameObject:

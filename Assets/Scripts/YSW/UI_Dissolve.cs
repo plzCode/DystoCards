@@ -2,30 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Dissolve : MonoBehaviour
+public class UI_Dissolve : MonoBehaviour
 {
     [SerializeField] private float _dissolveTime = 0.75f;
 
-    [SerializeField] private List<SpriteRenderer> _spriteRenderers;
-    private List<Material> _materials;
+    [SerializeField] private List<Image> _image;
+    [SerializeField] private List<Material> _materials;
 
-    [SerializeField] private Transform _name;
-    [SerializeField] private Transform _stats;
+    public Material material_Effect;
 
     private int _dissolveAmount = Shader.PropertyToID("_DissolveAmount");
     private int _verticalDissolveAmount = Shader.PropertyToID("_VerticalDissolve");
 
+    [SerializeField] private List<Transform> transforms;
+
     private void Start()
-    {
-        //_spriteRenderers = GetComponentInChildren<SpriteRenderer>();
+    {   
         _materials = new List<Material>();
 
-        if (_spriteRenderers != null)
+        if (_image != null && material_Effect != null)
         {
-            foreach (var spriteRenderer in _spriteRenderers)
+            foreach (var image in _image)
             {
-                _materials.Add(spriteRenderer.material);
+                image.material = material_Effect;
+                _materials.Add(image.material);
             }
         }
 
@@ -54,7 +56,7 @@ public class Dissolve : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             float lerpedDissolve = Mathf.Lerp(0f, 1.1f, (elapsedTime / _dissolveTime));
-            float lerpedVerticalDissolve = Mathf.Lerp(0f, 2.0f, (elapsedTime / _dissolveTime));
+            float lerpedVerticalDissolve = Mathf.Lerp(0f, 1.2f, (elapsedTime / _dissolveTime));
 
             if (useDissolve)
             {
@@ -71,10 +73,10 @@ public class Dissolve : MonoBehaviour
                     _materials[i].SetFloat(_verticalDissolveAmount, lerpedVerticalDissolve);
                     if (lerpedVerticalDissolve >= 0.4f)
                     {
-                        if (_name.gameObject.activeSelf)
+                        //Àý¹ÝÂë µÉ ¶§ ²¨µÑ Transform
+                        foreach(var obj in transforms)
                         {
-                            _name.gameObject.SetActive(false);
-                            _stats.gameObject.SetActive(false);
+                            obj.gameObject.SetActive(false);
                         }
                     }
                 }
@@ -82,7 +84,6 @@ public class Dissolve : MonoBehaviour
 
             yield return null;
         }
-
 
     }
 
@@ -112,10 +113,10 @@ public class Dissolve : MonoBehaviour
                     _materials[i].SetFloat(_verticalDissolveAmount, lerpedVerticalDissolve);
                     if (lerpedVerticalDissolve >= 0.4f)
                     {
-                        if(!_name.gameObject.activeSelf)
+                        foreach(var obj in transforms)
                         {
-                            _name.gameObject.SetActive(true);
-                            _stats.gameObject.SetActive(true);
+                            //Àý¹Ý Âë µÉ ‹š ³ªÅ¸³¾ Transform
+                            obj.gameObject.SetActive(true);
                         }
                     }
                 }
@@ -123,7 +124,7 @@ public class Dissolve : MonoBehaviour
                 yield return null;
             }
 
-
+            
         }
     }
 }
