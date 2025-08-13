@@ -7,38 +7,55 @@ public class CharacterCard2D : MonoBehaviour
     private Human human;
     private CharacterTaskRunner runner;
     private readonly HashSet<string> completed = new();
+    private bool restedThisTurn = false;
 
     private void Awake() => human = GetComponent<Human>();
 
     public void SetRunner(CharacterTaskRunner r) => runner = r;
 
-    public void ClearCompleted() => completed.Clear();
+    public void ClearCompleted()
+    {
+        completed.Clear();
+        restedThisTurn = false;                          
+    }
 
     public bool CanDo(FacilityAction act)
     {
-        bool ok = !completed.Contains(act.id) && human.currentStamina >= act.cost;
+        if (restedThisTurn) return false;
+        if (completed.Contains(act.id)) return false;
 
-        Debug.Log($"[CanDo] {name} vs {act.label}  "
-                  + $"Stamina {human.currentStamina}/{act.cost}, "
-                  + $"done? {completed.Contains(act.id)}  ⇒ {ok}");
+        bool ok;
+        if (act.cost < 0) // 휴식(음수=회복)
+            ok = !completed.Contains(act.id); // 최대치 미만일 때만
+        else              // 작업(양수=소모)
+            ok = !completed.Contains(act.id) && human.currentStamina >= act.cost;
 
+        Debug.Log($"[CanDo] {name} vs {act.label}  " +
+                  $"Stamina {human.currentStamina}/{act.cost}, done? {completed.Contains(act.id)} ⇒ {ok}");
         return ok;
 
     }
 
     public void DoAction(FacilityAction act)
     {
-        if (completed.Contains(act.id)) return;    // 같은 턴 중복 방지
+        if (completed.Contains(act.id) || restedThisTurn) return;
 
-        if (act.cost < 0)       // 휴식 : 회복
-            human.currentStamina = Mathf.Min(
-                human.currentStamina - act.cost,   // -(-2)=+2
-                human.currentStamina + 999);       // 상한선 모르므로 큰 값
-        else                    // 농사·제작 : 소모
-            human.currentStamina = Mathf.Max(
-                0, human.currentStamina - act.cost);
+        if (human == null || human.humanData == null)
+        {
+            Debug.LogError("[Action] Human or humanData is null on " + name);
+            return;
+        }
 
-        Debug.Log($"[Stm] {name} → {human.currentStamina}");
+        if (act.cost < 0)
+        {              // 휴식: 비용이 음수면 회복량
+            human.RecoverStamina(-act.cost);
+            restedThisTurn = true;       // 그날 더 이상 작업 불가
+        }
+        else
+        {
+            if (human.currentStamina < act.cost) return; // 안전검사
+            human.ConsumeStamina(act.cost);
+        }
 
         completed.Add(act.id);
         runner?.RecalcActionable();
@@ -51,5 +68,9 @@ public class CharacterCard2D : MonoBehaviour
         return false;
     }
 
-    public void ResetTurn() => completed.Clear();
+    public void ResetTurn()
+    {
+        completed.Clear();
+        restedThisTurn = false;
+    }
 }

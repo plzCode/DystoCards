@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: 
   cardName: Farm
   cardImage: {fileID: 0}
-  cardType: 4
+  cardType: 9
   description: 
   size: 1
   facilityType: 0

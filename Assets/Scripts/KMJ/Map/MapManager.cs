@@ -12,9 +12,9 @@ public class MapManager : MonoBehaviour
     public int width = 18;
     public int height = 10;
 
-    [Header("Initial Unlocked 10×6")]
-    public int initWidth = 10;
-    public int initHeight = 6;
+    [Header("Initial Unlocked")]
+    public int initWidth = 16;
+    public int initHeight = 8;
 
     [Header("Tile Prefab (TileState)")]
     public TileState tilePrefab;
@@ -39,6 +39,7 @@ public class MapManager : MonoBehaviour
     private void InitGrid()
     {
         if (!background) { Debug.LogError("background 연결 필요"); return; }
+        if (!tilePrefab) { Debug.LogError("[Map] tilePrefab is not assigned."); return; }
 
         /* 1) 셀 크기 & 원점 */
         Vector2 tileSize = new(
@@ -87,6 +88,8 @@ public class MapManager : MonoBehaviour
     public void TryUnlock(TileState tile)
     {
         // 자원이 부족할 때
+        if (tile == null) return;
+
         if (currentResource < costPerTile)
         {
             Debug.Log($"자원 부족! ({currentResource}/{costPerTile}) — {tile.name} 확장 실패");
@@ -162,7 +165,82 @@ public class MapManager : MonoBehaviour
         Debug.Log("모든 맵이 확장되었습니다!");
     }
 
-    /* ───────── 유틸 ───────── */
+    /* ───────── Tile/World utilities (pivot-agnostic) ───────── */
+
+    // bounds 기반 크기/원점(좌상단) — 스프라이트 Pivot이 어디든 동일 결과
+    private Vector2 TileSize => new(
+        background.bounds.size.x / width,
+        background.bounds.size.y / height);
+
+    private Vector2 OriginTL => new( // 좌상단
+        background.bounds.min.x,
+        background.bounds.max.y);
+
+    public bool WorldToCell(Vector3 world, out int x, out int y)
+    {
+        var s = TileSize; var o = OriginTL;
+        x = Mathf.FloorToInt((world.x - o.x) / s.x);
+        y = Mathf.FloorToInt((o.y - world.y) / s.y); // y 반전
+        return InBounds(x, y);
+    }
+
+    public Vector3 CellCenter(int x, int y)
+    {
+        var s = TileSize; var o = OriginTL;
+        return new Vector3(o.x + (x + 0.5f) * s.x, o.y - (y + 0.5f) * s.y, 0f);
+    }
+
+    public Rect GetCellWorldRect(int x, int y)
+    {
+        var s = TileSize; var o = OriginTL;
+        float xMin = o.x + x * s.x;
+        float yMax = o.y - y * s.y;
+        return Rect.MinMaxRect(xMin, yMax - s.y, xMin + s.x, yMax);
+    }
+
+    public bool IsUnlockedCell(int x, int y)
+        => InBounds(x, y) && grid[x, y].Current == TilePhase.Unlocked;
+
+    public bool TrySnapToUnlocked(Vector3 world, out Vector3 snapped)
+    {
+        if (WorldToCell(world, out int x, out int y) && IsUnlockedCell(x, y))
+        {
+            snapped = CellCenter(x, y);
+            return true;
+        }
+        snapped = default;
+        return false;
+    }
+
+    /// <summary>
+    /// 카드의 월드 바운즈가 겹치는 **모든** 셀이 Unlocked 인지 검사.
+    /// 검은(잠김) 타일과 1픽셀이라도 겹치면 false.
+    /// </summary>
+    public bool AreAllCellsUnlocked(Bounds b)
+    {
+        var s = TileSize; var o = OriginTL;
+        const float eps = 1e-4f;
+
+        int x0 = Mathf.FloorToInt((b.min.x - o.x) / s.x);
+        int x1 = Mathf.FloorToInt(((b.max.x - eps) - o.x) / s.x);
+        int y0 = Mathf.FloorToInt((o.y - (b.max.y - eps)) / s.y);
+        int y1 = Mathf.FloorToInt((o.y - b.min.y) / s.y);
+
+        for (int y = y0; y <= y1; y++)
+        {
+            for (int x = x0; x <= x1; x++)
+            {
+                if (!InBounds(x, y) || grid[x, y].Current != TilePhase.Unlocked)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    /* ───────── Helpers ───────── */
     private bool InBounds(int x, int y)
         => x >= 0 && x < width && y >= 0 && y < height;
+
+    // (선택) 외부가 현재 타일 상태를 조회할 때 쓰는 getter
+    public TileState GetTile(int x, int y) => InBounds(x, y) ? grid[x, y] : null;
 }
