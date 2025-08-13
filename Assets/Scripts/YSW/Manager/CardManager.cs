@@ -173,7 +173,6 @@ public class CardManager : MonoBehaviour
                 var heal = obj.AddComponent<HealCard2D>();
                 heal.cardData = data;
                 return heal;
-                break;
             case CardType.Furniture:
                 if (data.cardId == "055" || data.cardId == "052" || data.cardId == "056")
                 {

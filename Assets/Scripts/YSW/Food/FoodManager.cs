@@ -22,5 +22,6 @@ public class FoodManager : MonoBehaviour
             }
         }
 
+        TurnManager.Instance.MarkActionComplete();
     }
 }

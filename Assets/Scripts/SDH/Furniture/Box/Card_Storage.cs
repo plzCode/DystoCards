@@ -234,5 +234,7 @@ public class Card_Storage : MonoBehaviour
                 foodCardData.shelfLifeTurns++;
             }
         }
+
+        TurnManager.Instance.MarkActionComplete();
     }
 }
