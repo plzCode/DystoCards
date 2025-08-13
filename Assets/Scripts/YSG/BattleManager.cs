@@ -21,7 +21,7 @@ public class BattleManager : MonoBehaviour
 
     [Space]
     public List<Human> humans = new List<Human>();
-    public List<TestMonster> monsters = new List<TestMonster>();
+    public List<MonsterAct> monsters = new List<MonsterAct>();
 
     public bool inBattle { get; private set; } = false;
 
@@ -49,8 +49,24 @@ public class BattleManager : MonoBehaviour
         humans.RemoveAll(h => h == null);
         monsters.RemoveAll(m => m == null);
 
-        if (Input.GetKeyUp(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
+        {
             SpawnMonster();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Y)) // 아이템 드랍 테스트 (임시)
+        {
+            SpawnMonster();
+            foreach (Transform child in cards)
+                child.GetComponent<Character>()?.Die();
+        }
+
+        if (Input.GetKeyUp(KeyCode.U)) // 모든 카드 제거 (임시)
+        {
+            foreach (Transform child in cards)
+                CardManager.Instance.DestroyCard(child.GetComponent<Card2D>());
+
+        }
     }
 
     #region 소환
@@ -76,7 +92,17 @@ public class BattleManager : MonoBehaviour
                 if (card != null)
                 {
                     card.GetComponent<Card2D>().isStackable = false;
-                    card.AddComponent<TestMonster>();
+
+                    MonsterCardData mon = card.cardData as MonsterCardData;
+
+                    switch (mon.Act)
+                    {
+                        case MonsterActionType.Default:
+                            card.AddComponent<MonsterAct>(); break;
+                        case MonsterActionType.ItemSteal:
+                            card.AddComponent<MonsterSteal>(); break;
+                    }
+
                     card.transform.SetParent(cards);
                 }
             }
@@ -201,7 +227,7 @@ public class BattleManager : MonoBehaviour
                 if (attacker == null) continue;
 
                 if (attacker is Human human && !humans.Contains(human)) continue;
-                if (attacker is TestMonster monster && !monsters.Contains(monster)) continue;
+                if (attacker is MonsterAct monster && !monsters.Contains(monster)) continue;
 
                 Character target = null;
 
@@ -210,7 +236,7 @@ public class BattleManager : MonoBehaviour
                     if (monsters.Count == 0) break;
                     target = monsters[Random.Range(0, monsters.Count)];
                 }
-                else if (attacker is TestMonster)
+                else if (attacker is MonsterAct)
                 {
                     if (humans.Count == 0) break;
                     target = humans[Random.Range(0, humans.Count)];
@@ -256,13 +282,29 @@ public class BattleManager : MonoBehaviour
             var sr = c.GetComponent<SpriteRenderer>();
             if (sr != null) sr.color = Color.white;
 
-            if (c is TestMonster monster)
+            if (c.charData.characterType == CharacterType.Human)
             {
-                monster.ChaseTarget();
-            }
+                var humanCard = c.GetComponent<Card2D>();
 
-            var card = c.GetComponent<Card2D>();
-            if (card != null) card.isStackable = true;
+                humanCard.isStackable = true;
+            }
+            else if (c.charData.characterType == CharacterType.Monster)
+            {
+                var monsterCard = c.GetComponent<Card2D>();
+
+                var monsterData = monsterCard.cardData as MonsterCardData;
+                if (monsterData == null) continue;
+
+                switch (monsterData.Act)
+                {
+                    case MonsterActionType.Default:
+                        c.GetComponent<MonsterAct>().ChaseTarget();
+                        break;
+                    case MonsterActionType.ItemSteal:
+                        c.GetComponent<MonsterSteal>().RunAway();
+                        break;
+                }
+            }
         }
     }
     #endregion
@@ -284,7 +326,7 @@ public class BattleManager : MonoBehaviour
 
     public void Unstack(Card2D card)
     {
-        if (card.cardData is HumanCardData) card.isStackable = false;
+        if (card.cardData.cardType == CardType.Character) card.isStackable = false;
         card.transform.SetParent(cards);
 
         if (card.parentCard != null)

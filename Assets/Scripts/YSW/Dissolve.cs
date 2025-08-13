@@ -54,7 +54,7 @@ public class Dissolve : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             float lerpedDissolve = Mathf.Lerp(0f, 1.1f, (elapsedTime / _dissolveTime));
-            float lerpedVerticalDissolve = Mathf.Lerp(0f, 1.1f, (elapsedTime / _dissolveTime));
+            float lerpedVerticalDissolve = Mathf.Lerp(0f, 2.0f, (elapsedTime / _dissolveTime));
 
             if (useDissolve)
             {

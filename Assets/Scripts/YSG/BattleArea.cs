@@ -11,7 +11,7 @@ public class BattleArea : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (TryAddToBattle<Human>(collision, BattleManager.Instance.humans) ||
-            TryAddToBattle<TestMonster>(collision, BattleManager.Instance.monsters, stopCoroutines: true))
+            TryAddToBattle<MonsterAct>(collision, BattleManager.Instance.monsters, stopCoroutines: true))
         {
             BattleManager.Instance.Arrange();
             return;
@@ -26,7 +26,7 @@ public class BattleArea : MonoBehaviour
         if (collision.TryGetComponent(out Card2D card))
         {
             if (!collision.TryGetComponent(out Human _) &&
-                !collision.TryGetComponent(out TestMonster _))
+                !collision.TryGetComponent(out MonsterAct _))
                 PushOutside(card);
         }
     }
@@ -49,7 +49,7 @@ public class BattleArea : MonoBehaviour
     {
         if (collision.TryGetComponent(out T comp) && !list.Contains(comp))
         {
-            if (stopCoroutines && comp is TestMonster monster)
+            if (stopCoroutines && comp is MonsterAct monster)
                 monster.StopAllCoroutines();
 
             list.Add(comp);

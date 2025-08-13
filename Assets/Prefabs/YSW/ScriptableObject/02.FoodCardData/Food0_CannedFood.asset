@@ -21,3 +21,9 @@ MonoBehaviour:
   hungerRestore: 3
   isPerishable: 0
   shelfLifeTurns: 50
+  audioRef:
+    m_AssetGUID: 845069e0cbe8fcb4492510f0996819d6
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

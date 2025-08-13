@@ -42,7 +42,7 @@ public class CardManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SpawnCardById("031", new Vector3(0, 0, 0));
+            SpawnCardById("0391", new Vector3(0, 0, 0));
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -175,6 +175,14 @@ public class CardManager : MonoBehaviour
                 return heal;
                 break;
             case CardType.Furniture:
+                if (data.cardId == "055" || data.cardId == "052" || data.cardId == "056")
+                {
+                    obj.AddComponent<Card_Storage>();
+                }
+                else if (data.cardId == "051")
+                {
+                    obj.AddComponent<Card_Bed>();
+                }
                 break;
             case CardType.Character:
                 if (data is HumanCardData humanData)
