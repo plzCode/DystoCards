@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38d458f782d30484dbe4c6b538aaa799, type: 3}
+  m_Name: Axe_2
+  m_EditorClassIdentifier: 
+  cardId: 063005
+  cardName: "\uB3C4\uB07C (\uB3CC)"
+  cardImage: {fileID: 0}
+  cardType: 5
+  description: 
+  size: 1
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
+    quantity: 2
+  - ingredient: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+    quantity: 1
+  - ingredient: {fileID: 11400000, guid: f30dfc46b7ec20d40a223e242fc097b9, type: 2}
+    quantity: 1
+  result: {fileID: 11400000, guid: b24c8bc3b33cdc644b2b21fc3a6c284f, type: 2}
+  scriptName: 

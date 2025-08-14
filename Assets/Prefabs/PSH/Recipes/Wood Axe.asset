@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d458f782d30484dbe4c6b538aaa799, type: 3}
   m_Name: Wood Axe
   m_EditorClassIdentifier: 
-  cardId: 0611
+  cardId: 061111111
   cardName: Recipe
   cardImage: {fileID: 0}
   cardType: 5

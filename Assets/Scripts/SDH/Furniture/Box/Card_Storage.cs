@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 카드 저장소 박스 클래스
@@ -185,11 +186,14 @@ public class Card_Storage : MonoBehaviour
                 cardUI.box = this;
             }
 
-            // 카드 이름 표시
-            TMP_Text tmp = go.GetComponentInChildren<TMP_Text>();
-            if (tmp != null)
+            Image img = go.GetComponentInChildren<Image>();
+            if (img != null)
             {
-                tmp.text = childCard.RuntimeData.cardName;
+                var cardRenderer = childCard.GetComponent<CardUIRenderer>();
+                if (cardRenderer != null)
+                {
+                    img.sprite = cardRenderer.cardImage.sprite; // childCard의 CardUIRenderer에서 sprite 가져오기
+                }
             }
         }
     }
@@ -200,6 +204,9 @@ public class Card_Storage : MonoBehaviour
     public void RemoveCard(Card2D card)
     {
         childCards.Remove(card);
+
+        // 카드 비활성화 (시각적으로만)
+        card.gameObject.SetActive(true);
 
         // 부모를 원래 위치로
         card.transform.SetParent(this.transform.parent);

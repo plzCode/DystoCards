@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 00100
   cardName: Axe_tech
-  cardImage: {fileID: 0}
+  cardImage: {fileID: -6449723894494966426, guid: 4b0c9a7b28b4a9c4492fecfb01f099df, type: 3}
   cardType: 0
   description: 
   size: 1
