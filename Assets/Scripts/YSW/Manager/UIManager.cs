@@ -261,4 +261,16 @@ public class UIManager : MonoBehaviour
         Cursor.SetCursor(denyCursor, cursorHotspot, CursorMode.Auto);
     }
     #endregion
+
+    public void InteractCard(bool boolean)
+    {
+        if (boolean && mouseInput != null)
+        {            
+                mouseInput.SetInteractionLayers(defaultInteractableMask, defaultCardMask);
+        }
+        else
+        {
+                mouseInput.SetInteractionLayers(uiOnlyInteractableMask, uiOnlyCardMask);
+        }
+    }
 }

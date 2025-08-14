@@ -35,14 +35,6 @@ public class AudioManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlaySFX("Bite_Potato");
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            PlayBGM("Bite_Potato");
-        }
     }
 
     #region Addressables Load

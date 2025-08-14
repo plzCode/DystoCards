@@ -46,7 +46,7 @@ public class CardManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SpawnCardById("051", new Vector3(0, 0, 0));
+            SpawnCardById("055", new Vector3(0, 0, 0));
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -173,7 +173,6 @@ public class CardManager : MonoBehaviour
                 var heal = obj.AddComponent<HealCard2D>();
                 heal.cardData = data;
                 return heal;
-                break;
             case CardType.Furniture:
                 if (data.cardId == "055" || data.cardId == "052" || data.cardId == "056")
                 {
@@ -277,4 +276,26 @@ public class CardManager : MonoBehaviour
         }
         return result;
     }
+
+    public void OneDayElapse()
+    {        
+        List<Card2D> humans = GetCharacterType(GetCardsByType(CardType.Character), CharacterType.Human);
+        foreach(var human in humans)
+        {
+            Human _human = human.GetComponent<Human>();
+            if (human.RuntimeData != null && human.RuntimeData is HumanCardData humanData && _human !=null) //굳이굳이 사람인지 3번이나 확인하는 중
+            {
+                // 하루가 지남에 따라 허기, 정신력 감소
+                _human.ConsumeFood();                
+                _human.TakeStress(1f); // 기준 정해야함
+                _human.RecoverStamina(3f); // 기준 정해야함
+
+                // 허기나 정신력이 0 이하로 떨어지면 사망 처리
+                if (humanData.CurrentHunger <= 0 || humanData.CurrentMentalHealth <= 0)
+                {
+                    _human.Die();
+                }
+            }
+        }
+    }    
 }

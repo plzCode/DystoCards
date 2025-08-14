@@ -476,6 +476,8 @@ MonoBehaviour:
   _spriteRenderers:
   - {fileID: 1381732172787991240}
   - {fileID: 3965344676845817083}
+  _images:
+  - {fileID: 1246091622308120956}
   _name: {fileID: 7636629730321579360}
   _stats: {fileID: 6773551183848553881}
 --- !u!1 &6574487098494112633
@@ -1099,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 8bc268f8714149b46849520602be1782, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
