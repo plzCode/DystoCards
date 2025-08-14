@@ -11,6 +11,8 @@ public class Recorder : MonoBehaviour
     private readonly List<HumanRecordInfo> _humanRecords = new List<HumanRecordInfo>();
     public IReadOnlyList<HumanRecordInfo> HumanRecords => _humanRecords.AsReadOnly();
 
+    public List<EventLog> eventLogs = new List<EventLog>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -49,6 +51,10 @@ public class Recorder : MonoBehaviour
         {
             human.SetDeath(cause, day);
         }
+    }
+    public void RecordEvent(string contents, int Day)
+    {
+        eventLogs.Add(new EventLog(contents, Day));
     }
 }
 

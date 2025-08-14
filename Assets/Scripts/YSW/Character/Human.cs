@@ -77,7 +77,7 @@ public class Human : Character
         Debug.Log($"{charData.cardName} consumed {amount} stamina. Remaining: {currentStamina}/{humanData.Stamina}");
     }
 
-    public void RecoverStamina(float amount)
+    public void RecoverStamina(float amount) //
     {
         currentStamina = Mathf.Min(humanData.Stamina, currentStamina + amount);
         humanData.Stamina = currentStamina;
@@ -177,6 +177,7 @@ public class Human : Character
         EquipmentCardData itemData = equippedItems[slot];
         GameObject itemObject = equippedObjects[slot];
 
+        itemObject.transform.SetParent(CardManager.Instance.cardParent); 
 
         // 스탯 제거
         RemoveEquipmentStats(itemData);

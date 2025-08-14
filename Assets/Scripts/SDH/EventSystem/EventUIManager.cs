@@ -74,6 +74,8 @@ public class EventUIManager : MonoBehaviour
             // Dissolve 스크립트 없으면 그냥 비활성화
             UIManager.Instance.TogglePanel(eventResultUIPanel);
         }
+
+        Recorder.Instance.RecordEvent(currentCard.eventResult, TurnManager.Instance.TurnCount);
     }
 
     private void AcceptCard()

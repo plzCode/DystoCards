@@ -136,6 +136,10 @@ public class Card_Storage : MonoBehaviour
 
             totalSize += cardSize;
 
+            //제외할 컴포넌트 미리 등록
+            Canvas childCanvas = childCard.GetComponentInChildren<Canvas>();
+            Image image = childCanvas.gameObject.GetComponentInChildren<Image>();
+
             // 부모가 다르면 현재 박스로 설정
             if (childCard.transform.parent != this.transform)
                 childCard.transform.SetParent(this.transform);
@@ -153,6 +157,13 @@ public class Card_Storage : MonoBehaviour
             // 하위 자식들도 비활성화
             foreach (Transform child in childCard.transform)
                 child.gameObject.SetActive(false);
+            
+            if (childCanvas != null)
+            {
+                childCanvas.gameObject.SetActive(true);
+                image.gameObject.SetActive(true);
+                image.enabled = false;
+            }
         }
 
         // UI 용량 텍스트 갱신
@@ -223,6 +234,8 @@ public class Card_Storage : MonoBehaviour
         // 자식들 활성화
         foreach (Transform child in card.transform)
             child.gameObject.SetActive(true);
+
+        card.gameObject.GetComponentInChildren<Canvas>().GetComponentInChildren<Image>().enabled = true;
     }
 
     /// <summary>
