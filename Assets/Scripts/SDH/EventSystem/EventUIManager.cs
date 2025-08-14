@@ -28,7 +28,9 @@ public class EventUIManager : MonoBehaviour
         // 버튼 이벤트는 Start에서 한 번만 연결
         acceptButton.onClick.AddListener(AcceptCard);
         rejectButton.onClick.AddListener(RejectCard);
+        rejectButton.onClick.AddListener(TurnManager.Instance.MarkActionComplete);
         closeButton.onClick.AddListener(CloseResult);
+        closeButton.onClick.AddListener(TurnManager.Instance.MarkActionComplete);
 
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.EventDraw, () => OpenEventUI());
     }
@@ -41,6 +43,8 @@ public class EventUIManager : MonoBehaviour
         currentCard = EventFunctionManager.Instance.GetRandomCard();
 
         descriptionText.text = currentCard.description;
+
+        AudioManager.Instance.PlaySFX("EventActivate");
 
         // Appear 효과로 나타나게
         var dissolve = eventChoiceUIPanel.GetComponent<UI_Dissolve_Modify>();
@@ -61,7 +65,8 @@ public class EventUIManager : MonoBehaviour
     private void CloseResult()
     {
         EventFunctionManager.Instance.Execute(currentCard.functionKey);
-        //TurnManager.Instance.MarkActionComplete();
+
+        AudioManager.Instance.PlaySFX("EventActivate");
 
         // Dissolve 효과로 사라지게
         var dissolve = eventResultUIPanel.GetComponent<UI_Dissolve_Modify>();
@@ -89,6 +94,8 @@ public class EventUIManager : MonoBehaviour
     /// </summary>
     private IEnumerator AcceptCardRoutine()
     {
+        AudioManager.Instance.PlaySFX("EventActivate");
+
         // Dissolve 효과로 사라지게
         var dissolveVanish = eventChoiceUIPanel.GetComponent<UI_Dissolve_Modify>();
         if (dissolveVanish != null)
@@ -101,6 +108,8 @@ public class EventUIManager : MonoBehaviour
 
         // 잠깐 대기 (0.5초 예시)
         yield return new WaitForSeconds(0.5f);
+
+        AudioManager.Instance.PlaySFX("EventActivate");
 
         // Appear 효과로 나타나게
         var dissolveAppear = eventResultUIPanel.GetComponent<UI_Dissolve_Modify>();
@@ -116,6 +125,8 @@ public class EventUIManager : MonoBehaviour
     /// </summary>
     private void RejectCard()
     {
+        AudioManager.Instance.PlaySFX("EventActivate");
+
         // Dissolve 효과로 사라지게
         var dissolve = eventChoiceUIPanel.GetComponent<UI_Dissolve_Modify>();
         if (dissolve != null)

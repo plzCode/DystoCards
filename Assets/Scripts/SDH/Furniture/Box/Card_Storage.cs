@@ -20,13 +20,16 @@ public class Card_Storage : MonoBehaviour
     private float lastClickTime;                          // 더블 클릭 감지용 시간 기록
     private const float doubleClickThreshold = 0.3f;      // 더블 클릭 간격 임계값
     private int maxSize;                                  // 박스 최대 용량
+    
+    private bool isDragging = false;
+    private bool hasInsertedBefore = false; // 박스에 물건이 한번이라도 들어갔는지 여부
 
     // 박스 이름에 따른 용량 맵
     private readonly Dictionary<string, int> boxSizeMap = new Dictionary<string, int>()
     {
-        { "WoodBox", 10 },
-        { "SteelBox", 20 },
-        { "Refrigerator", 20 },
+        { "055", 10 }, // 나무 상자
+        { "056", 20 }, // 철 상자
+        { "052", 20 }, // 냉장고
     };
 
     private void Start()
@@ -35,11 +38,11 @@ public class Card_Storage : MonoBehaviour
         card = GetComponent<Card2D>();
 
         // 이름에 따라 maxSize 설정, 냉장고면 DayEnd 이벤트 등록
-        if (boxSizeMap.TryGetValue(card.RuntimeData.cardName, out int size))
+        if (boxSizeMap.TryGetValue(card.RuntimeData.cardId, out int size))
         {
             maxSize = size;
 
-            if (card.RuntimeData.cardName == "Refrigerator")
+            if (card.RuntimeData.cardId == "052")
                 TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayEnd, () => UpdateRefrigeratorItems());
         }
         else
@@ -63,6 +66,10 @@ public class Card_Storage : MonoBehaviour
 
     private void Update()
     {
+        // 드래그 여부는 항상 체크
+        if (card.isDragging)
+            isDragging = true;
+
         // 현재 카드 개수 확인
         int currentCardCount = GetComponentsInChildren<Card2D>(true)
             .Where(c => c != card).Count();
@@ -70,6 +77,19 @@ public class Card_Storage : MonoBehaviour
         // 카드 개수가 바뀌었을 경우
         if (lastCardCount != currentCardCount)
         {
+            bool isFirstInsert = !hasInsertedBefore && currentCardCount > 0;
+
+            // 첫 삽입이거나, 드래그 중이 아닐 때만 소리 재생
+            if (isFirstInsert || (!isDragging && currentCardCount > lastCardCount))
+            {
+                AudioManager.Instance.PlaySFX("StorageIn");
+                hasInsertedBefore = true; // 첫 삽입 기록
+            }
+
+            // 드래그 중이었다면 드래그 상태 해제
+            if (isDragging && currentCardCount > lastCardCount)
+                isDragging = false;
+
             lastCardCount = currentCardCount;
 
             // 박스 상태 및 UI 갱신
@@ -113,7 +133,7 @@ public class Card_Storage : MonoBehaviour
         int totalSize = 0;
 
         // 냉장고라면 음식 카드만 남김
-        if (card.RuntimeData.cardName == "Refrigerator")
+        if (card.RuntimeData.cardId == "052")
         {
             foreach (var c in childCards.ToList())
             {
@@ -157,7 +177,7 @@ public class Card_Storage : MonoBehaviour
             // 하위 자식들도 비활성화
             foreach (Transform child in childCard.transform)
                 child.gameObject.SetActive(false);
-            
+
             if (childCanvas != null)
             {
                 childCanvas.gameObject.SetActive(true);
@@ -236,6 +256,8 @@ public class Card_Storage : MonoBehaviour
             child.gameObject.SetActive(true);
 
         card.gameObject.GetComponentInChildren<Canvas>().GetComponentInChildren<Image>().enabled = true;
+
+        AudioManager.Instance.PlaySFX("StorageOut");
     }
 
     /// <summary>
@@ -243,7 +265,7 @@ public class Card_Storage : MonoBehaviour
     /// </summary>
     private void UpdateRefrigeratorItems()
     {
-        if (card.RuntimeData.cardName != "Refrigerator")
+        if (card.RuntimeData.cardId != "052")
             return;
 
         foreach (var childCard in childCards)

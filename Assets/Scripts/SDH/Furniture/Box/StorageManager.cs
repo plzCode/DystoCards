@@ -58,6 +58,7 @@ public class StorageManager : MonoBehaviour
         UIManager.Instance.TogglePanel(boxUIPanel); // UI 토글
         currentBox = null; // 현재 박스 초기화
         ClearCardUI(); // 카드 UI 초기화
+        AudioManager.Instance.PlaySFX("StorageClose");
     }
 
     /// <summary>
@@ -74,5 +75,7 @@ public class StorageManager : MonoBehaviour
         box.UpdateCardUI(); // 카드 UI 갱신
 
         UIManager.Instance.TogglePanel(boxUIPanel); // UI 토글(보이기)
+        Debug.Log("!!!");
+        AudioManager.Instance.PlaySFX("StorageOpen");
     }
 }
