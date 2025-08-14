@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -20,7 +21,7 @@ public class Card_Storage : MonoBehaviour
     private float lastClickTime;                          // 더블 클릭 감지용 시간 기록
     private const float doubleClickThreshold = 0.3f;      // 더블 클릭 간격 임계값
     private int maxSize;                                  // 박스 최대 용량
-    
+
     private bool isDragging = false;
     private bool hasInsertedBefore = false; // 박스에 물건이 한번이라도 들어갔는지 여부
 
@@ -138,6 +139,17 @@ public class Card_Storage : MonoBehaviour
             foreach (var c in childCards.ToList())
             {
                 if (c.RuntimeData.cardType != CardType.Food)
+                    RemoveCard(c);
+            }
+        }
+        else if (card.RuntimeData.cardId == "055" || card.RuntimeData.cardId == "056")
+        {
+            foreach (var c in childCards.ToList())
+            {
+                if (c.RuntimeData.cardType != CardType.Resource && 
+                    c.RuntimeData.cardType != CardType.Food && 
+                    c.RuntimeData.cardType != CardType.Equipment && 
+                    c.RuntimeData.cardType != CardType.Heal)
                     RemoveCard(c);
             }
         }
