@@ -28,6 +28,10 @@ public class CardManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void Start()
+    {
+        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreEnd, () => OneDayElapse());
+    }
 
     public void Update()
     {
@@ -35,27 +39,6 @@ public class CardManager : MonoBehaviour
         {
             Debug.Log("[CardManager] 카드 데이터베이스를 다시 로드합니다.");
             cardDatabase.BuildTypeMap();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SpawnCardById("071", new Vector3(0, 0, 0));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SpawnCardById("0391", new Vector3(0, 0, 0));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SpawnCardById("055", new Vector3(0, 0, 0));
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SpawnCardById("001", new Vector3(0, 0, 0));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SpawnCardById("002", new Vector3(0, 0, 0));
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -187,6 +170,7 @@ public class CardManager : MonoBehaviour
                 if (data is HumanCardData humanData)
                 {
                     AddHumanScript(obj, humanData);
+                    Recorder.Instance.AddHuman(humanData.cardName, TurnManager.Instance.TurnCount);
                 }
                 else
                 {
@@ -278,7 +262,8 @@ public class CardManager : MonoBehaviour
     }
 
     public void OneDayElapse()
-    {        
+    {
+        Debug.Log("CardManager : OnDayElapse Func");
         List<Card2D> humans = GetCharacterType(GetCardsByType(CardType.Character), CharacterType.Human);
         foreach(var human in humans)
         {
@@ -297,5 +282,7 @@ public class CardManager : MonoBehaviour
                 }
             }
         }
+
+        TurnManager.Instance.MarkActionComplete();
     }    
 }
