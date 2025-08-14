@@ -11,8 +11,10 @@ public class BattleManager : MonoBehaviour
     public Transform battleArea;
     public Transform spawnArea;
     [Space]
+#if UNITY_EDITOR
     [SerializeField] private string spawnId;
     [SerializeField] private int spawnCount = 1;
+#endif
     [SerializeField] private List<MonsterCardData> monsterCardList = new List<MonsterCardData>();
 
     [Space]
@@ -47,11 +49,11 @@ public class BattleManager : MonoBehaviour
 
 
 #if UNITY_EDITOR
-        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 단일 소환 테스트 (임시)
-            SpawnMonsterById(spawnId, spawnCount);
-
-        if (Input.GetKeyUp(KeyCode.Y)) // 몬스터 소환 테스트 (임시)
+        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
             SpawnMonster();
+
+        if (Input.GetKeyUp(KeyCode.Y)) // 몬스터 단일 소환 테스트 (임시)
+            SpawnMonsterById(spawnId, spawnCount);
 
         if (Input.GetKeyUp(KeyCode.D)) // 아이템 드랍 테스트 (임시)
         {
