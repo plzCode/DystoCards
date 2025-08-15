@@ -20,9 +20,13 @@ MonoBehaviour:
   size: 1
   characterType: 0
   max_health: 20
+  current_health: 20
   attack_power: 2
   defense_power: 1
   max_mental_health: 10
-  max_hunger: 5
+  current_mental_health: 10
+  max_hunger: 10
+  current_hunger: 10
   stamina: 5
-  consume_hunger: 1
+  max_stamina: 5
+  consume_hunger: 2
