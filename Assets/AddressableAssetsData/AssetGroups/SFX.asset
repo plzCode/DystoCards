@@ -15,8 +15,6 @@ MonoBehaviour:
   m_GroupName: SFX
   m_GUID: c8ab318e8d5c4c2478b45e87be822a44
   m_SerializeEntries:
-<<<<<<< HEAD
-=======
   - m_GUID: 1dc3c383fc7f1e548b4c0e93c260b51f
     m_Address: Click_1
     m_ReadOnly: 0
@@ -59,15 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
->>>>>>> main
   - m_GUID: 845069e0cbe8fcb4492510f0996819d6
     m_Address: Bite_Potato
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
-<<<<<<< HEAD
-=======
   - m_GUID: 9dba64b9ee4add747bbd8e27f9a02b5f
     m_Address: Pop_1
     m_ReadOnly: 0
@@ -98,7 +93,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
->>>>>>> main
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f829e78c89a983e4caa0e97ec2448e72, type: 2}
   m_SchemaSet:
