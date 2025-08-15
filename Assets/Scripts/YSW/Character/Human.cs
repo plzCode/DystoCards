@@ -56,11 +56,22 @@ public class Human : Character
         currentStamina = data.Stamina;
     }
 
+    public override void Die()
+    {
+        base.Die();        
+    }
+
     public void ConsumeFood()
     {
         currentHunger = Mathf.Max(0, currentHunger - humanData.ConsumeHunger);
         humanData.CurrentHunger = currentHunger;
         Debug.Log($"{charData.cardName} consumed {humanData.ConsumeHunger} hunger. Remaining: {currentHunger}");
+
+        if(currentHunger <= 0)
+        {
+            Die();
+            Recorder.Instance.RecordHumanDeath(humanData.cardName, " 아사 ", TurnManager.Instance.TurnCount);
+        }
     }
 
     public void RecoverHunger(float amount)
@@ -79,7 +90,7 @@ public class Human : Character
 
     public void RecoverStamina(float amount) //
     {
-        currentStamina = Mathf.Min(humanData.Stamina, currentStamina + amount);
+        currentStamina = Mathf.Min(humanData.MaxStamina, currentStamina + amount);
         humanData.Stamina = currentStamina;
     }
 

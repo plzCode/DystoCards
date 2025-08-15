@@ -3,7 +3,8 @@ using UnityEngine;
 public enum MonsterActionType
 {
     Default,
-    ItemSteal
+    Steal,
+    Robbery,
 }
 
 [System.Serializable]
@@ -36,6 +37,10 @@ public class MonsterCardData : CharacterCardData
     [SerializeField] private float moveSpeed = 1;
     [SerializeField] private MonsterActionType act;
 
+    [Header("Spawn Attributes")]
+    [SerializeField][Min(0)] private int spawnTurn = 0;
+    [SerializeField][Range(0, 100)] private int spawnChance = 0;
+
     [Header("Drop Attributes")]
     [SerializeField] private DropItem[] dropList;
 
@@ -60,6 +65,32 @@ public class MonsterCardData : CharacterCardData
             if (act != value)
             {
                 act = value;
+                RaiseDataChanged();
+            }
+        }
+    }
+
+    public int SpawnTurn
+    {
+        get => spawnTurn;
+        set
+        {
+            if (spawnTurn != value)
+            {
+                spawnTurn = Mathf.Max(0, value);
+                RaiseDataChanged();
+            }
+        }
+    }
+
+    public int SpawnChance
+    {
+        get => spawnChance;
+        set
+        {
+            if (spawnChance != value)
+            {
+                spawnChance = Mathf.Clamp(value, 0, 100);
                 RaiseDataChanged();
             }
         }
@@ -95,6 +126,9 @@ public class MonsterCardData : CharacterCardData
 
         clone.moveSpeed = this.moveSpeed;
         clone.act = this.act;
+
+        clone.spawnTurn = this.spawnTurn;
+        clone.spawnChance = this.spawnChance;
 
         if (this.dropList != null)
         {

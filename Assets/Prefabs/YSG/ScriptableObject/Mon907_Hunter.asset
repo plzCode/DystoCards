@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9139b8c92e85b7947a088a2031dec2cc, type: 3}
+  m_Name: Mon907_Hunter
+  m_EditorClassIdentifier: 
+  cardId: 907
+  cardName: "\uC0AC\uB0E5\uAFBC"
+  cardImage: {fileID: 0}
+  cardType: 6
+  description: "\uC804\uC9C1 \uC0AC\uB0E5\uAFBC\uC600\uB358 \uC0DD\uC874\uC790"
+  size: 1
+  characterType: 2
+  max_health: 14
+  current_health: 14
+  attack_power: 5
+  defense_power: 3
+  moveSpeed: 1.5
+  act: 0
+  spawnTurn: 5
+  spawnChance: 0
+  dropList:
+  - item: {fileID: 11400000, guid: 9079736763943814087b5adf1f799afa, type: 2}
+    chance: 70
+    minCount: 0
+    maxCount: 1
+    isOnly: 0
+  - item: {fileID: 11400000, guid: 3d3b5a09d61557845941dd5067382d87, type: 2}
+    chance: 70
+    minCount: 0
+    maxCount: 1
+    isOnly: 0
+  - item: {fileID: 11400000, guid: 99969dbade7b11d4fa7456cff836ac67, type: 2}
+    chance: 80
+    minCount: 0
+    maxCount: 1
+    isOnly: 0
+  - item: {fileID: 11400000, guid: 26164cbdd08016048ba7c4859eefc69d, type: 2}
+    chance: 75
+    minCount: 0
+    maxCount: 1
+    isOnly: 1
+  - item: {fileID: 11400000, guid: d95e9528603800c408dacc29d914e3c7, type: 2}
+    chance: 15
+    minCount: 0
+    maxCount: 1
+    isOnly: 1
+  - item: {fileID: 11400000, guid: 079a159551c97fc4496c04adf7ae6c9b, type: 2}
+    chance: 3
+    minCount: 0
+    maxCount: 1
+    isOnly: 1

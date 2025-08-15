@@ -13,6 +13,11 @@ public class MonsterSteal : MonsterAct
             moveTarget = base.SetTarget();
 
         CheckTarget();
+
+        if (hpValue != null)
+            hpValue.text = currentHealth.ToString("F0");
+        else
+            base.SetCurrentHealth();
     }
 
     #region ¿Ãµø
