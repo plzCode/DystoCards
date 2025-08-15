@@ -9,7 +9,7 @@ public class BattleManager : MonoBehaviour
 
     public Transform cards;
     public Transform battleArea;
-    public Transform spawnArea;
+    public Transform spawnPoint;
     [Space]
 #if UNITY_EDITOR
     [SerializeField] private string spawnId;
@@ -49,6 +49,9 @@ public class BattleManager : MonoBehaviour
 
 
 #if UNITY_EDITOR
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+            CardManager.Instance.SpawnCardByName("성기훈", Vector3.zero);
+
         if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
             SpawnMonster();
 
@@ -59,6 +62,8 @@ public class BattleManager : MonoBehaviour
         {
             foreach (Transform child in cards)
             {
+                if (child.GetComponent<Human>() != null)
+                    child.GetComponent<Character>()?.Die();
                 if (child.GetComponent<MonsterAct>() != null)
                     child.GetComponent<Character>()?.Die();
             }
@@ -75,10 +80,10 @@ public class BattleManager : MonoBehaviour
     #region 소환
     public void SpawnMonster()
     {
-        if (monsterCardList.Count == 0 || spawnArea == null) return;
+        if (monsterCardList.Count == 0 || spawnPoint == null) return;
 
-        Vector3 mapPos = spawnArea.position;
-        Vector3 mapScale = spawnArea.localScale;
+        Vector3 mapPos = spawnPoint.position;
+        Vector3 mapScale = spawnPoint.localScale;
         float halfWidth = 0.5f * mapScale.x;
         float halfHeight = 0.5f * mapScale.y;
 
@@ -104,10 +109,10 @@ public class BattleManager : MonoBehaviour
     public void SpawnMonsterById(string cardId, int count)
     {
         MonsterCardData mon = monsterCardList.Find(m => m.cardId == cardId);
-        if (mon == null || spawnArea == null) return;
+        if (mon == null || spawnPoint == null) return;
 
-        Vector3 mapPos = spawnArea.position;
-        Vector3 mapScale = spawnArea.localScale;
+        Vector3 mapPos = spawnPoint.position;
+        Vector3 mapScale = spawnPoint.localScale;
         float halfWidth = 0.5f * mapScale.x;
         float halfHeight = 0.5f * mapScale.y;
 
@@ -119,11 +124,7 @@ public class BattleManager : MonoBehaviour
 
     private int SpawrMonsterOne(MonsterCardData mon, Vector3 mapPos, float halfWidth, float halfHeight)
     {
-        float randX = Random.Range(mapPos.x - halfWidth, mapPos.x + halfWidth);
-        float randY = Random.Range(mapPos.y - halfHeight, mapPos.y + halfHeight);
-        Vector3 spawnPos = new Vector3(randX, randY, 0);
-
-        var card = CardManager.Instance.SpawnCard(mon, spawnPos);
+        var card = CardManager.Instance.SpawnCard(mon, spawnPoint.position);
         if (card == null) return 0;
 
         card.GetComponent<Card2D>().isStackable = false;

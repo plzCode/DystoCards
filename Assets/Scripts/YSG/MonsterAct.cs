@@ -158,6 +158,9 @@ public class MonsterAct : Character
     public override void Die()
     {
         DropItem();
+
+        GradeRecorder.Instance.monsterKillCount++;
+
         base.Die();
     }
 
