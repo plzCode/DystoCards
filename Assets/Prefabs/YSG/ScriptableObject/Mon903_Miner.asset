@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 903
   cardName: "\uAD11\uBD80"
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 3b8deaf73a94ae4488a35eed1cc63d5a, type: 3}
   cardType: 6
   description: "\uC804\uC9C1 \uAD11\uBD80\uC600\uB358 \uC0DD\uC874\uC790"
   size: 1
@@ -22,7 +22,7 @@ MonoBehaviour:
   max_health: 12
   current_health: 12
   attack_power: 3
-  defense_power: 2
+  defense_power: 1
   moveSpeed: 1
   act: 0
   spawnTurn: 2
