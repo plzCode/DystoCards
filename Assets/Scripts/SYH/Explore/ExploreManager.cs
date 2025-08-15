@@ -129,6 +129,7 @@ public class ExploreManager : MonoBehaviour
             exploringHumans.Remove(data.human);
             OnExploreCompleted?.Invoke(data);
             data.human.ConsumeStamina(data.location.requiredStamina);
+            GradeRecorder.Instance.exploreCount++;
 
         }
         ExpressDuringDays();
