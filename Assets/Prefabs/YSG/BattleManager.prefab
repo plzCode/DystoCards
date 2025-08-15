@@ -224,7 +224,7 @@ MonoBehaviour:
   cards: {fileID: 0}
   battleArea: {fileID: 6226988127601251254}
   spawnPoint: {fileID: 3764133697349035906}
-  spawnId: 801
+  spawnId: 891
   spawnCount: 1
   monsterCardList:
   - {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}

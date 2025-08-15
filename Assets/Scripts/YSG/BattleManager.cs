@@ -49,9 +49,6 @@ public class BattleManager : MonoBehaviour
 
 
 #if UNITY_EDITOR
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-            CardManager.Instance.SpawnCardByName("성기훈", Vector3.zero);
-
         if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
             SpawnMonster();
 
