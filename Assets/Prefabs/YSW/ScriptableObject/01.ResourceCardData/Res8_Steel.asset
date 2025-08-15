@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
-  m_Name: Axe_tech
+  m_Name: Res8_Steel
   m_EditorClassIdentifier: 
-  cardId: 00100
-  cardName: Axe_tech
-  cardImage: {fileID: -6449723894494966426, guid: 4b0c9a7b28b4a9c4492fecfb01f099df, type: 3}
+  cardId: 008
+  cardName: "\uCCA0\uAD34"
+  cardImage: {fileID: -3347167150779718014, guid: 2f3386c7caaf26849a835c65fbd0982c, type: 3}
   cardType: 0
-  description: 
+  description: "\uB179\uC2A8\uCCA0\uC744 \uAC00\uACF5\uD574 \uB9CC\uB4E0 \uCCA0\uAD34\uC774\uB2E4"
   size: 1
   quantity: 0
   resourceType: 0

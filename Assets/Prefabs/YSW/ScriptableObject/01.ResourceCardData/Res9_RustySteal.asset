@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
-  m_Name: Still Axe_tech
+  m_Name: Res9_RustySteal
   m_EditorClassIdentifier: 
-  cardId: 01001
-  cardName: Stilil Axe _tech
-  cardImage: {fileID: 0}
+  cardId: 009
+  cardName: "\uB179\uC2A8\uCCA0"
+  cardImage: {fileID: -3581441876576284128, guid: 3b262396ef1fa764fb71f4476a777e8e, type: 3}
   cardType: 0
   description: 
   size: 1
