@@ -1,6 +1,8 @@
+using MoreMountains.Feedbacks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GradeRecorder : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class GradeRecorder : MonoBehaviour
     private Dictionary<string, float> gradeTable = new Dictionary<string, float>();
 
     [SerializeField] private GameObject GradeUI;
+
 
     private void Awake()
     {
@@ -44,6 +47,14 @@ public class GradeRecorder : MonoBehaviour
         {
             GradeUI.gameObject.SetActive(true);
             GradeUI.GetComponent<GradeUI>().ShowGrades();
+        }
+
+        if (GradeUI.gameObject.activeSelf)
+            {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
         }
     }
     /// <summary>
