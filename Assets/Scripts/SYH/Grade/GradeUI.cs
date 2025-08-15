@@ -9,13 +9,7 @@ public class GradeUI : MonoBehaviour
     [SerializeField] private GameObject gridContent;
     [SerializeField] private TextMeshProUGUI totalText;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ShowGrades();
-        }
-    }
+    
     public void ShowGrades()
     {
         

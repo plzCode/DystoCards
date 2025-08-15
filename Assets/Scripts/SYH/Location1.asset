@@ -17,7 +17,7 @@ MonoBehaviour:
   requiredStrength: 1
   requiredStamina: 2
   dangerLevel: 2
-  durationDays: 2
+  durationDays: 1
   openDay: 1
   rewards:
   - card: {fileID: 11400000, guid: c899b990ebcd18d469ca2f348e45a87d, type: 2}
