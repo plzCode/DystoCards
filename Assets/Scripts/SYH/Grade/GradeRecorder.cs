@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class GradeRecorder : MonoBehaviour
 {
+    public static GradeRecorder Instance { get; private set; }
+
     public float survivalCount;
     public float monsterKillCount;
     public float exploreCount;
     public float combinationCount;
     public float recipeOpenCount;
     public float humanDieCount;
-
     
-
-    [SerializeField] private GameObject gradePrefab;
-    [SerializeField] private GameObject gridContent;
-    [SerializeField] private TextMeshProUGUI totalText;
-    [SerializeField] private float totalGrade;
-
     private Dictionary<string, float> gradeTable = new Dictionary<string, float>();
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         // 미리 점수 기준을 저장
         gradeTable["생존"] = 10f;
         gradeTable["몬스터 처치"] = 10f;
@@ -30,33 +33,28 @@ public class GradeRecorder : MonoBehaviour
         gradeTable["레시피 오픈 횟수"] = 3f;
         gradeTable["사망 횟수"] = -10f; // 예: 사망은 감점
 
-        SetGradeUI();
     }
 
-    private void SetGradeUI()
+    /// <summary>
+    /// 점수 데이터를 반환 (UI가 이 데이터를 받아서 표시)
+    /// </summary>
+    public List<GradeData> GetAllGrades()
     {
-        // 반복문으로 Dictionary의 항목을 순회
+        List<GradeData> grades = new List<GradeData>();
+
         foreach (var entry in gradeTable)
         {
-            // 항목 이름과 카운트를 가져오기
             string name = entry.Key;
             float scorePerUnit = entry.Value;
             float count = GetCountByName(name);
-
-            // 총 점수 계산
             float totalScore = count * scorePerUnit;
 
-            // 프리팹 생성
-            GameObject obj = Instantiate(gradePrefab, gridContent.transform);
-
-            // GradePrefab 스크립트에 값 전달
-            obj.GetComponent<GradePrefab>().SetGrade(name, count, totalScore);
-
-            totalGrade += totalScore;
+            grades.Add(new GradeData(name, count, totalScore));
         }
 
-        totalText.text = totalGrade.ToString();
+        return grades;
     }
+        
 
     // 이름에 따라 해당 카운트를 반환
     private float GetCountByName(string name)
@@ -71,5 +69,22 @@ public class GradeRecorder : MonoBehaviour
             "사망 횟수" => humanDieCount,
             _ => 0
         };
+    }
+
+    /// <summary>
+    /// 개별 점수 데이터 구조체
+    /// </summary>
+    public struct GradeData
+    {
+        public string name;
+        public float count;
+        public float totalScore;
+
+        public GradeData(string name, float count, float totalScore)
+        {
+            this.name = name;
+            this.count = count;
+            this.totalScore = totalScore;
+        }
     }
 }
