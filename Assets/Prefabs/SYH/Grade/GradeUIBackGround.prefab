@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 3953755964726879590}
   - component: {fileID: 3399317260980138147}
   - component: {fileID: 1841749645926053961}
-  - component: {fileID: 5445530994721836655}
+  - component: {fileID: -2582223176775041606}
   m_Layer: 5
   m_Name: GradeUIBackGround
   m_TagString: Untagged
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5445530994721836655
+--- !u!114 &-2582223176775041606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -588,19 +588,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7262827344381105148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0918f9d47758994b949ea4a3fa7223e, type: 3}
+  m_Script: {fileID: 11500000, guid: 46db75ca9f8363c419973f1f311538a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  survivalCount: 5
-  monsterKillCount: 5
-  exploreCount: 5
-  combinationCount: 5
-  recipeOpenCount: 5
-  humanDieCount: 3
   gradePrefab: {fileID: 5908356588865835604, guid: 8a3eefb19925081459f3c1c221f38a21, type: 3}
   gridContent: {fileID: 8132051172837444761}
   totalText: {fileID: 197384658680951809}
-  totalGrade: 0
 --- !u!1 &7567474201144570152
 GameObject:
   m_ObjectHideFlags: 0
