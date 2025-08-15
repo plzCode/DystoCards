@@ -11,7 +11,7 @@ public class GradeUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             ShowGrades();
         }
