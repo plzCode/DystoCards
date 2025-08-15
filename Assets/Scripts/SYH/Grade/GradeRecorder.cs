@@ -43,12 +43,17 @@ public class GradeRecorder : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+
+        if (!GradeUI.gameObject.activeSelf)
         {
-            GradeUI.gameObject.SetActive(true);
-            GradeUI.GetComponent<GradeUI>().ShowGrades();
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                GradeUI.gameObject.SetActive(true);
+                GradeUI.GetComponent<GradeUI>().ShowGrades();
+            }
         }
 
+  
         if (GradeUI.gameObject.activeSelf)
             {
             if (Input.GetKeyDown(KeyCode.Escape))
