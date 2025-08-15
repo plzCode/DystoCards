@@ -129,7 +129,10 @@ public class CombinationManager : MonoBehaviour
             if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
                 triggerCard = card;
             else if (card.IsTechOfType(card.cardData, TechType.Tech))
+            { 
                 techCard = card;
+                filteredCards.Add(card);
+            }
             else
                 filteredCards.Add(card);
         }
@@ -144,6 +147,8 @@ public class CombinationManager : MonoBehaviour
                 // Human 카드를 스택에서 분리 (자식 관계 해제)
                 if (triggerCard != null)
                     triggerCard.transform.SetParent(null);
+                if (techCard != null)
+                    techCard.transform.SetParent(null);
 
                 // 조합에 사용된 카드(재료 카드)들을 모두 파괴
                 foreach (var card in filteredCards)
@@ -155,9 +160,9 @@ public class CombinationManager : MonoBehaviour
                 {
                     if (techCard != null)
                     {
-                        // Tech 카드가 있다면 해당 카드도 파괴
-                        CardManager.Instance.DestroyCard(techCard);
+                        //// Tech 카드가 있다면 해당 카드도 파괴
                         TechCardData techCardData = techCard.cardData as TechCardData;
+                        //CardManager.Instance.DestroyCard(techCard);
 
                         Action onceAction = null;
                         onceAction = () =>
@@ -255,7 +260,7 @@ public class CombinationManager : MonoBehaviour
         }
 
         // 레시피 재료와 비교
-        foreach (var ingredient in recipe.ingredients)
+        foreach (var ingredient in recipe.ingredients)                                                                            
         {
             var cardData = ingredient.ingredient;
             var requiredCount = ingredient.quantity;
@@ -310,4 +315,88 @@ public class CombinationManager : MonoBehaviour
         return removed;
     }
 
+
+    /// <summary>
+    /// 현재 필드의 유효한 스택(맨 아래 Human 1장)들에 대해
+    /// 재료 카드 목록을 수집하고, 매칭되는 레시피를 모두 로그로 출력
+    /// </summary>
+    [ContextMenu("Log Craftable Recipes")]
+    public void LogCraftableRecipes()
+    {
+        // 필드의 최상위 카드 수집 (CheckCombination과 동일한 방식)
+        Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
+        List<Card2D> topCards = new List<Card2D>();
+        foreach (var card in allCards)
+            if (card.transform.parent == fieldCards.transform)
+                topCards.Add(card);
+
+        int totalMatches = 0;
+        int checkedStacks = 0;
+
+        foreach (var topCard in topCards)
+        {
+            if (topCard.transform.childCount == 0) continue;
+
+            if (!IsValidCombinationStack(topCard, out List<Card2D> stackGroup))
+                continue;
+
+            checkedStacks++;
+
+            // TryCombine과 동일한 방식으로 Human/Tech 분리
+            List<Card2D> filteredCards = new List<Card2D>();
+            Card2D triggerCard = null; // Human
+            Card2D techCard = null;    // Tech
+
+            foreach (var card in stackGroup)
+            {
+                if (card.IsCharacterOfType(card.cardData, CharacterType.Human))
+                    triggerCard = card;
+                else if (card.IsTechOfType(card.cardData, TechType.Tech))
+                    techCard = card;
+                else
+                    filteredCards.Add(card);
+            }
+
+            string ingredientSummary = filteredCards.Count > 0
+                ? string.Join(" + ", filteredCards.Select(c => c.cardData != null ? c.cardData.name : c.name))
+                : "(재료 없음)";
+
+            // 해당 스택으로 만들 수 있는 모든 레시피 탐색
+            List<RecipeCardData> matches = new List<RecipeCardData>();
+            foreach (var recipe in recipes)
+            {
+                if (MatchRecipe(filteredCards, recipe))
+                    matches.Add(recipe);
+            }
+
+            if (matches.Count == 0)
+            {
+                Debug.Log($"[Craftable] StackRoot={topCard.name} | Ingredients={ingredientSummary} => 매칭 레시피 없음");
+                continue;
+            }
+
+            totalMatches += matches.Count;
+
+            foreach (var r in matches)
+            {
+                string recipeName = !string.IsNullOrEmpty(r.cardName)
+                    ? r.cardName
+                    : (r.result != null ? r.result.name : "(이름 없는 레시피)");
+
+                string resultName = r.result != null ? r.result.name : "(결과 없음)";
+
+                // Tech 카드가 포함된 경우, 현재 구현 로직에 따라 Tech가 있으면 즉시 생성이 아닌 시간 감소/언락 로직이 동작함을 표시
+                string techNote = techCard != null ? " | (Tech 포함: 즉시 생성 아님, 시간 감소/언락 처리)" : "";
+
+                Debug.Log($"[Craftable] StackRoot={topCard.name} | Ingredients={ingredientSummary} => Recipe={recipeName} | Result={resultName}{techNote}");
+            }
+        }
+
+        if (checkedStacks == 0)
+            Debug.Log("[Craftable] 유효한 스택(맨 아래 Human 1장)이 없습니다.");
+        else if (totalMatches == 0)
+            Debug.Log($"[Craftable] 검사한 스택: {checkedStacks}개 | 제작 가능한 레시피 없음");
+        else
+            Debug.Log($"[Craftable] 검사한 스택: {checkedStacks}개 | 제작 가능 레시피 총 {totalMatches}개");
+    }
 }

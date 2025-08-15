@@ -20,9 +20,9 @@ MonoBehaviour:
   size: 1
   ingredients:
   - ingredient: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-    quantity: 2
-  - ingredient: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
     quantity: 1
+  - ingredient: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
+    quantity: 3
   - ingredient: {fileID: 11400000, guid: e5b7aad74ff4fff4a8a22e9a9c6797bd, type: 2}
     quantity: 1
   result: {fileID: 11400000, guid: e5bd4d8efbe1d5f4db8c41cca17c40b0, type: 2}

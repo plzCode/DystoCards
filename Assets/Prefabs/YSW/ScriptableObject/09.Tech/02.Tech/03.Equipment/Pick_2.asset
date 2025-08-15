@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pick_2
   m_EditorClassIdentifier: 
   cardId: 0923009
-  cardName: "\uACE1\uAD2D\uC774 (\uB3CC)"
+  cardName: "\uACE1\uAD2D\uC774 (\uB3CC) \uC5F0\uAD6C"
   cardImage: {fileID: -4415076390283570148, guid: f25bb98dba905ec41b242d394304bbc7, type: 3}
   cardType: 8
   description: 
