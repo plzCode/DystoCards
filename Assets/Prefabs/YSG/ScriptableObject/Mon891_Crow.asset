@@ -19,12 +19,12 @@ MonoBehaviour:
   description: "\uAE4C\uB9C8\uADC0, \uBB3C\uAC74\uC744 \uD6D4\uCCD0\uAC00\uB2C8 \uC8FC\uC758!"
   size: 1
   characterType: 2
-  max_health: 5
-  current_health: 5
+  max_health: 4
+  current_health: 4
   attack_power: 2
   defense_power: 0
   moveSpeed: 3.2
   act: 1
-  spawnTurn: 2
+  spawnTurn: 3
   spawnChance: 0
   dropList: []
