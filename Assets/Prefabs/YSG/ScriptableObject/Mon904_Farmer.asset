@@ -22,7 +22,7 @@ MonoBehaviour:
   max_health: 12
   current_health: 12
   attack_power: 3
-  defense_power: 2
+  defense_power: 1
   moveSpeed: 1
   act: 0
   spawnTurn: 2

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 908
   cardName: "\uAC15\uB3C4"
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 2a271033a9fc3ec43b768df06ae6d381, type: 3}
   cardType: 6
   description: "\uAC15\uB3C4\uB85C \uC804\uB77D\uD574\uBC84\uB9B0 \uC0DD\uC874\uC790"
   size: 1
   characterType: 2
-  max_health: 13
-  current_health: 13
+  max_health: 12
+  current_health: 12
   attack_power: 4
   defense_power: 2
   moveSpeed: 1.2
