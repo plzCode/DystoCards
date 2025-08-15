@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dissolve : MonoBehaviour
 {
     [SerializeField] private float _dissolveTime = 0.75f;
 
     [SerializeField] private List<SpriteRenderer> _spriteRenderers;
+    [SerializeField] private List<Image> _images;
     private List<Material> _materials;
 
     [SerializeField] private Transform _name;
@@ -25,10 +27,22 @@ public class Dissolve : MonoBehaviour
         {
             foreach (var spriteRenderer in _spriteRenderers)
             {
-                _materials.Add(spriteRenderer.material);
+                // 기존 material을 복제해서 새 Material 생성
+                Material newMat = new Material(spriteRenderer.material);
+                spriteRenderer.material = newMat; // 인스턴스 적용
+                _materials.Add(newMat);
             }
         }
 
+        if (_images != null)
+        {
+            foreach (var image in _images)
+            {
+                Material newMat = new Material(image.material);
+                image.material = newMat;
+                _materials.Add(newMat);
+            }
+        }
     }
 
 

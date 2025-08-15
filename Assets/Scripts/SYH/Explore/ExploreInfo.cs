@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,10 @@ public class ExploreInfo : MonoBehaviour
     [Header("현재 인물 정보")]
     [SerializeField] private Human current_humanInfo;
 
+    [Header("보상 정보")]
+    [SerializeField] private GameObject rewardGrid;
+    [SerializeField] private GameObject rewardPrefab;
+
 
 
 
@@ -40,7 +45,7 @@ public class ExploreInfo : MonoBehaviour
         exploreName.text = _location.locationName.ToString();
         UIBarUtility.SetBarColor(exploreStrengthBar, _location.requiredStrength, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(exploreStaminaBar, _location.requiredStamina, UIBarUtility.StaminaColor);
-        UIBarUtility.SetBarColor(exploreDangerBar, _location.dangerLevel, UIBarUtility.WarningColor);
+        UIBarUtility.SetBarColor(exploreDangerBar, _location.durationDays, UIBarUtility.WarningColor);
         //successPercent.text = "Succes Percent : " +(100 - _location.dangerLevel * 10).ToString();
         if (current_locationInfo != null && current_humanInfo != null)
         {
@@ -59,7 +64,7 @@ public class ExploreInfo : MonoBehaviour
         humanName.text = _humandata.cardName;
         UIBarUtility.SetBarColor(humanStaminaBar, (int)_humandata.Stamina, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(humanStrengthBar, (int)_humandata.AttackPower, UIBarUtility.StrengthColor);
-        UIBarUtility.SetBarColor(humanMentality, (int)_humandata.ConsumeHunger, UIBarUtility.WarningColor);
+        UIBarUtility.SetBarColor(humanMentality, (int)_humandata.CurrentMentalHealth, UIBarUtility.WarningColor);
         if (current_locationInfo != null && current_humanInfo != null)
         {
             ExpressSuccessPercent(current_locationInfo, current_humanInfo.humanData);
@@ -73,6 +78,16 @@ public class ExploreInfo : MonoBehaviour
     
     private void ExpressSuccessPercent(LocationInfo location, HumanCardData human)
     {
+        
+
+        // 보상 정보 초기화
+        for (int i = rewardGrid.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(rewardGrid.transform.GetChild(i).gameObject);
+        }
+
+        RewardList();
+
         float successRate = ExploreManager.Instance.CaculateSuccessPercent(location, human);
         if (successRate == 0)
         {
@@ -81,7 +96,7 @@ public class ExploreInfo : MonoBehaviour
         }
         if (successRate == 1)
         {
-            successPercent.text = "No Stamina";
+            successPercent.text = "스태미나 부족";
             successPercent.color = Color.gray;
             return;
         }
@@ -113,6 +128,23 @@ public class ExploreInfo : MonoBehaviour
 
         successPercent.text = $"탐험 상태 : {statusText}";
         successPercent.color = statusColor;
+
+
+        
+
+
+
+    }
+
+    private void RewardList()
+    {
+        List<RewardInfo> rewardInfo =  current_locationInfo.rewards;
+        for(int i = 0; i < rewardInfo.Count; i++)
+        {
+            GameObject reward = Instantiate(rewardPrefab,rewardGrid.transform);
+            reward.GetComponent<Image>().sprite = rewardInfo[i].card.cardImage;
+            reward.GetComponentInChildren<TextMeshProUGUI>().text = "x " + rewardInfo[i].quantity;
+        }
     }
 
 
@@ -150,6 +182,10 @@ public class ExploreInfo : MonoBehaviour
             {
                // Debug.Log("이미 해당 인원이 해당 지역을 탐색 중입니다.");
             }
+            else
+            {
+                transform.parent.gameObject.SetActive(false);
+            }
         }
 
         
@@ -164,14 +200,14 @@ public class ExploreInfo : MonoBehaviour
     {
         // 장소 정보 초기화
         exploreImage.sprite = defaultLocoImg;
-        exploreName.text = "";
+        exploreName.text = "탐험지";
         UIBarUtility.SetBarColor(exploreStrengthBar, 0, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(exploreStaminaBar, 0, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(exploreDangerBar, 0, UIBarUtility.WarningColor);
 
         // 인물 정보 초기화
         humanImage.sprite = defaultHumanImg;
-        humanName.text = "";
+        humanName.text = "탐험가";
         UIBarUtility.SetBarColor(humanStaminaBar, 0, UIBarUtility.StaminaColor);
         UIBarUtility.SetBarColor(humanStrengthBar, 0, UIBarUtility.StrengthColor);
         UIBarUtility.SetBarColor(humanMentality, 0, UIBarUtility.WarningColor);
@@ -183,6 +219,12 @@ public class ExploreInfo : MonoBehaviour
         // 현재 정보 null 처리
         current_locationInfo = null;
         current_humanInfo = null;
+
+        // 보상 정보 초기화
+        for (int i = rewardGrid.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(rewardGrid.transform.GetChild(i).gameObject);
+        }
     }
 
 }

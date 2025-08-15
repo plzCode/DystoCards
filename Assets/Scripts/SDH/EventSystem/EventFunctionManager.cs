@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,9 @@ using UnityEngine;
 public class EventFunctionManager : MonoBehaviour
 {
     public static EventFunctionManager Instance { get; private set; } // 싱글톤 인스턴스
-    [SerializeField] private EventCardData[] eventCardDatabase;       // 이벤트 카드 데이터베이스 (Inspector에서 할당)
+    [SerializeField] private List<EventCardData> eventCardDatabase;   // 이벤트 카드 데이터베이스 (Inspector에서 할당)
+    [SerializeField] private List<CardData> suppliesDatabase;
+    [SerializeField] private List<HumanCardData> humanDatabase;
 
     private void Awake()
     {
@@ -22,19 +25,23 @@ public class EventFunctionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 랜덤한 이벤트 카드를 하나 반환
+    /// 랜덤한 이벤트 카드를 하나 반환하고 데이터베이스에서 제거
     /// </summary>
     /// <returns>랜덤 카드 1개</returns>
     public EventCardData GetRandomCard()
     {
-        if (eventCardDatabase == null || eventCardDatabase.Length == 0)
+        if (eventCardDatabase == null || eventCardDatabase.Count == 0)
         {
             Debug.LogWarning("이벤트 카드 데이터베이스가 비어있습니다.");
             return null;
         }
 
-        int index = Random.Range(0, eventCardDatabase.Length);
-        return eventCardDatabase[index];
+        int index = Random.Range(0, eventCardDatabase.Count);
+        EventCardData selectedCard = eventCardDatabase[index];
+
+        eventCardDatabase.RemoveAt(index); // 뽑은 카드 삭제
+
+        return selectedCard;
     }
 
     /// <summary>
@@ -46,13 +53,19 @@ public class EventFunctionManager : MonoBehaviour
         switch (functionKey)
         {
             case "Heal":
-                HealPlayer();
+                Heal();
+                break;
+            case "Injure":
+                Injure();
                 break;
             case "SpawnEnemy":
                 SpawnEnemy();
                 break;
-            case "GiveGold":
-                GiveGold();
+            case "ResourceGain":
+                ResourceGain();
+                break;
+            case "RecruitHuman":
+                RecruitHuman();
                 break;
             default:
                 Debug.LogWarning($"{functionKey}는 등록되지 않은 이벤트입니다.");
@@ -61,10 +74,8 @@ public class EventFunctionManager : MonoBehaviour
     }
 
     // 플레이어를 치료하는 이벤트 실행
-    private void HealPlayer()
+    private void Heal()
     {
-        Debug.Log("플레이어를 치료합니다!");
-
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
 
@@ -79,17 +90,52 @@ public class EventFunctionManager : MonoBehaviour
         }
     }
 
+    private void Injure()
+    {
+        // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
+        Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
+
+        foreach (var card in allCards)
+        {
+            if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
+            {
+                Human human = card.GetComponent<Human>();
+                if (human != null)
+                    human.TakeDamage(1);
+            }
+        }
+    }
+
     // 적을 소환하는 이벤트 실행
     private void SpawnEnemy()
     {
-        Debug.Log("적을 소환합니다!");
-        // 실제 소환 로직은 여기에 작성
+        BattleManager.Instance.SpawnMonster();
     }
 
-    // 골드를 지급하는 이벤트 실행
-    private void GiveGold()
+    private void ResourceGain()
     {
-        Debug.Log("골드를 지급합니다!");
-        // 실제 골드 지급 로직은 여기에 작성
+        // 랜덤하게 하나 선택
+        int randomIndex = Random.Range(0, suppliesDatabase.Count);
+        CardData selectedData = suppliesDatabase[randomIndex];
+
+        // 새로운 카드 생성
+        Card2D newCard = CardManager.Instance.SpawnCard(selectedData, Vector3.zero);
+        newCard.BringToFrontRecursive(newCard); // 카드가 위에 보이도록 정렬
+        newCard.cardAnim.PlayFeedBack_ByName("BounceY"); // 생성 애니메이션 실행
+    }
+
+    private void RecruitHuman()
+    {
+        // 랜덤하게 하나 선택
+        int randomIndex = Random.Range(0, humanDatabase.Count);
+        CardData selectedData = humanDatabase[randomIndex];
+
+        // 데이터베이스에서 해당 human 제거
+        humanDatabase.RemoveAt(randomIndex);
+
+        // 새로운 카드 생성
+        Card2D newCard = CardManager.Instance.SpawnCard(selectedData, Vector3.zero);
+        newCard.BringToFrontRecursive(newCard); // 카드가 위에 보이도록 정렬
+        newCard.cardAnim.PlayFeedBack_ByName("BounceY"); // 생성 애니메이션 실행
     }
 }

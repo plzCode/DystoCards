@@ -4,11 +4,7 @@ public class FoodCard2D : Card2D
 {
     [SerializeField] private FoodCardData foodData => RuntimeData as FoodCardData;
 
-    private void Start()
-    {
-        
-        TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, () => CheckIsPerishable());
-    }
+    
 
     public override void StackOnto(Card2D target)
     {

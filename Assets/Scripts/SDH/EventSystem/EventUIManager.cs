@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,20 +9,26 @@ using UnityEngine.UI;
 /// </summary>
 public class EventUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject eventUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
-    [SerializeField] private TMP_Text cardText;       // 카드 이름을 보여줄 TMP_Text
-    [SerializeField] private Button acceptButton;     // O 버튼
-    [SerializeField] private Button rejectButton;     // X 버튼
+    [SerializeField] private GameObject eventChoiceUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
+    [SerializeField] private TMP_Text descriptionText;      // 카드 설명을 보여줄 TMP_Text
+    [SerializeField] private Button acceptButton;           // O 버튼
+    [SerializeField] private Button rejectButton;           // X 버튼
+    [SerializeField] private GameObject eventResultUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
+    [SerializeField] private TMP_Text resultText;           // 카드 결과를 보여줄 TMP_Text
+    [SerializeField] private Button closeButton;            // X 버튼
 
     private EventCardData currentCard; // 현재 카드 데이터
 
     private void Start()
     {
-        eventUIPanel.SetActive(false); // 게임 시작 시 비활성화
+        // 게임 시작 시 비활성화
+        eventChoiceUIPanel.SetActive(false);
+        eventResultUIPanel.SetActive(false);
 
         // 버튼 이벤트는 Start에서 한 번만 연결
         acceptButton.onClick.AddListener(AcceptCard);
         rejectButton.onClick.AddListener(RejectCard);
+        closeButton.onClick.AddListener(CloseResult);
 
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.EventDraw, () => OpenEventUI());
     }
@@ -33,31 +40,74 @@ public class EventUIManager : MonoBehaviour
     {
         currentCard = EventFunctionManager.Instance.GetRandomCard();
 
-        cardText.text = currentCard.description;
+        descriptionText.text = currentCard.description;
 
-        UIManager.Instance.TogglePanel(eventUIPanel);
-
-        Debug.Log($"[이벤트] {currentCard.cardName} 등장");
+        // Appear 효과로 나타나게
+        var dissolve = eventChoiceUIPanel.GetComponent<UI_Dissolve_Modify>();
+        if (dissolve != null)
+        {
+            StartCoroutine(dissolve.Appear(true, true));
+        }
+        else
+        {
+            // Dissolve 스크립트 없으면 그냥 활성화
+            UIManager.Instance.TogglePanel(eventChoiceUIPanel);
+        }
     }
 
     /// <summary>
     /// 이벤트 UI 닫기
     /// </summary>
-    private void CloseEventUI()
+    private void CloseResult()
     {
-        UIManager.Instance.TogglePanel(eventUIPanel);
+        EventFunctionManager.Instance.Execute(currentCard.functionKey);
+        //TurnManager.Instance.MarkActionComplete();
+
+        // Dissolve 효과로 사라지게
+        var dissolve = eventResultUIPanel.GetComponent<UI_Dissolve_Modify>();
+        if (dissolve != null)
+        {
+            StartCoroutine(dissolve.Vanish(true, true));
+        }
+        else
+        {
+            // Dissolve 스크립트 없으면 그냥 비활성화
+            UIManager.Instance.TogglePanel(eventResultUIPanel);
+        }
+
+        Recorder.Instance.RecordEvent(currentCard.eventResult, TurnManager.Instance.TurnCount);
+    }
+
+    private void AcceptCard()
+    {
+        StartCoroutine(AcceptCardRoutine());
     }
 
     /// <summary>
     /// O 버튼 클릭 시 호출
     /// 카드의 기능 실행 후 UI 닫기
     /// </summary>
-    private void AcceptCard()
+    private IEnumerator AcceptCardRoutine()
     {
-        Debug.Log($"[{currentCard.cardName}] O 버튼 선택됨");
+        // Dissolve 효과로 사라지게
+        var dissolveVanish = eventChoiceUIPanel.GetComponent<UI_Dissolve_Modify>();
+        if (dissolveVanish != null)
+            yield return StartCoroutine(dissolveVanish.Vanish(true, true));
+        else
+            UIManager.Instance.TogglePanel(eventChoiceUIPanel);
 
-        EventFunctionManager.Instance.Execute(currentCard.functionKey);
-        CloseEventUI();
+        // 결과 텍스트 설정
+        resultText.text = currentCard.eventResult;
+
+        // 잠깐 대기 (0.5초 예시)
+        yield return new WaitForSeconds(0.5f);
+
+        // Appear 효과로 나타나게
+        var dissolveAppear = eventResultUIPanel.GetComponent<UI_Dissolve_Modify>();
+        if (dissolveAppear != null)
+            yield return StartCoroutine(dissolveAppear.Appear(true, true));
+        else
+            UIManager.Instance.TogglePanel(eventResultUIPanel);
     }
 
     /// <summary>
@@ -66,8 +116,16 @@ public class EventUIManager : MonoBehaviour
     /// </summary>
     private void RejectCard()
     {
-        Debug.Log($"[{currentCard.cardName}] X 버튼 선택됨");
-
-        CloseEventUI();
+        // Dissolve 효과로 사라지게
+        var dissolve = eventChoiceUIPanel.GetComponent<UI_Dissolve_Modify>();
+        if (dissolve != null)
+        {
+            StartCoroutine(dissolve.Vanish(true, true));
+        }
+        else
+        {
+            // Dissolve 스크립트 없으면 그냥 비활성화
+            UIManager.Instance.TogglePanel(eventChoiceUIPanel);
+        }
     }
 }

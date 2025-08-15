@@ -51,16 +51,6 @@ public class TurnManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
             NextPhase();
-
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            RegisterPhaseAction(TurnPhase.DayAction, () => Debug.Log("TestAction"));
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            UnregisterPhaseAction(TurnPhase.DayAction, () => Debug.Log("TestAction")); //아직 기능하지 않음
-        }
     }
 
     public void NextPhase()
@@ -169,13 +159,6 @@ public class TurnManager : MonoBehaviour
         RegisterPhaseAction(TurnPhase.EventDraw, () =>
         {
             //Debug.Log("Action 2 시작 - 스페이스 키를 누르면 완료");
-            StartCoroutine(WaitForSpaceKey());
-        });
-
-        // 세 번째 액션: 즉시 완료
-        RegisterPhaseAction(TurnPhase.EventDraw, () =>
-        {
-            Debug.Log("Action 3 시작 스페이스 키를 누르면 완료");
             StartCoroutine(WaitForSpaceKey());
         });
     }

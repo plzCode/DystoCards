@@ -9,7 +9,8 @@ public enum CardType {
     Recipe,
     Character,
     Event,
-    Tech
+    Tech,
+    Facility,
 }
 
 [CreateAssetMenu(fileName = "NewCardData", menuName = "Cards/Card Data", order = 1)]

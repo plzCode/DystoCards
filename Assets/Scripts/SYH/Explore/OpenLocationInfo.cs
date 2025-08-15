@@ -11,7 +11,7 @@ public class OpenLocationInfo : MonoBehaviour
     public void Set(LocationInfo info)
     {
         iconImage.sprite = info.locationImage;
-        descriptionText.text = "'" + info.locationName + "' is Opend";
+        descriptionText.text = "'" + info.locationName + "' Å½»ç °³¹æ";
         
     }
 }

@@ -378,6 +378,8 @@ public class Card2D : MonoBehaviour
                 stats["attack"] = ch.AttackPower;
                 stats["defense"] = ch.DefensePower;
                 break;
+            case FacilityCardData facility:
+                break; // 시설 카드는 별도의 스탯이 없으므로 처리하지 않음
         }
 
         stats["size"] = data.size;

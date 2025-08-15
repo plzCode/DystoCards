@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 카드 저장소 박스 클래스
@@ -135,6 +136,10 @@ public class Card_Storage : MonoBehaviour
 
             totalSize += cardSize;
 
+            //제외할 컴포넌트 미리 등록
+            Canvas childCanvas = childCard.GetComponentInChildren<Canvas>();
+            Image image = childCanvas.gameObject.GetComponentInChildren<Image>();
+
             // 부모가 다르면 현재 박스로 설정
             if (childCard.transform.parent != this.transform)
                 childCard.transform.SetParent(this.transform);
@@ -152,6 +157,13 @@ public class Card_Storage : MonoBehaviour
             // 하위 자식들도 비활성화
             foreach (Transform child in childCard.transform)
                 child.gameObject.SetActive(false);
+            
+            if (childCanvas != null)
+            {
+                childCanvas.gameObject.SetActive(true);
+                image.gameObject.SetActive(true);
+                image.enabled = false;
+            }
         }
 
         // UI 용량 텍스트 갱신
@@ -185,11 +197,14 @@ public class Card_Storage : MonoBehaviour
                 cardUI.box = this;
             }
 
-            // 카드 이름 표시
-            TMP_Text tmp = go.GetComponentInChildren<TMP_Text>();
-            if (tmp != null)
+            Image img = go.GetComponentInChildren<Image>();
+            if (img != null)
             {
-                tmp.text = childCard.RuntimeData.cardName;
+                var cardRenderer = childCard.GetComponent<CardUIRenderer>();
+                if (cardRenderer != null)
+                {
+                    img.sprite = cardRenderer.cardImage.sprite; // childCard의 CardUIRenderer에서 sprite 가져오기
+                }
             }
         }
     }
@@ -200,6 +215,9 @@ public class Card_Storage : MonoBehaviour
     public void RemoveCard(Card2D card)
     {
         childCards.Remove(card);
+
+        // 카드 비활성화 (시각적으로만)
+        card.gameObject.SetActive(true);
 
         // 부모를 원래 위치로
         card.transform.SetParent(this.transform.parent);
@@ -216,6 +234,8 @@ public class Card_Storage : MonoBehaviour
         // 자식들 활성화
         foreach (Transform child in card.transform)
             child.gameObject.SetActive(true);
+
+        card.gameObject.GetComponentInChildren<Canvas>().GetComponentInChildren<Image>().enabled = true;
     }
 
     /// <summary>
@@ -234,5 +254,7 @@ public class Card_Storage : MonoBehaviour
                 foodCardData.shelfLifeTurns++;
             }
         }
+
+        TurnManager.Instance.MarkActionComplete();
     }
 }

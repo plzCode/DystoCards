@@ -1613,8 +1613,8 @@ MonoBehaviour:
     idOrName: ForestMine
     worldPos: {x: 2, y: 1.5, z: 0}
   characters:
-  - useId: 0
-    idOrName: Player
+  - useId: 1
+    idOrName: 071
     worldPos: {x: 5.5, y: -1, z: 0}
   spawnOnStart: 1
 --- !u!1 &1221437134
