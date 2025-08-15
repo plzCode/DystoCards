@@ -75,7 +75,7 @@ public class EventUIManager : MonoBehaviour
             UIManager.Instance.TogglePanel(eventResultUIPanel);
         }
 
-        Recorder.Instance.RecordEvent(currentCard.eventResult, TurnManager.Instance.TurnCount, currentCard.functionKey);
+        Recorder.Instance.RecordEvent(currentCard.eventResult, TurnManager.Instance.TurnCount);
     }
 
     private void AcceptCard()

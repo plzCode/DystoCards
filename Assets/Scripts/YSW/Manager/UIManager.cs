@@ -3,8 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using MoreMountains.Feedbacks;
-using NUnit.Framework;
-using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -33,9 +31,6 @@ public class UIManager : MonoBehaviour
 
     [Header("ClickCatcher")]
     public ClickCatcher clickCatcher;
-
-    [Header("End Game UI")]
-    public GameObject endGamePanel;
 
     [Header("MMF_Player")]
     public MMF_Player showFeedback;
@@ -276,25 +271,6 @@ public class UIManager : MonoBehaviour
         else
         {
                 mouseInput.SetInteractionLayers(uiOnlyInteractableMask, uiOnlyCardMask);
-        }
-    }
-
-    public void CheckEndGame()
-    {
-        List<Card2D> cards = CardManager.Instance.GetCardsByType(CardType.Character);
-        List<Card2D> humans = CardManager.Instance.GetCharacterType(cards, CharacterType.Human);
-
-        if (humans.Count == 0)
-        {
-            if(endGamePanel != null)
-            {
-                endGamePanel.SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("[UIManager] End Game Panel이 할당되지 않았습니다.");
-            }
-            Debug.Log("[UIManager] 게임 종료 조건을 만족했습니다. 게임을 종료합니다.");
         }
     }
 }
