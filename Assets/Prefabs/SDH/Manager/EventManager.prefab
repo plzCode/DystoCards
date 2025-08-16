@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventChoiceUIPanel: {fileID: 0}
   descriptionText: {fileID: 0}
+  titleText: {fileID: 0}
   acceptButton: {fileID: 0}
   rejectButton: {fileID: 0}
   eventResultUIPanel: {fileID: 0}

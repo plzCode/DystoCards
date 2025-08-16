@@ -11,6 +11,7 @@ public class EventUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject eventChoiceUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
     [SerializeField] private TMP_Text descriptionText;      // 카드 설명을 보여줄 TMP_Text
+    [SerializeField] private TMP_Text titleText;            // 카드 제목을 보여줄 TMP_Text
     [SerializeField] private Button acceptButton;           // O 버튼
     [SerializeField] private Button rejectButton;           // X 버튼
     [SerializeField] private GameObject eventResultUIPanel; // 이벤트 UI Panel (비활성/활성 전환용)
@@ -18,6 +19,8 @@ public class EventUIManager : MonoBehaviour
     [SerializeField] private Button closeButton;            // X 버튼
 
     private EventCardData currentCard; // 현재 카드 데이터
+    private string selectedResult;
+    private string selectedFunctionKey;
 
     private void Start()
     {
@@ -43,7 +46,7 @@ public class EventUIManager : MonoBehaviour
         currentCard = EventFunctionManager.Instance.GetRandomCard();
 
         descriptionText.text = currentCard.description;
-
+        titleText.text = currentCard.cardName;
         AudioManager.Instance.PlaySFX("EventActivate");
 
         // Appear 효과로 나타나게
@@ -64,7 +67,7 @@ public class EventUIManager : MonoBehaviour
     /// </summary>
     private void CloseResult()
     {
-        EventFunctionManager.Instance.Execute(currentCard.functionKey);
+        EventFunctionManager.Instance.Execute(selectedFunctionKey);
 
         AudioManager.Instance.PlaySFX("EventActivate");
 
@@ -80,7 +83,7 @@ public class EventUIManager : MonoBehaviour
             UIManager.Instance.TogglePanel(eventResultUIPanel);
         }
 
-        Recorder.Instance.RecordEvent(currentCard.eventResult, TurnManager.Instance.TurnCount);
+        Recorder.Instance.RecordEvent(selectedResult, TurnManager.Instance.TurnCount);
     }
 
     private void AcceptCard()
@@ -103,8 +106,20 @@ public class EventUIManager : MonoBehaviour
         else
             UIManager.Instance.TogglePanel(eventChoiceUIPanel);
 
+        float randomValue = Random.Range(0f, 100f);
+        if (randomValue < currentCard.probability)
+        {
+            selectedFunctionKey = currentCard.functionKey1;
+            selectedResult = currentCard.eventResult1;
+        }
+        else
+        {
+            selectedFunctionKey = currentCard.functionKey2;
+            selectedResult = currentCard.eventResult2;
+        }
+
         // 결과 텍스트 설정
-        resultText.text = currentCard.eventResult;
+        resultText.text = selectedResult;
 
         // 잠깐 대기 (0.5초 예시)
         yield return new WaitForSeconds(0.5f);

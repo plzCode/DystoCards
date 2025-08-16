@@ -39,8 +39,6 @@ public class EventFunctionManager : MonoBehaviour
         int index = Random.Range(0, eventCardDatabase.Count);
         EventCardData selectedCard = eventCardDatabase[index];
 
-        eventCardDatabase.RemoveAt(index); // 뽑은 카드 삭제
-
         return selectedCard;
     }
 
