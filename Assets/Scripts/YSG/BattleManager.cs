@@ -11,10 +11,6 @@ public class BattleManager : MonoBehaviour
     public Transform battleArea;
     public Transform spawnPoint;
     [Space]
-#if UNITY_EDITOR
-    [SerializeField] private string spawnId;
-    [SerializeField] private int spawnCount = 1;
-#endif
     [SerializeField] private List<MonsterCardData> monsterCardList = new List<MonsterCardData>();
 
     [Space]
@@ -49,28 +45,22 @@ public class BattleManager : MonoBehaviour
 
 
 #if UNITY_EDITOR
-        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
-            SpawnMonster();
+        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환
+            SpawnMonsterById("908");
 
-        if (Input.GetKeyUp(KeyCode.Y)) // 몬스터 단일 소환 테스트 (임시)
-            SpawnMonsterById(spawnId, spawnCount);
-
-        if (Input.GetKeyUp(KeyCode.D)) // 아이템 드랍 테스트 (임시)
-        {
+        if (Input.GetKeyUp(KeyCode.D)) // 몬스터 전원 사망
             foreach (Transform child in cards)
-            {
-                if (child.GetComponent<Human>() != null)
-                    child.GetComponent<Character>()?.Die();
                 if (child.GetComponent<MonsterAct>() != null)
                     child.GetComponent<Character>()?.Die();
-            }
-        }
 
-        if (Input.GetKeyUp(KeyCode.Delete)) // 모든 카드 제거 테스트 (임시)
-        {
+        if (Input.GetKeyUp(KeyCode.F)) // 인물 전원 사망
+            foreach (Transform child in cards)
+                if (child.GetComponent<Human>() != null)
+                    child.GetComponent<Character>()?.Die();
+
+        if (Input.GetKeyUp(KeyCode.Delete)) // 모든 카드 제거
             foreach (Transform child in cards)
                 CardManager.Instance.DestroyCard(child.GetComponent<Card2D>());
-        }
 #endif
     }
 
@@ -103,7 +93,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void SpawnMonsterById(string cardId, int count)
+    public void SpawnMonsterById(string cardId, int count = 1)
     {
         MonsterCardData mon = monsterCardList.Find(m => m.cardId == cardId);
         if (mon == null || spawnPoint == null) return;
@@ -135,7 +125,7 @@ public class BattleManager : MonoBehaviour
                 card.AddComponent<MonsterSteal>();
                 break;
             case MonsterActionType.Robbery:
-                card.AddComponent<MonsterAct>();
+                card.AddComponent<MonsterRobbery>();
                 break;
         }
 
@@ -169,6 +159,7 @@ public class BattleManager : MonoBehaviour
 
             foreach (var h in humans)
             {
+                h.GetComponent<CardTileBarrier>().enabled = false;
                 h.transform.SetParent(cards);
                 totalPos += h.transform.position;
                 totalCount++;
@@ -314,10 +305,13 @@ public class BattleManager : MonoBehaviour
             {
                 var humanCard = c.GetComponent<Card2D>();
                 humanCard.isStackable = true;
+                humanCard.GetComponent<CardTileBarrier>().enabled = true;
+                humanCard.transform.position = battleArea.transform.position;
             }
             else if (c.charData.characterType == CharacterType.Monster)
             {
                 var monsterCard = c.GetComponent<Card2D>();
+
                 var monsterData = monsterCard.cardData as MonsterCardData;
                 if (monsterData == null) continue;
 
@@ -328,6 +322,9 @@ public class BattleManager : MonoBehaviour
                         break;
                     case MonsterActionType.Steal:
                         c.GetComponent<MonsterSteal>().RunAway();
+                        break;
+                    case MonsterActionType.Robbery:
+                        c.GetComponent<MonsterRobbery>().ChaseTarget();
                         break;
                 }
             }

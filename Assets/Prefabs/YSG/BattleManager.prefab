@@ -224,8 +224,6 @@ MonoBehaviour:
   cards: {fileID: 0}
   battleArea: {fileID: 6226988127601251254}
   spawnPoint: {fileID: 3764133697349035906}
-  spawnId: 891
-  spawnCount: 1
   monsterCardList:
   - {fileID: 11400000, guid: d27a2691f34d130478d7558cbac8626c, type: 2}
   - {fileID: 11400000, guid: c4c2ff56dc4d542489a2e88a5eb1ce65, type: 2}
@@ -270,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 7240948860794185740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: 0}
+  m_LocalPosition: {x: 8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
