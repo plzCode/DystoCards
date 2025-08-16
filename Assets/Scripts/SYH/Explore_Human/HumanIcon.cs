@@ -20,7 +20,7 @@ public class HumanIcon : MonoBehaviour
 
 
 
-    public void Setup(Human _human, ExploreInfo exploreInfo, GameObject parentScrollView)
+    public void Setup(Human _human, ExploreInfo exploreInfo, GameObject parentScrollView,Card2D card2D)
     {
         humanCardData = _human.humanData;
         exploreInfoUI = exploreInfo;
@@ -37,7 +37,7 @@ public class HumanIcon : MonoBehaviour
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(() =>
         {
-            exploreInfoUI.SetHumanInfo(_human);
+            exploreInfoUI.SetHumanInfo(_human, card2D);
             scrollView.SetActive(false);
         });
     }

@@ -6,7 +6,6 @@ public class HumanScrollView : MonoBehaviour
 
     [SerializeField] private ExploreInfo exploreInfoUI;
     [SerializeField] private GameObject content;
-    [SerializeField] public HumanCardData exampleHuman1;
  
     private List<HumanIcon> pooledIcons = new List<HumanIcon>();
 
@@ -30,16 +29,16 @@ public class HumanScrollView : MonoBehaviour
 
     private void OnEnable()
     {
-        List<Human> humans = ExploreManager.Instance.registedHumans;
+        List<Card2D> humanCards = ExploreManager.Instance.registedHumans;
         
 
 
         for (int i = 0; i < pooledIcons.Count; i++)
         {
-            if (i < humans.Count)
+            if (i < humanCards.Count)
             {
                 pooledIcons[i].gameObject.SetActive(true);
-                pooledIcons[i].Setup(humans[i], exploreInfoUI, gameObject);
+                pooledIcons[i].Setup(humanCards[i].GetComponent<Human>(), exploreInfoUI, gameObject, humanCards[i]);
             }
             else
             {
