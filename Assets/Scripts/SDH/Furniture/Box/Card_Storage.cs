@@ -254,6 +254,9 @@ public class Card_Storage : MonoBehaviour
         // 부모를 원래 위치로
         card.transform.SetParent(this.transform.parent);
 
+        // 월드 좌표 (0,0)으로 이동
+        card.transform.position = Vector3.zero;
+
         // 시각적으로 다시 표시
         var renderer = card.GetComponent<SpriteRenderer>();
         if (renderer != null)
