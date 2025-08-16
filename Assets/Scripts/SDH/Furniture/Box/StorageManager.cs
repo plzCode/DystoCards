@@ -8,16 +8,20 @@ using UnityEngine.UI;
 /// </summary>
 public class StorageManager : MonoBehaviour
 {
-    [SerializeField] private GameObject boxUIPanel;   // 저장소 UI 패널
-    [SerializeField] private Button closeButton;      // 저장소 UI 닫기 버튼
-    [SerializeField] private Transform contentParent; // ScrollView Content (카드 UI가 붙는 부모)
-    [SerializeField] private GameObject cardUIPrefab; // 카드 UI Prefab (CardUI)
-    [SerializeField] private TMP_Text capacityText;   // 저장소 용량 텍스트 표시
+    [SerializeField] private GameObject boxUIPanel;      // 저장소 UI 패널
+    [SerializeField] private Button closeButton;         // 저장소 UI 닫기 버튼
+    [SerializeField] private Transform contentParent;    // ScrollView Content (카드 UI가 붙는 부모)
+    [SerializeField] private GameObject cardUIPrefab;    // 카드 UI Prefab (CardUI)
+    [SerializeField] private TMP_Text capacityText;      // 저장소 용량 텍스트 표시
+    [SerializeField] private Image backgroundImage;      // UI 배경 이미지
+    [SerializeField] private Sprite[] backgroundSprites; // 카드 ID에 따라 변경할 스프라이트 배열
+    [SerializeField] private GameObject fieldCards;      // FieldCards
 
     public static StorageManager Instance { get; private set; } // 싱글톤 인스턴스
     public Transform ContentParent => contentParent;            // 외부에서 contentParent 접근용
     public GameObject CardUIPrefab => cardUIPrefab;             // 카드 UI 프리팹 접근용
     public TMP_Text CapacityText => capacityText;               // 용량 텍스트 접근용
+    public GameObject FieldCards => fieldCards;                 // 필드 카드 접근용
     public Card_Storage currentBox { get; private set; }        // 현재 열려있는 저장소 박스
 
     private void Awake()
@@ -58,6 +62,7 @@ public class StorageManager : MonoBehaviour
         UIManager.Instance.TogglePanel(boxUIPanel); // UI 토글
         currentBox = null; // 현재 박스 초기화
         ClearCardUI(); // 카드 UI 초기화
+        AudioManager.Instance.PlaySFX("StorageClose");
     }
 
     /// <summary>
@@ -68,11 +73,22 @@ public class StorageManager : MonoBehaviour
     {
         currentBox = box;
 
+        string cardId = currentBox.card.cardData.cardId;
+
+        if (cardId == "055") // 나무 상자
+            backgroundImage.sprite = backgroundSprites[0];
+        else if (cardId == "056") // 철 상자
+            backgroundImage.sprite = backgroundSprites[1];
+        else if (cardId == "052") // 냉장고
+            backgroundImage.sprite = backgroundSprites[2];
+
         ClearCardUI(); // 이전 UI 초기화
 
         box.UpdateBoxData(); // 박스 데이터 갱신
         box.UpdateCardUI(); // 카드 UI 갱신
 
         UIManager.Instance.TogglePanel(boxUIPanel); // UI 토글(보이기)
+        Debug.Log("!!!");
+        AudioManager.Instance.PlaySFX("StorageOpen");
     }
 }

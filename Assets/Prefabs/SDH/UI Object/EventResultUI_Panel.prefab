@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dissolveTime: 1.5
+  _outlineThicknessValue: 0.005
   _image:
   - {fileID: 1341696209106491128}
   transforms:
@@ -299,7 +300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7649638126231060084, guid: 9d024c1663fb27a45b050f80fa62d481, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f31a0555c54f15042906951d80e52715, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -6,9 +6,9 @@ using UnityEngine;
 public class ExploreManager : MonoBehaviour
 {
     // 등록된 인물을 저장
-    public List<Human> registedHumans = new List<Human>();
-    // 탐사를 나간 사람을 저장
-    public List<Human> exploringHumans = new List<Human>();
+    public List<Card2D> registedHumans = new List<Card2D>();
+    //// 탐사를 나간 사람을 저장
+    //public List<Card2D> exploringHumans = new List<Card2D>();
     // 탐사 중인 정보 저장
     public List<ExploringInfo> exploringInfos = new List<ExploringInfo>();
     public static ExploreManager Instance { get; private set; }
@@ -61,13 +61,13 @@ public class ExploreManager : MonoBehaviour
         List<Card2D> humans = CardManager.Instance.GetCharacterType(cards, CharacterType.Human);
         for (int i = 0; i < humans.Count; i++)
         {
-            registedHumans.Add(humans[i].gameObject.GetComponent<Human>());
+            registedHumans.Add(humans[i]);
         }
 
         addExploreScroll.gameObject.SetActive(true);
     }
 
-    public bool AddExplore(Human human, LocationInfo location)
+    public bool AddExplore(Human human, LocationInfo location,Card2D humandCard2D)
     {
         foreach (var exploration in registeredExplorations)
         {
@@ -90,9 +90,10 @@ public class ExploreManager : MonoBehaviour
             }
         }
 
-        ExplorationData newData = new ExplorationData(human, location);
-        registeredExplorations.Add(newData);
-        exploringHumans.Add(newData.human);
+        ExplorationData newData = new ExplorationData(human, location,humandCard2D);
+        CardManager.Instance.UnregisterCard(humandCard2D);
+        humandCard2D.gameObject.SetActive(false);   
+        registeredExplorations.Add(newData);        
         OnExploreAdded?.Invoke(newData); 
         Debug.Log($"[ExploreManager] 탐색 등록됨: {human.humanData.cardName} → {location.locationName}");
         return true;
@@ -126,7 +127,8 @@ public class ExploreManager : MonoBehaviour
         {
             
             registeredExplorations.Remove(data);
-            exploringHumans.Remove(data.human);
+            data.humanCard2D.gameObject.SetActive(true);
+            CardManager.Instance.RegisterCard(data.humanCard2D);
             OnExploreCompleted?.Invoke(data);
             data.human.ConsumeStamina(data.location.requiredStamina);
             GradeRecorder.Instance.exploreCount++;

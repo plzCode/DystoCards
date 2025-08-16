@@ -39,8 +39,6 @@ public class EventFunctionManager : MonoBehaviour
         int index = Random.Range(0, eventCardDatabase.Count);
         EventCardData selectedCard = eventCardDatabase[index];
 
-        eventCardDatabase.RemoveAt(index); // 뽑은 카드 삭제
-
         return selectedCard;
     }
 
@@ -79,13 +77,21 @@ public class EventFunctionManager : MonoBehaviour
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
 
+        // 모든 캐릭터가 공유할 랜덤 힐 수치 (1~3)
+        int healAmount = Random.Range(1, 4);
+
         foreach (var card in allCards)
         {
             if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
             {
                 Human human = card.GetComponent<Human>();
                 if (human != null)
-                    human.Heal(1);
+                {
+                    human.Heal(healAmount);
+                    //human.RecoverHunger(1);
+                    //human.RecoverStamina(1);
+                    //human.RecoverMentalHealth(1);
+                }
             }
         }
     }
@@ -95,13 +101,21 @@ public class EventFunctionManager : MonoBehaviour
         // 씬 내 존재하는 모든 Card2D 컴포넌트를 찾아서 배열로 가져옴
         Card2D[] allCards = FindObjectsByType<Card2D>(FindObjectsSortMode.None);
 
+        // 모든 캐릭터가 공유할 랜덤 데미지 수치 (1~3)
+        int damageAmount = Random.Range(1, 4);
+
         foreach (var card in allCards)
         {
             if (card.IsCharacterOfType(card.RuntimeData, CharacterType.Human))
             {
                 Human human = card.GetComponent<Human>();
                 if (human != null)
-                    human.TakeDamage(1);
+                {
+                    human.TakeDamage(damageAmount);
+                    //human.ConsumeStamina(1);
+                    //human.TakeStress(1);
+                }
+                    
             }
         }
     }

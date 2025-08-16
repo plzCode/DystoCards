@@ -49,3 +49,8 @@ MonoBehaviour:
   contentParent: {fileID: 0}
   cardUIPrefab: {fileID: 6920553070491397939, guid: 14707df2c6e497043b5ff092330d52e2, type: 3}
   capacityText: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  backgroundSprites:
+  - {fileID: 21300000, guid: 30801c966b69e2b49ad02008c18a05ca, type: 3}
+  - {fileID: 21300000, guid: 656c99aec5002e24c83056e5fb096e41, type: 3}
+  - {fileID: 21300000, guid: e0b7e402d24fc11409969344397e6a7d, type: 3}

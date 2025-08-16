@@ -88,7 +88,7 @@ public class GradeRecorder : MonoBehaviour
     {
         return name switch
         {
-            "생존" => survivalCount,
+            "생존" => TurnManager.Instance.TurnCount,
             "몬스터 처치" => monsterKillCount,
             "탐험 횟수" => exploreCount,
             "조합 횟수" => combinationCount,
