@@ -12,18 +12,18 @@ using UnityEngine.UI;
 /// 더블 클릭 시 저장소 UI 열림
 public class Card_Storage : MonoBehaviour
 {
+    public Card2D card { get; private set; }              // 자신을 의미하는 카드
     private Transform contentParent;                      // ScrollView Content (카드 UI가 붙는 부모)
     private GameObject cardUIPrefab;                      // 카드 UI 프리팹
     private StorageManager boxManager;                    // 저장소 매니저 (싱글톤)
     private List<Card2D> childCards = new List<Card2D>(); // 현재 박스에 들어있는 카드 리스트
-    private Card2D card;                                  // 자신을 의미하는 카드
     private int lastCardCount;                            // 마지막 카드 개수 (변화 감지용)
     private float lastClickTime;                          // 더블 클릭 감지용 시간 기록
     private const float doubleClickThreshold = 0.3f;      // 더블 클릭 간격 임계값
     private int maxSize;                                  // 박스 최대 용량
-
     private bool isDragging = false;
-    private bool hasInsertedBefore = false; // 박스에 물건이 한번이라도 들어갔는지 여부
+    private bool hasInsertedBefore = false;               // 박스에 물건이 한번이라도 들어갔는지 여부
+    private GameObject fieldCards;
 
     // 박스 이름에 따른 용량 맵
     private readonly Dictionary<string, int> boxSizeMap = new Dictionary<string, int>()
@@ -55,6 +55,7 @@ public class Card_Storage : MonoBehaviour
         contentParent = StorageManager.Instance.ContentParent;
         cardUIPrefab = StorageManager.Instance.CardUIPrefab;
         boxManager = StorageManager.Instance;
+        fieldCards = StorageManager.Instance.FieldCards;
 
         // 시작 시 카드 개수 저장
         lastCardCount = GetComponentsInChildren<Card2D>(true)
@@ -252,7 +253,7 @@ public class Card_Storage : MonoBehaviour
         card.gameObject.SetActive(true);
 
         // 부모를 원래 위치로
-        card.transform.SetParent(this.transform.parent);
+        card.transform.SetParent(fieldCards.transform);
 
         // 월드 좌표 (0,0)으로 이동
         card.transform.position = Vector3.zero;
