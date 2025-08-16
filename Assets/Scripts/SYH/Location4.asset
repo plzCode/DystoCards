@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5df1c0f4f8fdb4d8fd71b19989f867, type: 3}
   m_Name: Location4
   m_EditorClassIdentifier: 
-  locationName: "\uD3D0\uACF5\uC7A5"
-  locationImage: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
-  requiredStrength: 5
-  requiredStamina: 6
-  dangerLevel: 5
-  durationDays: 4
-  openDay: 4
+  locationName: "\uBCD1\uC6D0"
+  locationImage: {fileID: -7934509782598252502, guid: c38088454abbe514d84ea2a38734cea4, type: 3}
+  requiredStrength: 3
+  requiredStamina: 4
+  dangerLevel: 4
+  durationDays: 3
+  openDay: 5
   rewards:
-  - card: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-    quantity: 7
-    probability: 100
-  - card: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
-    quantity: 5
+  - card: {fileID: 11400000, guid: 45d477851dc872847868b776ad5386b6, type: 2}
+    quantity: 1
+    probability: 33
+  - card: {fileID: 11400000, guid: 00ec29eaa2f56f74c8c56cc8930b7aca, type: 2}
+    quantity: 3
+    probability: 80
+  - card: {fileID: 11400000, guid: 87923d8c0a905aa4f9578fe2e4d16145, type: 2}
+    quantity: 1
     probability: 100

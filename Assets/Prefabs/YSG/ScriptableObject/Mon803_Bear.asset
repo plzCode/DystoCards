@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 803
   cardName: "\uACF0"
-  cardImage: {fileID: 21300000, guid: 129fd5ec90aaeee419abf44ea778d44a, type: 3}
+  cardImage: {fileID: 21300000, guid: 511b6c32c52bc8a46b0f8b903b3220d2, type: 3}
   cardType: 6
   description: "\uB3D9\uBB3C\uC6D0\uC5D0 \uB3C4\uB9DD\uCCD0 \uB098\uC628 \uACF0"
   size: 1
@@ -22,9 +22,11 @@ MonoBehaviour:
   max_health: 8
   current_health: 8
   attack_power: 4
-  defense_power: 2
+  defense_power: 1
   moveSpeed: 1.5
   act: 0
+  spawnTurn: 5
+  spawnChance: 0
   dropList:
   - item: {fileID: 11400000, guid: 62399cb406d3ab7429950640697e8309, type: 2}
     chance: 70

@@ -18,7 +18,7 @@ public class Card2D : MonoBehaviour
     public LayerMask cardLayer = 1<<6;
 
     private Vector3 dragOffset;
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     public Card2D parentCard;
     public List<Card2D> childCards = new List<Card2D>();

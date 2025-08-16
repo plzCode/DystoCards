@@ -46,17 +46,6 @@ public class ExploreManager : MonoBehaviour
 
         mapLocationList.Sort((a, b) => a.locationInfo.openDay.CompareTo(b.locationInfo.openDay));
     }
-    private void Update()
-    {        
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            CardManager.Instance.SpawnCardById("041", new Vector3(0, 0, 0));
-            CardManager.Instance.SpawnCardById("021", new Vector3(0, 0, 0));
-        }
-        
-    }
-
     private void Start()
     {
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, () => registerHumanUpdate());
@@ -140,6 +129,7 @@ public class ExploreManager : MonoBehaviour
             exploringHumans.Remove(data.human);
             OnExploreCompleted?.Invoke(data);
             data.human.ConsumeStamina(data.location.requiredStamina);
+            GradeRecorder.Instance.exploreCount++;
 
         }
         ExpressDuringDays();

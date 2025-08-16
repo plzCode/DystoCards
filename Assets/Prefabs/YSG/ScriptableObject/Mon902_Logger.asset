@@ -13,21 +13,23 @@ MonoBehaviour:
   m_Name: Mon902_Logger
   m_EditorClassIdentifier: 
   cardId: 902
-  cardName: "\uBAA9\uC218"
-  cardImage: {fileID: 0}
+  cardName: "\uBC8C\uBAA9\uAFBC"
+  cardImage: {fileID: 21300000, guid: 3705b9b49783149459ee373d0ef4650d, type: 3}
   cardType: 6
-  description: 
+  description: "\uC804\uC9C1 \uBC8C\uBAA9\uAFBC\uC600\uB358 \uC0DD\uC874\uC790"
   size: 1
   characterType: 2
   max_health: 12
   current_health: 12
   attack_power: 3
-  defense_power: 2
+  defense_power: 1
   moveSpeed: 1
   act: 0
+  spawnTurn: 2
+  spawnChance: 0
   dropList:
   - item: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-    chance: 50
+    chance: 70
     minCount: 1
     maxCount: 2
     isOnly: 0
@@ -42,7 +44,7 @@ MonoBehaviour:
     maxCount: 1
     isOnly: 1
   - item: {fileID: 11400000, guid: 9fc4f99990071fe43955b912469d6222, type: 2}
-    chance: 5
+    chance: 3
     minCount: 0
     maxCount: 1
     isOnly: 1
