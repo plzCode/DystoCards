@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a894b067285ea5a4eaea485587730ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSceneName: Integration 6
+  startSceneName: Integration 2
 --- !u!1 &798720280
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public string startSceneName = "Integration 6"; 
+    public string startSceneName = "Integration 2"; 
 
     public void OnStartButton()
     {
-        SceneManager.LoadScene("Integration 6");
+        SceneManager.LoadScene("Integration 2");
     }
 
     public void OnExitButton()
