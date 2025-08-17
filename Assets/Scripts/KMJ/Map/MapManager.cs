@@ -19,14 +19,16 @@ public class MapManager : MonoBehaviour
     [Header("Tile Prefab (TileState)")]
     public TileState tilePrefab;
 
-    [Header("Resource")]
-    public int costPerTile = 1;
-    public int currentResource = 10;
+    //[Header("Resource")]
+    //public int costPerTile = 1;
+    //public int currentResource = 10;
 
     /* ───────── 내부 ───────── */
     private TileState[,] grid;
     private List<Vector2Int> spiralOrder = new(); // Frontier 진행 순서
     private int cursor = 0;                       // spiralOrder 인덱스
+
+    public bool allowManualClickUnlock = false;
 
     /* ───────── 초기화 ───────── */
     private void Awake()
@@ -84,24 +86,25 @@ public class MapManager : MonoBehaviour
         SetNextFrontier();
     }
 
-    /* ───────── 클릭 → 해금 & 다음 Frontier ───────── */
     public void TryUnlock(TileState tile)
     {
-        // 자원이 부족할 때
+        if (!allowManualClickUnlock) return;
         if (tile == null) return;
 
-        if (currentResource < costPerTile)
-        {
-            Debug.Log($"자원 부족! ({currentResource}/{costPerTile}) — {tile.name} 확장 실패");
-            return;
-        }
+        // tile이 Frontier인지도 반드시 확인
+        if (tile.Current != TilePhase.Frontier) return;
 
-        // 확장
-        currentResource -= costPerTile;
         tile.SetState(TilePhase.Unlocked);
-        Debug.Log($"확장 완료: {tile.name} — 남은 자원 {currentResource}");
-
         SetNextFrontier();
+        Debug.Log($"[Map] Manual unlock: {tile.name}");
+    }
+
+    public void UnlockFrontierFromClean(TileState frontier)
+    {
+        if (frontier == null || frontier.Current != TilePhase.Frontier) return;
+        frontier.SetState(TilePhase.Unlocked);
+        SetNextFrontier();
+        Debug.Log($"[Map] Clean-based unlock: {frontier.name}");
     }
 
     /* ───────── spiralOrder & Frontier 지정 ───────── */

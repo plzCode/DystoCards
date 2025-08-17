@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -53,6 +54,9 @@ public class DayActionFacilitySpawner : MonoBehaviour
         Card2D spawned = null;
         if (s.useId) spawned = CardManager.Instance.SpawnCardById(s.idOrName, s.worldPos);
         else spawned = CardManager.Instance.SpawnCardByName(s.idOrName, s.worldPos);
+
+        if (isFacility && !spawned.TryGetComponent<FacilityOnlyCharacters>(out _))
+            spawned.AddComponent<FacilityOnlyCharacters>();
 
         if (!spawned)
         {
