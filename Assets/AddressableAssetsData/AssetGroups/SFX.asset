@@ -93,6 +93,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98f1049f3b95f764586c9a99731fef31
+    m_Address: "\uB808\uC2DC\uD53C"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dba64b9ee4add747bbd8e27f9a02b5f
     m_Address: Pop_1
     m_ReadOnly: 0
@@ -107,6 +113,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b785d868f1641ae41a7e7158e7a88485
     m_Address: Access_Denied_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdb64c84f5d218d41a4d47be3ba18467
+    m_Address: "\uD074\uB9AD"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0ea150cd4e3e6e4eaaf6139b15c2e87
+    m_Address: "\uC870\uD569"
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX

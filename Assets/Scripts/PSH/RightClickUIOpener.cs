@@ -57,7 +57,7 @@ public class RightClickUIOpener : MonoBehaviour
     public void OpenUI(GameObject target)
     {
         uiPanel.SetActive(true);
-
+        AudioManager.Instance.PlaySFX("클릭");
         // 선택한 오브젝트 위치에 따라 UI를 옮기고 싶을 경우:
         /*Vector3 screenPos = mainCamera.WorldToScreenPoint(target.transform.position);
         uiPanel.transform.position = screenPos;*/
