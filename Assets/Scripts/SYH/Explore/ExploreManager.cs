@@ -93,6 +93,15 @@ public class ExploreManager : MonoBehaviour
         }
 
         ExplorationData newData = new ExplorationData(human, location, humandCard2D);
+        // 자식 카드 먼저 분리
+        humandCard2D.DetachChildrenBeforeDestroy();
+
+        // 부모와의 연결도 정리
+        if (humandCard2D.parentCard != null)
+        {
+            humandCard2D.parentCard.childCards.Remove(humandCard2D);
+            humandCard2D.parentCard = null;
+        }
         CardManager.Instance.UnregisterCard(humandCard2D);
         humandCard2D.gameObject.SetActive(false);
         registeredExplorations.Add(newData);
