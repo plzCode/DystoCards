@@ -39,6 +39,7 @@ public class MonsterAct : Character
 
     private new void Start()
     {
+        GetComponent<CardTileBarrier>().enabled = false;
         ChaseTarget();
     }
 
@@ -157,20 +158,29 @@ public class MonsterAct : Character
     #region ¿¸≈ı
     public override void Die()
     {
-        DropItem();
+        DropItem(transform.position);
 
         GradeRecorder.Instance.monsterKillCount++;
 
         base.Die();
     }
 
-    public virtual void DropItem()
+    public virtual void DropItem(Vector3 spawnPos)
     {
+        AudioManager.Instance.PlaySFX("Drop");
+
         MonsterCardData monsterData = charData as MonsterCardData;
         if (monsterData == null || monsterData.DropList == null || monsterData.DropList.Length == 0)
             return;
 
-        Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
+        Bounds b = GetWorldBounds();
+
+        while (!MapManager.Instance.AreAllCellsUnlocked(b))
+        {
+            spawnPos = Vector3.MoveTowards(spawnPos, Vector3.zero, 0.5f);
+            b.center = spawnPos;
+            if (spawnPos == Vector3.zero) break;
+        }
 
         var onlyDrops = new List<DropItem>();
         foreach (var drop in monsterData.DropList)
@@ -196,7 +206,7 @@ public class MonsterAct : Character
             for (int i = 0; i < totalCount; i++)
             {
                 CardManager.Instance.SpawnCard(drop.item, spawnPos);
-                spawnPos += Vector3.right * 0.5f;
+                spawnPos = Vector3.MoveTowards(spawnPos, Vector3.zero, 0.5f);
             }
         }
 
@@ -217,12 +227,21 @@ public class MonsterAct : Character
                     if (rand <= sum)
                     {
                         CardManager.Instance.SpawnCard(drop.item, spawnPos);
-                        spawnPos += Vector3.right * 0.5f;
+                        spawnPos = Vector3.MoveTowards(spawnPos, Vector3.zero, 0.5f);
                         break;
                     }
                 }
             }
         }
+    }
+
+    protected Bounds GetWorldBounds()
+    {
+        var rs = GetComponentsInChildren<Renderer>(true);
+        if (rs.Length == 0) return new Bounds(transform.position, Vector3.zero);
+        var b = rs[0].bounds;
+        for (int i = 1; i < rs.Length; i++) b.Encapsulate(rs[i].bounds);
+        return b;
     }
     #endregion
 }

@@ -6,19 +6,22 @@ using UnityEngine.UI;
 public class UI_Dissolve_Modify : MonoBehaviour
 {
     [SerializeField] private float _dissolveTime = 0.75f;
+    [SerializeField] private float _outlineThicknessValue = 0.005f;
     [SerializeField] private List<Image> _image;
     [SerializeField] private List<Transform> transforms;
 
     public Material material_Effect;
-
     private List<Material> _materials = new List<Material>();
 
     private int _dissolveAmount = Shader.PropertyToID("_DissolveAmount");
     private int _verticalDissolveAmount = Shader.PropertyToID("_VerticalDissolve");
 
+    
+    private int _outlineThickness = Shader.PropertyToID("_OutlineThickness");
+
     private void Awake()
     {
-        // 머티리얼 초기화 (한 번만)
+        // 머티리얼 초기화
         if (_image != null && material_Effect != null)
         {
             foreach (var img in _image)
@@ -26,6 +29,9 @@ public class UI_Dissolve_Modify : MonoBehaviour
                 var mat = new Material(material_Effect);
                 img.material = mat;
                 _materials.Add(mat);
+
+                // OutlineThickness 초기값 적용
+                mat.SetFloat(_outlineThickness, _outlineThicknessValue);
             }
         }
     }
