@@ -30,6 +30,8 @@ public class MapManager : MonoBehaviour
 
     public bool allowManualClickUnlock = false;
 
+    private TileState currentFrontier;
+
     /* ───────── 초기화 ───────── */
     private void Awake()
     {
@@ -85,6 +87,8 @@ public class MapManager : MonoBehaviour
         /* 5) 첫 Frontier 지정 */
         SetNextFrontier();
     }
+
+    public TileState GetCurrentFrontierTile() => currentFrontier;
 
     public void TryUnlock(TileState tile)
     {
@@ -153,7 +157,6 @@ public class MapManager : MonoBehaviour
 
     private void SetNextFrontier()
     {
-        // 이전 Frontier가 Unlock된 뒤 호출
         while (cursor < spiralOrder.Count)
         {
             Vector2Int p = spiralOrder[cursor++];
@@ -161,10 +164,11 @@ public class MapManager : MonoBehaviour
             if (t.Current == TilePhase.Locked)
             {
                 t.SetState(TilePhase.Frontier);
+                currentFrontier = t;   // ★ 여기에 저장
                 return;
             }
         }
-        // cursor가 끝까지 갔으면 더 이상 Frontier 없음 (맵 완전 해금)
+        currentFrontier = null; // 더 이상 없음
         Debug.Log("모든 맵이 확장되었습니다!");
     }
 
