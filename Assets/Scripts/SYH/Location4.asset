@@ -16,9 +16,9 @@ MonoBehaviour:
   locationImage: {fileID: -7934509782598252502, guid: c38088454abbe514d84ea2a38734cea4, type: 3}
   requiredStrength: 3
   requiredStamina: 4
-  dangerLevel: 4
-  durationDays: 3
-  openDay: 5
+  dangerLevel: 5
+  durationDays: 1
+  openDay: 2
   rewards:
   - card: {fileID: 11400000, guid: 45d477851dc872847868b776ad5386b6, type: 2}
     quantity: 1

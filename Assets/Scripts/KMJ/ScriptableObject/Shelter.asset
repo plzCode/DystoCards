@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 
   cardName: Shelter
-  cardImage: {fileID: -3128580039886114965, guid: f9c00b1df0e64264eb8d2a0e16254ce7, type: 3}
+  cardImage: {fileID: -7418741297274378128, guid: 0eb6de0cf5fdb8d49b3b08bf247e9d3d, type: 3}
   cardType: 9
   description: 
   size: 1

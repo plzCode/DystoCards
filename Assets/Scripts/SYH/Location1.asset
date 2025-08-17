@@ -16,15 +16,15 @@ MonoBehaviour:
   locationImage: {fileID: -7713157828157735119, guid: c38088454abbe514d84ea2a38734cea4, type: 3}
   requiredStrength: 1
   requiredStamina: 2
-  dangerLevel: 2
-  durationDays: 2
+  dangerLevel: 3
+  durationDays: 1
   openDay: 1
   rewards:
-  - card: {fileID: 11400000, guid: c899b990ebcd18d469ca2f348e45a87d, type: 2}
-    quantity: 2
+  - card: {fileID: 11400000, guid: e71ce0e20caebd64882866217465977b, type: 2}
+    quantity: 3
     probability: 100
   - card: {fileID: 11400000, guid: ccb5f92a42365ed4fba877b05f07e74f, type: 2}
-    quantity: 1
+    quantity: 2
     probability: 100
   - card: {fileID: 11400000, guid: 19743069912131641b0b0a7188c12601, type: 2}
     quantity: 1

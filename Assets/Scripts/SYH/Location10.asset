@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationName: "\uB18D\uC7A5\uC9C0"
   locationImage: {fileID: -8233665482769826365, guid: c38088454abbe514d84ea2a38734cea4, type: 3}
-  requiredStrength: 2
-  requiredStamina: 3
-  dangerLevel: 5
-  durationDays: 4
-  openDay: 13
+  requiredStrength: 3
+  requiredStamina: 5
+  dangerLevel: 3
+  durationDays: 1
+  openDay: 1
   rewards:
   - card: {fileID: 11400000, guid: ac9a0a0c9090a1c4698043ca09b9a63a, type: 2}
-    quantity: 4
-    probability: 100
-  - card: {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}
     quantity: 2
     probability: 100
+  - card: {fileID: 11400000, guid: dc51e69f9ad3fd942a5561e88fac7e6b, type: 2}
+    quantity: 1
+    probability: 100
   - card: {fileID: 11400000, guid: 0a5eda64b28ad7447b51a24929d31fa5, type: 2}
-    quantity: 5
+    quantity: 1
     probability: 100

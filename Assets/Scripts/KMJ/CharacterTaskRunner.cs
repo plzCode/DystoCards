@@ -28,7 +28,7 @@ public class CharacterTaskRunner : MonoBehaviour
     {
         foreach (var c in FindObjectsOfType<CharacterCard2D>())
             c.ClearCompleted();
-        DaySummary.Instance?.ShowPopupAndClear();
+        //DaySummary.Instance?.ShowPopupAndClear();
         HarvestWindow.Reset();
         TurnManager.Instance.MarkActionComplete();
     }
