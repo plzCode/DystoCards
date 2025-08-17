@@ -40,28 +40,7 @@ public class GradeRecorder : MonoBehaviour
 
     }
 
-
-    private void Update()
-    {
-
-        if (!GradeUI.gameObject.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                GradeUI.gameObject.SetActive(true);
-                GradeUI.GetComponent<GradeUI>().ShowGrades();
-            }
-        }
-
-  
-        if (GradeUI.gameObject.activeSelf)
-            {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
-        }
-    }
+    
     /// <summary>
     /// 점수 데이터를 반환 (UI가 이 데이터를 받아서 표시)
     /// </summary>
