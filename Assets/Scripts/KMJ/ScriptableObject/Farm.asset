@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 
   cardName: Farm
-  cardImage: {fileID: 0}
+  cardImage: {fileID: -8505323522387581569, guid: c4391102637b0614180f887f52958242, type: 3}
   cardType: 9
   description: 
   size: 1

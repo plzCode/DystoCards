@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class UIMini_HoldOverlap : UIMinigameBase, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Refs")]
-    [SerializeField] private RectTransform axe;      // 드래그 타깃
-    [SerializeField] private RectTransform tree;     // 목표
+    [SerializeField] private RectTransform Tool;      // 드래그 타깃
+    [SerializeField] private RectTransform Target;     // 목표
     [SerializeField] private RectTransform dragArea; // 보통 Canvas의 root 또는 MinigameRoot
     [SerializeField] private Image progress;  // 선택: 진행도 표시(Image fillAmount)
 
@@ -42,7 +42,7 @@ public class UIMini_HoldOverlap : UIMinigameBase, IBeginDragHandler, IDragHandle
 
     void Update()
     {
-        if (IsOverlapped(axe, tree, snapRadius))
+        if (IsOverlapped(Tool, Target, snapRadius))
         {
             remaining -= Time.deltaTime;
             if (progress)
@@ -66,7 +66,7 @@ public class UIMini_HoldOverlap : UIMinigameBase, IBeginDragHandler, IDragHandle
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 dragArea, eventData.position, uiCam, out var local))
         {
-            axe.anchoredPosition = local;
+            Tool.anchoredPosition = local;
         }
     }
 
