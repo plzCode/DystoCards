@@ -32,7 +32,10 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
+    public void Start()
+    {
+        PlayBGM("BGM_Loop");
+    }
     public void Update()
     {
     }

@@ -7,7 +7,11 @@ public class MainMenu : MonoBehaviour
 
     public void OnStartButton()
     {
-        SceneManager.LoadScene("Integration 4");
+        if(startSceneName != "")
+        {
+            SceneManager.LoadScene(startSceneName);
+        }
+        
     }
 
     public void OnExitButton()

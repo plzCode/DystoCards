@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
     [Header("Mouse Input")]
     public MouseInput mouseInput;
 
+    [Header("EventUIManager")]
+    public EventUIManager eventUIManager;   
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -288,7 +291,9 @@ public class UIManager : MonoBehaviour
         {
             if(endGamePanel != null)
             {
-                endGamePanel.SetActive(true);
+                fadeCanvas.gameObject.SetActive(true);
+                StartCoroutine(FadeCanvas(fadeCanvas, 0f, 1f, 1f));
+                StartCoroutine(ActiveEnding());
             }
             else
             {
@@ -296,5 +301,10 @@ public class UIManager : MonoBehaviour
             }
             Debug.Log("[UIManager] 게임 종료 조건을 만족했습니다. 게임을 종료합니다.");
         }
+    }
+    public IEnumerator ActiveEnding()
+    {
+        yield return new WaitForSeconds(1f);
+        endGamePanel.SetActive(true);
     }
 }

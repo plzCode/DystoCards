@@ -15,8 +15,8 @@ public class FoodManager : MonoBehaviour
         for(int i = foodCards2D.Count - 1; i >= 0; i--)
         {
             FoodCardData foodCardData = foodCards2D[i].RuntimeData as FoodCardData;
-            foodCardData.shelfLifeTurns--;            
-            if (foodCardData.shelfLifeTurns <= 0)
+            foodCardData.ShelfLifeTurns--;            
+            if (foodCardData.ShelfLifeTurns <= 0)
             {
                 CardManager.Instance.DestroyCard(foodCards2D[i]);
             }

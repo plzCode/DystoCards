@@ -34,7 +34,7 @@ public class Recipe_Combination_Maker : MonoBehaviour
         if (cm == null) return;
 
         bool hasRequired = (recipeCard != null) && cm.HasRecipe(recipeCard);
-
+        AudioManager.Instance.PlaySFX("클릭");
 
         // 3) 나머지 경우 -> 정상 동작 (UI 닫고, 카드 스폰)
         if (uiToClose != null) uiToClose.SetActive(false);

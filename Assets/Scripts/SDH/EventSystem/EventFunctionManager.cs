@@ -38,6 +38,7 @@ public class EventFunctionManager : MonoBehaviour
 
         int index = Random.Range(0, eventCardDatabase.Count);
         EventCardData selectedCard = eventCardDatabase[index];
+        eventCardDatabase.Remove(eventCardDatabase[index]);
 
         return selectedCard;
     }

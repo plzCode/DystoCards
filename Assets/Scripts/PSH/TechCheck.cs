@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,44 +61,47 @@ public class TechCheck : MonoBehaviour
             $"unlock={(unlock ? unlock.cardName : "null")}, required={(recipeCard ? recipeCard.cardName : "null")}"
         );
 
-        if(hasBeforeRecipe)
-        {
-            DisableButtonCompletely();
-            return;
-        }
+        //if(hasBeforeRecipe)
+        //{
+        //    DisableButtonCompletely();
+        //    return;
+        //}
 
-        // 1) 해금 없음 + 필요한 것 있음 -> 버튼 비활성화
-        if (hasUnlock && hasRequired)
-        {
-            DisableButtonCompletely();
-            Debug.Log("[TechCheck] → 비활성화 분기 진입");
-            return;
-        }
+        //// 1) 해금 없음 + 필요한 것 있음 -> 버튼 비활성화
+        //if (hasUnlock && hasRequired)
+        //{
+        //    DisableButtonCompletely();
+        //    Debug.Log("[TechCheck] → 비활성화 분기 진입");
+        //    return;
+        //}
 
-        // 2) 해금 없음 + 필요 없음 -> techRecipe 추가
-        if (!hasUnlock && !hasRequired)
-        {
-            if (techRecipe == null)
-            {
-                Debug.LogWarning("[TechCheck] techRecipe가 지정되지 않았습니다.");
-                return;
-            }
+        //// 2) 해금 없음 + 필요 없음 -> techRecipe 추가
+        //if (!hasUnlock && !hasRequired)
+        //{
+        //    if (techRecipe == null)
+        //    {
+        //        Debug.LogWarning("[TechCheck] techRecipe가 지정되지 않았습니다.");
+        //        return;
+        //    }
 
-            if (!cm.HasRecipe(techRecipe))
-            {
-                cm.AddRecipeUnique(techRecipe); // CombinationManager에 AddRecipeUnique 메서드 필요
-                Debug.Log($"[TechCheck] techRecipe 추가: {techRecipe.cardName}");
-            }
+        //    if (!cm.HasRecipe(techRecipe))
+        //    {
+        //        cm.AddRecipeUnique(techRecipe); // CombinationManager에 AddRecipeUnique 메서드 필요
+        //        Debug.Log($"[TechCheck] techRecipe 추가: {techRecipe.cardName}");
+        //    }
 
-            EnableButtonCompletely();
-            //return;
-        }
+        //    EnableButtonCompletely();
+        //    //return;
+        //}
 
         // 3) 나머지 경우 -> 정상 동작 (UI 닫고, 카드 스폰)
+        cm.AddRecipeUnique(techRecipe);
         if (uiToClose != null) uiToClose.SetActive(false);
         if (techTooltipUI != null) techTooltipUI.SetActive(false);
         CardManager.Instance.SpawnCardById(techCard.cardId, Vector3.zero);
-        EnableButtonCompletely();
+        //EnableButtonCompletely();
+        AudioManager.Instance.PlaySFX("클릭");
+        DisableButtonCompletely();
     }
 
 
@@ -145,15 +149,31 @@ public class TechCheck : MonoBehaviour
         bool shouldDisable = hasRequired && hasUnlock;
 
 
-        if(missingBefore)
+        //if (missingBefore)
+        //{
+        //    if (shouldDisable)
+        //    {
+        //        DisableButtonCompletely();
+        //    }
+        //    else
+        //    {
+        //        EnableButtonCompletely();
+        //    }
+        //}
+        //else
+        //    DisableButtonCompletely();
+
+        bool shouldDisable1 = unlock && hasRequired;
+
+        if (missingBefore)
         {
-            if(shouldDisable)
+            if (!shouldDisable1)
             {
-                DisableButtonCompletely();
+                EnableButtonCompletely();
             }
             else
             {
-                EnableButtonCompletely();
+                DisableButtonCompletely();
             }
         }
         else

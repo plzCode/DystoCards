@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
-  m_Name: HumanData
+  m_Name: SungKiHoon
   m_EditorClassIdentifier: 
   cardId: 071
   cardName: "\uC131\uAE30\uD6C8"
-  cardImage: {fileID: 4153240674832713612, guid: 8a1f96c93a153e34a98b5f6dd6bbfebd, type: 3}
+  cardImage: {fileID: 2141417632, guid: 46268cd80d2e02c46ac10edf1cb88742, type: 3}
   cardType: 6
   description: 
   size: 1

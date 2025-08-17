@@ -46,20 +46,6 @@ public class Dissolve : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            StartCoroutine(Vanish(true, true));
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            StartCoroutine(Appear(true, true));
-        }
-    }
-
-
     public IEnumerator Vanish(bool useDissolve, bool useVertical)
     {
         float elapsedTime = 0f;

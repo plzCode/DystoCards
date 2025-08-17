@@ -163,13 +163,6 @@ public class CombinationManager : MonoBehaviour
                 {
                     if (techCard != null)
                     {
-                        //// Tech 카드가 있다면 해당 카드도 파괴
-                        //TechCardData techCardData = techCard.cardData as TechCardData;
-                        //currentReaminingTime = techCardData.remainingTime;
-
-
-                        //TechCardData techCardData = techCard.cardData as TechCardData;
-                        //int currentRemainingTime = GetRemaining(techCard, techCardData);
 
                         TechCardData techCardData = techCard.cardData as TechCardData;
                         if (techCardData == null)
@@ -178,7 +171,6 @@ public class CombinationManager : MonoBehaviour
                             return;
                         }
 
-                        // 초기화 (처음이면 남은일수 세팅)
                         if (!_techRemaining.ContainsKey(techCardData))
                         {
                             SetRemaining(techCardData, Mathf.Max(1, techCardData.remainingTime));
@@ -191,80 +183,23 @@ public class CombinationManager : MonoBehaviour
 
 
                         bool added = _techTickingTech.Add(techCardData);
+                        Debug.Log($"[TryCombine] 등록 시도: {techCardData.name}, added={added}");
                         if (!added) return;
+
+                        int targetTurn = (TurnManager.Instance != null) ? (TurnManager.Instance.TurnCount + 1) : int.MaxValue;
 
                         Action onceAction = null;
                         onceAction = () =>
                         {
-                            //// 먼저 등록 해제: 이번 턴 한 번만 실행
-                            //TurnManager.Instance.UnregisterPhaseAction(TurnPhase.ExploreAction, onceAction);
 
-                            //techCardData.remainingTime -= 1;
-                            //if (techCardData.remainingTime < 0) techCardData.remainingTime = 0;
-                            //Debug.Log($"[CombinationManager] 기술 시간 감소: {techCardData.remainingTime}");
-
-                            //if (techCardData.remainingTime <= 0)
-                            //{
-                            //    //if (recipeToReplace != null && recipes.Remove(recipeToReplace))
-                            //    //    Debug.Log($"[CombinationManager] 기존 레시피 삭제: {recipeToReplace.cardName}");
-
-                            //    if (techCardData.unlockRecipe != null && !recipes.Contains(techCardData.unlockRecipe))
-                            //    {
-                            //        recipes.Add(techCardData.unlockRecipe);
-                            //        Debug.Log($"[CombinationManager] 언락 레시피 추가: {techCardData.unlockRecipe.cardName}");
-                            //        GradeRecorder.Instance.recipeOpenCount++; // 레시피오픈  횟수 증가
-                            //    }
-                            //}
-
-
-                            //currentReaminingTime -= 1;
-                            //if (currentReaminingTime < 0) currentReaminingTime = 0;
-                            //Debug.Log($"[CombinationManager] 기술 시간 감소: {techCardData.remainingTime}");
-
-                            //if (currentReaminingTime <= 0)
-                            //{
-                            //    //if (recipeToReplace != null && recipes.Remove(recipeToReplace))
-                            //    //    Debug.Log($"[CombinationManager] 기존 레시피 삭제: {recipeToReplace.cardName}");
-
-                            //    if (techCardData.unlockRecipe != null && !recipes.Contains(techCardData.unlockRecipe))
-                            //    {
-                            //        recipes.Add(techCardData.unlockRecipe);
-                            //        Debug.Log($"[CombinationManager] 언락 레시피 추가: {techCardData.unlockRecipe.cardName}");
-                            //        GradeRecorder.Instance.recipeOpenCount++; // 레시피오픈  횟수 증가
-                            //    }
-                            //}
-
-                            //currentRemainingTime = Mathf.Max(0, currentRemainingTime - 1);
-                            //SetRemaining(techCard, currentRemainingTime);
-
-                            //Debug.Log($"[CombinationManager] 기술 시간 감소: {currentRemainingTime}");
-
-                            //if (currentRemainingTime <= 0)
-                            //{
-                            //    if (techCardData.unlockRecipe != null && !recipes.Contains(techCardData.unlockRecipe))
-                            //    {
-                            //        recipes.Add(techCardData.unlockRecipe);
-                            //        Debug.Log($"[CombinationManager] 언락 레시피 추가: {techCardData.unlockRecipe.cardName}");
-                            //        GradeRecorder.Instance.recipeOpenCount++;
-                            //    }
-
-                            //    // 다 썼으면 메모리 정리(선택)
-                            //    _techRemaining.Remove(techCard);
-                            //    // 필요 시 카드 파괴:
-                            //    // CardManager.Instance.DestroyCard(techCard);
-                            //}
-
-                            //currentReaminingTime = Mathf.Max(0, currentReaminingTime - 1);
-                            //SetRemaining(techCard, currentReaminingTime);
-
-                            //Debug.Log($"[CombinationManager] 기술 시간 감소: {currentRemainingTime}");
-
-
-                            int cur = GetRemaining(techCard, techCardData);
+                            int cur = GetRemaining(techCardData);
                             cur = Mathf.Max(0, cur - 1);
-                            SetRemaining(techCard, cur);
+                            SetRemaining(techCardData, cur);
 
                             Debug.Log($"[CombinationManager] {techCardData.name} 기술 시간 감소 → {cur}");
+
+                            _techTickingTech.Remove(techCardData);
+
 
 
                             if (cur <= 0)
@@ -273,21 +208,15 @@ public class CombinationManager : MonoBehaviour
                                 {
                                     recipes.Add(techCardData.unlockRecipe);
                                     Debug.Log($"[CombinationManager] 언락 레시피 추가: {techCardData.unlockRecipe.cardName}");
-                                    GradeRecorder.Instance.recipeOpenCount++;
+                                    if (GradeRecorder.Instance != null) GradeRecorder.Instance.recipeOpenCount++;
+                                    AudioManager.Instance.PlaySFX("레시피"); // 기술 해금 사운드 재생
                                 }
-                                // 완료: 메모리 정리
                                 _techRemaining.Remove(techCardData);
-                                // 필요시 카드 처리:
-                                // CardManager.Instance.DestroyCard(techCard);
                             }
-                            else
-                            {
-                                // ⬅️ 아직 남았으면 다음 ExploreAction 때 다시 실행되도록 재등록
-                                TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, onceAction);
-                            }
-
 
                         };
+
+                                    // 다음 ExploreAction 때 1회만 감소
                         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, onceAction);
                         return;
                     }
@@ -328,6 +257,7 @@ public class CombinationManager : MonoBehaviour
 
                     Debug.Log("새 카드 생성: " + recipe.result.name);
                     GradeRecorder.Instance.combinationCount++; // 조합 횟수 증가
+                    AudioManager.Instance.PlaySFX("조합"); // 조합 성공 사운드 재생
                 }
 
 
@@ -423,7 +353,6 @@ public class CombinationManager : MonoBehaviour
 
 
     private readonly Dictionary<TechCardData, int> _techRemaining = new();
-    // 중복 등록 가드 (Tech 기준)
     private readonly HashSet<TechCardData> _techTickingTech = new();
 
 

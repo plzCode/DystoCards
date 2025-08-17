@@ -41,7 +41,7 @@ public class EventUIManager : MonoBehaviour
     /// <summary>
     /// 이벤트 UI를 열고 카드 1장을 랜덤으로 선택
     /// </summary>
-    private void OpenEventUI()
+    public void OpenEventUI()
     {
         currentCard = EventFunctionManager.Instance.GetRandomCard();
 
