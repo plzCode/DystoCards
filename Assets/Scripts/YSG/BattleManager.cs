@@ -46,21 +46,12 @@ public class BattleManager : MonoBehaviour
 
 #if UNITY_EDITOR
         if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환
-            SpawnMonsterById("801");
+            SpawnMonsterById("908");
 
         if (Input.GetKeyUp(KeyCode.D)) // 몬스터 전원 사망
             foreach (Transform child in cards)
                 if (child.GetComponent<MonsterAct>() != null)
                     child.GetComponent<Character>()?.Die();
-
-        if (Input.GetKeyUp(KeyCode.F)) // 인물 전원 사망
-            foreach (Transform child in cards)
-                if (child.GetComponent<Human>() != null)
-                    child.GetComponent<Character>()?.Die();
-
-        if (Input.GetKeyUp(KeyCode.Delete)) // 모든 카드 제거
-            foreach (Transform child in cards)
-                CardManager.Instance.DestroyCard(child.GetComponent<Card2D>());
 #endif
     }
 
