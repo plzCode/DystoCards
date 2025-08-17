@@ -21,6 +21,7 @@ public class CharacterTaskRunner : MonoBehaviour
     private void OnDayActionStart()
     {
         RecalcActionable(); // 기존 있던 계산 루틴 유지
+        TurnManager.Instance.MarkActionComplete();
     }
 
     private void OnDayEnd()
@@ -29,6 +30,7 @@ public class CharacterTaskRunner : MonoBehaviour
             c.ClearCompleted();
         DaySummary.Instance?.ShowPopupAndClear();
         HarvestWindow.Reset();
+        TurnManager.Instance.MarkActionComplete();
     }
 
     public void RecalcActionable()

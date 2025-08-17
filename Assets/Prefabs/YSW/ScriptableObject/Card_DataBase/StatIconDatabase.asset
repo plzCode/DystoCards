@@ -37,3 +37,6 @@ MonoBehaviour:
   - statName: consumeHunger
     icon: {fileID: 1896981768466211261, guid: cd4d33b2ffbe8ff47872660a3f86f7c5, type: 3}
     statMappingName: "\uC18C\uBAA8 \uD5C8\uAE30"
+  - statName: hungerRecovery
+    icon: {fileID: -6285086123478972082, guid: 459d098e830971542a04c773573adba9, type: 3}
+    statMappingName: "\uD5C8\uAE30 \uD68C\uBCF5\uB7C9"
