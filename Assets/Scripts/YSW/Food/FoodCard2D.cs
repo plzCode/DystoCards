@@ -15,6 +15,7 @@ public class FoodCard2D : Card2D
             
             if(foodData != null)
             {
+                AudioManager.Instance.PlaySFX(foodData.audioRef);
                 human.RecoverHunger(foodData.hungerRestore);
                 Debug.Log($"Recover Hunger {foodData.cardName} to {human.charData.cardName}");
 
@@ -37,8 +38,8 @@ public class FoodCard2D : Card2D
 
     private void CheckIsPerishable()
     {
-        foodData.shelfLifeTurns--;
-        if (foodData.shelfLifeTurns <= 0)
+        foodData.ShelfLifeTurns--;
+        if (foodData.ShelfLifeTurns <= 0)
         {
             Debug.Log("유통기한이 지났습니다. ");
             foodData.isPerishable = false;

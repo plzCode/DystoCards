@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Integration/MainMenu.unity
     guid: 6918a4d4bb5983045a9ff18c664b85bb
   - enabled: 1
+    path: Assets/Scenes/Integration/Integration 5.unity
+    guid: caaafdf14543dbf43b3abaa966761b31
+  - enabled: 1
     path: Assets/Scenes/Integration/Integration 2.unity
     guid: c4fa2a89e2708a14a9fb55e5b1b34f03
   m_configObjects:

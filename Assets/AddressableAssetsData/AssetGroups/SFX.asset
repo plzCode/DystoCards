@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: SFX
   m_GUID: c8ab318e8d5c4c2478b45e87be822a44
   m_SerializeEntries:
+  - m_GUID: 172f48fca83dd95458c29a39fa30fe76
+    m_Address: PickupCard
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1be1f2e87dba1094a86c3855e574329b
     m_Address: StorageOut
     m_ReadOnly: 0
@@ -23,6 +29,30 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1dc3c383fc7f1e548b4c0e93c260b51f
     m_Address: Click_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 235adee5a1000c8459c64ac293e5b307
+    m_Address: popSound2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2442748e3e35ddb40a4b5635b0e15f66
+    m_Address: PillBottle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2755ce5f9d570a84ebe1387eaf57d1d5
+    m_Address: Felling
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ca4e42f7d9b04e4c83e2e88034512d0
+    m_Address: Clean
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
@@ -75,8 +105,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58e01b8fbc41da244b8051ddc060be06
+    m_Address: Mining
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67da51a401dc1b64082a87b820ed9c00
     m_Address: Drop
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ad485935ed59784bb59e73442e94f3f
+    m_Address: Rest
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
@@ -93,8 +135,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98f1049f3b95f764586c9a99731fef31
-    m_Address: "\uB808\uC2DC\uD53C"
+  - m_GUID: 8c7591582500fa142811c28813f341e1
+    m_Address: InventoryOpen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95b824cd4c6553641a2d064a34e0e776
+    m_Address: Knock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 993da06bc8f0eaa48b2d3f82446198c9
+    m_Address: Success2
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
@@ -111,20 +165,50 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab479fb743fb1c44080e41cece235ef3
+    m_Address: Achievement
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad288775485b20f4897fd1cfc0a6871b
+    m_Address: Confirm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4e8cdde79d50c0469046322475367c0
+    m_Address: Complete
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b785d868f1641ae41a7e7158e7a88485
     m_Address: Access_Denied_2
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bdb64c84f5d218d41a4d47be3ba18467
-    m_Address: "\uD074\uB9AD"
+  - m_GUID: bd7f28195a939b04cb8a26982521af69
+    m_Address: DrinkBottle
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c0ea150cd4e3e6e4eaaf6139b15c2e87
-    m_Address: "\uC870\uD569"
+  - m_GUID: c4f551bfe85fcac4fb9b9980173935ab
+    m_Address: popSound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c84386aa610977045b5bec5821ba445f
+    m_Address: Success
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da41091456812954e87c8d268b47b419
+    m_Address: End
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
@@ -141,14 +225,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e663e0ac9bd5ff1458f757e6d1f69603
+    m_Address: Cigarette
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e95842dc7375801468ff1a227fbd81c3
     m_Address: Drop
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec9f3f61b1a0c8840bfadf869c6ed8cb
+    m_Address: Harvest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ecfa7322d400e434589eb0c0088a9a0e
     m_Address: Book_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f23cbaa9da36d334687e2e26d026dd60
+    m_Address: EatPotato
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX

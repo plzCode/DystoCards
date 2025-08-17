@@ -354,6 +354,7 @@ public class Card2D : MonoBehaviour
         {
             case FoodCardData food:
                 stats["hungerRecovery"] = food.hungerRestore;
+                stats["shelfLife"] = food.ShelfLifeTurns;
                 break;
             case EquipmentCardData equip:
                 stats["attack"] = equip.attackPower;
@@ -399,10 +400,17 @@ public class Card2D : MonoBehaviour
         {
             stats.OnDataChanged += OnCardDataChanged;
         }
+        
+        if(RuntimeData is FoodCardData food_Stats)
+        {
+            food_Stats.OnDataChanged += OnCardDataChanged;
+        }
 
         // 명시적으로 초기화 메서드 호출
         InitializeCard();
     }
+
+
     private void InitializeCard()
     {
         if (isInitialized) return;

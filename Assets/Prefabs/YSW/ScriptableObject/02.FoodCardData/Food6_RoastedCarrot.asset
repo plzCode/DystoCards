@@ -20,4 +20,4 @@ MonoBehaviour:
   size: 1
   hungerRestore: 3
   isPerishable: 0
-  shelfLifeTurns: 10
+  audioRef: Bite_Potato

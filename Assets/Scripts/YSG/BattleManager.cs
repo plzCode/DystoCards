@@ -44,7 +44,7 @@ public class BattleManager : MonoBehaviour
         monsters.RemoveAll(m => m == null);
 
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
         if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환
             SpawnMonster();
 
@@ -52,7 +52,7 @@ public class BattleManager : MonoBehaviour
             foreach (Transform child in cards)
                 if (child.GetComponent<MonsterAct>() != null)
                     child.GetComponent<Character>()?.Die();
-#endif
+#endif*/
     }
 
     #region 소환

@@ -126,6 +126,7 @@ public class HumanCardData : CharacterCardData
         clone.max_hunger = this.max_hunger;
         clone.current_hunger = this.current_hunger;
         clone.stamina = this.stamina;
+        clone.max_stamina = this.max_stamina;
         clone.consume_hunger = this.consume_hunger;
 
         return clone;
