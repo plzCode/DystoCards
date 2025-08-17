@@ -46,21 +46,12 @@ public class BattleManager : MonoBehaviour
 
 #if UNITY_EDITOR
         if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환
-            SpawnMonsterById("801");
+            SpawnMonster();
 
         if (Input.GetKeyUp(KeyCode.D)) // 몬스터 전원 사망
             foreach (Transform child in cards)
                 if (child.GetComponent<MonsterAct>() != null)
                     child.GetComponent<Character>()?.Die();
-
-        if (Input.GetKeyUp(KeyCode.F)) // 인물 전원 사망
-            foreach (Transform child in cards)
-                if (child.GetComponent<Human>() != null)
-                    child.GetComponent<Character>()?.Die();
-
-        if (Input.GetKeyUp(KeyCode.Delete)) // 모든 카드 제거
-            foreach (Transform child in cards)
-                CardManager.Instance.DestroyCard(child.GetComponent<Card2D>());
 #endif
     }
 
@@ -306,7 +297,22 @@ public class BattleManager : MonoBehaviour
                 var humanCard = c.GetComponent<Card2D>();
                 humanCard.isStackable = true;
                 humanCard.GetComponent<CardTileBarrier>().enabled = true;
-                humanCard.transform.position = battleArea.transform.position;
+
+                Vector3 spawnPos = battleArea.transform.position;
+                humanCard.transform.position = spawnPos;
+
+                Bounds b = c.GetComponent<SpriteRenderer>()?.bounds
+                           ?? new Bounds(spawnPos, Vector3.one * 0.5f);
+
+                while (!MapManager.Instance.AreAllCellsUnlocked(b))
+                {
+                    spawnPos = Vector3.MoveTowards(spawnPos, Vector3.zero, 0.5f);
+                    b.center = spawnPos;
+
+                    if (spawnPos == Vector3.zero) break;
+                }
+
+                humanCard.transform.position = spawnPos;
             }
             else if (c.charData.characterType == CharacterType.Monster)
             {

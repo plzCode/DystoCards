@@ -87,6 +87,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 861473c45cf05d84f8abce65f1dac2ff
+    m_Address: Hit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dba64b9ee4add747bbd8e27f9a02b5f
     m_Address: Pop_1
     m_ReadOnly: 0
@@ -113,6 +119,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4921c3f0ab9b704eac1561f934d15a5
     m_Address: EventActivate
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e95842dc7375801468ff1a227fbd81c3
+    m_Address: Drop
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX

@@ -34,6 +34,8 @@ public class ExploreInfo : MonoBehaviour
     [SerializeField] private GameObject rewardGrid;
     [SerializeField] private GameObject rewardPrefab;
 
+    [Header("알람 UI")]
+    [SerializeField] private GameObject alarmUI;
 
 
 
@@ -172,6 +174,13 @@ public class ExploreInfo : MonoBehaviour
 
     public void OnClick_ExploreRegister()
     {
+        string checkMsg = ExploreManager.Instance.IsValidExlpore(current_humanInfo, current_locationInfo, current_humanCard);
+        if (checkMsg != null)
+        {
+            alarmUI.GetComponentInChildren<TextMeshProUGUI>().text = checkMsg;
+            alarmUI.SetActive(true);
+        }
+
         if (!IsExplorePossible())
         {
             Debug.Log("스태미나가 부족하여 탐험할 수 없습니다.");

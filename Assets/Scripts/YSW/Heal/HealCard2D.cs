@@ -16,7 +16,7 @@ public class HealCard2D : Card2D
             bool recovered = false;
 
             recovered |= TryRecover(healData.staninaAmount, human.currentStamina, 5, human.RecoverStamina, "Stamina", healData.cardName, human.charData.cardName);
-            recovered |= TryRecover(healData.healthAmount, human.currentHealth, human.humanData.MaxHealth, human.TakeDamage, "Health", healData.cardName, human.charData.cardName);
+            recovered |= TryRecover(healData.healthAmount, human.currentHealth, human.humanData.MaxHealth, human.Heal, "Health", healData.cardName, human.charData.cardName);
             recovered |= TryRecover(healData.mentalAmount, human.currentMentalHealth, human.humanData.MaxMentalHealth, human.RecoverMentalHealth, "Mental", healData.cardName, human.charData.cardName);
 
             if (!recovered)
