@@ -22,7 +22,8 @@ public class ActionMenu : MonoBehaviour
     [SerializeField] private GameObject pfMini_Rest;
 
     [Header("Harvest Settings")]
-    [SerializeField] private string seedCardId;
+    private const string SEED_ID = "003";
+
     [SerializeField] private bool seedById = true;
 
     // 현재 컨텍스트
@@ -41,6 +42,7 @@ public class ActionMenu : MonoBehaviour
 
         // ActionLibrary에서 액션 목록 받아 버튼 구성
         var actions = ActionLibrary.GetActions(facility);
+
         foreach (var act in actions)
         {
             if (!chr.CanDo(act)) continue;
@@ -48,7 +50,7 @@ public class ActionMenu : MonoBehaviour
             // Harvest 버튼 활성 조건: (허용창 true) 또는 (씨앗 보유)
             if (act.id == "farm_harvest")
             {
-                if (!HarvestWindow.PermitActive && !HasAnyCardById(seedCardId))
+                if (!HarvestWindow.PermitActive && !HasAnyCardById(SEED_ID))
                 {
                     // 씨앗 없으면 버튼을 비활성화해서 표시(툴팁은 UI 쪽 처리)
                     var bGray = Instantiate(btnPrefab, listRoot);
@@ -59,6 +61,7 @@ public class ActionMenu : MonoBehaviour
             }
 
             var b = Instantiate(btnPrefab, listRoot);
+
             SetButtonText(b, act.label);
             var captured = act;
             b.onClick.AddListener(() => OnClickAction(captured));
@@ -104,7 +107,7 @@ public class ActionMenu : MonoBehaviour
             // 턴 전체 허용이 아니면 씨앗 1장 소모 시도
             if (!HarvestWindow.PermitActive)
             {
-                if (!TryConsumeCardById(seedCardId))
+                if (!TryConsumeSeed())
                 {
                     TurnManager.Instance?.MarkActionComplete(); // 안전: 큐 정지 방지
                     return;
@@ -181,7 +184,7 @@ public class ActionMenu : MonoBehaviour
                 if (isRest)
                 {
                     ApplyRestEffects(act);
-                    currentChar.SetRestedThisTurn(true); // ★ 추가
+                    currentChar.SetRestedThisTurn(true);
                 }
 
                 if (isClean)
@@ -275,17 +278,17 @@ public class ActionMenu : MonoBehaviour
         return false;
     }
 
-    private bool TryConsumeCardById(string id)
+    private bool TryConsumeSeed()
     {
-        if (string.IsNullOrEmpty(id)) return false;
         foreach (var c in FindObjectsOfType<Card2D>())
         {
-            if (c && c.cardData && c.cardData.cardId == id)
+            if (c && c.cardData && c.cardData.cardId == "003")
             {
-                CardManager.Instance.DestroyCard(c);
+                CardManager.Instance.DestroyCard(c); // ← Card2D 인자로
                 return true;
             }
         }
+        Debug.LogWarning("[Harvest] Seed(003) not found.");
         return false;
     }
 }
