@@ -230,10 +230,13 @@ MonoBehaviour:
   listRoot: {fileID: 8065808063022338208}
   btnPrefab: {fileID: 9169601795141017286, guid: f51e6d51fdb9a0d44b1269e41a102b7e, type: 3}
   miniGameRoot: {fileID: 0}
-  pfMini_Harvest: {fileID: 0}
-  pfMini_Clean: {fileID: 0}
-  pfMini_Felling: {fileID: 7784375227351893393, guid: fe203880b367f5d419f2daa6fb32d69f, type: 3}
-  pfMini_Mining: {fileID: 0}
+  pfMini_Harvest: {fileID: 651304126059735884, guid: 3e989cbce6b6ae24bb9856b6a0047bac, type: 3}
+  pfMini_Clean: {fileID: 651304126059735884, guid: 007b7573c273b4846bbf9d3435ee6c8a, type: 3}
+  pfMini_Felling: {fileID: 651304126059735884, guid: fe203880b367f5d419f2daa6fb32d69f, type: 3}
+  pfMini_Mining: {fileID: 651304126059735884, guid: 87039bfb35f494a42868d5398455124d, type: 3}
+  pfMini_Rest: {fileID: 651304126059735884, guid: 4293e61f8c7e8824f977c31363f727d9, type: 3}
+  seedCardId: 023
+  seedById: 1
 --- !u!1 &6094645485587269633
 GameObject:
   m_ObjectHideFlags: 0
