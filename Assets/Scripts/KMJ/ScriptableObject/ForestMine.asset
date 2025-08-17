@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 
   cardName: ForestMine
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 5117407102284083831, guid: 4d9581485d280a8478bd473c26db8b7b, type: 3}
   cardType: 9
   description: 
   size: 1
