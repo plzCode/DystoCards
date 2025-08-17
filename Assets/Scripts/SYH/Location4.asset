@@ -22,7 +22,7 @@ MonoBehaviour:
   rewards:
   - card: {fileID: 11400000, guid: 45d477851dc872847868b776ad5386b6, type: 2}
     quantity: 1
-    probability: 33
+    probability: 50
   - card: {fileID: 11400000, guid: 00ec29eaa2f56f74c8c56cc8930b7aca, type: 2}
     quantity: 3
     probability: 80

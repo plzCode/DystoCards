@@ -28,11 +28,14 @@ public class ExploreInfo : MonoBehaviour
 
     [Header("현재 인물 정보")]
     [SerializeField] private Human current_humanInfo;
+    [SerializeField] private Card2D current_humanCard;
 
     [Header("보상 정보")]
     [SerializeField] private GameObject rewardGrid;
     [SerializeField] private GameObject rewardPrefab;
 
+    [Header("알람 UI")]
+    [SerializeField] private GameObject alarmUI;
 
 
 
@@ -54,9 +57,11 @@ public class ExploreInfo : MonoBehaviour
         
     }
 
-    public void SetHumanInfo(Human _human)
+    public void SetHumanInfo(Human _human,Card2D _humanCard2D)
     {
+
         current_humanInfo = _human;
+        current_humanCard = _humanCard2D;
         HumanCardData _humandata = _human.humanData;
         //current_ExplorationData.human = _human;
 
@@ -169,6 +174,13 @@ public class ExploreInfo : MonoBehaviour
 
     public void OnClick_ExploreRegister()
     {
+        string checkMsg = ExploreManager.Instance.IsValidExlpore(current_humanInfo, current_locationInfo, current_humanCard);
+        if (checkMsg != null)
+        {
+            alarmUI.GetComponentInChildren<TextMeshProUGUI>().text = checkMsg;
+            alarmUI.SetActive(true);
+        }
+
         if (!IsExplorePossible())
         {
             Debug.Log("스태미나가 부족하여 탐험할 수 없습니다.");
@@ -177,7 +189,7 @@ public class ExploreInfo : MonoBehaviour
 
         if (current_locationInfo != null && current_humanInfo != null)
         {
-            bool success = ExploreManager.Instance.AddExplore(current_humanInfo, current_locationInfo);
+            bool success = ExploreManager.Instance.AddExplore(current_humanInfo, current_locationInfo,current_humanCard);
             if (!success)
             {
                // Debug.Log("이미 해당 인원이 해당 지역을 탐색 중입니다.");

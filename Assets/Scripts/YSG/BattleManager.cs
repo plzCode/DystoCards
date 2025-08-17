@@ -11,10 +11,6 @@ public class BattleManager : MonoBehaviour
     public Transform battleArea;
     public Transform spawnPoint;
     [Space]
-#if UNITY_EDITOR
-    [SerializeField] private string spawnId;
-    [SerializeField] private int spawnCount = 1;
-#endif
     [SerializeField] private List<MonsterCardData> monsterCardList = new List<MonsterCardData>();
 
     [Space]
@@ -49,31 +45,13 @@ public class BattleManager : MonoBehaviour
 
 
 #if UNITY_EDITOR
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-            CardManager.Instance.SpawnCardByName("성기훈", Vector3.zero);
-
-        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환 테스트 (임시)
+        if (Input.GetKeyUp(KeyCode.T)) // 몬스터 소환
             SpawnMonster();
 
-        if (Input.GetKeyUp(KeyCode.Y)) // 몬스터 단일 소환 테스트 (임시)
-            SpawnMonsterById(spawnId, spawnCount);
-
-        if (Input.GetKeyUp(KeyCode.D)) // 아이템 드랍 테스트 (임시)
-        {
+        if (Input.GetKeyUp(KeyCode.D)) // 몬스터 전원 사망
             foreach (Transform child in cards)
-            {
-                if (child.GetComponent<Human>() != null)
-                    child.GetComponent<Character>()?.Die();
                 if (child.GetComponent<MonsterAct>() != null)
                     child.GetComponent<Character>()?.Die();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Delete)) // 모든 카드 제거 테스트 (임시)
-        {
-            foreach (Transform child in cards)
-                CardManager.Instance.DestroyCard(child.GetComponent<Card2D>());
-        }
 #endif
     }
 
@@ -106,7 +84,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void SpawnMonsterById(string cardId, int count)
+    public void SpawnMonsterById(string cardId, int count = 1)
     {
         MonsterCardData mon = monsterCardList.Find(m => m.cardId == cardId);
         if (mon == null || spawnPoint == null) return;
@@ -138,7 +116,7 @@ public class BattleManager : MonoBehaviour
                 card.AddComponent<MonsterSteal>();
                 break;
             case MonsterActionType.Robbery:
-                card.AddComponent<MonsterAct>();
+                card.AddComponent<MonsterRobbery>();
                 break;
         }
 
@@ -172,6 +150,7 @@ public class BattleManager : MonoBehaviour
 
             foreach (var h in humans)
             {
+                h.GetComponent<CardTileBarrier>().enabled = false;
                 h.transform.SetParent(cards);
                 totalPos += h.transform.position;
                 totalCount++;
@@ -317,10 +296,28 @@ public class BattleManager : MonoBehaviour
             {
                 var humanCard = c.GetComponent<Card2D>();
                 humanCard.isStackable = true;
+                humanCard.GetComponent<CardTileBarrier>().enabled = true;
+
+                Vector3 spawnPos = battleArea.transform.position;
+                humanCard.transform.position = spawnPos;
+
+                Bounds b = c.GetComponent<SpriteRenderer>()?.bounds
+                           ?? new Bounds(spawnPos, Vector3.one * 0.5f);
+
+                while (!MapManager.Instance.AreAllCellsUnlocked(b))
+                {
+                    spawnPos = Vector3.MoveTowards(spawnPos, Vector3.zero, 0.5f);
+                    b.center = spawnPos;
+
+                    if (spawnPos == Vector3.zero) break;
+                }
+
+                humanCard.transform.position = spawnPos;
             }
             else if (c.charData.characterType == CharacterType.Monster)
             {
                 var monsterCard = c.GetComponent<Card2D>();
+
                 var monsterData = monsterCard.cardData as MonsterCardData;
                 if (monsterData == null) continue;
 
@@ -331,6 +328,9 @@ public class BattleManager : MonoBehaviour
                         break;
                     case MonsterActionType.Steal:
                         c.GetComponent<MonsterSteal>().RunAway();
+                        break;
+                    case MonsterActionType.Robbery:
+                        c.GetComponent<MonsterRobbery>().ChaseTarget();
                         break;
                 }
             }
@@ -428,6 +428,8 @@ public class BattleManager : MonoBehaviour
     private IEnumerator HitCoroutine(Character hitter)
     {
         if (hitter == null) yield break;
+
+        AudioManager.Instance.PlaySFX("Hit");
 
         SpriteRenderer sr = hitter.GetComponent<SpriteRenderer>();
         if (sr == null) yield break;

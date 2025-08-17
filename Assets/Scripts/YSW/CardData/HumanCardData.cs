@@ -112,16 +112,19 @@ public class HumanCardData : CharacterCardData
         clone.cardName = this.cardName;
         clone.cardType = this.cardType;
         clone.cardImage = this.cardImage;
+        clone.description = this.description;
         clone.size = this.size;
         clone.characterType = this.characterType;
 
         clone.MaxHealth = this.MaxHealth;
         clone.AttackPower = this.AttackPower;
-        clone.DefensePower = this.DefensePower;
+        clone.DefensePower = this.DefensePower;        
 
         // HumanCardData 고유 필드 복사
         clone.max_mental_health = this.max_mental_health;
+        clone.current_mental_health = this.max_mental_health;
         clone.max_hunger = this.max_hunger;
+        clone.current_hunger = this.current_hunger;
         clone.stamina = this.stamina;
         clone.consume_hunger = this.consume_hunger;
 

@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class BattleArea : MonoBehaviour
 {
+    private Collider2D col;
+
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("MapTile"), true);
+        col = GetComponent<Collider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +43,10 @@ public class BattleArea : MonoBehaviour
                 BattleManager.Instance.humans.Remove(human);
                 var card = human.GetComponent<Card2D>();
                 if (card != null)
+                {
+                    card.GetComponent<CardTileBarrier>().enabled = true;
                     card.isStackable = true;
+                }
             }
         }
     }
@@ -49,6 +55,8 @@ public class BattleArea : MonoBehaviour
     {
         if (collision.TryGetComponent(out T comp) && !list.Contains(comp))
         {
+            comp.GetComponent<CardTileBarrier>().enabled = false;
+
             if (stopCoroutines && comp is MonsterAct monster)
                 monster.StopAllCoroutines();
 
@@ -63,10 +71,23 @@ public class BattleArea : MonoBehaviour
 
     private void PushOutside(Card2D card)
     {
-        Vector2 center = transform.position;
+        Vector2 center = Vector2.zero;
         Vector2 cardPos = card.transform.position;
-        Vector2 direction = (cardPos - center).normalized;
-        if (direction == Vector2.zero) direction = Vector2.down;
+        Vector2 direction = (center - cardPos).normalized;
+
+        if (col != null)
+        {
+            var rend = card.GetComponentInChildren<Renderer>();
+            Vector3 cardSize = rend ? rend.bounds.size : new Vector3(0.5f, 0.5f, 0f);
+            Bounds zeroBounds = new Bounds(Vector3.zero, cardSize);
+
+            if (col.bounds.Intersects(zeroBounds))
+            {
+                Vector2 areaCenter = col.bounds.center;
+                direction = (center - areaCenter).normalized;
+            }
+        }
+
         float pushDistance = 0.5f;
         Vector2 newPos = cardPos + direction * pushDistance;
         card.transform.position = newPos;
