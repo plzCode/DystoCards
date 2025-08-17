@@ -147,6 +147,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - SFX
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98f1049f3b95f764586c9a99731fef31
+    m_Address: "\uB808\uC2DC\uD53C"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 993da06bc8f0eaa48b2d3f82446198c9
     m_Address: Success2
     m_ReadOnly: 0
@@ -191,6 +197,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd7f28195a939b04cb8a26982521af69
     m_Address: DrinkBottle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdb64c84f5d218d41a4d47be3ba18467
+    m_Address: "\uD074\uB9AD"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SFX
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0ea150cd4e3e6e4eaaf6139b15c2e87
+    m_Address: "\uC870\uD569"
     m_ReadOnly: 0
     m_SerializedLabels:
     - SFX
