@@ -18,17 +18,11 @@ MonoBehaviour:
   requiredStamina: 2
   dangerLevel: 3
   durationDays: 3
-  openDay: 8
+  openDay: 2
   rewards:
-  - card: {fileID: 11400000, guid: c899b990ebcd18d469ca2f348e45a87d, type: 2}
-    quantity: 5
-    probability: 100
   - card: {fileID: 11400000, guid: 45137ced24e403f488506341ee6f1eaf, type: 2}
     quantity: 2
     probability: 100
   - card: {fileID: 11400000, guid: 993e53380108820499ae5b7b95b0fc6e, type: 2}
-    quantity: 1
-    probability: 100
-  - card: {fileID: 11400000, guid: 993e53380108820499ae5b7b95b0fc6e, type: 2}
-    quantity: 1
+    quantity: 2
     probability: 100
