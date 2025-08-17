@@ -33105,6 +33105,22 @@ PrefabInstance:
       propertyPath: m_ChildForceExpandHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8842891654381206224, guid: ce7bdefe2b6dd0c4a8bc0ce3cc8004cb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -780
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842891654381206224, guid: ce7bdefe2b6dd0c4a8bc0ce3cc8004cb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -145
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842891654381206224, guid: ce7bdefe2b6dd0c4a8bc0ce3cc8004cb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -312
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842891654381206224, guid: ce7bdefe2b6dd0c4a8bc0ce3cc8004cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

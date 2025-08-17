@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System;
 
 public class CharacterTaskRunner : MonoBehaviour
 {
@@ -19,14 +20,15 @@ public class CharacterTaskRunner : MonoBehaviour
 
     private void OnDayActionStart()
     {
-        RecalcActionable();
+        RecalcActionable(); // 기존 있던 계산 루틴 유지
     }
 
     private void OnDayEnd()
     {
-        /* 다음 턴을 위해 인물들의 completed 셋 초기화 */
         foreach (var c in FindObjectsOfType<CharacterCard2D>())
-            c.ClearCompleted();      // 턴 종료 시 초기화
+            c.ClearCompleted();
+        DaySummary.Instance?.ShowPopupAndClear();
+        HarvestWindow.Reset();
     }
 
     public void RecalcActionable()
