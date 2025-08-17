@@ -306,7 +306,22 @@ public class BattleManager : MonoBehaviour
                 var humanCard = c.GetComponent<Card2D>();
                 humanCard.isStackable = true;
                 humanCard.GetComponent<CardTileBarrier>().enabled = true;
-                humanCard.transform.position = battleArea.transform.position;
+
+                Vector3 spawnPos = battleArea.transform.position;
+                humanCard.transform.position = spawnPos;
+
+                Bounds b = c.GetComponent<SpriteRenderer>()?.bounds
+                           ?? new Bounds(spawnPos, Vector3.one * 0.5f);
+
+                while (!MapManager.Instance.AreAllCellsUnlocked(b))
+                {
+                    spawnPos = Vector3.MoveTowards(spawnPos, Vector3.zero, 0.5f);
+                    b.center = spawnPos;
+
+                    if (spawnPos == Vector3.zero) break;
+                }
+
+                humanCard.transform.position = spawnPos;
             }
             else if (c.charData.characterType == CharacterType.Monster)
             {
