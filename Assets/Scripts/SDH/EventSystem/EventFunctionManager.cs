@@ -151,15 +151,5 @@ public class EventFunctionManager : MonoBehaviour
         Card2D newCard = CardManager.Instance.SpawnCard(selectedData, Vector3.zero);
         newCard.BringToFrontRecursive(newCard); // 카드가 위에 보이도록 정렬
         newCard.cardAnim.PlayFeedBack_ByName("BounceY"); // 생성 애니메이션 실행
-
-        // humanDatabase가 비어있을 때 RecruitHuman 이벤트 제거
-        if (humanDatabase.Count == 0)
-        {
-            // 이벤트 데이터베이스에서도 RecruitHuman 이벤트 모두 제거
-            eventCardDatabase.RemoveAll(card =>
-                card.functionKey1 == "RecruitHuman" || card.functionKey2 == "RecruitHuman");
-
-            return;
-        }
     }
 }
