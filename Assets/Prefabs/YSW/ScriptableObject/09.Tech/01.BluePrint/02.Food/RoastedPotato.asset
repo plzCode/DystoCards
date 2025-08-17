@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoastedPotato
   m_EditorClassIdentifier: 
   cardId: 0912001
-  cardName: "\uAD6C\uC6B4 \uAC10\uC790 "
+  cardName: "\uAD6C\uC6B4 \uAC10\uC790 \uB808\uC2DC\uD53C"
   cardImage: {fileID: 8638537001792849783, guid: 32a413e53ee63fb458ba93d08fa1cb12, type: 3}
   cardType: 0
   description: 

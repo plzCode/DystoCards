@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VegetableStew
   m_EditorClassIdentifier: 
   cardId: 0912005
-  cardName: "\uC57C\uCC44 \uC2A4\uD29C"
+  cardName: "\uC57C\uCC44 \uC2A4\uD29C \uB808\uC2DC\uD53C"
   cardImage: {fileID: 2777867908797879960, guid: 9b19ec53627808b47a0557c2e0813fd1, type: 3}
   cardType: 0
   description: 

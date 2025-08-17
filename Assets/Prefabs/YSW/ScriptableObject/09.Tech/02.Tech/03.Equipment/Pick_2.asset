@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 
   size: 1
   ingredients: []
-  remainingTime: 1
-  totalTime: 1
+  remainingTime: 2
+  totalTime: 2
   techType: 0
   unlockRecipe: {fileID: 11400000, guid: 2377da16427c4d04c8f3c12197eb968f, type: 2}
