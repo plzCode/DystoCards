@@ -75,13 +75,20 @@ public class BattleArea : MonoBehaviour
         Vector2 cardPos = card.transform.position;
         Vector2 direction = (center - cardPos).normalized;
 
-        if (col != null && col.bounds.Contains(center))
+        if (col != null)
         {
-            Vector2 areaCenter = col.bounds.center;
-            direction = (center - areaCenter).normalized;
+            var rend = card.GetComponentInChildren<Renderer>();
+            Vector3 cardSize = rend ? rend.bounds.size : new Vector3(0.5f, 0.5f, 0f);
+            Bounds zeroBounds = new Bounds(Vector3.zero, cardSize);
+
+            if (col.bounds.Intersects(zeroBounds))
+            {
+                Vector2 areaCenter = col.bounds.center;
+                direction = (center - areaCenter).normalized;
+            }
         }
 
-        float pushDistance = 0.1f;
+        float pushDistance = 0.5f;
         Vector2 newPos = cardPos + direction * pushDistance;
         card.transform.position = newPos;
     }
