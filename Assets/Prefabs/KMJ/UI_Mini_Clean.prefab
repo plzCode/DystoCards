@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ded818f513649c42a0144dd5c046e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axe: {fileID: 596955136278604446}
-  tree: {fileID: 4803470467329574111}
+  Tool: {fileID: 596955136278604446}
+  Target: {fileID: 4803470467329574111}
   dragArea: {fileID: 0}
   progress: {fileID: 2876520516755408144}
   holdSeconds: 4

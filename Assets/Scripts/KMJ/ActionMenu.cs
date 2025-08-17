@@ -19,10 +19,17 @@ public class ActionMenu : MonoBehaviour
     [SerializeField] private GameObject pfMini_Clean;
     [SerializeField] private GameObject pfMini_Felling;
     [SerializeField] private GameObject pfMini_Mining;
+    [SerializeField] private GameObject pfMini_Rest;
+
+    [Header("Harvest Settings")]
+    [SerializeField] private string seedCardId;
+    [SerializeField] private bool seedById = true;
 
     // 현재 컨텍스트
     private CharacterCard2D currentChar;
     private FacilityType currentFacility;
+
+    public bool IsOpen => panel && panel.activeSelf;
 
     // 메뉴 열기: FacilityParentWatcher에서 호출
     public void Open(FacilityType facility, CharacterCard2D chr)
@@ -38,29 +45,46 @@ public class ActionMenu : MonoBehaviour
         {
             if (!chr.CanDo(act)) continue;
 
-            var b = Instantiate(btnPrefab, listRoot);
-            // Text 설정 (TMP 또는 기본 Text 자동 대응)
-            var tmp = b.GetComponentInChildren<TextMeshProUGUI>(true);
-            if (tmp) tmp.text = act.label;
-            else
+            // Harvest 버튼 활성 조건: (허용창 true) 또는 (씨앗 보유)
+            if (act.id == "farm_harvest")
             {
-                var t = b.GetComponentInChildren<Text>(true);
-                if (t) t.text = act.label;
+                if (!HarvestWindow.PermitActive && !HasAnyCardById(seedCardId))
+                {
+                    // 씨앗 없으면 버튼을 비활성화해서 표시(툴팁은 UI 쪽 처리)
+                    var bGray = Instantiate(btnPrefab, listRoot);
+                    SetButtonText(bGray, act.label + " (Need Seed)");
+                    bGray.interactable = false;
+                    continue;
+                }
             }
 
-            b.onClick.AddListener(() => OnClickAction(act));
+            var b = Instantiate(btnPrefab, listRoot);
+            SetButtonText(b, act.label);
+            var captured = act;
+            b.onClick.AddListener(() => OnClickAction(captured));
         }
 
         if (listRoot.childCount > 0)
-            UIManager.Instance.TogglePanel(panel);  // 메뉴 열기
+            panel.SetActive(true);  // 메뉴 열기
     }
 
-    public void Close() => UIManager.Instance.TogglePanel(panel);
+    public void Close() => panel.SetActive(false);
 
     private void ClearButtons()
     {
         for (int i = listRoot.childCount - 1; i >= 0; i--)
             Destroy(listRoot.GetChild(i).gameObject);
+    }
+
+    private void SetButtonText(Button b, string label)
+    {
+        var tmp = b.GetComponentInChildren<TextMeshProUGUI>(true);
+        if (tmp) tmp.text = label;
+        else
+        {
+            var t = b.GetComponentInChildren<Text>(true);
+            if (t) t.text = label;
+        }
     }
 
     // 버튼 클릭 → 즉시 처리(Rest) or UI 미니게임 실행
@@ -73,69 +97,152 @@ public class ActionMenu : MonoBehaviour
             return;
         }
 
-        // 어떤 미니게임 프리팹을 쓸지 결정 (없으면 즉시 처리)
-        GameObject prefab = PrefabFor(currentFacility, act.id);
-
-        // 1) 프리팹 없음 → 즉시 처리(휴식 등)
-        if (prefab == null)
+        if (act.id == "farm_harvest")
         {
-            // 스태미너 처리/중복 방지/휴식-당일잠금은 CharacterCard2D.DoAction에서 처리
-            currentChar.DoAction(act);
+            Close();
 
-            // (기존 보상 지급 방식 유지: 카드 스폰)
-            if (act.rewards != null)
+            // 턴 전체 허용이 아니면 씨앗 1장 소모 시도
+            if (!HarvestWindow.PermitActive)
             {
-                foreach (var r in act.rewards)
+                if (!TryConsumeCardById(seedCardId))
                 {
-                    if (string.IsNullOrEmpty(r.idOrName) || r.count <= 0) continue;
-                    for (int i = 0; i < r.count; i++)
-                    {
-                        if (r.useId)
-                            CardManager.Instance.SpawnCardById(r.idOrName, currentChar.transform.position);
-                        else
-                            CardManager.Instance.SpawnCardByName(r.idOrName, currentChar.transform.position);
-                    }
+                    TurnManager.Instance?.MarkActionComplete(); // 안전: 큐 정지 방지
+                    return;
                 }
+                HarvestWindow.PermitActive = true;
             }
 
-            CharacterTaskRunner.Instance?.RecalcActionable();
+            // 미니게임 여부
+            var prefabH = PrefabFor(currentFacility, act.id);
+            if (prefabH == null)
+            {
+                // 즉시 처리: 랜덤 ID로 1개 지급
+                GiveHarvestReward1();
+                currentChar.DoAction(act);
+                TurnManager.Instance?.MarkActionComplete();
+                CharacterTaskRunner.Instance?.RecalcActionable();
+            }
+            else
+            {
+                MinigameUIRunner.Show(prefabH, miniGameRoot, success =>
+                {
+                    if (success)
+                    {
+                        GiveHarvestReward1();
+                        currentChar.DoAction(act);
+                        CharacterTaskRunner.Instance?.RecalcActionable();
+                    }
+                    TurnManager.Instance?.MarkActionComplete();
+                });
+            }
+            return;
+        }
+
+        // 공통 프리팹 조회
+        GameObject prefab = PrefabFor(currentFacility, act.id);
+        bool isRest = (act.id == "shelter_rest");
+        bool isClean = (act.id == "shelter_clean");
+
+        // === 즉시 처리 ===
+        if (prefab == null)
+        {
             Close();
+
+            if (isRest)
+            {
+                ApplyRestEffects(act);
+                currentChar.SetRestedThisTurn(true);
+            }
+
+            // CLEAN은 자체 보상 없음(확장 시 보상), 성공 시 카운트 등록
+            if (isClean)
+                CleanProgressTracker.Instance?.RegisterClean();
+
+            currentChar.DoAction(act);
+
+            // 일반 작업 보상 지급 (Rest/Clean 제외)
+            if (!isRest && !isClean && act.rewards != null)
+                PayoutRewards(act.rewards, currentChar.transform.position);
+
+            TurnManager.Instance?.MarkActionComplete();
+            CharacterTaskRunner.Instance?.RecalcActionable();
             return;
         }
 
         // 2) 프리팹 있음 → 캔버스 미니게임 실행
         Close(); // 메뉴 닫기
 
-        // MinigameUIRunner가 TurnBridge.BeginAction()/MarkComplete()까지 처리
+        // === 미니게임 처리 ===
+        Close();
         MinigameUIRunner.Show(prefab, miniGameRoot, success =>
         {
             if (success)
             {
-                // 보상 지급(카드 스폰 방식을 그대로 사용)
-                if (act.rewards != null)
+                if (isRest)
                 {
-                    foreach (var r in act.rewards)
-                    {
-                        if (string.IsNullOrEmpty(r.idOrName) || r.count <= 0) continue;
-                        for (int i = 0; i < r.count; i++)
-                        {
-                            if (r.useId)
-                                CardManager.Instance.SpawnCardById(r.idOrName, currentChar.transform.position);
-                            else
-                                CardManager.Instance.SpawnCardByName(r.idOrName, currentChar.transform.position);
-                        }
-                    }
+                    ApplyRestEffects(act);
+                    currentChar.SetRestedThisTurn(true); // ★ 추가
                 }
 
-                // 스태미너 소비/완료 처리(휴식 아님)
+                if (isClean)
+                    CleanProgressTracker.Instance?.RegisterClean();
+                else if (act.rewards != null)
+                    PayoutRewards(act.rewards, currentChar.transform.position);
+
                 currentChar.DoAction(act);
                 CharacterTaskRunner.Instance?.RecalcActionable();
             }
-            else
-            {
-                Debug.Log("[MiniUI] 실패 → 보상/소모 없음");
-            }
+            TurnManager.Instance?.MarkActionComplete();
         });
+    }
+
+    // 휴식 효과(+HP1, +Mind2, +Stam2)
+    private void ApplyRestEffects(FacilityAction act)
+    {
+        var human = currentChar.GetComponent<Human>();
+        var status = currentChar.GetComponent<Character>();
+
+        if (status) status.Heal(1);                   // HP +1 (내부 클램프)
+        if (human) human.RecoverMentalHealth(2);      // Mind +2
+
+        // Rest cost 정책:
+        //  - cost >= 0 : DoAction이 회복 안 하므로 여기서 +2
+        //  - cost <  0 : DoAction 내부에서 회복 처리되면 스킵
+        if (human && act.cost >= 0)
+            human.RecoverStamina(2);                  // Stam +2 (내부 클램프)
+    }
+
+    // 수확 보상: 감자/당근 5:5, 1개(ID로 지급 + 집계)
+    private void GiveHarvestReward1()
+    {
+        string id = (Random.value < 0.5f) ? "021" : "025";
+        CardManager.Instance.SpawnCardById(id, currentChar.transform.position);
+        ResourceBank.Instance?.Add(id, 1);
+        DaySummary.Instance?.Add(id, 1);
+    }
+
+    // 일반 보상 지급(카드 스폰 + 은행/요약 누적)
+    private void PayoutRewards(IEnumerable<CardReward> rewards, Vector3 at)
+    {
+        if (rewards == null) return;
+
+        foreach (var r in rewards)
+        {
+            if (string.IsNullOrEmpty(r.idOrName) || r.count <= 0) continue;
+            for (int i = 0; i < r.count; i++)
+            {
+                if (r.useId)
+                {
+                    CardManager.Instance.SpawnCardById(r.idOrName, at);
+                    ResourceBank.Instance?.Add(r.idOrName, 1);
+                    DaySummary.Instance?.Add(r.idOrName, 1);
+                }
+                else
+                {
+                    CardManager.Instance.SpawnCardByName(r.idOrName, at);
+                }
+            }
+        }
     }
 
     // 액션ID → 프리팹 매핑 (ActionLibrary의 id에 맞춰 수정)
@@ -148,7 +255,7 @@ public class ActionMenu : MonoBehaviour
 
             case FacilityType.Shelter:     // 청소, 휴식(즉시)
                 if (actionId == "shelter_clean") return pfMini_Clean;
-                if (actionId == "shelter_rest") return null; // 즉시 처리
+                if (actionId == "shelter_rest") return pfMini_Rest != null ? pfMini_Rest : null;
                 return null;
 
             case FacilityType.ForestMine:  // 벌목/채광
@@ -157,6 +264,29 @@ public class ActionMenu : MonoBehaviour
                 return null;
         }
         return null;
+    }
+
+    // 간단 카드 인벤 스캔/소모(씬 내 카드 1장 버전)
+    private bool HasAnyCardById(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return false;
+        foreach (var c in FindObjectsOfType<Card2D>())
+            if (c && c.cardData && c.cardData.cardId == id) return true;
+        return false;
+    }
+
+    private bool TryConsumeCardById(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return false;
+        foreach (var c in FindObjectsOfType<Card2D>())
+        {
+            if (c && c.cardData && c.cardData.cardId == id)
+            {
+                CardManager.Instance.DestroyCard(c);
+                return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -167,20 +297,19 @@ public static class ActionLibrary
         new()
         {
             [FacilityType.Farm] = new[] {
-                new FacilityAction { id="farm_harvest", label="Harvest", cost=1, rewards = new [] {new CardReward{ useId=false, idOrName="Food",  count=1 } }
-                },
+                // Harvest: 보상은 코드에서 랜덤 지급 → 여기 rewards 비워 중복 방지
+                new FacilityAction { id="farm_harvest", label="Harvest", cost=1, rewards = new CardReward[0] },
             },
             [FacilityType.Shelter] = new[] {
-                new FacilityAction { id="shelter_rest", label="Rest", cost=-2, rewards = new CardReward[0] },
-                new FacilityAction { id="shelter_clean", label="Clean", cost=1, rewards = new [] {
-                    new CardReward{ useId=false, idOrName="Wood",  count=1 },
-                    new CardReward{ useId=false, idOrName="Stone", count=1 } }
-                },
+                // 🟢 Rest: cost=0 권장(HP/Mind/Stam은 ApplyRestEffects에서 처리)
+                new FacilityAction { id="shelter_rest", label="Rest", cost=0, rewards = new CardReward[0] },
+                // Clean: 자체 보상 없음(확장 시 보상 지급)
+                new FacilityAction { id="shelter_clean", label="Clean", cost=1, rewards = new CardReward[0] },
             },
             [FacilityType.ForestMine] = new[] {
-                new FacilityAction { id="forest_felling", label="Felling", cost=1, rewards = new [] { new CardReward{ useId=false, idOrName="Wood",  count=2 } }
+                new FacilityAction { id="forest_felling", label="Felling", cost=1, rewards = new [] { new CardReward{ useId=true, idOrName="001",  count=2 } }
                 },
-                new FacilityAction { id="forest_mine", label="Mining", cost=1, rewards = new [] { new CardReward{ useId=false, idOrName="Stone", count=2 } }
+                new FacilityAction { id="forest_mine", label="Mining", cost=1, rewards = new [] { new CardReward{ useId=true, idOrName="002", count=2 } }
                 },
             },
         };
