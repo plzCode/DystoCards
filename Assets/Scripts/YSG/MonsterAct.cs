@@ -167,6 +167,8 @@ public class MonsterAct : Character
 
     public virtual void DropItem(Vector3 spawnPos)
     {
+        AudioManager.Instance.PlaySFX("Drop");
+
         MonsterCardData monsterData = charData as MonsterCardData;
         if (monsterData == null || monsterData.DropList == null || monsterData.DropList.Length == 0)
             return;
