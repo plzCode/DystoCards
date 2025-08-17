@@ -288,7 +288,7 @@ public class Card_Storage : MonoBehaviour
             // FoodCardData로 형변환 후 shelfLifeTurns 증가
             if (childCard.RuntimeData is FoodCardData foodCardData)
             {
-                foodCardData.shelfLifeTurns++;
+                foodCardData.ShelfLifeTurns++;
             }
         }
 

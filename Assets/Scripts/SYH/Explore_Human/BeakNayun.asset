@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
-  m_Name: Lyn
+  m_Name: BeakNayun
   m_EditorClassIdentifier: 
   cardId: 999
-  cardName: Lyn
-  cardImage: {fileID: -91903354144237191, guid: 7299744293663824193512a95b9cbc6c, type: 3}
+  cardName: "\uBC31\uB098\uC724"
+  cardImage: {fileID: 970359839119224974, guid: 2264b5c928dd15640a30031354a0351a, type: 3}
   cardType: 6
   description: 
+  size: 1
   characterType: 0
   max_health: 20
+  current_health: 20
   attack_power: 7
   defense_power: 1
   max_mental_health: 10
+  current_mental_health: 10
   max_hunger: 5
+  current_hunger: 5
   stamina: 3
+  max_stamina: 5
   consume_hunger: 3

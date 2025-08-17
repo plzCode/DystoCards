@@ -6,9 +6,26 @@ public class FoodCardData : CardData
 {
     public int hungerRestore;        // 허기 회복량
     public bool isPerishable;        // 부패 여부
-    public int shelfLifeTurns;       // 몇 턴이 지나면 부패하는가
-    public AssetReference audioRef;
+    private int shelfLifeTurns;     // 몇 턴이 지나면 부패하는가}
+
+    public string audioRef;
     //public GameObject spoiledVersion; // 부패 후 대체 카드 (예: RottenFood)
+
+    public event System.Action OnDataChanged;
+
+    public int ShelfLifeTurns
+    {
+        get => shelfLifeTurns;
+        set
+        {
+            if (shelfLifeTurns != value)
+            {
+                shelfLifeTurns = value;
+                OnDataChanged?.Invoke();
+            }
+        }
+    }
+
 
     public override CardData Clone()
     {
@@ -25,7 +42,9 @@ public class FoodCardData : CardData
         clone.hungerRestore = this.hungerRestore;
         clone.isPerishable = this.isPerishable;
         clone.shelfLifeTurns = this.shelfLifeTurns;
-
+        clone.audioRef = this.audioRef;
         return clone;
     }
+
+
 }

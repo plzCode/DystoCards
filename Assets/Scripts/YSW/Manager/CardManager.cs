@@ -33,32 +33,6 @@ public class CardManager : MonoBehaviour
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreEnd, () => OneDayElapse());
     }
 
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("[CardManager] 카드 데이터베이스를 다시 로드합니다.");
-            cardDatabase.BuildTypeMap();
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            /*foreach (var card in fieldCards)
-            {
-                Debug.Log($"Card: {card.name}, Type: {card.RuntimeData.cardType}, ID: {card.RuntimeData.cardId}");
-            }*/
-            List<Card2D> cards = GetCardsByType(CardType.Character);
-            if(cards != null)
-            {
-                List<Card2D> humans = GetCharacterType(cards, CharacterType.Human);
-                foreach(var human in humans)
-                {
-                    Debug.Log(human.name);
-                }
-            }
-        }
-    }
-
-
     // ==============카드 소환 함수==============
 
     public Card2D SpawnCard(CardData data, Vector3 position)

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
+  m_Name: SubPlayer 2
+  m_EditorClassIdentifier: 
+  cardId: 073
+  cardName: "\uCD98\uC2DD\uC774"
+  cardImage: {fileID: 7100735344943304665, guid: ec471785fa97a224fafa9c25b7b8abd6, type: 3}
+  cardType: 6
+  description: 
+  size: 1
+  characterType: 0
+  max_health: 10
+  current_health: 10
+  attack_power: 1
+  defense_power: 0
+  max_mental_health: 10
+  current_mental_health: 10
+  max_hunger: 8
+  current_hunger: 8
+  stamina: 5
+  max_stamina: 5
+  consume_hunger: 2

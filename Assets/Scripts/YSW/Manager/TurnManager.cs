@@ -159,7 +159,7 @@ public class TurnManager : MonoBehaviour
         RegisterPhaseAction(TurnPhase.EventDraw, () =>
         {
             //Debug.Log("Action 2 시작 - 스페이스 키를 누르면 완료");
-            StartCoroutine(WaitForSpaceKey());
+            MarkActionComplete();
         });
     }
 

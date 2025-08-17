@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
-  m_Name: Jin
+  m_Name: GwakDaIn
   m_EditorClassIdentifier: 
   cardId: 999
-  cardName: Jin
-  cardImage: {fileID: -1973542948338644661, guid: 1495be631cb0a664ca7bc9d8b95e8732, type: 3}
+  cardName: "\uACFD\uB2E4\uC778"
+  cardImage: {fileID: -8508403176401313895, guid: 1960d4dfa0551c846a8c94c23372cb33, type: 3}
   cardType: 6
   description: 
+  size: 1
   characterType: 0
   max_health: 20
+  current_health: 20
   attack_power: 1
   defense_power: 1
   max_mental_health: 10
+  current_mental_health: 10
   max_hunger: 5
+  current_hunger: 5
   stamina: 8
+  max_stamina: 5
   consume_hunger: 4

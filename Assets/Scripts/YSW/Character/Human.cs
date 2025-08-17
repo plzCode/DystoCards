@@ -63,6 +63,10 @@ public class Human : Character
         {
             GradeRecorder.Instance.humanDieCount++;
         }
+        if(TurnManager.Instance != null)
+        {
+            UIManager.Instance.CheckEndGame();
+        }
     }
 
     public void ConsumeFood()
@@ -73,8 +77,8 @@ public class Human : Character
 
         if(currentHunger <= 0)
         {
-            Die();
             Recorder.Instance.RecordHumanDeath(humanData.cardName, " 아사 ", TurnManager.Instance.TurnCount);
+            Die();            
         }
     }
 
@@ -173,6 +177,8 @@ public class Human : Character
 
         Debug.Log($"{charData.cardName} equipped {equipment.cardName} on {equipment.slot} = {charData.AttackPower}");
         SyncDictFromList();
+
+        AudioManager.Instance.PlaySFX("Click_1");
     }
 
     /*public void Unequip(EquipmentSlot slot)
@@ -217,6 +223,8 @@ public class Human : Character
 
         Debug.Log($"[Human] {slot} 슬롯의 {itemData.cardName} 장비를 해제했습니다.");
         SyncDictFromList();
+
+        AudioManager.Instance.PlaySFX("Pop_1");
     }
     private void ApplyEquipmentStats(EquipmentCardData equipment)
     {

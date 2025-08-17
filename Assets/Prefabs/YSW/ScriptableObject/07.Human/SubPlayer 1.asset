@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07edea202b87beb48898cd06d6d7c365, type: 3}
-  m_Name: Son
+  m_Name: SubPlayer 1
   m_EditorClassIdentifier: 
-  cardId: 999
-  cardName: Son
-  cardImage: {fileID: -1784782533756910241, guid: 79c2a0c9ddc195f45bfb396729745456, type: 3}
+  cardId: 072
+  cardName: "\uB300\uC560\uC9C0"
+  cardImage: {fileID: -3532048386377336778, guid: b3ade3e5e6d8f424c8c1cdfab576eda7, type: 3}
   cardType: 6
   description: 
+  size: 1
   characterType: 0
-  max_health: 20
-  attack_power: 5
+  max_health: 15
+  current_health: 15
+  attack_power: 2
   defense_power: 1
-  max_mental_health: 10
-  max_hunger: 3
-  stamina: 7
-  consume_hunger: 1
+  max_mental_health: 6
+  current_mental_health: 6
+  max_hunger: 10
+  current_hunger: 10
+  stamina: 3
+  max_stamina: 3
+  consume_hunger: 2
