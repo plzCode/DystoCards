@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537bd7b49d9314d49adcf552d35b3635, type: 3}
   m_Name: RoastedMeat
   m_EditorClassIdentifier: 
-  cardId: 0912002
-  cardName: "\uAD6C\uC6B4 \uACE0\uAE30"
+  cardId: 0912003
+  cardName: "\uAD6C\uC6B4 \uACE0\uAE30 \uB808\uC2DC\uD53C"
   cardImage: {fileID: 5315658670779129397, guid: 45399d5469d19b446b71b507cf2f4130, type: 3}
   cardType: 0
   description: 

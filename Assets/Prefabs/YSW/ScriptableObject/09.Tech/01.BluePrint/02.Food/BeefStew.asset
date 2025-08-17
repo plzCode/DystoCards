@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeefStew
   m_EditorClassIdentifier: 
   cardId: 0912004
-  cardName: "\uBE44\uD504 \uC2A4\uD29C"
+  cardName: "\uBE44\uD504 \uC2A4\uD29C \uB808\uC2DC\uD53C"
   cardImage: {fileID: 2637855495334687810, guid: 2a1d20797b7718848a4614dff4f67c0c, type: 3}
   cardType: 0
   description: 

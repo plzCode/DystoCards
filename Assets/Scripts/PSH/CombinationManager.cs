@@ -13,8 +13,9 @@ public class CombinationManager : MonoBehaviour
     [SerializeField] private GameObject fieldCards;        // 필드에 놓인 카드들의 부모 오브젝트
 
     public static CombinationManager Instance { get; private set; }
-
     public float currentReaminingTime;
+
+
 
     private void Awake()
     {
@@ -167,17 +168,36 @@ public class CombinationManager : MonoBehaviour
                         //currentReaminingTime = techCardData.remainingTime;
 
 
+                        //TechCardData techCardData = techCard.cardData as TechCardData;
+                        //int currentRemainingTime = GetRemaining(techCard, techCardData);
+
                         TechCardData techCardData = techCard.cardData as TechCardData;
-                        int currentRemainingTime = GetRemaining(techCard, techCardData);
+                        if (techCardData == null)
+                        {
+                            Debug.LogError("[TryCombine] TechCardData 캐스팅 실패");
+                            return;
+                        }
+
+                        // 초기화 (처음이면 남은일수 세팅)
+                        if (!_techRemaining.ContainsKey(techCardData))
+                        {
+                            SetRemaining(techCardData, Mathf.Max(1, techCardData.remainingTime));
+                            Debug.Log($"[TryCombine] 초기화: {techCardData.name} = {GetRemaining(techCardData)}일");
+                        }
+                        else
+                        {
+                            Debug.Log($"[TryCombine] 이미 진행 중: {techCardData.name} = {GetRemaining(techCardData)}일");
+                        }
 
 
-
+                        bool added = _techTickingTech.Add(techCardData);
+                        if (!added) return;
 
                         Action onceAction = null;
                         onceAction = () =>
                         {
-                            // 먼저 등록 해제: 이번 턴 한 번만 실행
-                            TurnManager.Instance.UnregisterPhaseAction(TurnPhase.ExploreAction, onceAction);
+                            //// 먼저 등록 해제: 이번 턴 한 번만 실행
+                            //TurnManager.Instance.UnregisterPhaseAction(TurnPhase.ExploreAction, onceAction);
 
                             //techCardData.remainingTime -= 1;
                             //if (techCardData.remainingTime < 0) techCardData.remainingTime = 0;
@@ -234,17 +254,17 @@ public class CombinationManager : MonoBehaviour
                             //    // CardManager.Instance.DestroyCard(techCard);
                             //}
 
-                            currentRemainingTime = Mathf.Max(0, currentRemainingTime - 1);
-                            SetRemaining(techCard, currentRemainingTime);
+                            //currentReaminingTime = Mathf.Max(0, currentReaminingTime - 1);
+                            //SetRemaining(techCard, currentReaminingTime);
 
-                            Debug.Log($"[CombinationManager] 기술 시간 감소: {currentRemainingTime}");
+                            //Debug.Log($"[CombinationManager] 기술 시간 감소: {currentRemainingTime}");
 
 
                             int cur = GetRemaining(techCard, techCardData);
                             cur = Mathf.Max(0, cur - 1);
                             SetRemaining(techCard, cur);
 
-                            Debug.Log($"[CombinationManager] 기술 시간 감소: {cur}");
+                            Debug.Log($"[CombinationManager] {techCardData.name} 기술 시간 감소 → {cur}");
 
 
                             if (cur <= 0)
@@ -256,7 +276,7 @@ public class CombinationManager : MonoBehaviour
                                     GradeRecorder.Instance.recipeOpenCount++;
                                 }
                                 // 완료: 메모리 정리
-                                _techRemaining.Remove(techCard);
+                                _techRemaining.Remove(techCardData);
                                 // 필요시 카드 처리:
                                 // CardManager.Instance.DestroyCard(techCard);
                             }
@@ -271,6 +291,7 @@ public class CombinationManager : MonoBehaviour
                         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, onceAction);
                         return;
                     }
+
 
 
 
@@ -308,6 +329,8 @@ public class CombinationManager : MonoBehaviour
                     Debug.Log("새 카드 생성: " + recipe.result.name);
                     GradeRecorder.Instance.combinationCount++; // 조합 횟수 증가
                 }
+
+
 
                 // Human 카드의 스테미나 감소 처리
                 Human human = triggerCard.GetComponent<Human>();
@@ -399,24 +422,35 @@ public class CombinationManager : MonoBehaviour
     }
 
 
+    private readonly Dictionary<TechCardData, int> _techRemaining = new();
+    // 중복 등록 가드 (Tech 기준)
+    private readonly HashSet<TechCardData> _techTickingTech = new();
 
-    private readonly Dictionary<Card2D, int> _techRemaining = new();
 
-    private int GetRemaining(Card2D card, TechCardData data)
+
+    private int GetRemaining(TechCardData data)
     {
-        if (card == null || data == null) return 0;
-        if (!_techRemaining.TryGetValue(card, out var t))
+        if (data == null) return 0;
+        if (!_techRemaining.TryGetValue(data, out var v))
         {
-            // 최초 한 번만 초기값 복사
-            t = data.remainingTime;
-            _techRemaining[card] = t;
+            v = Mathf.Max(1, data.remainingTime);   // 최초 진입 시 초기화
+            _techRemaining[data] = v;
         }
-        return t;
+        return v;
     }
 
+    private void SetRemaining(TechCardData data, int value)
+    {
+        if (data == null) return;
+        _techRemaining[data] = Mathf.Max(0, value);
+    }
+
+    // (호환용) 기존에 Card2D 버전 호출이 남아있다면 임시 포워딩
+    private int GetRemaining(Card2D _, TechCardData data) => GetRemaining(data);
     private void SetRemaining(Card2D card, int value)
     {
-        if (card == null) return;
-        _techRemaining[card] = Mathf.Max(0, value);
+        TechCardData data = card != null ? card.cardData as TechCardData : null;
+        SetRemaining(data, value);
     }
+
 }
