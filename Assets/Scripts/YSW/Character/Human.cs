@@ -58,7 +58,11 @@ public class Human : Character
 
     public override void Die()
     {
-        base.Die();        
+        base.Die();     
+        if(GradeRecorder.Instance != null)
+        {
+            GradeRecorder.Instance.humanDieCount++;
+        }
     }
 
     public void ConsumeFood()
@@ -125,6 +129,10 @@ public class Human : Character
             Die();
         }*/
         base.TakeDamage(amount);
+        if(currentHealth <= 0)
+        {
+            Recorder.Instance.RecordHumanDeath(humanData.cardName, " 전투 ", TurnManager.Instance.TurnCount);
+        }
         //HumanRuntimeData�� ������ �ȵǾ��־ ���ڰ� �ٲ�� StatRendering�� ���� ����, 
 
     }
