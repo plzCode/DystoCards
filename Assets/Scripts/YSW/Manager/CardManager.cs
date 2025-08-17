@@ -135,6 +135,11 @@ public class CardManager : MonoBehaviour
 
     public Card2D AddCardScript(GameObject obj, CardData data)
     {
+        if (!obj.TryGetComponent<CardTileBarrier>(out _))
+            obj.AddComponent<CardTileBarrier>();
+        if (data.cardType == CardType.Facility && !obj.TryGetComponent<FacilityNoOverlap>(out _))
+            obj.AddComponent<FacilityNoOverlap>();
+
         switch (data.cardType)
         {
             case CardType.Resource:
@@ -183,12 +188,7 @@ public class CardManager : MonoBehaviour
                 Debug.LogWarning($"[CardManager] Unknown card type: {data.cardType}");
                 break;
         }
-
-        if (!obj.TryGetComponent<CardTileBarrier>(out _))
-            obj.AddComponent<CardTileBarrier>();
-        if (data.cardType == CardType.Facility && !obj.TryGetComponent<FacilityNoOverlap>(out _))
-            obj.AddComponent<FacilityNoOverlap>();
-
+        
         return obj.GetComponent<Card2D>();
     }
 
