@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: BGM
   m_GUID: 5156169e404223542b82e7cf2d5af405
-  m_SerializeEntries:
-  - m_GUID: 7d03fbffcddc10649a41a1450654d9d7
-    m_Address: BGM_Loop
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BGM
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f829e78c89a983e4caa0e97ec2448e72, type: 2}
   m_SchemaSet:
