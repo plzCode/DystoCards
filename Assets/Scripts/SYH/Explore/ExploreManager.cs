@@ -29,7 +29,7 @@ public class ExploreManager : MonoBehaviour
     public event System.Action<ExplorationData> OnExploreAdded;
     public event System.Action<ExplorationData> OnExploreCompleted;
 
-    
+
 
     void Awake()
     {
@@ -50,15 +50,15 @@ public class ExploreManager : MonoBehaviour
     private void Start()
     {
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, () => registerHumanUpdate());
-        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreEnd,()=>ProcessExploreEnd());
+        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreEnd, () => ProcessExploreEnd());
         TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, () => CheckOpenLocation());
 
-        
+
     }
     void registerHumanUpdate()
     {
         registedHumans.Clear();
-        List<Card2D> cards =  CardManager.Instance.GetCardsByType(CardType.Character);
+        List<Card2D> cards = CardManager.Instance.GetCardsByType(CardType.Character);
         List<Card2D> humans = CardManager.Instance.GetCharacterType(cards, CharacterType.Human);
         for (int i = 0; i < humans.Count; i++)
         {
@@ -66,9 +66,10 @@ public class ExploreManager : MonoBehaviour
         }
 
         addExploreScroll.gameObject.SetActive(true);
+        UIManager.Instance.InteractCard(false);
     }
 
-    public bool AddExplore(Human human, LocationInfo location,Card2D humandCard2D)
+    public bool AddExplore(Human human, LocationInfo location, Card2D humandCard2D)
     {
         foreach (var exploration in registeredExplorations)
         {
@@ -91,11 +92,20 @@ public class ExploreManager : MonoBehaviour
             }
         }
 
-        ExplorationData newData = new ExplorationData(human, location,humandCard2D);
+        ExplorationData newData = new ExplorationData(human, location, humandCard2D);
+        // 자식 카드 먼저 분리
+        humandCard2D.DetachChildrenBeforeDestroy();
+
+        // 부모와의 연결도 정리
+        if (humandCard2D.parentCard != null)
+        {
+            humandCard2D.parentCard.childCards.Remove(humandCard2D);
+            humandCard2D.parentCard = null;
+        }
         CardManager.Instance.UnregisterCard(humandCard2D);
-        humandCard2D.gameObject.SetActive(false);   
-        registeredExplorations.Add(newData);        
-        OnExploreAdded?.Invoke(newData); 
+        humandCard2D.gameObject.SetActive(false);
+        registeredExplorations.Add(newData);
+        OnExploreAdded?.Invoke(newData);
         Debug.Log($"[ExploreManager] 탐색 등록됨: {human.humanData.cardName} → {location.locationName}");
         registerHumanUpdate();
         return true;
@@ -106,17 +116,17 @@ public class ExploreManager : MonoBehaviour
         foreach (var exploration in registeredExplorations)
         {
             if (exploration.human == human && exploration.location == location)
-            {                
+            {
                 return $"[중복 탐사] {human.humanData.cardName}은 이미 {location.locationName} 탐사 중입니다.";
             }
 
             if (exploration.human == human)
-            {                
+            {
                 return $"[중복 탐사] {human.humanData.cardName}은 이미 다른 장소를 탐사 중입니다.";
             }
 
             if (exploration.location == location)
-            {                
+            {
                 return $"[중복 탐사] {location.locationName}은 이미 다른 인물이 탐사 중입니다.";
             }
         }
@@ -126,7 +136,8 @@ public class ExploreManager : MonoBehaviour
 
     private void ProcessExploreEnd()
     {
-       
+
+        UIManager.Instance.InteractCard(false);
 
         List<ExplorationData> completed = new List<ExplorationData>();
 
@@ -143,14 +154,16 @@ public class ExploreManager : MonoBehaviour
             }
         }
 
-        if (completed.Count==0)
+        if (completed.Count == 0)
         {
             rewardScrollView.gameObject.SetActive(true);
         }
 
+        AudioManager.Instance.PlaySFX("Success");
+
         foreach (var data in completed)
         {
-            
+
             registeredExplorations.Remove(data);
             data.humanCard2D.gameObject.SetActive(true);
             CardManager.Instance.RegisterCard(data.humanCard2D);
@@ -168,7 +181,7 @@ public class ExploreManager : MonoBehaviour
         Debug.Log("남은일짜 검사기");
         foreach (var exploringInfo in exploringInfos)
         {
-            
+
             if (exploringInfo.gameObject.activeSelf)
             {
                 exploringInfo.RefreshRemainDays();
@@ -273,7 +286,7 @@ public class ExploreManager : MonoBehaviour
         {
             List<GameObject> spawnedObjects = new List<GameObject>();
             Vector3 groupTargetPosition = Vector3.zero;
-
+            AudioManager.Instance.PlaySFX("popSound");
             for (int i = 0; i < rewardCard.quantity; i++)
             {
                 GameObject rewardObj = CardManager.Instance.SpawnCardById(rewardCard.card.cardId, Vector3.zero).gameObject;
