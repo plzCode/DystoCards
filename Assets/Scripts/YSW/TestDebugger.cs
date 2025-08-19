@@ -85,10 +85,13 @@ public class TestDebugger : MonoBehaviour
         }
 
         //감자랑 붕대 소환
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            CardManager.Instance.SpawnCardById("041", new Vector3(0, 0, 0));
-            CardManager.Instance.SpawnCardById("021", new Vector3(0, 0, 0));
+            CardManager.Instance.SpawnCardById("023", new Vector3(0, 0, 0));
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            CardManager.Instance.SpawnCardById("044", new Vector3(0, 0, 0));
         }
 
         //이벤트 실행

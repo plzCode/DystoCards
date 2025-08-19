@@ -217,7 +217,7 @@ public class CombinationManager : MonoBehaviour
                         };
 
                                     // 다음 ExploreAction 때 1회만 감소
-                        TurnManager.Instance.RegisterPhaseAction(TurnPhase.ExploreAction, onceAction);
+                        TurnManager.Instance.RegisterPhaseAction(TurnPhase.DayAction, onceAction);
                         return;
                     }
 

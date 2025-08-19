@@ -24,3 +24,4 @@ MonoBehaviour:
   staninaAmount: 5
   maxReuseNum: 1
   currentReuseNum: 1
+  audioRef: PillBottle

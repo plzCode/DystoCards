@@ -49,6 +49,7 @@ public class RightClickUIOpener : MonoBehaviour
         {
             if (uiPanel.activeSelf)
             {
+                UIManager.Instance.InteractCard(true);
                 CloseUI();
             }
         }

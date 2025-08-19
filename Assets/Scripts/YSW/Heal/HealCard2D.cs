@@ -25,7 +25,7 @@ public class HealCard2D : Card2D
                 return; // 아무 것도 회복하지 않았으면 카드 제거 X
             }
 
-            
+            AudioManager.Instance.PlaySFX(healData.audioRef);
 
             // 자식 카드 먼저 분리
             DetachChildrenBeforeDestroy();

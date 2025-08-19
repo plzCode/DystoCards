@@ -8,6 +8,7 @@ public class HealCardData : CardData
     public int staninaAmount;     // 스태미나 회복량
     public int maxReuseNum;       // 여러 번 사용 가능한가?
     public int currentReuseNum; // 현재 사용 횟수
+    public string audioRef;
 
     public override CardData Clone()
     {
@@ -26,6 +27,7 @@ public class HealCardData : CardData
         clone.staninaAmount = this.staninaAmount;
         clone.maxReuseNum = this.maxReuseNum;
         clone.currentReuseNum = this.currentReuseNum;
+        clone.audioRef = this.audioRef;
 
         return clone;
     }
