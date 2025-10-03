@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754a4d205f562e642b43c45955018920, type: 3}
+  m_Name: Cigarette
+  m_EditorClassIdentifier: 
+  cardId: 042
+  cardName: "\uB2F4\uBC30"
+  cardImage: {fileID: -1231907821649180730, guid: efec090406ee980498c5b5c069c24bc2, type: 3}
+  cardType: 3
+  description: "\uB2F4\uBC30\uB97C \uD53C\uC6CC \uC548\uC815\uC744 \uCDE8\uD55C\uB2E4"
+  size: 1
+  healthAmount: 0
+  mentalAmount: 3
+  staninaAmount: 3
+  maxReuseNum: 1
+  currentReuseNum: 1

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874fe355bbe054243b2ddf96677613ee, type: 3}
+  m_Name: SteelBox
+  m_EditorClassIdentifier: 
+  cardId: 056
+  cardName: "\uC0C1\uC790(\uCCA0)"
+  cardImage: {fileID: -236737914123531238, guid: 53a4386fd3e65dd4d894cb032e979676, type: 3}
+  cardType: 4
+  description: "\uB9CE\uC740 \uCE74\uB4DC\uB97C \uBCF4\uAD00\uD560 \uC218 \uC788\uB2E4."
+  size: 1
+  furnitureType: 0
