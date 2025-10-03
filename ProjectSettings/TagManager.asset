@@ -2,9 +2,8 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 3
-  tags:
-  - TechUI
+  serializedVersion: 2
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -12,7 +11,6 @@ TagManager:
   - 
   - Water
   - UI
-  - Card
   - 
   - 
   - 
@@ -22,9 +20,10 @@ TagManager:
   - 
   - 
   - 
-  - TechUI
-  - Tech
-  - MapTile
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -42,20 +41,3 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Map
-    uniqueID: 2615894597
-    locked: 0
-  - name: Fog
-    uniqueID: 1260230059
-    locked: 0
-  - name: Hint
-    uniqueID: 528896357
-    locked: 0
-  - name: Card
-    uniqueID: 1614885307
-    locked: 0
-  - name: Bonfire
-    uniqueID: 1827107741
-    locked: 0
-  m_RenderingLayers:
-  - Default
